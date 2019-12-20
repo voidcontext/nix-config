@@ -5,7 +5,7 @@ with builtins;
 
 let
   aliases = import ./aliases.nix;
-  
+
   lambda-mod-theme = (fetchurl {
     url = "https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme";
     sha256 = "1azg02pfn25rs1km1l56xawcl1pa9m7c7km74sghb57dsbvvacrq";
@@ -21,7 +21,7 @@ let
       url = "https://github.com/spwhitt/nix-zsh-completions.git";
       rev = "adbf7bf6dd01f2410700fa51cdb31346c8108318";
     });
-    
+
   };
 in
 {
@@ -31,9 +31,11 @@ in
 
   home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
   home.file.".zsh/custom/plugins/nix-shell".source = zsh-plugins.nix-shell; 
-  home.file.".zsh/custom/plugins/nix-zsh-completions".source = zsh-plugins.nix-zsh-completions; 
+  home.file.".zsh/custom/plugins/nix-zsh-completions".source = zsh-plugins.nix-zsh-completions;
 
-  programs.emacs.enable = true;
+  imports = [
+    (import ./modules/emacs { scala = false; inherit pkgs; })
+  ];
 
   programs.zsh = {
     enable = true;
@@ -43,6 +45,8 @@ in
     export NIX_PATH=/home/nix-test/.nix-defexpr/channels:/home/nix-test/.nix-defexpr/channels
 
     prompt_nix_shell_setup
+
+    [[ $TMUX != "" ]] && export TERM="screen-256color"
     '';
 
     shellAliases = aliases;
@@ -59,6 +63,17 @@ in
     enable = true;
     userName = "Gabor Pihaj";
     userEmail = "gabor.pihaj@gmail.com";
+  };
+
+  programs.tmux = {
+    enable = true;
+    terminal = "xterm-256color";
+    secureSocket = false;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   # Let Home Manager install and manage itself.
