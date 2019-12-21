@@ -1,4 +1,4 @@
-{ pkgs, scala , ... }:
+{ pkgs, capabilities , ... }:
 
 with import <nixpkgs> {};
 with lib;
@@ -6,7 +6,7 @@ with builtins;
 
 let
   extraConfig = ""
-    + (optionalString scala (readFile ./scala.el));
+    + (optionalString capabilities.scala (readFile ./scala.el));
 in
 {
   _module.args.scala = mkDefault false;
@@ -60,6 +60,6 @@ in
       # Yaml
       yaml-mode
     ]
-    ++ optional scala [ sbt-mode scala-mode ]);
+    ++ optional capabilities.scala [ sbt-mode scala-mode ]);
   };
 }

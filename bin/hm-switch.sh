@@ -14,5 +14,16 @@ fi
 
 cachix use all-hies
 
-home-manager switch -f $DIR/../home.nix $*
+if [ "$HOST" == "" ]; then
+  HOST=`hostname`
+fi
+
+HOME_NIX=$DIR/../hosts/${HOST}.nix
+
+if [ ! -f $HOME_NIX ]; then
+  echo "${HOST} is not configured: couldn't find ${HOME_NIX}"
+  exit 1
+fi
+
+home-manager switch -f $HOME_NIX $*
 

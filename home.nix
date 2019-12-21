@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, capabilities, ... }:
 
 with import <nixpkgs>;
 with builtins;
@@ -23,6 +23,7 @@ let
     });
 
   };
+
 in
 {
   home.packages = [
@@ -30,11 +31,11 @@ in
   ];
 
   home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
-  home.file.".zsh/custom/plugins/nix-shell".source = zsh-plugins.nix-shell; 
+  home.file.".zsh/custom/plugins/nix-shell".source = zsh-plugins.nix-shell;
   home.file.".zsh/custom/plugins/nix-zsh-completions".source = zsh-plugins.nix-zsh-completions;
 
   imports = [
-    (import ./modules/emacs { scala = false; inherit pkgs; })
+    (import ./modules/emacs { inherit pkgs; inherit capabilities; })
   ];
 
   programs.zsh = {
@@ -50,6 +51,11 @@ in
     '';
 
     shellAliases = aliases;
+
+    sessionVariables = {
+      EDITOR = "emacs";
+      PAGER = "less -R";
+    };
 
     oh-my-zsh = {
       enable = true;
