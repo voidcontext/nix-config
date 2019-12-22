@@ -18,7 +18,7 @@ if [ "$HOST" == "" ]; then
   HOST=`hostname`
 fi
 
-HOME_NIX=$DIR/../hosts/${HOST}.nix
+HOME_NIX=$DIR/../hosts/${HOST}/home.nix
 
 if [ ! -f $HOME_NIX ]; then
   echo "${HOST} is not configured: couldn't find ${HOME_NIX}"

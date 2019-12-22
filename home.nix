@@ -36,6 +36,7 @@ in
 
   imports = [
     (import ./modules/emacs { inherit pkgs; inherit capabilities; })
+    (import ./modules/scala { inherit pkgs; inherit capabilities; })
   ];
 
   programs.zsh = {
