@@ -8,7 +8,8 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
-if [ `command -v cachix` == "" ]; then
+CACHIX_COMMAND=`command -v cachix`
+if [ "$CACHIX_COMMAND" == "" ]; then
   nix-env -iA cachix -f https://cachix.org/api/v1/install
 fi
 

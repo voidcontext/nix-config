@@ -43,8 +43,8 @@ in
     enable = true;
 
     initExtra = ''
-    . /home/nix-test/.nix-profile/etc/profile.d/nix.sh
-    export NIX_PATH=/home/nix-test/.nix-defexpr/channels:/home/nix-test/.nix-defexpr/channels
+    . $HOME/.nix-profile/etc/profile.d/nix.sh
+    export NIX_PATH=$HOME/.nix-defexpr/channels''${NIX_PATH:+:}$NIX_PATH
 
     prompt_nix_shell_setup
 

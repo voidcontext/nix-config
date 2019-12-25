@@ -11,6 +11,6 @@ in
     jre
     pkgs.sbt
     pkgs.coursier
-    metals
+#    metals
   ];
 }
