@@ -1,4 +1,4 @@
-{ config, pkgs, capabilities, ... }:
+{ config, pkgs, ... }:
 
 with import <nixpkgs>;
 with builtins;
@@ -26,6 +26,13 @@ let
 
 in
 {
+  imports = [
+    (import ./modules/emacs {inherit pkgs;})
+    (import ./modules/scala {inherit pkgs;})
+    (import ./modules/haskell {inherit pkgs;})
+  ]
+  ;
+
   home.packages = [
     pkgs.htop
   ];
@@ -33,11 +40,6 @@ in
   home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
   home.file.".zsh/custom/plugins/nix-shell".source = zsh-plugins.nix-shell;
   home.file.".zsh/custom/plugins/nix-zsh-completions".source = zsh-plugins.nix-zsh-completions;
-
-  imports = [
-    (import ./modules/emacs { inherit pkgs; inherit capabilities; })
-    (import ./modules/scala { inherit pkgs; inherit capabilities; })
-  ];
 
   programs.zsh = {
     enable = true;

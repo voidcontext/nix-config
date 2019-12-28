@@ -1,4 +1,4 @@
-{ pkgs, capabilities , ... }:
+{ pkgs, ... }:
 
 with import <nixpkgs> {};
 with lib;
@@ -6,16 +6,16 @@ with builtins;
 
 let
   extraConfig = ""
-    + (optionalString capabilities.scala (readFile ./scala.el));
+    + (readFile ./scala.el)
+    + (readFile ./haskell.el)
+  ;
 in
 {
-  _module.args.scala = mkDefault false;
-
   home.file.".emacs.d/init.el".text = (replaceStrings ["@extraConfig@"] [extraConfig] (readFile ./init.el));
 
   programs.emacs = {
     enable = true;
-    extraPackages = (epkgs: with epkgs; [
+    extraPackages = epkgs: with epkgs; [
       # Common
       ag
       multi-term
@@ -59,7 +59,13 @@ in
 
       # Yaml
       yaml-mode
-    ]
-    ++ optional capabilities.scala [ sbt-mode scala-mode ]);
+
+      # Haskell
+      lsp-haskell
+
+      # Scala
+      sbt-mode
+      scala-mode
+    ];
   };
 }

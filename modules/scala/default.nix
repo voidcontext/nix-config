@@ -1,4 +1,4 @@
-{ pkgs, capabilities, ... }:
+{ pkgs, ... }:
 
 with import <nixpkgs> {};
 
