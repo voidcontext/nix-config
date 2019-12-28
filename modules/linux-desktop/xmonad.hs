@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Util.EZConfig
 
 -- The main function.
 main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
@@ -17,4 +18,7 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 myConfig = defaultConfig
   { terminal = "$HOME/.nix-profile/bin/gnome-terminal"
   }
-
+  `removeKeysP` [ "M-w"
+                , "M-e"
+                , "M-r"
+                ]
