@@ -18,7 +18,7 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    # outputHash     = "1rmgr5vhgmbgbgq58q3a2pnsjv6f118d3a4fa9y35izkd7djwnxa";
+    outputHash     = "03vx8n77mndpqbvq14cy3k9r4jwgjacrv56v5n87da8rqiclx37j";
   };
 in
 stdenv.mkDerivation rec {
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    makeWrapper ${jre}/bin/java $out/bin/metals \
+    makeWrapper ${jre}/bin/java $out/bin/metals-emacs \
       --prefix PATH : ${lib.makeBinPath [ jdk ]} \
       --add-flags "-cp $CLASSPATH" \
       --add-flags "${lib.concatStringsSep " " metalsJavaFlags}" \
