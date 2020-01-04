@@ -11,6 +11,8 @@
  show-paren-mode 1
  show-paren-delay 0)
 
+(setenv "PATH" (concat "$HOME/.nix-profile/bin:" (getenv "PATH")))
+
 (setq-default
  show-trailing-whitespace t)
 

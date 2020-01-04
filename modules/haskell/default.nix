@@ -8,6 +8,6 @@ in
     pkgs.cabal-install
     pkgs.cabal2nix
     # Install stable HIE for GHC 8.6.5
-    (all-hies.selection { selector = p: { inherit (p) ghc865; }; })
+    (all-hies.unstable.selection { selector = p: { inherit (p) ghc865; }; })
   ];
 }
