@@ -14,7 +14,7 @@ Config { font = "xft:Monaco:size=8:antialias=true"
        , hideOnStart = False
        , iconRoot = "."
        , allDesktops = True
-       , overrideRedirect = True
+       , overrideRedirect = False
        , commands = [ Run Network "eth0" ["-L","0","-H","32",
                                           "--normal","green","--high","red"] 10
                     , Run Network "wlp3s0" ["-L","0","-H","32",
@@ -31,7 +31,7 @@ Config { font = "xft:Monaco:size=8:antialias=true"
        , sepChar = "%"
        , alignSep = "}{"
 --       , template = "%StdinReader% | %cpu% | %memory% * %swap% | %eth0% - %wlp3s0% %wlp3s0wi% }\
---                   \{ <fc=#ee9a00>%date%</fc>| %EGPF% | %uname%"
+--                   \{ <fc=#ee9a00>%date%</fc>"
        , template = "%cpu% | %memory% * %swap% | %eth0% - %wlp3s0% %wlp3s0wi% }\
                     \{ <fc=#ee9a00>%date%</fc>"
        }

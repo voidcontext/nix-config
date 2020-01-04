@@ -6,10 +6,12 @@ import XMonad.Util.EZConfig
 main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
 
 -- Command to launch the bar.
-myBar = "xmobar"
+myBar = "$HOME/.nix-profile/bin/xmobar"
 
 -- Custom PP, configure it as you like. It determines what is being written to the bar.
-myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
+myPP = xmobarPP { ppOutput = \x -> return () } -- don't write to the output so that the pipe
+                                               -- doesn't get blocked while it can't be consumed
+                                               -- by xmobar (#417)
 
 -- Key binding to toggle the gap for the bar.
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
