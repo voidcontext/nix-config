@@ -20,7 +20,7 @@
   (global-display-line-numbers-mode))
 
 (set-face-attribute 'default nil
-                :font "Monaco for Powerline" :height 100 :weight 'regular :width 'regular)
+                :font "Monaco" :height 100 :weight 'regular :width 'regular)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# From https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
@@ -19,7 +20,11 @@ if [ "$HOST" == "" ]; then
   HOST=`hostname`
 fi
 
-HOME_NIX=$DIR/../hosts/${HOST}/home.nix
+if [ "$HM_HOST" == "" ]; then
+  HM_HOST=$HOST
+fi
+
+HOME_NIX=$DIR/../hosts/${HM_HOST}/home.nix
 
 if [ ! -f $HOME_NIX ]; then
   echo "${HOST} is not configured: couldn't find ${HOME_NIX}"

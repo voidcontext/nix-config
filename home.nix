@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, zshInit ? "", extraAliases ? {}, ... }:
 
 with import <nixpkgs>;
 with builtins;
@@ -50,10 +50,12 @@ in
 
     prompt_nix_shell_setup
 
-    [[ $TMUX != "" ]] && export TERM="screen-256color"
-    '';
+    PATH=$HOME/bin:$PATH:/usr/local/bin
 
-    shellAliases = aliases;
+    [[ $TMUX != "" ]] && export TERM="screen-256color"
+    '' + zshInit;
+
+    shellAliases = aliases // extraAliases;
 
     sessionVariables = {
       EDITOR = "emacs";
