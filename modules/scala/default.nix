@@ -11,6 +11,9 @@ in
     jre
     pkgs.sbt
     pkgs.coursier
+
     metals
+
+    pkgs.jekyll # for microsite generation
   ];
 }
