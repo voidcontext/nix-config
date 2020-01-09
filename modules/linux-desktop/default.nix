@@ -38,13 +38,16 @@ in
 
   '';
 
-#  programs.zsh.envExtra = ''
-#  export LOCALE_ARCHIVE="$(nix-build --no-out-link '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive"
-#  '';
+  home.file.".xsessionrc" = {
+    text = ''
+    #!/bin/bash
+    feh --bg-scale /usr/share/backgrounds/Ubuntu_80s_glitch_by_Abubakar_NK.jpg &
 
-  home.file.".xsession".text = ''
-  export LOCALE_ARCHIVE="$(nix-build --no-out-link '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive"
-  '';
+    export LOCALE_ARCHIVE="$(nix-build --no-out-link '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive"
+    '';
+
+    executable = true;
+  };
 
   programs.gnome-terminal = {
     enable = true;
