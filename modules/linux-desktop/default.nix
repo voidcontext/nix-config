@@ -10,9 +10,12 @@ let
   };
 in
 {
+  fonts.fontconfig.enable = true;
+ 
   home.packages = [
     pkgs.xmobar
     pkgs.dmenu
+    pkgs.fira-code
   ];
 
   home.file.".xmobar/xmobarrc".source =  ./xmobarrc;

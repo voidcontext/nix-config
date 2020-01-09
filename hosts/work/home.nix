@@ -25,7 +25,7 @@ let
 in
 {
   imports = [
-    (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; })
+    (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true;})
   ];
 
   home.packages = [

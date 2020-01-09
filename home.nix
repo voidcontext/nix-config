@@ -1,4 +1,4 @@
-{ config, pkgs, zshInit ? "", extraAliases ? {}, ... }:
+{ config, pkgs, zshInit ? "", extraAliases ? {}, hdpi ? false, ... }:
 
 with import <nixpkgs>;
 with builtins;
@@ -27,11 +27,10 @@ let
 in
 {
   imports = [
-    (import ./modules/emacs {inherit pkgs;})
+    (import ./modules/emacs {inherit pkgs; inherit hdpi;})
     (import ./modules/scala {inherit pkgs;})
     (import ./modules/haskell {inherit pkgs;})
-  ]
-  ;
+  ];
 
   home.packages = [
     pkgs.htop

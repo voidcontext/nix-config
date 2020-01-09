@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hdpi ? false, ... }:
 
 with import <nixpkgs> {};
 with lib;
@@ -11,7 +11,11 @@ let
   ;
 in
 {
-  home.file.".emacs.d/init.el".text = (replaceStrings ["@extraConfig@"] [extraConfig] (readFile ./init.el));
+  home.file.".emacs.d/init.el".text =
+    (replaceStrings
+      ["@extraConfig@" "@font-size@"]
+      [extraConfig (if hdpi then "120" else "100")]
+      (readFile ./init.el));
 
   programs.emacs = {
     enable = true;
