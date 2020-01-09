@@ -34,6 +34,7 @@ in
 
   home.packages = [
     pkgs.htop
+    pkgs.ag
   ];
 
   home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
