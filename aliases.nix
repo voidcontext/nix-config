@@ -1,5 +1,6 @@
 {
   e = "emacs -nw";
+  nsh = "nix-shell";
 
   gdc		= "git diff --cached";
   gbtp		= "git branch --merged | grep -v \"\(master\|develop\|\*\)\"";
