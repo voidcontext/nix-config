@@ -1,4 +1,6 @@
 {
+  e = "emacs -nw";
+
   gdc		= "git diff --cached";
   gbtp		= "git branch --merged | grep -v \"\(master\|develop\|\*\)\"";
   gbpurge	= "git branch --merged | grep -v \"\(master\|develop\|\*\)\" | xargs git branch -d";
