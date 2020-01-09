@@ -34,6 +34,15 @@ in
   Xft.hintstyle: hintslight
   Xft.rgba: rgb
   Xft.lcdfilter: lcddefault
+
+  '';
+
+#  programs.zsh.envExtra = ''
+#  export LOCALE_ARCHIVE="$(nix-build --no-out-link '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive"
+#  '';
+
+  home.file.".xsession".text = ''
+  export LOCALE_ARCHIVE="$(nix-build --no-out-link '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive"
   '';
 
   programs.gnome-terminal = {

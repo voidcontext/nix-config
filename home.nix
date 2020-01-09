@@ -43,10 +43,11 @@ in
   programs.zsh = {
     enable = true;
 
-    initExtra = ''
+    envExtra = ''
     . $HOME/.nix-profile/etc/profile.d/nix.sh
-    export NIX_PATH=$HOME/.nix-defexpr/channels''${NIX_PATH:+:}$NIX_PATH
+    '';
 
+    initExtra = ''
     prompt_nix_shell_setup
 
     PATH=$HOME/bin:$PATH:/usr/local/bin
