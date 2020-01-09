@@ -1,4 +1,4 @@
-Config { font = "xft:Monaco:size=8:antialias=true"
+Config { font = "xft:Fira Code:size=8:antialias=true"
        , additionalFonts = []
        , borderColor = "black"
        , border = TopB

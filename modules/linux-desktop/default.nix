@@ -11,11 +11,12 @@ let
 in
 {
   fonts.fontconfig.enable = true;
- 
+
   home.packages = [
     pkgs.xmobar
     pkgs.dmenu
     pkgs.fira-code
+    pkgs.powerline-fonts
   ];
 
   home.file.".xmobar/xmobarrc".source =  ./xmobarrc;
@@ -53,7 +54,7 @@ in
         default = true;
         visibleName = "Earthsong nix";
         cursorShape = "block";
-        font = "Monaco 10";
+        font = "Fira Mono for Powerline 10";
         showScrollbar = false;
         colors = {
           foregroundColor = "#e5e5c7c7a9a9";
