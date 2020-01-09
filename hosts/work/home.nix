@@ -3,6 +3,8 @@
 let
   # Extra zsh config to enable sdkman
   zshInit = ''
+  export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
+
   function wrap_for_alias {
     cmd=$1
     echo "Running: $cmd"
