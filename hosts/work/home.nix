@@ -30,6 +30,8 @@ in
     (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true;})
   ];
 
+  programs.zsh.oh-my-zsh.plugins = ["nvm"];
+
   home.packages = [
     pkgs.joplin
 #    pkgs.keepassxc
