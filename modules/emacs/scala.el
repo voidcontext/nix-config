@@ -1,3 +1,5 @@
+(setq sbt:program-options '("-Dsbt.supershell=false"))
+
 (defun sbt-do-compile ()
   "Compile all sources including tests."
   (interactive)
@@ -43,11 +45,15 @@
   (sbt:command "package"))
 
 (use-package sbt-mode
-  :commands
-  sbt-start
-  sbt-command
+  :commands  sbt-start  sbt-command
   :bind
-  (:map sbt:mode-map ("C-a" . comint-bol)))
+  (:map sbt:mode-map ("C-a" . comint-bol))
+  ;; WORKAROUND: allows using SPACE when in the minibuffer
+  :config
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map))
 
 (use-package scala-mode
   :config
