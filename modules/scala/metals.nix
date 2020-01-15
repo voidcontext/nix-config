@@ -5,7 +5,7 @@ with import <nixpkgs> {};
 let
   baseName = "metals";
   metalsJavaFlags = ["-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-Xss4m" "-Xms100m" "-Dmetals.client=emacs" ];
-  version = "0.7.6";
+  version = "0.8.0";
   deps = stdenv.mkDerivation {
     name = "${baseName}-deps-${version}";
     buildCommand = ''
@@ -18,7 +18,7 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "03vx8n77mndpqbvq14cy3k9r4jwgjacrv56v5n87da8rqiclx37j";
+    outputHash     = "00n116krll8gpq2p8rkpzqs2qafc71wimwfbmhi4y9c6pjas0baf";
   };
 in
 stdenv.mkDerivation rec {
