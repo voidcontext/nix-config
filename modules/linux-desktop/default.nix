@@ -15,7 +15,7 @@ in
   home.packages = [
     pkgs.xmobar
     pkgs.dmenu
-    pkgs.fira-code
+    pkgs.fira-mono
     pkgs.powerline-fonts
   ];
 
@@ -35,7 +35,6 @@ in
   Xft.hintstyle: hintslight
   Xft.rgba: rgb
   Xft.lcdfilter: lcddefault
-
   '';
 
   home.file.".xsessionrc" = {
