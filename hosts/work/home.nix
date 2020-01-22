@@ -34,6 +34,6 @@ in
 
   home.packages = [
     pkgs.joplin
-#    pkgs.keepassxc
+    pkgs.keepassxc
   ];
 }

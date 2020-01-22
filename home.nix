@@ -33,8 +33,16 @@ in
   ];
 
   home.packages = [
-    pkgs.htop
     pkgs.ag
+    pkgs.htop
+    pkgs.jq
+#    pkgs.mc
+    pkgs.mtr
+    pkgs.nmap
+    pkgs.pstree
+    pkgs.pwgen
+    pkgs.telnet
+    pkgs.watch
   ];
 
   home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
