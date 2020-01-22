@@ -1,10 +1,8 @@
 { pkgs, ... }:
 
-with import <nixpkgs> {};
-
 let
   jre = pkgs.openjdk8_headless;
-  metals = callPackage ./metals.nix { inherit jre; };
+  metals = pkgs.callPackage ./metals.nix { inherit jre; };
 in
 {
   home.packages = [

@@ -1,7 +1,6 @@
 { pkgs, hdpi ? false, ... }:
 
-with import <nixpkgs> {};
-with lib;
+with pkgs.lib;
 with builtins;
 
 let

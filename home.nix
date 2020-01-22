@@ -1,6 +1,5 @@
 { config, pkgs, zshInit ? "", extraAliases ? {}, hdpi ? false, ... }:
 
-with import <nixpkgs>;
 with builtins;
 
 let
@@ -38,6 +37,7 @@ in
     pkgs.jq
 #    pkgs.mc
     pkgs.mtr
+    pkgs.niv
     pkgs.nmap
     pkgs.pstree
     pkgs.pwgen

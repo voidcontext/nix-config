@@ -31,5 +31,16 @@ if [ ! -f $HOME_NIX ]; then
   exit 1
 fi
 
-home-manager switch -f $HOME_NIX $*
+function pinned_path {
+   jq -r ".[\"${1}\"].url" < $DIR/../nix/sources.json
+}
+
+PINNED_NIXPKGS=$(pinned_path "nixpkgs")
+PINNED_HOME_MANAGER=$(pinned_path "home-manager")
+
+home-manager switch \
+  -f $HOME_NIX \
+  -I nixpkgs=$PINNED_NIXPKGS \
+  -I home-manager=$PINNED_HOME_MANAGER
+  $*
 

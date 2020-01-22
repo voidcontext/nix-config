@@ -1,6 +1,6 @@
 {stdenv, pkgs, jdk, jre, coursier, ...}:
 
-with import <nixpkgs> {};
+with pkgs;
 
 let
   baseName = "metals";
@@ -24,7 +24,7 @@ in
 stdenv.mkDerivation rec {
   name = "scala-metals";
 
-  buildInputs = [ jdk makeWrapper deps ];
+  buildInputs = [ jdk pkgs.makeWrapper deps ];
 
   phases = [ "installPhase" ];
 
