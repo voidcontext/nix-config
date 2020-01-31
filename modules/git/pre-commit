@@ -1,0 +1,24 @@
+#!/bin/sh
+
+CURRENT=$(pwd)
+EMAIL=$(git config --list | grep user\.email | tail -n 1 | cut  -d= -f2)
+
+echo "Checking git config"
+echo "Email address is: $EMAIL"
+
+if [[ "$GC_HOOK_GIT_USERNAME" != "" ]] ; then
+    if [[ "$GC_HOOK_GIT_USERNAME" != "$EMAIL" ]] ; then
+        echo "Email is misconfigured, should be: $GC_HOOK_GIT_USERNAME, but it is $EMAIL ."
+        exit 1
+    fi
+    exit 0
+fi
+
+echo ""
+echo "*********************************"
+echo "GC_HOOK_GIT_USERNAME is NOT set!"
+echo "*********************************"
+echo ""
+
+
+exit 1

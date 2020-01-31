@@ -29,13 +29,14 @@ in
     (import ./modules/emacs {inherit pkgs; inherit hdpi;})
     (import ./modules/scala {inherit pkgs;})
     (import ./modules/haskell {inherit pkgs;})
+    (import ./modules/git {inherit pkgs; inherit config;})
   ];
 
   home.packages = [
     pkgs.ag
     pkgs.htop
     pkgs.jq
-#    pkgs.mc
+    pkgs.mc
     pkgs.mtr
     pkgs.niv
     pkgs.nmap
@@ -77,12 +78,6 @@ in
       custom = "$HOME/.zsh/custom/";
       plugins = ["git" "z" "nix-zsh-completions" "nix-shell" ];
     };
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Gabor Pihaj";
-    userEmail = "gabor.pihaj@gmail.com";
   };
 
   programs.tmux = {
