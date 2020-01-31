@@ -1,0 +1,40 @@
+#!/bin/bash
+
+PID=$$
+
+__kill() {
+    if [ "$1" != "$PID" ]; then
+	kill -9 $1 2>/dev/null
+    fi
+}
+
+__debug() {
+    if [ "$WS_DEBUG" == "1" ]; then
+	echo $1
+    fi
+}
+
+clean_up() {
+    __debug "------ Clean Up! -------"
+
+    toplevels=$(pstree -l2 $PID | grep -v pstree)
+    __debug $toplevels
+    for pid in $(echo $toplevels | perl -pe 's/^.*?(\d+).*$/\1/'); do
+	__debug "    Kill children of $pid"
+	for cpid in $(pstree $pid | perl -pe 's/^.*?(\d+).*$/\1/'); do
+	    __debug -n "        Killing $cpid... "
+	    __kill $cpid
+	    __debug "done."
+	done;
+	__debug -n "    Killing $pid..."
+	__kill $pid
+	__debug "done."
+    done;
+    __debug "Done."
+}
+
+
+trap clean_up SIGHUP SIGINT SIGTERM
+
+$@
+clean_up

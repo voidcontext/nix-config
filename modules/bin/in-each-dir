@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+command_template=$*
+for dir in */; do
+    echo "########################################################"
+    echo "# Entering into: $dir"
+    cd "$dir"
+    cmd=`echo "$command_template" | sed "s#%dir%#$dir#"`
+    echo "Running command: $cmd"
+    sh -c "$cmd"
+    echo "# Done."
+    echo "########################################################"
+    echo ""
+    cd ..
+done;
