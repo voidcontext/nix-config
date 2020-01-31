@@ -41,6 +41,6 @@ PINNED_HOME_MANAGER=$(pinned_path "home-manager")
 home-manager switch \
   -f $HOME_NIX \
   -I nixpkgs=$PINNED_NIXPKGS \
-  -I home-manager=$PINNED_HOME_MANAGER
+  -I home-manager=$PINNED_HOME_MANAGER \
   $*
 
