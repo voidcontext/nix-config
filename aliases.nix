@@ -1,5 +1,6 @@
 {
   e = "emacs -nw";
+  ec = "emacsclient -nw -a=";
   nsh = "nix-shell";
 
   gdc		= "git diff --cached";
