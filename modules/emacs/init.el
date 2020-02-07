@@ -195,6 +195,8 @@
 (use-package treemacs-icons-dired
   :config (treemacs-icons-dired-mode))
 
+(with-eval-after-load 'treemacs
+  (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
 
 (use-package direnv
   :config
