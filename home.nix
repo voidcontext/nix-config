@@ -4,6 +4,7 @@ with builtins;
 
 let
   aliases = import ./aliases.nix;
+  sources = import ./nix/sources.nix;
 
   lambda-mod-theme = (fetchurl {
     url = "https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme";
@@ -32,11 +33,15 @@ in
     (import ./modules/git {inherit pkgs; inherit config;})
   ];
 
+  nixpkgs.overlays = [
+    (import sources.emacs-overlay)
+  ];
+
   home.packages = [
     pkgs.ag
     pkgs.htop
     pkgs.jq
-    pkgs.mc
+#    pkgs.mc
     pkgs.mtr
     pkgs.niv
     pkgs.nmap
@@ -57,6 +62,14 @@ in
     . $HOME/.nix-profile/etc/profile.d/nix.sh
     '';
 
+    initExtraBeforeCompInit = ''
+    if [ -n "$INSIDE_EMACS" ]; then
+      ZSH_THEME="simple"
+    else
+      ZSH_THEME="lambda-mod"
+    fi
+    '';
+
     initExtra = ''
     prompt_nix_shell_setup
 
@@ -74,7 +87,7 @@ in
 
     oh-my-zsh = {
       enable = true;
-      theme = "lambda-mod";
+#      theme = "lambda-mod";
       custom = "$HOME/.zsh/custom/";
       plugins = ["git" "z" "nix-zsh-completions" "nix-shell" ];
     };

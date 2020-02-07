@@ -9,7 +9,9 @@
  sentence-end-double-space nil
  mac-command-modifier 'super
  show-paren-mode 1
- show-paren-delay 0)
+ show-paren-delay 0
+ multi-term-program (substitute-in-file-name "${HOME}/.nix-profile/bin/zsh")
+)
 
 (setenv "PATH" (concat "$HOME/.nix-profile/bin:" (getenv "PATH")))
 

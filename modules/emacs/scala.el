@@ -60,6 +60,7 @@
   (subword-mode +1)
   ;(which-key-declare-prefixes-for-mode 'scala-mode "C-c m" "scala")
   :bind
+  ("M-RET" . lsp-execute-code-action)
   ("C-c m b" . sbt-hydra)
   ("C-c m c" . sbt-do-compile)
   ("C-c m t" . sbt-do-test)

@@ -11,6 +11,18 @@
         "url": "https://github.com/Infinisil/all-hies/archive/0f09fb2faeb4e55acaae365e57503f498c08dc6d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "emacs-overlay": {
+        "branch": "master",
+        "description": "Bleeding edge emacs overlay [maintainer=@adisbladis] ",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "6a3301b814b4153c14a11c528dbee8e397390422",
+        "sha256": "084w1d87yw96y659k616zb4gx22i1jfh9ac8w6k3flcxf54g7agy",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/emacs-overlay/archive/6a3301b814b4153c14a11c528dbee8e397390422.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix",
