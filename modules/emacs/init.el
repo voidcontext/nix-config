@@ -44,6 +44,7 @@
 (global-set-key (kbd "C-c C-=") 'hs-show-block)
 (global-set-key (kbd "C-c M--") 'hs-hide-all)
 (global-set-key (kbd "C-c M-=") 'hs-show-all)
+(global-set-key (kbd "C-x a") 'align-regexp)
 
 ;; the package manager
 (require 'package)
