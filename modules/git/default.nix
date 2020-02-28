@@ -11,6 +11,13 @@ in
     executable = true;
   };
 
+  home.file.".config/git/ignore".text = ''
+  .bloop
+  .bloop/*
+  .metals
+  project/metals.sbt
+  '';
+
   programs.git = {
     enable = true;
     userName = "Gabor Pihaj";
