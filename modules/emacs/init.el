@@ -336,11 +336,14 @@
 (use-package lsp-mode
   ;; Optional - enable lsp-mode automatically in scala files
   :hook (scala-mode . lsp)
+  :init (setq lsp-keymap-prefix "C-l")
   :config (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
   :config
-  (setq lsp-ui-sideline-show-hover nil))
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-sideline-enable nil
+        lsp-ui-sideline-show-hover nil))
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
