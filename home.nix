@@ -59,6 +59,9 @@ in
     enable = true;
 
     envExtra = ''
+    export NIX_IGNORE_SYMLINK_STORE=1
+    export HM_ZSH_ENV=loaded
+
     . $HOME/.nix-profile/etc/profile.d/nix.sh
     '';
 
@@ -67,6 +70,10 @@ in
       ZSH_THEME="simple"
     else
       ZSH_THEME="lambda-mod"
+    fi
+
+    if [ "HM_ZSH_ENV" != "loaded" ]; then
+       source $HOME/.zshenv
     fi
     '';
 
