@@ -45,6 +45,7 @@
 (global-set-key (kbd "C-c M--") 'hs-hide-all)
 (global-set-key (kbd "C-c M-=") 'hs-show-all)
 (global-set-key (kbd "C-x a") 'align-regexp)
+(global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
 
 ;; the package manager
 (require 'package)
@@ -341,9 +342,7 @@
 
 (use-package lsp-ui
   :config
-  (setq lsp-ui-doc-enable nil
-        lsp-ui-sideline-enable nil
-        lsp-ui-sideline-show-hover nil))
+  (setq lsp-ui-sideline-show-hover nil))
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)

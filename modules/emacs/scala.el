@@ -24,15 +24,32 @@
   "Return the name of the scala file in the current buffer"
   (replace-regexp-in-string "\\.scala\\(<.*>\\)?$" "" (buffer-name (window-buffer (minibuffer-selected-window)))))
 
-(defun scala-test-file()
+(defun scala-spec-file()
   "Returns the spec file of the current file"
   (let ((ffile (scala-file-in-current-buffer)))
     (if (string-match "Spec$" ffile) ffile (concat ffile "Spec"))))
 
+(defun scala-test-file()
+  "Returns the spec file of the current file"
+  (let ((ffile (scala-file-in-current-buffer)))
+    (if (string-match "Test$" ffile) ffile (concat ffile "Test"))))
+
+
 (defun sbt-do-it-test-for-buffer()
   "Run test for buffer"
   (interactive)
-  (sbt-command (concat "it:testOnly" " " "*" (scala-test-file))))
+  (sbt-command (concat "it:testOnly" " " "*" (scala-spec-file))))
+
+(defun sbt-do-test-for-testfile-buffer()
+  "Run test for buffer"
+  (interactive)
+  (sbt-command (concat "testOnly" " " "*" (scala-test-file))))
+
+(defun sbt-do-test-for-specfile-buffer()
+  "Run test for buffer"
+  (interactive)
+  (sbt-command (concat "testOnly" " " "*" (scala-spec-file))))
+
 
 (defun sbt-do-clean ()
   "Execute the sbt `clean' command for the project."
@@ -65,4 +82,6 @@
   ("C-c m c" . sbt-do-compile)
   ("C-c m t" . sbt-do-test)
   ("C-c m i" . sbt-do-it-test)
-  ("C-c t i" . sbt-do-it-test-for-buffer))
+  ("C-c t i" . sbt-do-it-test-for-buffer)
+  ("C-c t t" . sbt-do-test-for-testfile-buffer)
+  ("C-c t s" . sbt-do-test-for-specfile-buffer))

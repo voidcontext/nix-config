@@ -20,5 +20,6 @@ in
   home.packages = [
     pkgs.joplin
     pkgs.keepassxc
+    pkgs.postgresql_10
   ];
 }
