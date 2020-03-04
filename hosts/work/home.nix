@@ -6,7 +6,7 @@ let
   export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
   '';
 
-  workspace = "/Volumes/workspace";
+  workspace = "/Volumes/Workspace";
   extraAliases = {
     p = "cd " + workspace + "/personal";
     d = "cd " + workspace + "/work";

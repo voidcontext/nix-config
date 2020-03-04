@@ -39,6 +39,7 @@ in
 
   home.packages = [
     pkgs.ag
+    pkgs.gnupg
     pkgs.htop
     pkgs.jq
 #    pkgs.mc

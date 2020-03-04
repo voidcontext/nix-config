@@ -85,3 +85,12 @@
   ("C-c t i" . sbt-do-it-test-for-buffer)
   ("C-c t t" . sbt-do-test-for-testfile-buffer)
   ("C-c t s" . sbt-do-test-for-specfile-buffer))
+
+(use-package posframe
+  ;; Posframe is a pop-up tool that must be manually installed for dap-mode
+  )
+(use-package dap-mode
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode)
+  )

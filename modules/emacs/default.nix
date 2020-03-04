@@ -56,6 +56,8 @@ in
       lsp-treemacs
       lsp-mode
       lsp-ui
+      dap-mode
+      posframe
 
       # Nix
       nix-mode
