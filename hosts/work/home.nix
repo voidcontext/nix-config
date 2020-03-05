@@ -21,5 +21,6 @@ in
     pkgs.joplin
     pkgs.keepassxc
     pkgs.postgresql_10
+    pkgs.visualvm
   ];
 }

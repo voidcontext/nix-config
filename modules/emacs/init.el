@@ -58,10 +58,6 @@
 (use-package zenburn-theme)
 (load-theme 'zenburn t)
 
-;; Enable nice rendering of diagnostics like compile errors.
-(use-package flycheck
-  :init (global-flycheck-mode))
-
 
 (use-package projectile
   :config
@@ -281,8 +277,7 @@
   ("C-=" . 'er/expand-region))
 
 (use-package flycheck
-  :delight
-  :config
+  :init
   (global-flycheck-mode))
 
 
@@ -324,21 +319,15 @@
   (ivy-rich-mode +1))
 
 (use-package lsp-mode
-  :hook
-  (scala-mode . lsp)
-  :config
-  (setq lsp-enable-snippet nil
-        lsp-prefer-flymake nil))
+  :init 
+  (setq lsp-keymap-prefix "C-l"
+        lsp-diagnostic-package :flycheck)
+  :hook  (scala-mode . lsp)
+         (lsp-mode . lsp-lens-mode))
 
 (use-package lsp-treemacs
   :bind
   ("C-c e t" . lsp-treemacs-errors-list))
-
-(use-package lsp-mode
-  ;; Optional - enable lsp-mode automatically in scala files
-  :hook (scala-mode . lsp)
-  :init (setq lsp-keymap-prefix "C-l")
-  :config (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
   :config
