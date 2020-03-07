@@ -24,6 +24,7 @@ in
       multi-term
       use-package
       zenburn-theme
+      gruvbox-theme
 
       ace-window
       column-enforce-mode

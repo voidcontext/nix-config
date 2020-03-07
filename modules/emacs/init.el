@@ -55,8 +55,8 @@
 
 ;; Packages
 
-(use-package zenburn-theme)
-(load-theme 'zenburn t)
+(use-package gruvbox-theme)
+(load-theme 'gruvbox-dark-soft t)
 
 
 (use-package projectile
