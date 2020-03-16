@@ -24,6 +24,7 @@ in
     userName = "Gabor Pihaj";
     userEmail = "gabor.pihaj@gmail.com";
     signing = {
+      signByDefault = true;
       key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
     };
     extraConfig = {

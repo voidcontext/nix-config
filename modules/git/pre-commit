@@ -1,24 +1,23 @@
 #!/bin/sh
 
+set -u
+
 CURRENT=$(pwd)
 EMAIL=$(git config --list | grep user\.email | tail -n 1 | cut  -d= -f2)
+GPG_SIGN_COONFIG=$(git config --get commit.gpgsign)
 
-echo "Checking git config"
-echo "Email address is: $EMAIL"
+echo "Checking config..."
+echo "Email address is: $EMAIL (expected $GC_HOOK_GIT_USERNAME)"
+echo "GPG sign config is: $GPG_SIGN_COONFIG (expected $GC_HOOK_GPG_SIGN)"
 
-if [ "$GC_HOOK_GIT_USERNAME" != "" ]; then
-    if [ "$GC_HOOK_GIT_USERNAME" != "$EMAIL" ]; then
-        echo "Email is misconfigured, should be: $GC_HOOK_GIT_USERNAME, but it is $EMAIL ."
-        exit 1
-    fi
-    exit 0
+
+if [ "$GC_HOOK_GPG_SIGN" != "$GPG_SIGN_COONFIG" ]; then
+    echo "commit.gpgsign config is not expected  (expected: $GC_HOOK_GPG_SIGN)"
+    exit 1;
 fi
 
-echo ""
-echo "*********************************"
-echo "GC_HOOK_GIT_USERNAME is NOT set!"
-echo "*********************************"
-echo ""
+if [ "$GC_HOOK_GIT_USERNAME" != "$EMAIL" ]; then
+    echo "Email is misconfigured, should be: $GC_HOOK_GIT_USERNAME, but it is $EMAIL ."
+fi
 
 
-exit 1
