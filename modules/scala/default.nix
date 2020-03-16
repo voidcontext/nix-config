@@ -9,6 +9,7 @@ in
     jre
     pkgs.sbt
     pkgs.coursier
+    pkgs.asciinema
 
     metals
 

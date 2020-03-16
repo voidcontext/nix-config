@@ -89,7 +89,7 @@ in
     shellAliases = aliases // extraAliases;
 
     sessionVariables = {
-      EDITOR = "emacs";
+      EDITOR = "emacs -nw";
       PAGER = "less -R";
     };
 

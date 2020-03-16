@@ -319,7 +319,7 @@
   (ivy-rich-mode +1))
 
 (use-package lsp-mode
-  :init 
+  :init
   (setq lsp-keymap-prefix "C-l"
         lsp-diagnostic-package :flycheck)
   :hook  (scala-mode . lsp)

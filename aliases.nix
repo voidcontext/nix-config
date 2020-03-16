@@ -3,6 +3,8 @@
   ec = "emacsclient -nw -a=";
   nsh = "nix-shell";
 
+  clean-metals = "rm -rf .metals .bloop project/metals.sbt";
+
   gcs = "git commit -v -S";
   gdc = "git diff --cached";
   gbtp = "git branch --merged | grep -v \"\(master\|develop\|\*\)\"";
