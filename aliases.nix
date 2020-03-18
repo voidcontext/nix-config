@@ -3,6 +3,8 @@
   ec = "emacsclient -nw -a=";
   nsh = "nix-shell";
 
+  enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
+
   clean-metals = "rm -rf .metals .bloop project/metals.sbt";
 
   gcs = "git commit -v -S";

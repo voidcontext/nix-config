@@ -50,11 +50,16 @@ in
     pkgs.pwgen
     pkgs.telnet
     pkgs.watch
+    pkgs.yubikey-manager
   ];
 
   home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
   home.file.".zsh/custom/plugins/nix-shell".source = zsh-plugins.nix-shell;
   home.file.".zsh/custom/plugins/nix-zsh-completions".source = zsh-plugins.nix-zsh-completions;
+
+  home.file.".gnupg/gpg-agent.conf".text = ''
+  enable-ssh-support
+  '';
 
   programs.zsh = {
     enable = true;

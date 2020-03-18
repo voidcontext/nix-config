@@ -17,10 +17,16 @@ in
     (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true;})
   ];
 
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "vscode"
+  ];
+
   home.packages = [
     pkgs.joplin
     pkgs.keepassxc
     pkgs.postgresql_10
     pkgs.visualvm
+    pkgs.vscode
   ];
 }
