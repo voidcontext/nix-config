@@ -344,5 +344,6 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
+(use-package terraform-mode)
 @extraConfig@
 

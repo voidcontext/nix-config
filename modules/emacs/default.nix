@@ -60,6 +60,8 @@ in
       dap-mode
       posframe
 
+      terraform-mode
+
       # Nix
       nix-mode
 
