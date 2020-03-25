@@ -14,6 +14,7 @@ in
   home.file.".config/git/ignore".text = ''
   .bloop
   .bloop/*
+  .DS_Store
   .envrc
   .metals
   project/metals.sbt

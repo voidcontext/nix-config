@@ -16,6 +16,8 @@
   gsl = "git shortlog -s -n";
   gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
 
+  rcd="cd $(git rev-parse --show-toplevel)";
+
   dk="docker";
   dkps="docker ps";
   dkrma="docker rm -f $(docker ps -a -q)";
