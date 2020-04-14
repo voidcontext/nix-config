@@ -11,6 +11,9 @@ let
     p = "cd " + workspace + "/personal";
     d = "cd " + workspace + "/work";
   };
+
+  tfswitch = pkgs.callPackage ../../modules/terraform/tfswitch.nix {};
+
 in
 {
   imports = [
@@ -26,7 +29,9 @@ in
     pkgs.joplin
     pkgs.keepassxc
     pkgs.postgresql_10
+    pkgs.terraform
     pkgs.visualvm
     pkgs.vscode
+    tfswitch
   ];
 }
