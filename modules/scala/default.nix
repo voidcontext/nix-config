@@ -14,5 +14,6 @@ in
     metals
 
     pkgs.jekyll # for microsite generation
+    pkgs.hugo # for site generation (http4s)
   ];
 }
