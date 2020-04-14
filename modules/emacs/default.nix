@@ -29,7 +29,6 @@ in
       ace-window
       column-enforce-mode
       direnv
-      electric-operator
       expand-region
       flycheck
       git-gutter

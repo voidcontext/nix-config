@@ -44,7 +44,8 @@
 (global-set-key (kbd "C-c C-=") 'hs-show-block)
 (global-set-key (kbd "C-c M--") 'hs-hide-all)
 (global-set-key (kbd "C-c M-=") 'hs-show-all)
-(global-set-key (kbd "C-x a") 'align-regexp)
+(global-set-key (kbd "C-x a a") 'align-regexp)
+(global-set-key (kbd "C-x a s") 'sort-lines)
 (global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
 
 ;; the package manager
@@ -195,9 +196,6 @@
 (use-package treemacs-icons-dired
   :config (treemacs-icons-dired-mode))
 
-(with-eval-after-load 'treemacs
-  (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
-
 (use-package direnv
   :config
   (direnv-mode))
@@ -219,49 +217,6 @@
 (use-package counsel-projectile
   :config
   (counsel-projectile-mode))
-
-(use-package electric-operator
-  :delight
-  :hook
-  (scala-mode . electric-operator-mode)
-  :config
-  (apply #'electric-operator-add-rules-for-mode 'scala-mode
-         (electric-operator-get-rules-for-mode 'prog-mode))
-  (electric-operator-add-rules-for-mode 'scala-mode
-                                        (cons "<-" " <- ")
-                                        (cons "->" " -> ")
-                                        (cons "=>" " => ")
-                                        (cons "<:" " <: ")
-                                        (cons ":>" " :> ")
-                                        (cons "<%" " <% ") ;; deprecated
-                                        (cons "%%" " %% ")
-                                        (cons "%%%" " %%% ")
-                                        (cons "/*" " /* ")
-                                        (cons "//" " // ")
-                                        (cons "++" " ++ ")
-                                        (cons "++=" " ++= ")
-                                        ;; Cats operators
-                                        (cons "*>" " *> ")
-                                        (cons "<*" " <* ")
-                                        (cons "===" " === ")
-                                        (cons "=!=" " =!= ")
-                                        (cons ">>=" " >>= ")
-                                        (cons ">>" " >> ")
-                                        (cons "|-|" " |-| ")
-                                        (cons "|+|" " |+| ")
-                                        (cons "<+>" " <+> ")
-                                        (cons "<+>" " <+> ")
-                                        (cons "<<<" " <<< ")
-                                        (cons ">>>" " >>> ")
-                                        (cons "&&&" " &&& ")
-                                        (cons "-<" " -< ")
-                                        (cons "~>" " ~> ")
-                                        (cons ":<:" " :<: ")
-                                        (cons "&>" " &> ")
-                                        (cons "<&" " <& ")
-                                        (cons "<<" " << ")
-                                        ;; sbt operators
-                                        (cons ":=" " := ")))
 
 (use-package rainbow-delimiters
   :hook
@@ -331,7 +286,8 @@
 
 (use-package lsp-ui
   :config
-  (setq lsp-ui-sideline-show-hover nil))
+;  (setq lsp-ui-sideline-show-hover nil)
+  )
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
