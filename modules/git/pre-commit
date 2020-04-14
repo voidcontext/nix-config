@@ -18,6 +18,7 @@ fi
 
 if [ "$GC_HOOK_GIT_USERNAME" != "$EMAIL" ]; then
     echo "Email is misconfigured, should be: $GC_HOOK_GIT_USERNAME, but it is $EMAIL ."
+    exit 1;
 fi
 
 
