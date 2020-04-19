@@ -26,7 +26,7 @@ in
   ];
 
   home.packages = [
-    pkgs.joplin
+    # pkgs.joplin
     pkgs.keepassxc
     pkgs.postgresql_10
     pkgs.terraform

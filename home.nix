@@ -46,6 +46,7 @@ in
 #    pkgs.mc
     pkgs.mtr
     pkgs.niv
+    pkgs.neofetch
     pkgs.nmap
     pkgs.pstree
     pkgs.pwgen
