@@ -75,6 +75,8 @@
 (use-package scala-mode
   :init
   (setq scala-indent:use-javadoc-style t)
+  :mode 
+  "\\.s\\(c\\|cala\\|bt\\)$"
   :config
   (subword-mode +1)
   ;(which-key-declare-prefixes-for-mode 'scala-mode "C-c m" "scala")
