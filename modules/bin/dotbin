@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+cmd=$1
+script=""
+shift
+
+if [ -f .dotbin/$cmd ]; then
+   script=.dotbin/$cmd
+fi
+
+if [ -f .dotbin/$cmd.sh ]; then
+   script=.dotbin/$cmd
+fi
+
+if [ "$script" == "" ]; then
+   echo "Couldn't find bin: $cmd"
+   exit 1
+fi
+
+echo "Running: bash $script $@ ..."
+bash $script $@

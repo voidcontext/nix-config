@@ -32,6 +32,7 @@ in
     (import ./modules/scala {inherit pkgs;})
     (import ./modules/haskell {inherit pkgs;})
     (import ./modules/git {inherit pkgs; inherit config;})
+    (import ./modules/bin {inherit pkgs; inherit config;})
   ];
 
   nixpkgs.overlays = [

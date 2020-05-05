@@ -7,6 +7,11 @@
       executable = true;
     };
 
+    "bin/dotbin" = {
+      source = ./dotbin;
+      executable = true;
+    };
+
     "bin/rnsh" = {
       source = ./rnsh;
       executable = true;
