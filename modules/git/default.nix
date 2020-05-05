@@ -12,11 +12,13 @@ in
   };
 
   home.file.".config/git/ignore".text = ''
+  .DS_Store
   .bloop
   .bloop/*
-  .DS_Store
+  .dotbin
   .envrc
   .metals
+  .sbt-hydra-history
   project/metals.sbt
   '';
 
