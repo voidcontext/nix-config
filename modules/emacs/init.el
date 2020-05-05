@@ -244,7 +244,8 @@
   (setq company-idle-delay 0
         company-minimum-prefix-length 2
         company-show-numbers t
-        company-tooltip-align-annotations t))
+        company-tooltip-align-annotations t
+        company-dabbrev-downcase nil))
 
 (use-package company-lsp
   :after company lsp-mode

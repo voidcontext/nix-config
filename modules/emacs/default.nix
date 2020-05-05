@@ -7,6 +7,7 @@ let
   extraConfig = ""
     + (readFile ./scala.el)
     + (readFile ./haskell.el)
+    + (readFile ./org.el)
   ;
 in
 {
