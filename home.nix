@@ -47,6 +47,7 @@ in
 #    pkgs.mc
     pkgs.mtr
     pkgs.niv
+    # pkgs.nix-direnv
     pkgs.neofetch
     pkgs.nmap
     pkgs.pstree
@@ -60,6 +61,12 @@ in
   home.file.".zsh/custom/plugins/nix-shell".source = zsh-plugins.nix-shell;
   home.file.".zsh/custom/plugins/nix-zsh-completions".source = zsh-plugins.nix-zsh-completions;
 
+  # home.file.".config/direnv/direnvrc".text = ''
+  # if [ -f ~/.nix-profile/share/nix-direnv/direnvrc ]; then
+  #   source ~/.nix-profile/share/nix-direnv/direnvrc
+  # fi
+  # '';
+
   home.file.".gnupg/gpg-agent.conf".text = ''
   enable-ssh-support
   '';
@@ -71,7 +78,9 @@ in
     export NIX_IGNORE_SYMLINK_STORE=1
     export HM_ZSH_ENV=loaded
 
-    . $HOME/.nix-profile/etc/profile.d/nix.sh
+    if [ "$IN_NIX_SHELL" = "" ]; then
+      . $HOME/.nix-profile/etc/profile.d/nix.sh
+    fi
     '';
 
     initExtraBeforeCompInit = ''
@@ -82,7 +91,7 @@ in
     fi
 
     if [ "HM_ZSH_ENV" != "loaded" ]; then
-       source $HOME/.zshenv
+      source $HOME/.zshenv
     fi
     '';
 
