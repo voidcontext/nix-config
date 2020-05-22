@@ -30,6 +30,9 @@ in
       signByDefault = true;
       key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
     };
+    lfs = {
+      enable = true;
+    };
     extraConfig = {
       core = {
         pager = "${pkgs.git}/share/git/contrib/diff-highlight/diff-highlight | less -X -F";
