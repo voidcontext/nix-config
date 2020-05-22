@@ -8,7 +8,6 @@
  scroll-error-top-bottom t
  sentence-end-double-space nil
  mac-command-modifier 'super
- show-paren-mode 1
  show-paren-delay 0
  multi-term-program (substitute-in-file-name "${HOME}/.nix-profile/bin/zsh")
 )
@@ -24,6 +23,7 @@
 (set-face-attribute 'default nil
                 :font "Fira Mono" :height @font-size@ :weight 'regular :width 'regular)
 
+(show-paren-mode 1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-auto-revert-mode 1)
@@ -83,30 +83,6 @@
 (use-package column-enforce-mode
   :config (add-hook 'prog-mode-hook 'column-enforce-mode)
   (setq column-enforce-column 120))
-
-(use-package smartparens
-  :diminish smartparens-mode
-  :commands
-  smartparens-strict-mode
-  smartparens-mode
-  sp-restrict-to-pairs-interactive
-  sp-local-pair
-  :init
-  (setq sp-interactive-dwim t)
-  :config
-  (require 'smartparens-config)
-  (sp-use-smartparens-bindings)
-
-  (sp-pair "(" ")" :wrap "C-(") ;; how do people live without this?
-  (sp-pair "[" "]" :wrap "s-[") ;; C-[ sends ESC
-  (sp-pair "{" "}" :wrap "C-{")
-
-  ;; WORKAROUND https://github.com/Fuco1/smartparens/issues/543
-  (bind-key "C-<left>" nil smartparens-mode-map)
-  (bind-key "C-<right>" nil smartparens-mode-map)
-
-  (bind-key "s-<delete>" 'sp-kill-sexp smartparens-mode-map)
-  (bind-key "s-<backspace>" 'sp-backward-kill-sexp smartparens-mode-map))
 
 (use-package ace-window
   :delight

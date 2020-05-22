@@ -37,7 +37,6 @@ in
       magit
       rainbow-delimiters
       rainbow-mode
-      smartparens
       undo-tree
 
       projectile
