@@ -10,6 +10,7 @@ let
   extraAliases = {
     p = "cd " + workspace + "/personal";
     d = "cd " + workspace + "/work";
+    tf = "terraform";
   };
 
   tfswitch = pkgs.callPackage ../../modules/terraform/tfswitch.nix {};
