@@ -71,6 +71,7 @@ in
       lsp-haskell
 
       # Scala
+      lsp-metals
       sbt-mode
       scala-mode
     ];

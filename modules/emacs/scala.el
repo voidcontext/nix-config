@@ -61,6 +61,8 @@
   (interactive)
   (sbt:command "package"))
 
+(use-package lsp-metals)
+
 (use-package sbt-mode
   :commands  sbt-start  sbt-command
   :bind

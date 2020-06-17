@@ -5,7 +5,7 @@ with pkgs;
 let
   baseName = "metals";
   metalsJavaFlags = ["-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-Xss4m" "-Xms100m" "-Dmetals.client=emacs" ];
-  version = "0.9.0";
+  version = "0.9.0+199-1e6cda24-SNAPSHOT";
   deps = stdenv.mkDerivation {
     name = "${baseName}-deps-${version}";
     buildCommand = ''
@@ -18,7 +18,7 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "116q2jzqlmdhkqvjg31b9ib8w1k7rlr8gmjcr7z32idpn16hqg59";
+    outputHash     = "1ym945jkvdf34yd4ijvq9dvkshyb1a5vmagks9l8r30k11i069v9";
   };
 in
 stdenv.mkDerivation rec {
