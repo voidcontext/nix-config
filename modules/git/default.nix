@@ -13,6 +13,7 @@ in
 
   home.file.".config/git/ignore".text = ''
   .DS_Store
+  .ammonite
   .bloop
   .bloop/*
   .dotbin

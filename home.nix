@@ -93,6 +93,10 @@ in
     if [ "HM_ZSH_ENV" != "loaded" ]; then
       source $HOME/.zshenv
     fi
+
+    if [ -d ~/.itermocil ]; then
+        compctl -g '~/.itermocil/*(:t:r)' itermocil
+    fi
     '';
 
     initExtra = ''

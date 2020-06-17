@@ -18,6 +18,7 @@ let
 in
 {
   imports = [
+    (import ../../modules/itermocil {inherit pkgs;})
     (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true;})
   ];
 

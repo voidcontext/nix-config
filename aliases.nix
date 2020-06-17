@@ -17,6 +17,7 @@
   gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
 
   rcd="cd $(git rev-parse --show-toplevel)";
+  io="itermocil";
 
   dk="docker";
   dkps="docker ps";
