@@ -19,6 +19,7 @@ in
 
   programs.emacs = {
     enable = true;
+    package = pkgs.emacsGit;
     extraPackages = epkgs: with epkgs; [
       # Common
       ag
@@ -60,6 +61,8 @@ in
       posframe
 
       terraform-mode
+
+      sql-indent
 
       # Nix
       nix-mode

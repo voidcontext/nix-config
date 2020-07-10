@@ -250,6 +250,10 @@
   :config
   (ivy-rich-mode +1))
 
+(use-package sql-indent
+  :after sql-mode
+  :init (add-hook 'sql-mode-hook 'sql-indent))
+
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-l"

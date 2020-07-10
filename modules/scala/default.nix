@@ -2,7 +2,8 @@
 
 let
   jre = pkgs.openjdk8_headless;
-  metals = pkgs.callPackage ./metals.nix { inherit jre; };
+  jdk = jre;
+  metals = pkgs.callPackage ./metals.nix { inherit jre; inherit jdk;};
 in
 {
   home.file.".ammonite/predef.sc".text = ''
@@ -23,10 +24,11 @@ in
 
   home.packages = [
     jre
-    pkgs.sbt
-    pkgs.coursier
-    pkgs.asciinema
     pkgs.ammonite
+    pkgs.asciinema
+    pkgs.coursier
+    pkgs.sbt
+    pkgs.visualvm
 
     metals
 
