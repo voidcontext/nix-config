@@ -3,7 +3,6 @@
 let
   capabilities = rec {
     scala = false;
-    haskell = false;
   };
 in
 {

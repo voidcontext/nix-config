@@ -48,7 +48,6 @@ in
       counsel
       counsel-projectile
       company
-      company-lsp
       company-quickhelp
       company-restclient
       ivy

@@ -30,7 +30,6 @@ in
     (import ./modules/adr-tools {inherit pkgs;})
     (import ./modules/emacs {inherit pkgs; inherit hdpi;})
     (import ./modules/scala {inherit pkgs;})
-    (import ./modules/haskell {inherit pkgs;})
     (import ./modules/git {inherit pkgs; inherit config;})
     (import ./modules/bin {inherit pkgs; inherit config;})
   ];

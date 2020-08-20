@@ -223,11 +223,6 @@
         company-tooltip-align-annotations t
         company-dabbrev-downcase nil))
 
-(use-package company-lsp
-  :after company lsp-mode
-  :config
-  (push 'company-lsp company-backends))
-
 (use-package company-quickhelp
   :bind
   (:map company-active-map
