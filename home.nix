@@ -30,6 +30,7 @@ in
     (import ./modules/adr-tools {inherit pkgs;})
     (import ./modules/emacs {inherit pkgs; inherit hdpi;})
     (import ./modules/scala {inherit pkgs;})
+    (import ./modules/clojure {inherit pkgs;})
     (import ./modules/git {inherit pkgs; inherit config;})
     (import ./modules/bin {inherit pkgs; inherit config;})
   ];
@@ -52,6 +53,7 @@ in
     pkgs.pstree
     pkgs.pwgen
     pkgs.telnet
+    pkgs.tree
     pkgs.watch
     pkgs.yubikey-manager
   ];

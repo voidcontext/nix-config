@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  jre = pkgs.openjdk8_headless;
+  jre = pkgs.jdk11_headless;
   jdk = jre;
   metals = pkgs.callPackage ./metals.nix { inherit jre; inherit jdk;};
 in

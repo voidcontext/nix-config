@@ -8,6 +8,7 @@ let
     + (readFile ./scala.el)
     + (readFile ./haskell.el)
     + (readFile ./org.el)
+    + (readFile ./clojure.el)
   ;
 in
 {
@@ -25,7 +26,6 @@ in
       ag
       multi-term
       use-package
-      zenburn-theme
       gruvbox-theme
 
       ace-window
@@ -76,6 +76,12 @@ in
       lsp-metals
       sbt-mode
       scala-mode
+
+      # Clojure
+      clojure-mode
+      clojure-mode-extra-font-locking
+      cider
+      paredit
     ];
   };
 }
