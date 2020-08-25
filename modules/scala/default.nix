@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  jre = pkgs.jdk11_headless;
+  jre = pkgs.openjdk11-bootstrap;
   jdk = jre;
   metals = pkgs.callPackage ./metals.nix { inherit jre; inherit jdk;};
 in

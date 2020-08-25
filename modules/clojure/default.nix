@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  jre = pkgs.jdk11_headless;
+  jre = pkgs.openjdk11-bootstrap;
 in
 {
 
