@@ -1,12 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, jdk, ... }:
 
-let
-  jre = pkgs.openjdk11-bootstrap;
-in
 {
 
   home.packages = [
-    jre
+    jdk
     pkgs.visualvm
     pkgs.leiningen
   ];

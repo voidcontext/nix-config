@@ -23,14 +23,14 @@ let
     });
 
   };
-
+  jdk = (pkgs.callPackage ./modules/openjdk {});
 in
 {
   imports = [
     (import ./modules/adr-tools {inherit pkgs;})
     (import ./modules/emacs {inherit pkgs; inherit hdpi;})
-    (import ./modules/scala {inherit pkgs;})
-    (import ./modules/clojure {inherit pkgs;})
+    (import ./modules/scala {inherit pkgs; inherit jdk;})
+    (import ./modules/clojure {inherit pkgs; inherit jdk;})
     (import ./modules/git {inherit pkgs; inherit config;})
     (import ./modules/bin {inherit pkgs; inherit config;})
   ];

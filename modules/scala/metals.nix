@@ -1,4 +1,4 @@
-{stdenv, pkgs, jdk, jre, coursier, ...}:
+{stdenv, pkgs, jdk, coursier, ...}:
 
 with pkgs;
 
@@ -13,7 +13,8 @@ let
     "-Dmetals.statistics=all"
     # "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005,quiet=y"
   ];
-  version = "0.9.2+121-053cebb0-SNAPSHOT";
+  version = "0.9.3";
+  build = "6";
   deps = stdenv.mkDerivation {
     name = "${baseName}-deps-${version}";
     buildCommand = ''
@@ -26,11 +27,11 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "0k21avvmcrxdfsn45gysm6gzmplqbqyp4qpj9a5f75q32d5kbnay";
+    outputHash     = "0mr0pxicka4qd0cn002g5r80dyg59164czyb0r7012l0q1xighz2";
   };
 in
 stdenv.mkDerivation rec {
-  name = "scala-metals";
+  name = "scala-metals-${version}+${build}";
 
   buildInputs = [ jdk pkgs.makeWrapper deps ];
 
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    makeWrapper ${jre}/bin/java $out/bin/metals-emacs \
+    makeWrapper ${jdk}/bin/java $out/bin/metals-emacs \
       --prefix PATH : ${lib.makeBinPath [ jdk ]} \
       --add-flags "-cp $CLASSPATH" \
       --add-flags "${lib.concatStringsSep " " metalsJavaFlags}" \

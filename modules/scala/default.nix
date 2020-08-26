@@ -1,9 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, jdk, ... }:
 
 let
-  jre = pkgs.openjdk11-bootstrap;
-  jdk = jre;
-  metals = pkgs.callPackage ./metals.nix { inherit jre; inherit jdk;};
+  metals = pkgs.callPackage ./metals.nix { inherit jdk;};
 in
 {
   home.file.".ammonite/predef.sc".text = ''
@@ -23,13 +21,13 @@ in
   home.file.".itermocil/gen-itermocil.sc".source = ./gen-itermocil.sc;
 
   home.packages = [
-    jre
+    jdk
     pkgs.ammonite
     pkgs.asciinema
     pkgs.coursier
     pkgs.sbt
     pkgs.visualvm
-
+    # pkgs.metals
     metals
 
     pkgs.jekyll # for microsite generation
