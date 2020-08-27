@@ -20,6 +20,14 @@ in
 
   home.file.".itermocil/gen-itermocil.sc".source = ./gen-itermocil.sc;
 
+  home.file."bin/sbt" = {
+    text = ''
+    #!/usr/bin/env sh
+    $HOME/.nix-profile/bin/sbt -java-home $JAVA_HOME $@
+    '';
+    executable = true;
+  };
+
   home.packages = [
     jdk
     pkgs.ammonite

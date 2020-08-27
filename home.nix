@@ -41,6 +41,7 @@ in
 
   home.packages = [
     pkgs.ag
+    pkgs.coreutils
     pkgs.gnupg
     pkgs.htop
     pkgs.jq
@@ -106,6 +107,8 @@ in
     PATH=$HOME/bin:$PATH:/usr/local/bin
 
     [[ $TMUX != "" ]] && export TERM="screen-256color"
+
+    export JAVA_HOME=$(readlink -f $(which java) | xargs dirname | xargs dirname)
     '' + zshInit;
 
     shellAliases = aliases // extraAliases;
