@@ -1,11 +1,13 @@
 {
   e = "emacs -nw";
-  ec = "emacsclient -nw -a=";
+  ec = "emacsclient -nw -a= -s default";
   nsh = "nix-shell";
 
   enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
 
   clean-metals = "rm -rf .metals .bloop project/metals.sbt";
+
+  java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
 
   gcs = "git commit -v -S";
   gdc = "git diff --cached";

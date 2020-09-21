@@ -46,6 +46,8 @@
 (global-set-key (kbd "C-c M-=") 'hs-show-all)
 (global-set-key (kbd "C-x a a") 'align-regexp)
 (global-set-key (kbd "C-x a s") 'sort-lines)
+(global-set-key (kbd "C-z r r") 'replace-regexp)
+(global-set-key (kbd "C-z r s") 'replace-string)
 (global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
 
 ;; the package manager

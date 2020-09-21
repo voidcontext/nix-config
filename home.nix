@@ -116,6 +116,7 @@ in
     sessionVariables = {
       EDITOR = "emacs -nw";
       PAGER = "less -R";
+      PSQL_EDITOR="emacsclient -nw -a= -s psql";
     };
 
     oh-my-zsh = {
