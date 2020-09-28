@@ -5,6 +5,9 @@
 
 (use-package cider)
 
+(use-package easy-kill)
+
+(global-set-key [remap kill-ring-save] 'easy-kill)
 
 ;;;;
 ;; Clojure
@@ -12,6 +15,11 @@
 
 ;; Enable paredit for Clojure
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+(eval-after-load "paredit"
+  '(progn
+     (define-key paredit-mode-map (kbd "M-}") 'paredit-close-curly-and-newline)
+     (define-key paredit-mode-map (kbd "M-]") 'paredit-close-square-and-newline)))
+
 
 ;; This is useful for working with camel-case tokens, like names of
 ;; Java classes (e.g. JavaClassName)
@@ -33,6 +41,16 @@
             (define-clojure-indent (fact 1))
             (define-clojure-indent (facts 1))
             (rainbow-delimiters-mode)))
+
+(require 'clj-refactor)
+
+(defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1) ; for adding require/use/import statements
+    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+    (cljr-add-keybindings-with-prefix "C-c C-m"))
+
+(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 ;;;;
 ;; Cider

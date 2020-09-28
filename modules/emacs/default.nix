@@ -58,6 +58,7 @@ in
       lsp-ui
       dap-mode
       posframe
+      yasnippet
 
       terraform-mode
 
@@ -82,6 +83,8 @@ in
       clojure-mode-extra-font-locking
       cider
       paredit
+      easy-kill
+      clj-refactor
     ];
   };
 }

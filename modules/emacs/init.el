@@ -10,6 +10,8 @@
  mac-command-modifier 'super
  show-paren-delay 0
  multi-term-program (substitute-in-file-name "${HOME}/.nix-profile/bin/zsh")
+ gc-cons-threshold 100000000
+ read-process-output-max (* 1024 1024)
 )
 
 (setenv "PATH" (concat "$HOME/.nix-profile/bin:" (getenv "PATH")))
@@ -263,9 +265,18 @@
   ("C-c e t" . lsp-treemacs-errors-list))
 
 (use-package lsp-ui
-  :config
-;  (setq lsp-ui-sideline-show-hover nil)
+  :init
+;;  (setq lsp-ui-sideline-show-hover nil)
+  (setq lsp-ui-sideline-diagnostic-max-lines 20)
+  (setq lsp-ui-doc-position 'at-point)
+;;  (setq lsp-ui-doc-header t)
+  (setq lsp-ui-doc-include-signature t)
   )
+
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
