@@ -45,7 +45,7 @@ in
     pkgs.gnupg
     pkgs.htop
     pkgs.jq
-#    pkgs.mc
+    pkgs.mc
     pkgs.mtr
     pkgs.niv
     # pkgs.nix-direnv
@@ -56,6 +56,7 @@ in
     pkgs.telnet
     pkgs.tree
     pkgs.watch
+    pkgs.wget
     pkgs.yubikey-manager
   ];
 
@@ -86,7 +87,7 @@ in
     '';
 
     initExtraBeforeCompInit = ''
-    if [ -n "$INSIDE_EMACS" ]; then
+    if [ -n "$INSIDE_EMACS" ] && [ "$INSIDE_EMACS" != "vterm" ]; then
       ZSH_THEME="simple"
     else
       ZSH_THEME="lambda-mod"
