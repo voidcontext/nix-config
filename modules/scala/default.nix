@@ -23,7 +23,11 @@ in
   home.file."bin/sbt" = {
     text = ''
     #!/usr/bin/env sh
-    $HOME/.nix-profile/bin/sbt -java-home $JAVA_HOME $@
+    args=$@
+    if [[ $args != "" ]]; then
+      args="$args"
+    fi
+    $HOME/.nix-profile/bin/sbt -java-home $JAVA_HOME $args
     '';
     executable = true;
   };
@@ -35,6 +39,8 @@ in
     pkgs.coursier
     pkgs.sbt
     pkgs.visualvm
+    pkgs.scalafmt
+    pkgs.scalafix
     # pkgs.metals
     metals
 
