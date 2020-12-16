@@ -27,17 +27,18 @@ in
       multi-term
       use-package
       gruvbox-theme
+      vterm
+      multi-vterm
 
-      ace-window
-      column-enforce-mode
+      ace-window # switch between windows with M-o
       direnv
       expand-region
       flycheck
       git-gutter
       highlight-symbol
       magit
-      rainbow-delimiters
-      rainbow-mode
+      rainbow-delimiters # color coded parantheses, braces, etc
+      rainbow-mode # visualising color-codes like #5d7f2f
       undo-tree
 
       projectile
@@ -80,7 +81,6 @@ in
 
       # Clojure
       clojure-mode
-      clojure-mode-extra-font-locking
       cider
       paredit
       easy-kill

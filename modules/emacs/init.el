@@ -42,6 +42,7 @@
 
 ;; global keybindings
 (global-unset-key (kbd "C-z"))
+(global-unset-key [mouse-2])
 (global-set-key (kbd "C-c C--") 'hs-hide-block)
 (global-set-key (kbd "C-c C-=") 'hs-show-block)
 (global-set-key (kbd "C-c M--") 'hs-hide-all)
@@ -63,6 +64,12 @@
 (use-package gruvbox-theme)
 (load-theme 'gruvbox-dark-soft t)
 
+(use-package vterm)
+(add-hook 'vterm-mode-hook
+          (lambda ()
+            (setq show-trailing-whitespace nil)
+            (display-line-numbers-mode -1)))
+(use-package multi-vterm)
 
 (use-package projectile
   :config
@@ -83,10 +90,6 @@
   :diminish highlight-symbol-mode
   :commands highlight-symbol
   :bind ("s-h" . highlight-symbol))
-
-(use-package column-enforce-mode
-  :config (add-hook 'prog-mode-hook 'column-enforce-mode)
-  (setq column-enforce-column 120))
 
 (use-package ace-window
   :delight
@@ -145,7 +148,7 @@
           treemacs-show-hidden-files          t
           treemacs-silent-filewatch           nil
           treemacs-silent-refresh             nil
-          treemacs-sorting                    'alphabetic-desc
+          treemacs-sorting                    'alphabetic-asc
           treemacs-space-between-root-nodes   t
           treemacs-tag-follow-cleanup         t
           treemacs-tag-follow-delay           1.5
