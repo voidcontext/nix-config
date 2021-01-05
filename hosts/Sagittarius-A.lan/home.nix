@@ -23,7 +23,6 @@ in
 
   home.packages = [
     pkgs.gnused
-    pkgs.keepassxc
     pkgs.terraform
     pkgs.visualvm
     tfswitch

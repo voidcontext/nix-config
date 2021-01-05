@@ -21,7 +21,7 @@ in
   .metals
   .sbt-hydra-history
   project/metals.sbt
-  result/
+  result
   '';
 
   programs.git = {
