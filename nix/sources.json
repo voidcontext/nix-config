@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "9d1026538a9d73fd36439e25bf622425179ccbee",
-        "sha256": "15w1zcg2vgf3slngw0g1dv09p32siav24ldfwn8s7yls0iyrsni3",
+        "rev": "6e3544b73afea08d1428b159b2a57dc9d1724493",
+        "sha256": "0q16fnpjrrgjcf7f6d5xnzp17q5bn5a8mahcrql0a5kz294g3i8g",
         "type": "tarball",
-        "url": "https://github.com/nix-community/emacs-overlay/archive/9d1026538a9d73fd36439e25bf622425179ccbee.tar.gz",
+        "url": "https://github.com/nix-community/emacs-overlay/archive/6e3544b73afea08d1428b159b2a57dc9d1724493.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "home-manager": {
@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "605a8fc92e2bb346b17d102d94d37af23c9b7d4e",
-        "sha256": "1cjxmhwn5vmb26x4zzmh1kgiv6xngb7ra61wgdlai6afw454v6ww",
+        "rev": "b9597e57747f227317affdfa2f97fee8e167c33f",
+        "sha256": "029ymsgc3d7fj4fw6r9n488p20vrb1vqwpb66d2qc1ha33fb541v",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/605a8fc92e2bb346b17d102d94d37af23c9b7d4e.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/b9597e57747f227317affdfa2f97fee8e167c33f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -40,11 +40,11 @@
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
-        "repo": "nixpkgs-channels",
-        "rev": "502845c3e31ef3de0e424f3fcb09217df2ce6df6",
-        "sha256": "0fcqpsy6y7dgn0y0wgpa56gsg0b0p8avlpjrd79fp4mp9bl18nda",
+        "repo": "nixpkgs",
+        "rev": "f53c431645da8e6760268092aa10f736b5cfb117",
+        "sha256": "1n1ikc16ak8rylmn6bxq4dgxy0kniq4z36sm4i0cdf2hy5frwmqi",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs-channels/archive/502845c3e31ef3de0e424f3fcb09217df2ce6df6.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/f53c431645da8e6760268092aa10f736b5cfb117.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
