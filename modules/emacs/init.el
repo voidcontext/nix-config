@@ -260,6 +260,9 @@
   :init
   (setq lsp-keymap-prefix "C-l"
         lsp-diagnostic-package :flycheck)
+  :config
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.nix-shell\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]result\\'")
   :hook  (scala-mode . lsp)
          (lsp-mode . lsp-lens-mode))
 

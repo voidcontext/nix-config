@@ -20,6 +20,7 @@ in
   .envrc
   .metals
   .sbt-hydra-history
+  .nix-shell
   project/metals.sbt
   result
   '';
