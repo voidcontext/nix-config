@@ -20,7 +20,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsGit;
+    package = pkgs.emacsUnstable;
     extraPackages = epkgs: with epkgs; [
       # Common
       ag
