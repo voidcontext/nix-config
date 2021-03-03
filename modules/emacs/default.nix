@@ -18,10 +18,14 @@ in
       [extraConfig (if hdpi then "120" else "100")]
       (readFile ./init.el));
 
+  home.packages = [
+    pkgs.ispell
+  ];
+
   programs.emacs = {
     enable = true;
-    # package = pkgs.emacsUnstable;
-    package = pkgs.emacsGit;
+    package = pkgs.emacsUnstable;
+    #package = pkgs.emacsGit;
     extraPackages = epkgs: with epkgs; [
       # Common
       ag
@@ -31,6 +35,7 @@ in
       vterm
       multi-vterm
 
+      multiple-cursors
       ace-window # switch between windows with M-o
       direnv
       expand-region

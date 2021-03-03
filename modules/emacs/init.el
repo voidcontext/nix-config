@@ -53,6 +53,8 @@
 (global-set-key (kbd "C-z r s") 'replace-string)
 (global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
 
+(add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
+
 ;; the package manager
 (require 'package)
 
@@ -77,6 +79,8 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
 
+
+(use-package multiple-cursors)
 
 ;; ###############################
 ;; common.el

@@ -29,7 +29,6 @@ in
 
   home.packages = [
     pkgs.gnused
-    pkgs.keepassxc
     pkgs.postgresql_10
     pkgs.terraform
     pkgs.visualvm

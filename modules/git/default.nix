@@ -16,12 +16,13 @@ in
   .ammonite
   .bloop
   .bloop/*
+  .bsp
   .dotbin
   .envrc
   .metals
   .sbt-hydra-history
   .nix-shell
-  project/metals.sbt
+  metals.sbt
   result
   '';
 

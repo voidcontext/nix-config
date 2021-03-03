@@ -23,11 +23,7 @@ in
   home.file."bin/sbt" = {
     text = ''
     #!/usr/bin/env sh
-    args=$@
-    if [[ $args != "" ]]; then
-      args="$args"
-    fi
-    $HOME/.nix-profile/bin/sbt -java-home $JAVA_HOME $args
+    $HOME/.nix-profile/bin/sbt -java-home $JAVA_HOME "$@"
     '';
     executable = true;
   };

@@ -8,7 +8,7 @@ let
 
   lambda-mod-theme = (fetchurl {
     url = "https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme";
-    sha256 = "1azg02pfn25rs1km1l56xawcl1pa9m7c7km74sghb57dsbvvacrq";
+    sha256 = "1gqkvvhr2qjjjqv7hmxl0bk6dg18ywa7icwr6yzw8i6r7sj15fl9";
   });
 
   zsh-plugins = {
