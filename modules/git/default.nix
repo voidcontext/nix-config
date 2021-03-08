@@ -24,6 +24,7 @@ in
   .nix-shell
   metals.sbt
   result
+  *.worksheet.sc
   '';
 
   programs.git = {

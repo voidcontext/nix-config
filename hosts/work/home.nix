@@ -28,7 +28,6 @@ in
   ];
 
   home.packages = [
-    pkgs.gnused
     pkgs.postgresql_10
     pkgs.terraform
     pkgs.visualvm

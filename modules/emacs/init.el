@@ -54,6 +54,7 @@
 (global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
 
 (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 
 ;; the package manager
 (require 'package)
@@ -81,6 +82,10 @@
 
 
 (use-package multiple-cursors)
+(use-package default-text-scale
+  :bind (("C-c +" . default-text-scale-increase)
+         ("C-c -" . default-text-scale-decrease)
+         ("C-c 0" . default-text-scale-reset)))
 
 ;; ###############################
 ;; common.el

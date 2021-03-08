@@ -22,14 +22,10 @@ in
   ];
 
   home.packages = [
-    pkgs.gnused
     pkgs.terraform
     pkgs.visualvm
     tfswitch
 
-    pkgs.gcc
-    pkgs.bashInteractive
-    pkgs.bash
     pkgs.python3
     pkgs.nodejs
     pkgs.iperf3

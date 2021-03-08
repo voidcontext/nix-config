@@ -41,8 +41,11 @@ in
 
   home.packages = [
     pkgs.ag
+    pkgs.bashInteractive
     pkgs.coreutils
+    pkgs.gcc
     pkgs.gnupg
+    pkgs.gnused
     pkgs.htop
     pkgs.jq
     pkgs.mc

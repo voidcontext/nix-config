@@ -36,6 +36,7 @@ in
       multi-vterm
 
       multiple-cursors
+      default-text-scale
       ace-window # switch between windows with M-o
       direnv
       expand-region
