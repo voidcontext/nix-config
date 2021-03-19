@@ -34,6 +34,7 @@ in
       gruvbox-theme
       vterm
       multi-vterm
+      which-key
 
       multiple-cursors
       default-text-scale
