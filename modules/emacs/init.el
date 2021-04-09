@@ -54,6 +54,7 @@
 (global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
 
 (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 
 ;; the package manager
@@ -72,7 +73,10 @@
           (lambda ()
             (setq show-trailing-whitespace nil)
             (display-line-numbers-mode -1)))
+
 (use-package multi-vterm)
+
+(use-package which-key)
 
 (use-package projectile
   :config
