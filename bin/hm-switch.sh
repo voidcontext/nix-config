@@ -14,7 +14,8 @@ if [ "$CACHIX_COMMAND" == "" ]; then
   nix-env -iA cachix -f https://cachix.org/api/v1/install
 fi
 
-cachix use all-hies
+# cachix use all-hies
+cachix use nix-community
 
 if [ "$HOST" == "" ]; then
   HOST=`hostname`

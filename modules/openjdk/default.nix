@@ -4,7 +4,7 @@
 #   - version
 #   - lowPrio to avoid clashing share/man
 
-{ stdenv, fetchurl, unzip, setJavaClassPath, freetype, lowPrio }:
+{ pkgs, stdenv, fetchurl, unzip, setJavaClassPath, freetype, lowPrio }:
 let
   jce-policies = fetchurl {
     # Ugh, unversioned URLs... I hope this doesn't change often enough to cause pain before we move to a Darwin source build of OpenJDK!
@@ -53,7 +53,7 @@ let
       home = jdk;
     };
 
-    meta = with stdenv.lib; {
+    meta = with pkgs.lib; {
       license = licenses.gpl2;
       platforms = platforms.darwin;
     };

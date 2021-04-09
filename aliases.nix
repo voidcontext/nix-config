@@ -4,8 +4,9 @@
   nsh = "nix-shell";
 
   enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
+  learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
 
-  clean-metals = "rm -rf .metals .bloop project/metals.sbt";
+  clean-metals = "rm -rf .bsp .metals .bloop project/metals.sbt project/.bloop";
 
   java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
 

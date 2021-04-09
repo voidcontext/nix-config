@@ -25,7 +25,7 @@ in
   programs.emacs = {
     enable = true;
     package = pkgs.emacsUnstable;
-    #package = pkgs.emacsGit;
+    # package = pkgs.emacsGit;
     extraPackages = epkgs: with epkgs; [
       # Common
       ag
