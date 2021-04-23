@@ -12,8 +12,8 @@
 
   gcs = "git commit -v -S";
   gdc = "git diff --cached";
-  gbtp = "git branch --merged | grep -v \"\(master\|develop\|\*\)\"";
-  gbpurge	= "git branch --merged | grep -v \"\(master\|develop\|\*\)\" | xargs git branch -d";
+  gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
+  gbpurge	= "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
   gmf = "git merge --ff-only";
   gmfh = "git merge FETCH_HEAD";
   gsl = "git shortlog -s -n";
