@@ -19,6 +19,7 @@ in
 {
   imports = [
     (import ../../modules/itermocil {inherit pkgs;})
+    (import ../../modules/rust {inherit pkgs;})
     (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true;})
   ];
 

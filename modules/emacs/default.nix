@@ -9,6 +9,7 @@ let
     + (readFile ./haskell.el)
     + (readFile ./org.el)
     + (readFile ./clojure.el)
+    + (readFile ./rust.el)
   ;
 in
 {
@@ -93,6 +94,12 @@ in
       paredit
       easy-kill
       clj-refactor
+
+      # Rust
+      rust-mode
+      toml-mode
+      cargo
+      flycheck-rust
     ];
   };
 }
