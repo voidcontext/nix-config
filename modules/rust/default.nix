@@ -2,10 +2,10 @@
 
 {
   home.packages = [
-    pkgs.rustc
     pkgs.cargo
-    pkgs.rls
-    pkgs.rustup
+    pkgs.clippy
+    pkgs.rust-analyzer
+    pkgs.rustc
     pkgs.rustfmt
   ];
 }
