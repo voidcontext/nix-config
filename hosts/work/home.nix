@@ -33,6 +33,7 @@ in
     pkgs.terraform
     pkgs.visualvm
     pkgs.vscode
+    paks.awscli2
     tfswitch
   ];
 }

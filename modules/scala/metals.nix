@@ -13,7 +13,7 @@ let
     "-Dmetals.statistics=all"
     # "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005,quiet=y"
   ];
-  version = "0.10.2";
+  version = "0.10.2+37-8a1799f8-SNAPSHOT";
   build = "1";
   deps = stdenv.mkDerivation {
     name = "${baseName}-deps-${version}";
@@ -27,7 +27,7 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "1yck935pcj9cg3qxzrmvgd16afsckz8wgmzf2rlmii2c1glrbq9c";
+    outputHash     = "0gcr6v0g6wb8qqq06z1z1r60x55wk1wnfwml4m2xx6jyqfrnn6bv";
   };
 in
 stdenv.mkDerivation rec {
