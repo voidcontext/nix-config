@@ -1,6 +1,7 @@
 {
   e = "emacs -nw";
   ec = "emacsclient -nw -a= -s default";
+  reload-zsh = "source ~/.zshrc";
   nsh = "nix-shell";
 
   enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
@@ -26,9 +27,9 @@
   dkps="docker ps";
   dkrma="docker rm -f $(docker ps -a -q)";
 
-  dkc="docker-compose";
-  dkce="docker-compose exec";
-  dkcu="docker-compose up -d";
-  dkcl="docker-compose logs";
-  dkcr="docker-compose stop && docker-compose rm -f && docker-compose up";
+  dkc="docker compose";
+  dkce="docker compose exec";
+  dkcu="docker compose up -d";
+  dkcl="docker compose logs";
+  dkcr="docker compose stop && docker compose rm -f && docker compose up";
 }

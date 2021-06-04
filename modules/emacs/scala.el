@@ -2,7 +2,7 @@
  sbt:program-options '("-Dsbt.supershell=false")
  lsp-metals-server-command "metals-emacs"
  lsp-metals-show-implicit-arguments nil ;; this the default but I'll leave it here as a reminder
- lsp-metals-show-inferred-type t
+; lsp-metals-show-inferred-type t
  dap-auto-configure-features '(sessions locals controls tooltip))
 
 (defun sbt-do-compile ()

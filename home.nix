@@ -14,12 +14,14 @@ let
   zsh-plugins = {
     nix-shell = (fetchGit {
       url = "https://github.com/chisui/zsh-nix-shell.git";
-      rev = "166c86c609a5398453f6386efd70c3cdb66b2058";
+      ref = "master";
+      rev = "0f8b8c0d9d680d12c47e328c2a9e832d40ada1a2";
     });
 
     nix-zsh-completions = (fetchGit {
       url = "https://github.com/spwhitt/nix-zsh-completions.git";
-      rev = "adbf7bf6dd01f2410700fa51cdb31346c8108318";
+      ref = "master";
+      rev = "468d8cf752a62b877eba1a196fbbebb4ce4ebb6f";
     });
 
   };
@@ -57,6 +59,7 @@ in
     pkgs.pstree
     pkgs.pwgen
     pkgs.telnet
+    pkgs.thefuck
     pkgs.tree
     pkgs.watch
     pkgs.wget
@@ -106,13 +109,15 @@ in
     '';
 
     initExtra = ''
-    prompt_nix_shell_setup
+    # prompt_nix_shell_setup
 
     PATH=$HOME/bin:$PATH:/usr/local/bin
 
     [[ $TMUX != "" ]] && export TERM="screen-256color"
 
     export JAVA_HOME=$(readlink -f $(which java) | xargs dirname | xargs dirname)
+
+    eval $(thefuck --alias)
     '' + zshInit;
 
     shellAliases = aliases // extraAliases;
