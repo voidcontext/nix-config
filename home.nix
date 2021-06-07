@@ -45,7 +45,6 @@ in
     pkgs.ag
     pkgs.bashInteractive
     pkgs.coreutils
-    #pkgs.gcc
     pkgs.gnupg
     pkgs.gnused
     pkgs.htop
