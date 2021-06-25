@@ -52,6 +52,7 @@
 (global-set-key (kbd "C-z r r") 'replace-regexp)
 (global-set-key (kbd "C-z r s") 'replace-string)
 (global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
+(global-set-key (kbd "C-x t w") 'delete-trailing-whitespace)
 
 (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
