@@ -13,11 +13,11 @@ let
   };
 
   jdk = stdenv.mkDerivation rec {
-    name = "zulu11.43.55-ca-jdk11.0.9.1";
+    name = "zulu11.48.21-ca-jdk11.0.11";
 
     src = fetchurl {
       url = "https://cdn.azul.com/zulu/bin/${name}-macosx_x64.tar.gz";
-      sha256 = "0qvm20lddfxk7gblmz0wihv8mqs8civi20pslj0xwp1dwra1nw0i";
+      sha256 = "0v0n7h7i04pvna41wpdq2k9qiy70sbbqzqzvazfdvgm3gb22asw6";
       curlOpts = "-H Referer:https://www.azul.com/downloads/zulu/zulu-mac/";
     };
 
