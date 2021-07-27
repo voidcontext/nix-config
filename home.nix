@@ -11,20 +11,6 @@ let
     sha256 = "1gqkvvhr2qjjjqv7hmxl0bk6dg18ywa7icwr6yzw8i6r7sj15fl9";
   });
 
-  zsh-plugins = {
-    nix-shell = (fetchGit {
-      url = "https://github.com/chisui/zsh-nix-shell.git";
-      ref = "master";
-      rev = "0f8b8c0d9d680d12c47e328c2a9e832d40ada1a2";
-    });
-
-    nix-zsh-completions = (fetchGit {
-      url = "https://github.com/spwhitt/nix-zsh-completions.git";
-      ref = "master";
-      rev = "468d8cf752a62b877eba1a196fbbebb4ce4ebb6f";
-    });
-
-  };
   jdk = (pkgs.callPackage ./modules/openjdk {});
 in
 {
@@ -53,6 +39,7 @@ in
     pkgs.mtr
     pkgs.niv
     # pkgs.nix-direnv
+    pkgs.nix-prefetch-git
     pkgs.neofetch
     pkgs.nmap
     pkgs.pstree
@@ -66,8 +53,6 @@ in
   ];
 
   home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
-  home.file.".zsh/custom/plugins/nix-shell".source = zsh-plugins.nix-shell;
-  home.file.".zsh/custom/plugins/nix-zsh-completions".source = zsh-plugins.nix-zsh-completions;
 
   # home.file.".config/direnv/direnvrc".text = ''
   # if [ -f ~/.nix-profile/share/nix-direnv/direnvrc ]; then
@@ -108,7 +93,7 @@ in
     '';
 
     initExtra = ''
-    # prompt_nix_shell_setup
+    prompt_nix_shell_setup
 
     PATH=$HOME/bin:$PATH:/usr/local/bin
 
@@ -127,11 +112,38 @@ in
       PSQL_EDITOR="emacsclient -nw -a= -s psql";
     };
 
+    plugins = [
+      {
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "v0.2.0";
+          sha256 = "1gfyrgn23zpwv1vj37gf28hf5z0ka0w5qm6286a7qixwv7ijnrx9";
+        };
+      }
+
+      {
+        name = "nix-zsh-completions";
+        file = "nix-zsh-completions.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "spwhitt";
+          repo = "nix-zsh-completion";
+          rev = "468d8cf752a62b877eba1a196fbbebb4ce4ebb6f";
+          sha256 = "16r0l7c1jp492977p8k6fcw2jgp6r43r85p6n3n1a53ym7kjhs2d";
+        };
+      }
+    ];
+
     oh-my-zsh = {
       enable = true;
 #      theme = "lambda-mod";
       custom = "$HOME/.zsh/custom/";
-      plugins = ["git" "z" "nix-zsh-completions" "nix-shell" ];
+      plugins = [
+        "git"
+        "z"
+      ];
     };
   };
 
