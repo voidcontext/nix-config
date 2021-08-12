@@ -29,6 +29,7 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-auto-revert-mode 1)
+(winner-mode 1)
 
 ;; buffer local variables
 (setq-default
@@ -47,12 +48,17 @@
 (global-set-key (kbd "C-c C-=") 'hs-show-block)
 (global-set-key (kbd "C-c M--") 'hs-hide-all)
 (global-set-key (kbd "C-c M-=") 'hs-show-all)
+
 (global-set-key (kbd "C-x a a") 'align-regexp)
 (global-set-key (kbd "C-x a s") 'sort-lines)
+(global-set-key (kbd "C-x t w") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-x w s") 'window-swap-states)
+
 (global-set-key (kbd "C-z r r") 'replace-regexp)
 (global-set-key (kbd "C-z r s") 'replace-string)
+
 (global-set-key (kbd "C-c C-d") 'lsp-ui-doc-show)
-(global-set-key (kbd "C-x t w") 'delete-trailing-whitespace)
+
 
 (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
