@@ -72,6 +72,8 @@ in
 
       terraform-mode
 
+      plantuml-mode
+
       sql-indent
 
       # Nix

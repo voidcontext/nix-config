@@ -16,6 +16,9 @@
 
 (setenv "PATH" (concat "$HOME/.nix-profile/bin:" (getenv "PATH")))
 
+(defvar user-home)
+(setq user-home (getenv "HOME"))
+
 (setq-default
  show-trailing-whitespace t)
 
@@ -316,6 +319,13 @@
   :mode "\\.nix\\'")
 
 (use-package terraform-mode)
+
+(use-package plantuml-mode
+  :init
+  (setq plantuml-executable-path (concat user-home "/.nix-profile/bin/plantuml"))
+  (setq plantuml-default-exec-mode 'executable)
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

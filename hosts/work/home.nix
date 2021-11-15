@@ -23,17 +23,12 @@ in
     (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true;})
   ];
 
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "vscode"
-  ];
-
   home.packages = [
     pkgs.postgresql_10
     pkgs.terraform
     pkgs.visualvm
-    pkgs.vscode
     pkgs.awscli2
+    pkgs.plantuml
     tfswitch
   ];
 }
