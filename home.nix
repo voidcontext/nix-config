@@ -6,11 +6,6 @@ let
   aliases = import ./aliases.nix;
   sources = import ./nix/sources.nix;
 
-  lambda-mod-theme = (fetchurl {
-    url = "https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme";
-    sha256 = "1gqkvvhr2qjjjqv7hmxl0bk6dg18ywa7icwr6yzw8i6r7sj15fl9";
-  });
-
   jdk = (pkgs.callPackage ./modules/openjdk {});
 in
 {
@@ -52,14 +47,6 @@ in
     pkgs.yubikey-manager
   ];
 
-  home.file.".zsh/custom/themes/lambda-mod.zsh-theme".source = lambda-mod-theme;
-
-  # home.file.".config/direnv/direnvrc".text = ''
-  # if [ -f ~/.nix-profile/share/nix-direnv/direnvrc ]; then
-  #   source ~/.nix-profile/share/nix-direnv/direnvrc
-  # fi
-  # '';
-
   home.file.".gnupg/gpg-agent.conf".text = ''
   enable-ssh-support
   '';
@@ -77,10 +64,10 @@ in
     '';
 
     initExtraBeforeCompInit = ''
-    if [ -n "$INSIDE_EMACS" ] && [ "$INSIDE_EMACS" != "vterm" ]; then
-      ZSH_THEME="simple"
-    else
-      ZSH_THEME="lambda-mod"
+    ZSH_THEME="simple"
+
+    if [ "$INSIDE_EMACS" != "vterm" ]; then
+        eval "$(starship init zsh)"
     fi
 
     if [ "HM_ZSH_ENV" != "loaded" ]; then
@@ -93,8 +80,6 @@ in
     '';
 
     initExtra = ''
-    prompt_nix_shell_setup
-
     PATH=$HOME/bin:$PATH:/usr/local/bin
 
     [[ $TMUX != "" ]] && export TERM="screen-256color"
@@ -113,17 +98,6 @@ in
     };
 
     plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.2.0";
-          sha256 = "1gfyrgn23zpwv1vj37gf28hf5z0ka0w5qm6286a7qixwv7ijnrx9";
-        };
-      }
-
       {
         name = "nix-zsh-completions";
         file = "nix-zsh-completions.plugin.zsh";
@@ -146,6 +120,113 @@ in
       ];
     };
   };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    # Configuration written to ~/.config/starship.toml
+    settings = {
+      add_newline = true;
+
+      aws = {
+        symbol = "  ";
+      };
+
+  #     conda = {
+  #       symbol = " ";
+  #     };
+
+  #     dart = {
+  #       symbol = " ";
+  #     };
+
+  #     directory = {
+  #       read_only = " ";
+  #     };
+
+      docker_context = {
+        # disabled = true;
+        # symbol = " ";
+      };
+
+  #     elixir = {
+  #       symbol = " ";
+  #     };
+
+  #     elm = {
+  #       symbol = " ";
+  #     };
+
+      git_branch = {
+        symbol = " ";
+      };
+
+  #     golang = {
+  #       symbol = " ";
+  #     };
+
+  #     hg_branch = {
+  #       symbol = " ";
+  #     };
+
+  #     java = {
+  #       symbol = " ";
+  #     };
+
+  #     julia = {
+  #       symbol = " ";
+  #     };
+
+  #     memory_usage = {
+  #       symbol = " ";
+  #     };
+
+  #     nim = {
+  #       symbol = " ";
+  #     };
+
+  #     nix_shell = {
+  #       symbol = " ";
+  #     };
+
+  #     package = {
+  #       symbol = " ";
+  #     };
+
+  #     perl = {
+  #       symbol = " ";
+  #     };
+
+  #     php = {
+  #       symbol = " ";
+  #     };
+
+  #     python = {
+  #       symbol = " ";
+  #     };
+
+  #     ruby = {
+  #       symbol = " ";
+  #     };
+
+  #     rust = {
+  #       symbol = " ";
+  #     };
+
+      scala = {
+        symbol = " ";
+      };
+
+  #     shlvl = {
+  #       symbol = " ";
+  #     };
+
+  #     swift = {
+  #       symbol = "ﯣ ";
+  #     };
+    };
+  };
+
 
   programs.tmux = {
     enable = true;
