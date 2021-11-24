@@ -132,6 +132,11 @@ in
         symbol = "  ";
       };
 
+      character = {
+        # success_symbol = "[λ](bold green)";
+        error_symbol = "[✗](bold red)";
+      };
+
   #     conda = {
   #       symbol = " ";
   #     };
@@ -140,9 +145,10 @@ in
   #       symbol = " ";
   #     };
 
-  #     directory = {
-  #       read_only = " ";
-  #     };
+      directory = {
+        style = "bright-yellow";
+        # read_only = " ";
+      };
 
       docker_context = {
         # disabled = true;
@@ -159,6 +165,17 @@ in
 
       git_branch = {
         symbol = " ";
+        style = "bold blue";
+      };
+
+      git_metrics = {
+        disabled = false;
+        added_style = "italic green";
+        deleted_style = "italic red";
+      };
+
+      git_status = {
+        style = "purple";
       };
 
   #     golang = {
@@ -185,9 +202,10 @@ in
   #       symbol = " ";
   #     };
 
-  #     nix_shell = {
-  #       symbol = " ";
-  #     };
+      nix_shell = {
+        # symbol = " ";
+        format = "via [$symbol(\($name\))]($style) ";
+      };
 
   #     package = {
   #       symbol = " ";
