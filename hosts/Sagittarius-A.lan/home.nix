@@ -30,7 +30,6 @@ in
     pkgs.python3
     pkgs.nodejs
     pkgs.iperf3
-    pkgs.bwm_ng
     pkgs.postgresql_12
   ];
 }

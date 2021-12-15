@@ -25,6 +25,7 @@ in
   home.packages = [
     pkgs.ag
     pkgs.bashInteractive
+    pkgs.bwm_ng
     pkgs.coreutils
     pkgs.gnupg
     pkgs.gnused
