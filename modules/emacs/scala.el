@@ -43,17 +43,17 @@
 (defun sbt-do-it-test-for-buffer()
   "Run test for buffer"
   (interactive)
-  (sbt-command (concat "it:testOnly" " " "*" (scala-spec-file))))
+  (sbt-command (concat "it:testOnly" " " "*." (scala-spec-file))))
 
 (defun sbt-do-test-for-testfile-buffer()
   "Run test for buffer"
   (interactive)
-  (sbt-command (concat "testOnly" " " "*" (scala-test-file))))
+  (sbt-command (concat "testOnly" " " "*." (scala-test-file))))
 
 (defun sbt-do-test-for-specfile-buffer()
   "Run test for buffer"
   (interactive)
-  (sbt-command (concat "testOnly" " " "*" (scala-spec-file))))
+  (sbt-command (concat "testOnly" " " "*." (scala-spec-file))))
 
 
 (defun sbt-do-clean ()

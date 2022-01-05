@@ -21,6 +21,8 @@ if [ "$HOST" == "" ]; then
   HOST=`hostname`
 fi
 
+HOST=`echo $HOST | sed 's/\.\(local\|lan\)//'`
+
 if [ "$HM_HOST" == "" ]; then
   HM_HOST=$HOST
 fi

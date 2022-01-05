@@ -1,4 +1,3 @@
-
 (use-package clojure-mode)
 
 ;(use-package clojure-mode-extra-font-locking)
@@ -61,6 +60,9 @@
 
 ;; Wrap when navigating history.
 (setq cider-repl-wrap-history t)
+
+;; Infer test namespace
+(setq cider-test-infer-test-ns (lambda (ns) ns))
 
 ;; enable paredit in your REPL
 (add-hook 'cider-repl-mode-hook 'paredit-mode)

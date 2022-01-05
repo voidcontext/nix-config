@@ -41,7 +41,7 @@ in
     pkgs.pstree
     pkgs.pwgen
     pkgs.telnet
-    pkgs.thefuck
+#    pkgs.thefuck
     pkgs.tree
     pkgs.watch
     pkgs.wget
@@ -59,9 +59,9 @@ in
     export NIX_IGNORE_SYMLINK_STORE=1
     export HM_ZSH_ENV=loaded
 
-    if [ "$IN_NIX_SHELL" = "" ]; then
-      . $HOME/.nix-profile/etc/profile.d/nix.sh
-    fi
+    # if [ "$IN_NIX_SHELL" = "" ]; then
+    #   . $HOME/.nix-profile/etc/profile.d/nix.sh
+    # fi
     '';
 
     initExtraBeforeCompInit = ''
@@ -87,7 +87,7 @@ in
 
     export JAVA_HOME=$(readlink -f $(which java) | xargs dirname | xargs dirname)
 
-    eval $(thefuck --alias)
+    # eval $(thefuck --alias)
     '' + zshInit;
 
     shellAliases = aliases // extraAliases;
@@ -104,7 +104,7 @@ in
         file = "nix-zsh-completions.plugin.zsh";
         src = pkgs.fetchFromGitHub {
           owner = "spwhitt";
-          repo = "nix-zsh-completion";
+          repo = "nix-zsh-completions";
           rev = "468d8cf752a62b877eba1a196fbbebb4ce4ebb6f";
           sha256 = "16r0l7c1jp492977p8k6fcw2jgp6r43r85p6n3n1a53ym7kjhs2d";
         };
