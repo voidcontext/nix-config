@@ -25,6 +25,7 @@ in
   home.packages = [
     pkgs.ag
     pkgs.bashInteractive
+    pkgs.bat
     pkgs.bwm_ng
     pkgs.coreutils
     pkgs.gnupg
@@ -59,9 +60,9 @@ in
     export NIX_IGNORE_SYMLINK_STORE=1
     export HM_ZSH_ENV=loaded
 
-    # if [ "$IN_NIX_SHELL" = "" ]; then
-    #   . $HOME/.nix-profile/etc/profile.d/nix.sh
-    # fi
+    if [ "$IN_NIX_SHELL" = "" ] && [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+      . $HOME/.nix-profile/etc/profile.d/nix.sh
+    fi
     '';
 
     initExtraBeforeCompInit = ''
