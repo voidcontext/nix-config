@@ -13,13 +13,13 @@ let
     "-Dmetals.statistics=all"
     # "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005,quiet=y"
   ];
-  version = "0.10.9";
+  version = "0.11.0";
   build = "1";
   deps = stdenv.mkDerivation {
     name = "${baseName}-deps-${version}";
     buildCommand = ''
       export COURSIER_CACHE=$(pwd)
-      ${coursier}/bin/coursier fetch org.scalameta:metals_2.12:${version} \
+      ${coursier}/bin/cs fetch org.scalameta:metals_2.12:${version} \
         -r sonatype:snapshots \
         -r "bintray:scalacenter/releases" > deps
       mkdir -p $out/share/java
@@ -27,7 +27,7 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "1990afd9kdycf6qabah488pwsfx9ml44zr33lq3rngy5is12fk37";
+    outputHash     = "0xpdyw88wj81xcj8f2sfxy9vd4dhgpi945fqqbspqd883v3bh6dk";
   };
 in
 stdenv.mkDerivation rec {
