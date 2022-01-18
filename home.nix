@@ -28,6 +28,7 @@ in
     pkgs.bat
     pkgs.bwm_ng
     pkgs.coreutils
+    pkgs.delta
     pkgs.gnupg
     pkgs.gnused
     pkgs.htop
