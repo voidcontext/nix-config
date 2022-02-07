@@ -282,7 +282,10 @@
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-l"
-        lsp-diagnostic-package :flycheck)
+        lsp-diagnostic-package :flycheck
+        lsp-rust-analyzer-proc-macro-enable t
+        lsp-rust-analyzer-experimental-proc-attr-macros t
+        )
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.nix-shell\\'")
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]result\\'")

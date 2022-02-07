@@ -1,9 +1,9 @@
 {config, pkgs, ...}:
 
 let
-  # Extra zsh config to enable sdkman
   zshInit = ''
   export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent
   '';
 
   workspace = "/$HOME/workspace";

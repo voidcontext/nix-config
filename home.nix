@@ -29,6 +29,7 @@ in
     pkgs.bwm_ng
     pkgs.coreutils
     pkgs.delta
+    pkgs.gnugrep
     pkgs.gnupg
     pkgs.gnused
     pkgs.htop
@@ -36,6 +37,7 @@ in
     pkgs.mc
     pkgs.mtr
     pkgs.niv
+    pkgs.nixpkgs-fmt
     # pkgs.nix-direnv
     pkgs.nix-prefetch-git
     pkgs.neofetch
