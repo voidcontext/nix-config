@@ -1,4 +1,4 @@
-{ config, pkgs, zshInit ? "", extraAliases ? {}, hdpi ? false, ... }:
+{ config, pkgs, zshInit ? "", extraAliases ? { }, hdpi ? false, ... }:
 
 with builtins;
 
@@ -6,16 +6,16 @@ let
   aliases = import ./aliases.nix;
   sources = import ./nix/sources.nix;
 
-  jdk = (pkgs.callPackage ./modules/openjdk {});
+  jdk = (pkgs.callPackage ./modules/openjdk { });
 in
 {
   imports = [
-    (import ./modules/adr-tools {inherit pkgs;})
-    (import ./modules/emacs {inherit pkgs; inherit hdpi;})
-    (import ./modules/scala {inherit pkgs; inherit jdk;})
-    (import ./modules/clojure {inherit pkgs; inherit jdk;})
-    (import ./modules/git {inherit pkgs; inherit config;})
-    (import ./modules/bin {inherit pkgs; inherit config;})
+    (import ./modules/adr-tools { inherit pkgs; })
+    (import ./modules/emacs { inherit pkgs; inherit hdpi; })
+    (import ./modules/scala { inherit pkgs; inherit jdk; })
+    (import ./modules/clojure { inherit pkgs; inherit jdk; })
+    (import ./modules/git { inherit pkgs; inherit config; })
+    (import ./modules/bin { inherit pkgs; inherit config; })
   ];
 
   nixpkgs.overlays = [
@@ -45,7 +45,7 @@ in
     pkgs.pstree
     pkgs.pwgen
     pkgs.telnet
-#    pkgs.thefuck
+    #    pkgs.thefuck
     pkgs.tree
     pkgs.watch
     pkgs.wget
@@ -53,45 +53,45 @@ in
   ];
 
   home.file.".gnupg/gpg-agent.conf".text = ''
-  enable-ssh-support
+    enable-ssh-support
   '';
 
   programs.zsh = {
     enable = true;
 
     envExtra = ''
-    export NIX_IGNORE_SYMLINK_STORE=1
-    export HM_ZSH_ENV=loaded
+      export NIX_IGNORE_SYMLINK_STORE=1
+      export HM_ZSH_ENV=loaded
 
-    if [ "$IN_NIX_SHELL" = "" ] && [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-      . $HOME/.nix-profile/etc/profile.d/nix.sh
-    fi
+      if [ "$IN_NIX_SHELL" = "" ] && [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+        . $HOME/.nix-profile/etc/profile.d/nix.sh
+      fi
     '';
 
     initExtraBeforeCompInit = ''
-    ZSH_THEME="simple"
+      ZSH_THEME="simple"
 
-    if [ "$INSIDE_EMACS" != "vterm" ]; then
-        eval "$(starship init zsh)"
-    fi
+      if [ "$INSIDE_EMACS" != "vterm" ]; then
+          eval "$(starship init zsh)"
+      fi
 
-    if [ "HM_ZSH_ENV" != "loaded" ]; then
-      source $HOME/.zshenv
-    fi
+      if [ "HM_ZSH_ENV" != "loaded" ]; then
+        source $HOME/.zshenv
+      fi
 
-    if [ -d ~/.itermocil ]; then
-        compctl -g '~/.itermocil/*(:t:r)' itermocil
-    fi
+      if [ -d ~/.itermocil ]; then
+          compctl -g '~/.itermocil/*(:t:r)' itermocil
+      fi
     '';
 
     initExtra = ''
-    PATH=$HOME/bin:$PATH:/usr/local/bin
+      PATH=$HOME/bin:$PATH:/usr/local/bin
 
-    [[ $TMUX != "" ]] && export TERM="screen-256color"
+      [[ $TMUX != "" ]] && export TERM="screen-256color"
 
-    export JAVA_HOME=$(readlink -f $(which java) | xargs dirname | xargs dirname)
+      export JAVA_HOME=$(readlink -f $(which java) | xargs dirname | xargs dirname)
 
-    # eval $(thefuck --alias)
+      # eval $(thefuck --alias)
     '' + zshInit;
 
     shellAliases = aliases // extraAliases;
@@ -99,7 +99,7 @@ in
     sessionVariables = {
       EDITOR = "emacs -nw";
       PAGER = "less -R";
-      PSQL_EDITOR="emacsclient -nw -a= -s psql";
+      PSQL_EDITOR = "emacsclient -nw -a= -s psql";
     };
 
     plugins = [
@@ -127,7 +127,7 @@ in
 
     oh-my-zsh = {
       enable = true;
-#      theme = "lambda-mod";
+      #      theme = "lambda-mod";
       custom = "$HOME/.zsh/custom/";
       plugins = [
         "git"
@@ -152,13 +152,13 @@ in
         error_symbol = "[✗](bold red)";
       };
 
-  #     conda = {
-  #       symbol = " ";
-  #     };
+      #     conda = {
+      #       symbol = " ";
+      #     };
 
-  #     dart = {
-  #       symbol = " ";
-  #     };
+      #     dart = {
+      #       symbol = " ";
+      #     };
 
       directory = {
         style = "bright-yellow";
@@ -170,13 +170,13 @@ in
         # symbol = " ";
       };
 
-  #     elixir = {
-  #       symbol = " ";
-  #     };
+      #     elixir = {
+      #       symbol = " ";
+      #     };
 
-  #     elm = {
-  #       symbol = " ";
-  #     };
+      #     elm = {
+      #       symbol = " ";
+      #     };
 
       git_branch = {
         symbol = " ";
@@ -193,70 +193,70 @@ in
         style = "purple";
       };
 
-  #     golang = {
-  #       symbol = " ";
-  #     };
+      #     golang = {
+      #       symbol = " ";
+      #     };
 
-  #     hg_branch = {
-  #       symbol = " ";
-  #     };
+      #     hg_branch = {
+      #       symbol = " ";
+      #     };
 
-  #     java = {
-  #       symbol = " ";
-  #     };
+      #     java = {
+      #       symbol = " ";
+      #     };
 
-  #     julia = {
-  #       symbol = " ";
-  #     };
+      #     julia = {
+      #       symbol = " ";
+      #     };
 
-  #     memory_usage = {
-  #       symbol = " ";
-  #     };
+      #     memory_usage = {
+      #       symbol = " ";
+      #     };
 
-  #     nim = {
-  #       symbol = " ";
-  #     };
+      #     nim = {
+      #       symbol = " ";
+      #     };
 
       nix_shell = {
         # symbol = " ";
         format = "via [$symbol(\($name\))]($style) ";
       };
 
-  #     package = {
-  #       symbol = " ";
-  #     };
+      #     package = {
+      #       symbol = " ";
+      #     };
 
-  #     perl = {
-  #       symbol = " ";
-  #     };
+      #     perl = {
+      #       symbol = " ";
+      #     };
 
-  #     php = {
-  #       symbol = " ";
-  #     };
+      #     php = {
+      #       symbol = " ";
+      #     };
 
-  #     python = {
-  #       symbol = " ";
-  #     };
+      #     python = {
+      #       symbol = " ";
+      #     };
 
-  #     ruby = {
-  #       symbol = " ";
-  #     };
+      #     ruby = {
+      #       symbol = " ";
+      #     };
 
-  #     rust = {
-  #       symbol = " ";
-  #     };
+      #     rust = {
+      #       symbol = " ";
+      #     };
 
       scala = {
         symbol = " ";
       };
 
-  #     shlvl = {
-  #       symbol = " ";
-  #     };
+      #     shlvl = {
+      #       symbol = " ";
+      #     };
 
-  #     swift = {
-  #       symbol = "ﯣ ";
-  #     };
+      #     swift = {
+      #       symbol = "ﯣ ";
+      #     };
     };
   };
 

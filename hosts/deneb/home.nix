@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 let
   capabilities = rec {
@@ -7,6 +7,6 @@ let
 in
 {
   imports = [
-    (import ../../home.nix { inherit config;  inherit pkgs; inherit capabilities; })
+    (import ../../home.nix { inherit config; inherit pkgs; inherit capabilities; })
   ];
 }

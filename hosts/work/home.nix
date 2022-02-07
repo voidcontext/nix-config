@@ -1,9 +1,9 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 let
   # Extra zsh config to enable sdkman
   zshInit = ''
-  export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
+    export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
   '';
 
   workspace = "/$HOME/workspace";
@@ -13,14 +13,14 @@ let
     tf = "terraform";
   };
 
-  tfswitch = pkgs.callPackage ../../modules/terraform/tfswitch.nix {};
+  tfswitch = pkgs.callPackage ../../modules/terraform/tfswitch.nix { };
 
 in
 {
   imports = [
-    (import ../../modules/itermocil {inherit pkgs;})
-    (import ../../modules/rust {inherit pkgs;})
-    (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true;})
+    (import ../../modules/itermocil { inherit pkgs; })
+    (import ../../modules/rust { inherit pkgs; })
+    (import ../../home.nix { inherit config; inherit pkgs; inherit zshInit; inherit extraAliases; hdpi = true; })
   ];
 
   home.packages = [

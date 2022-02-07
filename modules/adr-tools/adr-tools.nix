@@ -1,4 +1,4 @@
-{stdenv, pkgs, ...}:
+{ stdenv, pkgs, ... }:
 
 with pkgs;
 
@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-  mkdir -p $out/bin
-  cp -r src/* $out/bin/
+    mkdir -p $out/bin
+    cp -r src/* $out/bin/
   '';
 }
 

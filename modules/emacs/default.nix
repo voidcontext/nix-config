@@ -15,8 +15,8 @@ in
 {
   home.file.".emacs.d/init.el".text =
     (replaceStrings
-      ["@extraConfig@" "@font-size@"]
-      [extraConfig (if hdpi then "120" else "100")]
+      [ "@extraConfig@" "@font-size@" ]
+      [ extraConfig (if hdpi then "120" else "100") ]
       (readFile ./init.el));
 
   home.packages = [

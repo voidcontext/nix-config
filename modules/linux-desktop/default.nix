@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 with builtins;
 
@@ -19,30 +19,30 @@ in
     pkgs.powerline-fonts
   ];
 
-  home.file.".xmobar/xmobarrc".source =  ./xmobarrc;
+  home.file.".xmobar/xmobarrc".source = ./xmobarrc;
   home.file.".xmonad/xmonad.hs".source = ./xmonad.hs;
   home.file.".themes/Earthsong.Xresources".source = xtermTheme;
   home.file.".Xresources".text = ''
-  #include $HOME/.themes/Earthsong.Xresources
+    #include $HOME/.themes/Earthsong.Xresources
 
-  *xterm*faceName: "Monaco for Powerline:antialias=true"
-  *xterm*faceSize: 10
+    *xterm*faceName: "Monaco for Powerline:antialias=true"
+    *xterm*faceSize: 10
 
 
-  Xft.dpi: 96
-  Xft.antialias: 1
-  Xft.hinting: 1
-  Xft.hintstyle: hintslight
-  Xft.rgba: rgb
-  Xft.lcdfilter: lcddefault
+    Xft.dpi: 96
+    Xft.antialias: 1
+    Xft.hinting: 1
+    Xft.hintstyle: hintslight
+    Xft.rgba: rgb
+    Xft.lcdfilter: lcddefault
   '';
 
   home.file.".xsessionrc" = {
     text = ''
-    #!/bin/bash
-    feh --bg-scale /usr/share/backgrounds/Ubuntu_80s_glitch_by_Abubakar_NK.jpg &
+      #!/bin/bash
+      feh --bg-scale /usr/share/backgrounds/Ubuntu_80s_glitch_by_Abubakar_NK.jpg &
 
-    export LOCALE_ARCHIVE="$(nix-build --no-out-link '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive"
+      export LOCALE_ARCHIVE="$(nix-build --no-out-link '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive"
     '';
 
     executable = true;

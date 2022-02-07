@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  adrTools = pkgs.callPackage ./adr-tools.nix {};
+  adrTools = pkgs.callPackage ./adr-tools.nix { };
 in
 {
   home.packages = [

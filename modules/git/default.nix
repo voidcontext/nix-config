@@ -12,19 +12,19 @@ in
   };
 
   home.file.".config/git/ignore".text = ''
-  .DS_Store
-  .ammonite
-  .bloop
-  .bloop/*
-  .bsp
-  .dotbin
-  .envrc
-  .metals
-  .sbt-hydra-history
-  .nix-shell
-  metals.sbt
-  result
-  *.worksheet.sc
+    .DS_Store
+    .ammonite
+    .bloop
+    .bloop/*
+    .bsp
+    .dotbin
+    .envrc
+    .metals
+    .sbt-hydra-history
+    .nix-shell
+    metals.sbt
+    result
+    *.worksheet.sc
   '';
 
   programs.git = {

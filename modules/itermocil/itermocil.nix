@@ -1,4 +1,4 @@
-{pkgs, buildPythonApplication, ...}:
+{ pkgs, buildPythonApplication, ... }:
 
 buildPythonApplication rec {
   name = "itermocil";

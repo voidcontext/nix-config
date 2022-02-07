@@ -1,4 +1,4 @@
-{stdenv, pkgs, jdk, coursier, ...}:
+{ stdenv, pkgs, jdk, coursier, ... }:
 
 with pkgs;
 
@@ -27,7 +27,7 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "c1822e453be43ea4b8484e519e406098b0b098dbfe71807f88f6fd4d88a9f6cd";
+    outputHash = "c1822e453be43ea4b8484e519e406098b0b098dbfe71807f88f6fd4d88a9f6cd";
   };
 in
 stdenv.mkDerivation rec {
