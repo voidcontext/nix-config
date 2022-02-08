@@ -1,4 +1,4 @@
-{ stdenv, pkgs, ... }:
+{ pkgs, ... }:
 
 with pkgs;
 
@@ -17,4 +17,3 @@ stdenv.mkDerivation rec {
     cp -r src/* $out/bin/
   '';
 }
-

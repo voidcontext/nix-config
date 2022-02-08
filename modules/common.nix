@@ -1,27 +1,6 @@
-{ config, pkgs, zshInit ? "", extraAliases ? { }, hdpi ? false, ... }:
+{ config, pkgs, ... }:
 
-with builtins;
-
-let
-  aliases = import ./aliases.nix;
-  sources = import ./nix/sources.nix;
-
-  jdk = (pkgs.callPackage ./modules/openjdk { });
-in
 {
-  imports = [
-    (import ./modules/adr-tools { inherit pkgs; })
-    (import ./modules/emacs { inherit pkgs; inherit hdpi; })
-    (import ./modules/scala { inherit pkgs; inherit jdk; })
-    (import ./modules/clojure { inherit pkgs; inherit jdk; })
-    (import ./modules/git { inherit pkgs; inherit config; })
-    (import ./modules/bin { inherit pkgs; inherit config; })
-  ];
-
-  nixpkgs.overlays = [
-    (import sources.emacs-overlay)
-  ];
-
   home.packages = [
     pkgs.ag
     pkgs.bashInteractive
@@ -38,14 +17,12 @@ in
     pkgs.mtr
     pkgs.niv
     pkgs.nixpkgs-fmt
-    # pkgs.nix-direnv
     pkgs.nix-prefetch-git
     pkgs.neofetch
     pkgs.nmap
     pkgs.pstree
     pkgs.pwgen
     pkgs.telnet
-    #    pkgs.thefuck
     pkgs.tree
     pkgs.watch
     pkgs.wget
@@ -79,9 +56,6 @@ in
         source $HOME/.zshenv
       fi
 
-      if [ -d ~/.itermocil ]; then
-          compctl -g '~/.itermocil/*(:t:r)' itermocil
-      fi
     '';
 
     initExtra = ''
@@ -90,11 +64,42 @@ in
       [[ $TMUX != "" ]] && export TERM="screen-256color"
 
       export JAVA_HOME=$(readlink -f $(which java) | xargs dirname | xargs dirname)
+    '';
 
-      # eval $(thefuck --alias)
-    '' + zshInit;
+    shellAliases = {
+      e = "emacs -nw";
+      ec = "emacsclient -nw -a= -s default";
+      reload-zsh = "source ~/.zshrc";
+      nsh = "nix-shell";
 
-    shellAliases = aliases // extraAliases;
+      enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
+      learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
+
+      clean-metals = "rm -rf .bsp .metals .bloop project/metals.sbt project/.bloop";
+
+      java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
+
+      gcs = "git commit -v -S";
+      gdc = "git diff --cached";
+      gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
+      gbpurge = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
+      gmf = "git merge --ff-only";
+      gmfh = "git merge FETCH_HEAD";
+      gsl = "git shortlog -s -n";
+      gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
+
+      rcd = "cd $(git rev-parse --show-toplevel)";
+
+      dk = "docker";
+      dkps = "docker ps";
+      dkrma = "docker rm -f $(docker ps -a -q)";
+
+      dkc = "docker compose";
+      dkce = "docker compose exec";
+      dkcu = "docker compose up -d";
+      dkcl = "docker compose logs";
+      dkcr = "docker compose stop && docker compose rm -f && docker compose up";
+    };
 
     sessionVariables = {
       EDITOR = "emacs -nw";
@@ -271,7 +276,4 @@ in
     enable = true;
     enableZshIntegration = true;
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

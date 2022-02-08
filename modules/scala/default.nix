@@ -18,8 +18,6 @@ in
     ammonite.shell.Configure(interp, repl, wd)
   '';
 
-  home.file.".itermocil/gen-itermocil.sc".source = ./gen-itermocil.sc;
-
   home.file."bin/sbt" = {
     text = ''
       #!/usr/bin/env sh

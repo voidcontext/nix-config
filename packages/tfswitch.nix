@@ -1,4 +1,4 @@
-{ stdenv, pkgs, ... }:
+{ pkgs, ... }:
 
 with pkgs;
 

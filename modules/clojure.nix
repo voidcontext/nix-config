@@ -1,7 +1,5 @@
 { pkgs, jdk, ... }:
-
 {
-
   home.packages = [
     jdk
     pkgs.visualvm

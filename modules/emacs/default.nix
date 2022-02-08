@@ -1,4 +1,4 @@
-{ pkgs, hdpi ? false, ... }:
+{ pkgs, hdpi, ... }:
 
 with pkgs.lib;
 with builtins;
@@ -33,6 +33,9 @@ in
       multi-term
       use-package
       gruvbox-theme
+      afternoon-theme
+      inkpot-theme
+      kaolin-themes
       vterm
       multi-vterm
       which-key

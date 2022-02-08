@@ -33,6 +33,7 @@
 (scroll-bar-mode -1)
 (global-auto-revert-mode 1)
 (winner-mode 1)
+(global-hl-line-mode 1)
 
 ;; buffer local variables
 (setq-default
@@ -77,6 +78,15 @@
 
 (use-package gruvbox-theme)
 (load-theme 'gruvbox-dark-soft t)
+
+(use-package inkpot-theme)
+(load-theme 'inkpot t t)
+
+(use-package kaolin-themes)
+(load-theme 'kaolin-temple t t)
+
+(use-package afternoon-theme)
+(load-theme 'afternoon t t)
 
 (use-package vterm)
 (add-hook 'vterm-mode-hook
