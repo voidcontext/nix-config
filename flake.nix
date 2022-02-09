@@ -8,21 +8,16 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
   };
 
   outputs = { self, nixpkgs, home-manager, emacs-overlay, ... }@inputs: {
     hmConfig =
       let
-        overlay-unstable = final: prev: {
-          unstable = inputs.nixpkgs-unstable.legacyPackages.${prev.system};
-        };
-
         darwin = {
           system = "x86_64-darwin";
           pkgs = import nixpkgs {
             system = darwin.system;
-            overlays = [ overlay-unstable emacs-overlay.overlay ];
+            overlays = [ emacs-overlay.overlay ];
           };
           jdk = darwin.pkgs.openjdk11_headless;
         };

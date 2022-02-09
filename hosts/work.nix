@@ -8,6 +8,10 @@ let
 in
 {
 
+  programs.zsh.initExtraBeforeCompInit = ''
+    eval "$(${pkgs.lima}/bin/limactl completion zsh)"
+  '';
+
   programs.zsh.initExtra = ''
     export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
   '';
@@ -31,11 +35,8 @@ in
     adr-tools
     tfswitch
 
-    # podman
-    pkgs.unstable.podman
-    pkgs.unstable.podman-compose
+    # lima
+    pkgs.lima
     pkgs.qemu
-    pkgs.xz
-    pkgs.gvproxy
   ];
 }
