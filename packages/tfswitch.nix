@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    tar -zxvf $src 
+    tar -zxvf $src
     cp terraform-switcher $out/bin/
     cp tfswitch $out/bin
   '';

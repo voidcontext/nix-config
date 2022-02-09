@@ -1,9 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, localPackages, ... }:
 
 let
   workspace = "$HOME/workspace";
-
-  tfswitch = import ../packages/tfswitch.nix { inherit pkgs; };
 in
 {
   programs.zsh.initExtra = ''
@@ -19,7 +17,7 @@ in
   home.packages = [
     pkgs.terraform
     pkgs.visualvm
-    tfswitch
+    localPackages.tfswitch
 
     pkgs.python3
     pkgs.nodejs

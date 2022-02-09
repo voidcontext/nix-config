@@ -21,6 +21,9 @@
             overlays = [ emacs-overlay.overlay ];
           };
           jdk = darwin.pkgs.openjdk11_headless;
+          localPackages = import ./packages {
+            pkgs = darwin.pkgs;
+          };
         };
       in
       {
@@ -37,7 +40,7 @@
           ];
           username = "gaborpihaj";
           extraSpecialArgs = {
-            inherit nixpkgs jdk;
+            inherit nixpkgs jdk localPackages;
             hdpi = true;
             nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
           };
@@ -57,7 +60,7 @@
           ];
           username = "gaborpihaj";
           extraSpecialArgs = {
-            inherit nixpkgs jdk;
+            inherit nixpkgs jdk localPackages;
             hdpi = true;
             nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
           };

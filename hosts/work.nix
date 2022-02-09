@@ -1,10 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, localPackages, ... }:
 
 let
   workspace = "$HOME/workspace";
-
-  tfswitch = import ../packages/tfswitch.nix { inherit pkgs; };
-  adr-tools = import ../packages/adr-tools.nix { inherit pkgs; };
 in
 {
 
@@ -32,8 +29,8 @@ in
     pkgs.plantuml
 
     # extra packages
-    adr-tools
-    tfswitch
+    localPackages.adr-tools
+    localPackages.tfswitch
 
     # lima
     pkgs.lima
