@@ -12,7 +12,7 @@ in
   '';
 
   programs.zsh.shellAliases = {
-    p = "cd " + workspace + "/personal";
+    p = "cd ${workspace}/personal";
     tf = "terraform";
   };
 

@@ -51,11 +51,27 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1644330694,
+        "narHash": "sha256-bxfJfDL8nKWR+LOwUf9xoZol8WKcahPS4EbD1U4kLT0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "18a062b02d6eb382714187b06e3bfc3ba25ace78",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
+      }
+    },
     "root": {
       "inputs": {
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }
   },

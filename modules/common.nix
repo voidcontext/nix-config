@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixConfigFlakeDir, ... }:
 
 {
   home.packages = [
@@ -99,6 +99,9 @@
       dkcu = "docker compose up -d";
       dkcl = "docker compose logs";
       dkcr = "docker compose stop && docker compose rm -f && docker compose up";
+
+      nsp = "nix search --inputs-from ${nixConfigFlakeDir} nixpkgs";
+      nsu = "nix search --inputs-from ${nixConfigFlakeDir} nixpkgs-unstable";
     };
 
     sessionVariables = {

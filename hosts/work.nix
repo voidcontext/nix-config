@@ -17,8 +17,8 @@ in
   '';
 
   programs.zsh.shellAliases = {
-    p = "cd " + workspace + "/personal";
-    d = "cd " + workspace + "/work";
+    p = "cd ${workspace}/personal";
+    d = "cd ${workspace}/work";
     tf = "terraform";
     docker = "podman";
     docker-compose = "podman-compose";

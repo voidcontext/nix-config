@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/release-21.11";
+    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:rycee/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -35,7 +36,11 @@
             ./modules/bin
           ];
           username = "gaborpihaj";
-          extraSpecialArgs = { inherit nixpkgs jdk; hdpi = true;};
+          extraSpecialArgs = {
+            inherit nixpkgs jdk;
+            hdpi = true;
+            nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
+          };
         });
         "Sagittarius-A*" = home-manager.lib.homeManagerConfiguration (with darwin; {
           inherit pkgs system;
@@ -51,7 +56,11 @@
             ./modules/rust.nix
           ];
           username = "gaborpihaj";
-          extraSpecialArgs = { inherit nixpkgs jdk; hdpi = true;};
+          extraSpecialArgs = {
+            inherit nixpkgs jdk;
+            hdpi = true;
+            nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
+          };
         });
       };
   };
