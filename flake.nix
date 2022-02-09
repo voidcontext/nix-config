@@ -42,6 +42,22 @@
           username = "gaborpihaj";
           extraSpecialArgs = { inherit nixpkgs jdk; hdpi = true;};
         });
+        "Sagittarius-A*" = home-manager.lib.homeManagerConfiguration (with darwin; {
+          inherit pkgs system;
+          configuration = ./hosts/Sagittarius-A.nix;
+          homeDirectory = /Users/gaborpihaj;
+          extraModules = [
+            ./modules/common.nix
+            ./modules/emacs
+            ./modules/scala
+            ./modules/git
+            ./modules/bin
+            ./modules/clojure.nix
+            ./modules/rust.nix
+          ];
+          username = "gaborpihaj";
+          extraSpecialArgs = { inherit nixpkgs jdk; hdpi = true;};
+        });
       };
   };
 }

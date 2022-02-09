@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  workspace = "/$HOME/workspace";
+  workspace = "$HOME/workspace";
 
   tfswitch = import ../packages/tfswitch.nix { inherit pkgs; };
   adr-tools = import ../packages/adr-tools.nix { inherit pkgs; };
