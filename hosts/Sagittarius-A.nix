@@ -16,7 +16,6 @@ in
 
   home.packages = [
     pkgs.terraform
-    pkgs.visualvm
     localPackages.tfswitch
 
     pkgs.python3

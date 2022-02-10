@@ -2,22 +2,8 @@
 
 with pkgs.lib;
 with builtins;
-
-let
-  extraConfig = ""
-    + (readFile ./scala.el)
-    + (readFile ./haskell.el)
-    + (readFile ./org.el)
-    + (readFile ./clojure.el)
-    + (readFile ./rust.el)
-  ;
-in
 {
-  home.file.".emacs.d/init.el".text =
-    (replaceStrings
-      [ "@extraConfig@" "@font-size@" ]
-      [ extraConfig (if hdpi then "120" else "100") ]
-      (readFile ./init.el));
+  home.file.".emacs.d/init.el".text = (replaceStrings [ "@font-size@" ] [ (if hdpi then "120" else "100") ] (readFile ./init.el));
 
   home.packages = [
     pkgs.ispell
@@ -52,6 +38,7 @@ in
       rainbow-delimiters # color coded parantheses, braces, etc
       rainbow-mode # visualising color-codes like #5d7f2f
       undo-tree
+      paredit
 
       projectile
       treemacs
@@ -84,27 +71,6 @@ in
 
       # Yaml
       yaml-mode
-
-      # Haskell
-      lsp-haskell
-
-      # Scala
-      lsp-metals
-      sbt-mode
-      scala-mode
-
-      # Clojure
-      clojure-mode
-      cider
-      paredit
-      easy-kill
-      clj-refactor
-
-      # Rust
-      rust-mode
-      toml-mode
-      cargo
-      flycheck-rust
     ];
   };
 }

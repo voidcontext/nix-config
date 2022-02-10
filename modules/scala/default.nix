@@ -2,8 +2,16 @@
 
 let
   metals = pkgs.callPackage ./metals.nix { inherit jdk; };
+
+  sbt = pkgs.writeShellScriptBin "sbt" ''
+    ${pkgs.sbt}/bin/sbt -java-home $JAVA_HOME "$@"
+  '';
 in
 {
+  imports = [
+    (import ../internal/java.nix { inherit pkgs jdk; })
+  ];
+
   home.file.".ammonite/predef.sc".text = ''
     interp.load.ivy(
       "com.lihaoyi" %
@@ -18,20 +26,20 @@ in
     ammonite.shell.Configure(interp, repl, wd)
   '';
 
-  home.file."bin/sbt" = {
-    text = ''
-      #!/usr/bin/env sh
-      $HOME/.nix-profile/bin/sbt -java-home $JAVA_HOME "$@"
-    '';
-    executable = true;
-  };
+  # emacs
+  home.file.".emacs.d/init.el".text = (builtins.readFile ./init.el);
+
+  programs.emacs.extraPackages = epkgs: with epkgs; [
+    lsp-metals
+    sbt-mode
+    scala-mode
+  ];
 
   home.packages = [
-    jdk
     pkgs.ammonite
     pkgs.asciinema
     pkgs.coursier
-    pkgs.sbt
+    sbt
     pkgs.visualvm
     pkgs.scalafmt
     pkgs.scalafix
@@ -41,4 +49,8 @@ in
     pkgs.jekyll # for microsite generation
     pkgs.hugo # for site generation (http4s)
   ];
+
+  programs.zsh.shellAliases = {
+    clean-metals = "rm -rf .bsp .metals .bloop project/metals.sbt project/.bloop";
+  };
 }

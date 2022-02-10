@@ -1,6 +1,11 @@
 { config, pkgs, nixConfigFlakeDir, ... }:
 
 {
+  imports = [
+    (import ./bin { inherit pkgs; })
+    (import ./git.nix { inherit config pkgs; })
+  ];
+
   home.packages = [
     pkgs.ag
     pkgs.bashInteractive
@@ -62,8 +67,6 @@
       PATH=$HOME/bin:$PATH:/usr/local/bin
 
       [[ $TMUX != "" ]] && export TERM="screen-256color"
-
-      export JAVA_HOME=$(readlink -f $(which java) | xargs dirname | xargs dirname)
     '';
 
     shellAliases = {
@@ -74,8 +77,6 @@
 
       enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
       learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
-
-      clean-metals = "rm -rf .bsp .metals .bloop project/metals.sbt project/.bloop";
 
       java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
 

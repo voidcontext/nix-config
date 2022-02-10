@@ -21,10 +21,16 @@ in
     docker-compose = "podman-compose";
   };
 
+  home.file.".emacs.d/init.el".text = ''
+    (setq org-todo-keywords
+        '((sequence "TODO" "|" "DONE")
+          (sequence "CODE" "PR" "UAT" "|" "PROD"))
+        org-startup-indented t)
+  '';
+
   home.packages = [
     pkgs.postgresql_10
     pkgs.terraform
-    pkgs.visualvm
     pkgs.awscli2
     pkgs.plantuml
 

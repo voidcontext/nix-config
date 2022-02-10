@@ -3,8 +3,8 @@
 host=$1
 
 if [ -z "$host" ]; then
-    echo "Please provide a host";
-    exit 1;
+  echo "Please provide a host";
+  exit 1;
 fi
 
 
@@ -19,8 +19,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 
 
-CACHIX_COMMAND=`command -v cachix`
-if [ "$CACHIX_COMMAND" == "" ]; then
+if ! command -v cachix; then
   nix-env -iA cachix -f https://cachix.org/api/v1/install
 fi
 

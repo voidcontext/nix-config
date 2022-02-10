@@ -32,11 +32,9 @@
           configuration = ./hosts/work.nix;
           homeDirectory = /Users/gaborpihaj;
           extraModules = [
-            ./modules/common.nix
+            ./modules/common
             ./modules/emacs
             ./modules/scala
-            ./modules/git
-            ./modules/bin
           ];
           username = "gaborpihaj";
           extraSpecialArgs = {
@@ -50,13 +48,11 @@
           configuration = ./hosts/Sagittarius-A.nix;
           homeDirectory = /Users/gaborpihaj;
           extraModules = [
-            ./modules/common.nix
+            ./modules/common
             ./modules/emacs
             ./modules/scala
-            ./modules/git
-            ./modules/bin
-            ./modules/clojure.nix
-            ./modules/rust.nix
+            ./modules/clojure
+            ./modules/rust
           ];
           username = "gaborpihaj";
           extraSpecialArgs = {

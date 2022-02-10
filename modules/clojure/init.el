@@ -14,11 +14,6 @@
 
 ;; Enable paredit for Clojure
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
-(eval-after-load "paredit"
-  '(progn
-     (define-key paredit-mode-map (kbd "M-}") 'paredit-close-curly-and-newline)
-     (define-key paredit-mode-map (kbd "M-]") 'paredit-close-square-and-newline)))
-
 
 ;; This is useful for working with camel-case tokens, like names of
 ;; Java classes (e.g. JavaClassName)

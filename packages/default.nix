@@ -1,10 +1,11 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 
 let
   adr-tools = import ./adr-tools.nix { inherit pkgs; };
   tfswitch = import ./tfswitch.nix { inherit pkgs; };
-in {
+in
+{
   inherit
-   adr-tools
-   tfswitch;
+    adr-tools
+    tfswitch;
 }
