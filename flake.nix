@@ -14,52 +14,45 @@
   outputs = { self, nixpkgs, home-manager, emacs-overlay, ... }@inputs: {
     hmConfig =
       let
-        darwin = {
+        darwin = rec {
           system = "x86_64-darwin";
           pkgs = import nixpkgs {
-            system = darwin.system;
+            inherit system;
             overlays = [ emacs-overlay.overlay ];
           };
-          jdk = darwin.pkgs.openjdk11_headless;
-          localPackages = import ./packages {
-            pkgs = darwin.pkgs;
-          };
+        };
+
+        lib = import ./lib;
+
+        mkDarwinHome = lib.mkSystemHome {
+          inherit nixpkgs home-manager;
+          inherit (darwin) system pkgs;
+          defaultModules = [
+            ../modules/common
+            ../modules/emacs
+          ];
         };
       in
       {
-        work = home-manager.lib.homeManagerConfiguration (with darwin; {
-          inherit pkgs system;
+        work = mkDarwinHome (pkgs: {
+          username = "gaborpihaj";
           configuration = ./hosts/work.nix;
-          homeDirectory = /Users/gaborpihaj;
+          jdk = pkgs.openjdk11_headless;
           extraModules = [
-            ./modules/common
-            ./modules/emacs
             ./modules/scala
           ];
-          username = "gaborpihaj";
-          extraSpecialArgs = {
-            inherit nixpkgs jdk localPackages;
-            hdpi = true;
-            nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
-          };
+          nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
         });
-        "Sagittarius-A*" = home-manager.lib.homeManagerConfiguration (with darwin; {
-          inherit pkgs system;
+        "Sagittarius-A*" = mkDarwinHome (pkgs: {
+          username = "gaborpihaj";
           configuration = ./hosts/Sagittarius-A.nix;
-          homeDirectory = /Users/gaborpihaj;
+          jdk = pkgs.openjdk11_headless;
           extraModules = [
-            ./modules/common
-            ./modules/emacs
             ./modules/scala
             ./modules/clojure
             ./modules/rust
           ];
-          username = "gaborpihaj";
-          extraSpecialArgs = {
-            inherit nixpkgs jdk localPackages;
-            hdpi = true;
-            nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
-          };
+          nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
         });
       };
   };
