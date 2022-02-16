@@ -11,7 +11,7 @@ with builtins;
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsUnstable;
+    package = pkgs.emacsUnstable-nox;
     #package = pkgs.emacsGit;
     extraPackages = epkgs: with epkgs; [
       # Common

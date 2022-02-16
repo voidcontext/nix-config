@@ -1,11 +1,8 @@
 {config, pkgs, ...}:
 
-{
-  home.username = "vdx";
-  home.homeDirectory = "/home/vdx";
-
-  imports = [
+{ 
+   imports = [
     ../../modules/common
-    ../../modules/emacs
+    #../../modules/emacs
   ];
 }

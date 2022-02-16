@@ -92,15 +92,21 @@
             ./hosts/deneb/configuration.nix
             home-manager.nixosModules.home-manager
             {
+	      users.users.vdx.isNormalUser = true;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.vdx = import ./hosts/deneb/home-vdx.nix;
+
+	      home-manager.extraSpecialArgs = {
+	        nixConfigFlakeDir = "/opt/nix-config";
+	        hdpi = false;
+	      };
             }
           ];
         };
 
         # NixOS on a RaspberryPi 4 model B
-        elecra = nixpkgs.lib.nixosSystem { };
+        #elecra = nixpkgs.lib.nixosSystem { };
 
       };
     };
