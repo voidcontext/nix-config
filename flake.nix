@@ -94,7 +94,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.vdx = homeConfigurations."vdx@deneb";
+              home-manager.users.vdx = import ./hosts/deneb/home-vdx.nix;
             }
           ];
         };
