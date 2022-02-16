@@ -28,5 +28,5 @@ cachix use nix-community
 
 cd $DIR/..
 
-nix build .#hmConfig.${host}.activationPackage && result/activate
+nix build ".#homeConfigurations.$(whoami)@${host}.activationPackage" && result/activate
 
