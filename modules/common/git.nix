@@ -40,7 +40,7 @@ in
     };
     extraConfig = {
       core = {
-        pager = "${pkgs.git}/share/git/contrib/diff-highlight/diff-highlight | less -X -F";
+        pager = "${pkgs.delta}/bin/delta";
         editor = "emacsclient -nw -a= -s git";
         hookspath = "${templateDir}/hooks";
       };

@@ -9,10 +9,8 @@
   home.packages = [
     pkgs.ag
     pkgs.bashInteractive
-    pkgs.bat
     pkgs.bwm_ng
     pkgs.coreutils
-    pkgs.delta
     pkgs.gnugrep
     pkgs.gnupg
     pkgs.gnused
@@ -32,6 +30,13 @@
     pkgs.watch
     pkgs.wget
     pkgs.yubikey-manager
+
+    # modern unix
+    pkgs.bat
+    pkgs.delta
+    pkgs.duf
+    pkgs.du-dust
+    pkgs.exa
   ];
 
   home.file.".gnupg/gpg-agent.conf".text = ''
@@ -175,8 +180,8 @@
       };
 
       docker_context = {
-        # disabled = true;
-        # symbol = " ";
+        disabled = false;
+        symbol = " ";
       };
 
       #     elixir = {
