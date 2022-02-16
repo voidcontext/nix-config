@@ -28,8 +28,8 @@
           inherit nixpkgs home-manager;
           inherit (darwin) system pkgs;
           defaultModules = [
-            ../modules/common
-            ../modules/emacs
+            ./modules/common
+            ./modules/emacs
           ];
         };
       in
