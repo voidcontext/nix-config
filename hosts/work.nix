@@ -17,8 +17,6 @@ in
     p = "cd ${workspace}/personal";
     d = "cd ${workspace}/work";
     tf = "terraform";
-    docker = "podman";
-    docker-compose = "podman-compose";
   };
 
   home.file.".emacs.d/init.el".text = ''
@@ -37,9 +35,5 @@ in
     # extra packages
     localPackages.adr-tools
     localPackages.tfswitch
-
-    # lima
-    pkgs.lima
-    pkgs.qemu
   ];
 }
