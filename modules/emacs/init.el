@@ -25,12 +25,8 @@
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 
-(set-face-attribute 'default nil
-                :font "Fira Mono" :height @font-size@ :weight 'regular :width 'regular)
-
 (show-paren-mode 1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 (global-auto-revert-mode 1)
 (winner-mode 1)
 (global-hl-line-mode 1)

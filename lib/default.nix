@@ -1,8 +1,11 @@
 {
-  mkSys = {system, nixpkgs, overlays ? []}:
+  mkSys = { system, nixpkgs, nixpkgs-unstable, overlays ? [ ] }:
     rec {
       inherit system;
       pkgs = import nixpkgs {
+        inherit system overlays;
+      };
+      pkgsUnstable = import nixpkgs-unstable {
         inherit system overlays;
       };
     };

@@ -9,21 +9,26 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    # add github access token in ~/.config/nix/nix.con
+    # access-tokens = github.com=ghp_...
+    nix-config-extras.url = "github:voidcontext/nix-config-extras/1cec1e818dbb6b1d8052b63c14f4eadc76c60738";
+    nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
     let
       lib = import ./lib;
 
       overlays = [ emacs-overlay.overlay ];
 
       darwin = lib.mkSys {
-        inherit nixpkgs overlays;
+        inherit nixpkgs nixpkgs-unstable overlays;
         system = "x86_64-darwin";
       };
 
-      linux64 = lib.mkSys {
-        inherit nixpkgs overlays;
+      linux_x86-64 = lib.mkSys {
+        inherit nixpkgs nixpkgs-unstable overlays;
         system = "x86_64-linux";
       };
 
@@ -33,20 +38,13 @@
         defaultModules = [
           ./modules/common
           ./modules/emacs
+          ./modules/emacs-gui
         ];
       };
 
-      mkLinuxHome = lib.mkSystemHome {
-        inherit nixpkgs home-manager;
-        sys = linux64;
-        defaultModules = [
-          ./modules/common
-          ./modules/emacs
-        ];
-      };
     in
     rec {
-      # home manager configs
+      # Standalone home manager configs, these are for users on not NixOS machines (mainly macos)
       homeConfigurations = {
 
         "gaborpihaj@work" = mkDarwinHome (pkgs: {
@@ -70,39 +68,15 @@
           ];
           nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
         });
-
-        "vdx@deneb" = mkLinuxHome (pkgs: {
-          username = "gaborpihaj";
-          configuration = ./hosts/deneb/home-vdx.nix;
-          jdk = pkgs.openjdk11_headless;
-          nixConfigFlakeDir = "/opt/nix-config";
-        });
-
       };
 
       nixosConfigurations = {
 
         # NixOS VM @ DO
         deneb = nixpkgs.lib.nixosSystem {
-          inherit (linux64) system;
-          specialArgs = inputs // {
-            inherit (linux64) pkgs;
-          };
-          modules = [
-            ./hosts/deneb/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-	      users.users.vdx.isNormalUser = true;
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.vdx = import ./hosts/deneb/home-vdx.nix;
-
-	      home-manager.extraSpecialArgs = {
-	        nixConfigFlakeDir = "/opt/nix-config";
-	        hdpi = false;
-	      };
-            }
-          ];
+          inherit (linux_x86-64) system;
+          specialArgs = inputs // { inherit (linux_x86-64) pkgs pkgsUnstable; };
+          modules = [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B

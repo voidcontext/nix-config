@@ -1,8 +1,8 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
-{ 
-   imports = [
+{
+  imports = [
     ../../modules/common
-    #../../modules/emacs
+    ../../modules/emacs
   ];
 }

@@ -1,9 +1,9 @@
-{ pkgs, hdpi, ... }:
+{ pkgs, ... }:
 
 with pkgs.lib;
 with builtins;
 {
-  home.file.".emacs.d/init.el".text = (replaceStrings [ "@font-size@" ] [ (if hdpi then "120" else "100") ] (readFile ./init.el));
+  home.file.".emacs.d/init.el".text = (readFile ./init.el);
 
   home.packages = [
     pkgs.ispell
