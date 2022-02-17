@@ -25,6 +25,7 @@
         , configuration
         , nixConfigFlakeDir
         , jdk
+        , emacsGui ? true
         , hdpi ? true
         , homeDirectory ? if sys.system == "x86_64-darwin" then "/Users/${username}" else "/home/${username}"
         , extraModules ? [ ]
@@ -39,7 +40,7 @@
           inherit configuration username homeDirectory;
           extraModules = defaultModules ++ extraModules;
           extraSpecialArgs = {
-            inherit nixpkgs jdk localPackages hdpi nixConfigFlakeDir;
+            inherit nixpkgs jdk localPackages emacsGui hdpi nixConfigFlakeDir;
           };
         };
     in

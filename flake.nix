@@ -38,7 +38,6 @@
         defaultModules = [
           ./modules/common
           ./modules/emacs
-          ./modules/emacs-gui
         ];
       };
 

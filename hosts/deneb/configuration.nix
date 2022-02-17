@@ -40,6 +40,8 @@
   home-manager.users.vdx = import ./home-vdx.nix;
 
   home-manager.extraSpecialArgs = {
+    emacsGui = false;
+    hdpi = false;
     nixConfigFlakeDir = "/opt/nix-config";
   };
 

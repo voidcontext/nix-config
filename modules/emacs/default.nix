@@ -1,9 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, emacsGui, hdpi, ... }:
 
 with pkgs.lib;
 with builtins;
 {
-  home.file.".emacs.d/init.el".text = (readFile ./init.el);
+  home.file.".emacs.d/init.el".text = (readFile ./init.el) +
+    (if emacsGui then ''
+      (scroll-bar-mode -1)
+
+      (set-face-attribute 'default nil
+        :font "Fira Mono" :height ${ if hdpi then "120" else "100" } :weight 'regular :width 'regular)
+    ''
+    else "");
 
   home.packages = [
     pkgs.ispell
@@ -11,7 +18,9 @@ with builtins;
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsUnstable-nox;
+    package =
+      if emacsGui then pkgs.emacsUnstable
+      else pkgs.emacsUnstable-nox;
     #package = pkgs.emacsGit;
     extraPackages = epkgs: with epkgs; [
       # Common
