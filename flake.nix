@@ -12,7 +12,7 @@
 
     # add github access token in ~/.config/nix/nix.con
     # access-tokens = github.com=ghp_...
-    nix-config-extras.url = "github:voidcontext/nix-config-extras/1cec1e818dbb6b1d8052b63c14f4eadc76c60738";
+    nix-config-extras.url = "github:voidcontext/nix-config-extras/c3d0695cac7000016f147a26e3b201eccf34a284";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -30,6 +30,11 @@
       linux_x86-64 = lib.mkSys {
         inherit nixpkgs nixpkgs-unstable overlays;
         system = "x86_64-linux";
+      };
+
+      linux_arm64 = lib.mkSys {
+        inherit nixpkgs nixpkgs-unstable overlays;
+        system = "aarch64-linux";
       };
 
       mkDarwinHome = lib.mkSystemHome {
@@ -79,8 +84,11 @@
         };
 
         # NixOS on a RaspberryPi 4 model B
-        #elecra = nixpkgs.lib.nixosSystem { };
-
+        electra = nixpkgs.lib.nixosSystem {
+          inherit (linux_arm64) system;
+          specialArgs = inputs // { inherit (linux_arm64) pkgs pkgsUnstable; };
+          modules = [ ./hosts/electra/configuration.nix ];
+        };
       };
     };
 }

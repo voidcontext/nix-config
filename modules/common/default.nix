@@ -40,7 +40,7 @@
   ];
 
   home.file.".gnupg/gpg-agent.conf".text = ''
-    enable-ssh-support
+#    enable-ssh-support
   '';
 
   programs.zsh = {

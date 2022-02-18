@@ -1,0 +1,14 @@
+;
+; BIND data file for local loopback interface
+;
+$ORIGIN nextcloud.vdx.hu.
+$TTL    1h
+@               IN      SOA	electra.lan. root (
+                                23         ; Serial
+                                8h         ; Refresh
+                                4h         ; Retry
+                                1w         ; Expire
+                                1d )       ; Negative Cache TTL
+;
+	        IN      NS      ns.electra.lan.
+	        IN      A       192.168.24.2

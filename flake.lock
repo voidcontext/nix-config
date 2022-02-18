@@ -60,17 +60,17 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver"
       },
       "locked": {
-        "lastModified": 1645134144,
-        "narHash": "sha256-J3mkyOtaoORaEIc2BrlQsnNL4r9BmvVD/+MqJybAP4E=",
+        "lastModified": 1645216932,
+        "narHash": "sha256-anA8dg7WibCied0CTyjW9cgBsbJ56tBPJan+fPkH8PQ=",
         "owner": "voidcontext",
         "repo": "nix-config-extras",
-        "rev": "1cec1e818dbb6b1d8052b63c14f4eadc76c60738",
+        "rev": "c3d0695cac7000016f147a26e3b201eccf34a284",
         "type": "github"
       },
       "original": {
         "owner": "voidcontext",
         "repo": "nix-config-extras",
-        "rev": "1cec1e818dbb6b1d8052b63c14f4eadc76c60738",
+        "rev": "c3d0695cac7000016f147a26e3b201eccf34a284",
         "type": "github"
       }
     },
