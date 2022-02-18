@@ -40,7 +40,7 @@
           inherit configuration username homeDirectory;
           extraModules = defaultModules ++ extraModules;
           extraSpecialArgs = {
-            inherit nixpkgs jdk localPackages emacsGui hdpi nixConfigFlakeDir;
+            inherit nixpkgs jdk localPackages homeDirectory emacsGui hdpi nixConfigFlakeDir;
           };
         };
     in
