@@ -1,7 +1,7 @@
 { config, pkgs, lib, home-manager, nix-config-extras, ... }:
 
 {
-  imports = nix-config-extras.extraModules.electra ++
+  imports = nix-config-extras.electra.extraModules ++
     [
       # Additional imports
       home-manager.nixosModules.home-manager
