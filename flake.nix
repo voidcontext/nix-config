@@ -14,6 +14,9 @@
     # access-tokens = github.com=ghp_...
     nix-config-extras.url = "github:voidcontext/nix-config-extras/0468eda053d0d38c8521f9a249721ffda5dbc528";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
+
+    blog-beta.url = "github:voidcontext/blog.gaborpihaj.com";
+    blog-beta.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:

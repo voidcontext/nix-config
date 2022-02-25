@@ -16,6 +16,27 @@
         "type": "gitlab"
       }
     },
+    "blog-beta": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1645802017,
+        "narHash": "sha256-yKs2azrBqkB+ECchcrKZeR1VOYj11C80RtC3s1f0tp4=",
+        "owner": "voidcontext",
+        "repo": "blog.gaborpihaj.com",
+        "rev": "889d7a6b05f582a1343895e6cbca7c62a4f67891",
+        "type": "github"
+      },
+      "original": {
+        "owner": "voidcontext",
+        "repo": "blog.gaborpihaj.com",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "locked": {
         "lastModified": 1646272874,
@@ -28,6 +49,21 @@
       "original": {
         "owner": "nix-community",
         "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1644229661,
+        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -151,6 +187,7 @@
     },
     "root": {
       "inputs": {
+        "blog-beta": "blog-beta",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "nix-config-extras": "nix-config-extras",

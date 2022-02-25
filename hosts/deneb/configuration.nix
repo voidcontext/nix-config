@@ -1,12 +1,14 @@
 { pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, ... }:
 {
-  imports = [
-    # DO NOT REMOVE THIS! Default configuration for DO droplet
-    (modulesPath + "/virtualisation/digital-ocean-config.nix")
+  imports = nix-config-extras.extraModules.deneb ++ 
+    [
+      # DO NOT REMOVE THIS! Default configuration for DO droplet
+      (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
-    # Additional imports
-    home-manager.nixosModules.home-manager
-  ] ++ nix-config-extras.extraModules.deneb;
+      # Additional imports
+      home-manager.nixosModules.home-manager
+      ./blog.nix
+    ] ;
 
   # Login / ssh / security
 
@@ -20,6 +22,10 @@
   security.sudo.enable = true;
   security.pam.enableSSHAgentAuth = true;
   security.pam.services.sudo.sshAgentAuth = true;
+
+  # security.acme.email = "admin+acme@gaborpihaj.com";
+
+  networking.firewall.allowedTCPPorts = [443];
 
   # User Management
 
@@ -53,7 +59,7 @@
   '';
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgsUnstable.nix;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
