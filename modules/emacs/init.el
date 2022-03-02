@@ -293,6 +293,7 @@
         lsp-rust-analyzer-experimental-proc-attr-macros t
         )
   :config
+  (advice-add 'lsp :before #'direnv-update-environment)
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.nix-shell\\'")
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]result\\'")
   :hook  (scala-mode . lsp)
