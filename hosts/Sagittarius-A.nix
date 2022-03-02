@@ -58,5 +58,7 @@ in
     pkgs.nodejs
     pkgs.iperf3
     pkgs.postgresql_12
+
+    pkgs.weechat
   ];
 }

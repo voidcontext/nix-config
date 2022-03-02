@@ -20,7 +20,18 @@
     let
       lib = import ./lib;
 
-      overlays = [ emacs-overlay.overlay ];
+      weechatOverlay = self: super:
+        {
+          weechat = super.weechat.override {
+            configure = { availablePlugins, ... }: {
+              scripts = with super.weechatScripts; [
+                weechat-matrix
+              ];
+            };
+          };
+        };
+
+      overlays = [ emacs-overlay.overlay weechatOverlay ];
 
       darwin = lib.mkSys {
         inherit nixpkgs nixpkgs-unstable overlays;
