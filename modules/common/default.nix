@@ -5,7 +5,6 @@
     (import ./bin { inherit pkgs; })
     (import ./git.nix { inherit config pkgs; })
     (import ./fonts.nix { inherit pkgs fontFamily; })
-    (import ./kitty.nix { inherit pkgs fontFamily; })
   ];
 
   home.packages = [

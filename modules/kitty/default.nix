@@ -1,4 +1,4 @@
-{ pkgs, fontFamily }:
+{ pkgs, fontFamily, ... }:
 
 {
   programs.kitty = {
@@ -69,6 +69,4 @@
     '';
 
   };
-
-
 }

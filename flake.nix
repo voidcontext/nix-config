@@ -54,6 +54,7 @@
         defaultModules = [
           ./modules/common
           ./modules/emacs
+          ./modules/kitty
         ];
       };
 
