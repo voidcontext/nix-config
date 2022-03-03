@@ -1,9 +1,11 @@
-{ config, pkgs, nixConfigFlakeDir, ... }:
+{ config, pkgs, nixConfigFlakeDir, fontFamily, ... }:
 
 {
   imports = [
     (import ./bin { inherit pkgs; })
     (import ./git.nix { inherit config pkgs; })
+    (import ./fonts.nix { inherit pkgs fontFamily; })
+    (import ./kitty.nix { inherit pkgs fontFamily; })
   ];
 
   home.packages = [
@@ -40,7 +42,7 @@
   ];
 
   home.file.".gnupg/gpg-agent.conf".text = ''
-#    enable-ssh-support
+    #    enable-ssh-support
   '';
 
   programs.zsh = {

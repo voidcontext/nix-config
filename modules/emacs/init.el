@@ -14,7 +14,17 @@
  read-process-output-max (* 1024 1024)
 )
 
-(setenv "PATH" (concat "$HOME/.nix-profile/bin:" (getenv "PATH")))
+(setenv "PATH" (concat
+                (substitute-in-file-name "$HOME/bin:")
+                (substitute-in-file-name "$HOME/.nix-profile/bin:")
+                (getenv "PATH")))
+
+(setq exec-path (append
+                 (list
+                  (substitute-in-file-name "$HOME/bin")
+                  (substitute-in-file-name "$HOME/.nix-profile/bin"))
+                 exec-path))
+
 
 (defvar user-home)
 (setq user-home (getenv "HOME"))

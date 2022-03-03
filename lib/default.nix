@@ -28,6 +28,7 @@
         , emacsGui ? true
         , hdpi ? true
         , homeDirectory ? if sys.system == "x86_64-darwin" then "/Users/${username}" else "/home/${username}"
+        , fontFamily ? "Iosevka"
         , extraModules ? [ ]
         }:
         let
@@ -40,7 +41,7 @@
           inherit configuration username homeDirectory;
           extraModules = defaultModules ++ extraModules;
           extraSpecialArgs = {
-            inherit nixpkgs jdk localPackages homeDirectory emacsGui hdpi nixConfigFlakeDir;
+            inherit nixpkgs jdk localPackages homeDirectory emacsGui hdpi nixConfigFlakeDir fontFamily;
           };
         };
     in

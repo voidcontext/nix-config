@@ -1,4 +1,4 @@
-{ pkgs, emacsGui, hdpi, ... }:
+{ pkgs, emacsGui, hdpi, fontFamily, ... }:
 
 with pkgs.lib;
 with builtins;
@@ -8,7 +8,7 @@ with builtins;
       (scroll-bar-mode -1)
 
       (set-face-attribute 'default nil
-        :font "Fira Mono" :height ${ if hdpi then "120" else "100" } :weight 'regular :width 'regular)
+        :font "${fontFamily} Nerd Font Mono" :height ${ if hdpi then "130" else "110" } :weight 'regular :width 'regular)
     ''
     else "");
 
