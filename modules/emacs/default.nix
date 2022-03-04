@@ -10,7 +10,10 @@ with builtins;
       (set-face-attribute 'default nil
         :font "${fontFamily} Nerd Font Mono" :height ${ if hdpi then "130" else "110" } :weight 'regular :width 'regular)
     ''
-    else "");
+    else "") + ''
+    (setenv "SHELL" "${pkgs.zsh}/bin/zsh")
+    (setenv "_" (substitute-in-file-name "$HOME/.nix-profile/bin/env"))
+    '';
 
   home.packages = [
     pkgs.ispell

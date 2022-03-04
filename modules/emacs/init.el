@@ -17,12 +17,14 @@
 (setenv "PATH" (concat
                 (substitute-in-file-name "$HOME/bin:")
                 (substitute-in-file-name "$HOME/.nix-profile/bin:")
+                "/nix/var/nix/profiles/default/bin:"
                 (getenv "PATH")))
 
 (setq exec-path (append
                  (list
                   (substitute-in-file-name "$HOME/bin")
-                  (substitute-in-file-name "$HOME/.nix-profile/bin"))
+                  (substitute-in-file-name "$HOME/.nix-profile/bin")
+                  "/nix/var/nix/profiles/default/bin")
                  exec-path))
 
 
