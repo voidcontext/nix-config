@@ -81,6 +81,7 @@
             ./modules/scala
             ./modules/clojure
             ./modules/rust
+            ./modules/lima
           ];
           nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
         });

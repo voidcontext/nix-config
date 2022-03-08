@@ -42,6 +42,7 @@
           extraModules = defaultModules ++ extraModules;
           extraSpecialArgs = {
             inherit nixpkgs jdk localPackages homeDirectory emacsGui hdpi nixConfigFlakeDir fontFamily;
+            inherit (sys) pkgsUnstable;
           };
         };
     in
