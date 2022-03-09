@@ -3,21 +3,18 @@
 {
   programs.zsh.plugins = [
     {
-      name = "zsh-tab-title";
+      name = "zsh-window-title";
       src = pkgs.fetchFromGitHub {
-        owner = "trystan2k";
-        repo = "zsh-tab-title";
-        rev = "v2.3.1";
-        sha256 = "137mfwx52cg97qy3xvvnp8j5jns6hi20r39agms54rrwqyr1918f";
+        owner = "olets";
+        repo = "zsh-window-title";
+        rev = "v1.0.2";
+        sha256 = "1vvzxqcfwksq429l1n6sahb18rp6pk4lss8ihn5fs8cwiw6ykwkr";
       };
     }
   ];
 
   programs.zsh.initExtraBeforeCompInit = ''
-    # DISABLE_AUTO_TITLE="true"
-
-    ZSH_TAB_TITLE_ADDITIONAL_TERMS='kitty'
-    ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
+    DISABLE_AUTO_TITLE="true"
   '';
 
   programs.kitty = {
