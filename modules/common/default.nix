@@ -19,7 +19,7 @@
     pkgs.jq
     pkgs.mc
     pkgs.mtr
-    pkgs.niv
+#    pkgs.niv
     pkgs.nixpkgs-fmt
     pkgs.nix-prefetch-git
     pkgs.neofetch
@@ -76,6 +76,11 @@
     '';
 
     shellAliases = {
+      ls = "exa";
+      la = "exa -la";
+      df = "duf";
+      du = "dunst";
+
       e = "emacs -nw";
       ec = "emacsclient -nw -a= -s default";
       reload-zsh = "source ~/.zshrc";
