@@ -1,6 +1,25 @@
 { pkgs, fontFamily, ... }:
 
 {
+  programs.zsh.plugins = [
+    {
+      name = "zsh-tab-title";
+      src = pkgs.fetchFromGitHub {
+        owner = "trystan2k";
+        repo = "zsh-tab-title";
+        rev = "v2.3.1";
+        sha256 = "137mfwx52cg97qy3xvvnp8j5jns6hi20r39agms54rrwqyr1918f";
+      };
+    }
+  ];
+
+  programs.zsh.initExtraBeforeCompInit = ''
+    # DISABLE_AUTO_TITLE="true"
+
+    ZSH_TAB_TITLE_ADDITIONAL_TERMS='kitty'
+    ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
+  '';
+
   programs.kitty = {
     enable = true;
 
@@ -9,15 +28,19 @@
 
     settings = {
       tab_bar_style = "powerline";
+      copy_on_select = "yes";
       macos_thicken_font = "0.3";
       macos_option_as_alt = "yes";
     };
 
     # theme = "Gruvbox Dark";
     extraConfig = ''
+      map ctrl+shift+i debug_config
+
       map ctrl+cmd+t goto_layout tall
       map ctrl+cmd+s goto_layout stack
       map ctrl+cmd+g goto_layout grid
+      map ctrl+cmd+a goto_layout fat
       map ctrl+cmd+p last_used_layout
 
       # Gruvbox dark
