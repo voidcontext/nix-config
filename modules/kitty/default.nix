@@ -21,7 +21,7 @@
     enable = true;
 
     font.name = "${fontFamily} Nerd Font Mono";
-    font.size = 13;
+    font.size = 14;
 
     settings = {
       tab_bar_style = "powerline";

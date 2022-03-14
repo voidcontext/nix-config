@@ -8,11 +8,10 @@ with builtins;
       (scroll-bar-mode -1)
 
       (set-face-attribute 'default nil
-        :font "${fontFamily} Nerd Font Mono" :height ${ if hdpi then "130" else "110" } :weight 'regular :width 'regular)
+        :font "${fontFamily} Nerd Font Mono" :height ${ if hdpi then "140" else "120" } :weight 'regular :width 'regular)
     ''
     else "") + ''
     (setenv "SHELL" "${pkgs.zsh}/bin/zsh")
-    (setenv "_" (substitute-in-file-name "$HOME/.nix-profile/bin/env"))
     '';
 
   home.packages = [
