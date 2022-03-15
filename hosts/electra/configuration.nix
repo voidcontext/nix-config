@@ -168,13 +168,14 @@
     };
   };
 
-  services.openvpn.servers = {
-    vdxHU = { config = '' config /etc/nixos/antares-vdxhu.ovpn ''; };
-  };
-
   services.cron = {
     enable = true;
   };
+
+
+  services.nginx.enable = true;
+  services.nginx.recommendedProxySettings = true;
+  services.nginx.recommendedTlsSettings = true;
 
   services.nextcloud = {
     enable = true;

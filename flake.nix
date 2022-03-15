@@ -12,7 +12,7 @@
 
     # add github access token in ~/.config/nix/nix.con
     # access-tokens = github.com=ghp_...
-    nix-config-extras.url = "github:voidcontext/nix-config-extras/c8535f4d4200b01c446a8be7ce21abf0bcb57908";
+    nix-config-extras.url = "github:voidcontext/nix-config-extras/0468eda053d0d38c8521f9a249721ffda5dbc528";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
   };
 
