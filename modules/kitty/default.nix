@@ -40,6 +40,9 @@
       map ctrl+cmd+a goto_layout fat
       map ctrl+cmd+p last_used_layout
 
+      map cmd+equal change_font_size all +1.0
+      map cmd+minus change_font_size all -1.0
+
       # Gruvbox dark
       background            #282828
       foreground            #ebdbb2
