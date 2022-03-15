@@ -48,6 +48,7 @@
   home-manager.extraSpecialArgs = {
     emacsGui = false;
     hdpi = false;
+    fontFamily = "nonexistent";
     nixConfigFlakeDir = "/opt/nix-config";
   };
 
