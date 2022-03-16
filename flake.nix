@@ -5,6 +5,9 @@
     nixpkgs.url = "nixpkgs/release-21.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:rycee/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -19,7 +22,7 @@
     blog-beta.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
+  outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
     let
       lib = import ./lib;
 
@@ -36,7 +39,7 @@
 
       overlays = [ emacs-overlay.overlay weechatOverlay ];
 
-      darwin = lib.mkSys {
+      darwin_x86_64 = lib.mkSys {
         inherit nixpkgs nixpkgs-unstable overlays;
         system = "x86_64-darwin";
       };
@@ -53,7 +56,7 @@
 
       mkDarwinHome = lib.mkSystemHome {
         inherit nixpkgs home-manager;
-        sys = darwin;
+        sys = darwin_x86_64;
         defaultModules = [
           ./modules/common
           ./modules/emacs
@@ -88,6 +91,18 @@
           ];
           nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
         });
+      };
+
+      darwinConfigurations = {
+        "Sagittarius-A" = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          specialArgs = inputs // {
+            inherit (darwin_x86_64) pkgs pkgsUnstable;
+          };
+          modules = [
+            ./hosts/Sagittarius-A/configuration.nix
+          ];
+        };
       };
 
       nixosConfigurations = {
