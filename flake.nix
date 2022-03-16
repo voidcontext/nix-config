@@ -98,13 +98,15 @@
         specialArgs = inputs // {
           inherit localLib;
           inherit (darwin_x86_64) pkgs pkgsUnstable;
+          localPackages = import ./packages { inherit (darwin_x86_64) pkgs; };
+
         };
       };
 
       defaultSystemModules = [
         ./modules/system/base
         home-manager.darwinModules.home-manager
-        ({config, ...}: {
+        ({config, pkgsUnstable, localPackages, ...}: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
@@ -117,7 +119,7 @@
             ./modules/home/virtualization/lima
           ];
           home-manager.extraSpecialArgs = {
-            inherit localLib;
+            inherit localLib pkgsUnstable localPackages;
             systemConfig = config;
           };
         })

@@ -39,10 +39,6 @@ in
 
   programs.zsh.initExtra = ''
     export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
-
-    # TODO: move these to their respective module
-    update_symlink $HOME/Applications/Emacs.app ${config.programs.emacs.finalPackage}/Applications/Emacs.app
-    update_symlink $HOME/Applications/kitty.app ${pkgs.kitty}/Applications/kitty.app
   '';
 
   programs.zsh.shellAliases = {

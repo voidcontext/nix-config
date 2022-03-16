@@ -28,17 +28,7 @@
 
   users.users.gaborpihaj.home = "/Users/gaborpihaj";
 
-  home-manager.users.gaborpihaj = import ./Sagittarius-A.nix;
-
-  home-manager.extraSpecialArgs = {
-    inherit pkgsUnstable;
-    localPackages = import ../../packages { inherit pkgs; };
-    fontFamily = "Iosevka";
-    jdk = pkgs.openjdk11_headless;
-    emacsGui = true;
-    hdpi = true;
-    nixConfigFlakeDir = "/Users/gaborpihaj/workspace/personal/nix-config";
-  };
+  home-manager.users.gaborpihaj = import ./home-gaborpihaj.nix;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

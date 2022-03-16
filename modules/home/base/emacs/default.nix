@@ -1,4 +1,4 @@
-{ systemConfig, lib, pkgs, ... }:
+{ systemConfig, lib, pkgs, config, ... }:
 
 with lib;
 with builtins;
@@ -18,6 +18,10 @@ in
 
       home.file.".emacs.d/init.el".text = (readFile ./init.el) + ''
         (setenv "SHELL" "${pkgs.zsh}/bin/zsh")
+      '';
+
+      programs.zsh.initExtra = ''
+        update_symlink $HOME/Applications/Emacs.app ${config.programs.emacs.finalPackage}/Applications/Emacs.app
       '';
 
       programs.emacs = {

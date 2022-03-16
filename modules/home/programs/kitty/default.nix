@@ -1,4 +1,4 @@
-{ lib, pkgs, systemConfig, ... }:
+{ lib, pkgs, config, systemConfig, ... }:
 
 with lib;
 {
@@ -18,6 +18,11 @@ with lib;
     programs.zsh.initExtraBeforeCompInit = ''
       DISABLE_AUTO_TITLE="true"
     '';
+
+    programs.zsh.initExtra = ''
+    update_symlink $HOME/Applications/Emacs.app ${config.programs.emacs.finalPackage}/Applications/Emacs.app
+    '';
+
 
     programs.kitty = {
       enable = true;
