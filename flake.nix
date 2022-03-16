@@ -109,6 +109,12 @@
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
             ./modules/home/base
+            ./modules/home/development/clojure
+            ./modules/home/development/java
+            ./modules/home/development/rust
+            ./modules/home/development/scala
+            ./modules/home/programs/kitty
+            ./modules/home/virtualization/lima
           ];
           home-manager.extraSpecialArgs = {
             inherit localLib;
