@@ -1,4 +1,8 @@
 ;; global variables
+
+(defvar user-profile-bin)
+(setq user-profile-bin (substitute-in-file-name "/etc/profiles/per-user/$USER/bin"))
+
 (setq
  inhibit-startup-screen t
  create-lockfiles nil
@@ -9,27 +13,23 @@
  sentence-end-double-space nil
  mac-command-modifier 'super
  show-paren-delay 0
- multi-term-program (substitute-in-file-name "${HOME}/.nix-profile/bin/zsh")
+ multi-term-program (concat user-profile-bin "/zsh")
  gc-cons-threshold 100000000
  read-process-output-max (* 1024 1024)
 )
 
 (setenv "PATH" (concat
                 (substitute-in-file-name "$HOME/bin:")
-                (substitute-in-file-name "$HOME/.nix-profile/bin:")
+                (concat user-profile-bin ":")
                 "/nix/var/nix/profiles/default/bin:"
                 (getenv "PATH")))
 
 (setq exec-path (append
                  (list
                   (substitute-in-file-name "$HOME/bin")
-                  (substitute-in-file-name "$HOME/.nix-profile/bin")
+                  user-profile-bin
                   "/nix/var/nix/profiles/default/bin")
                  exec-path))
-
-
-(defvar user-home)
-(setq user-home (getenv "HOME"))
 
 (setq-default
  show-trailing-whitespace t)
@@ -346,7 +346,7 @@
 
 (use-package plantuml-mode
   :init
-  (setq plantuml-executable-path (concat user-home "/.nix-profile/bin/plantuml"))
+  (setq plantuml-executable-path (concat user-profile-bin "/plantuml"))
   (setq plantuml-default-exec-mode 'executable)
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 )
