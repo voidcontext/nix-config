@@ -24,7 +24,7 @@
 
   outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
     let
-      lib = import ./lib;
+      localLib = import ./lib;
 
       weechatOverlay = self: super:
         {
@@ -39,22 +39,22 @@
 
       overlays = [ emacs-overlay.overlay weechatOverlay ];
 
-      darwin_x86_64 = lib.mkSys {
+      darwin_x86_64 = localLib.mkSys {
         inherit nixpkgs nixpkgs-unstable overlays;
         system = "x86_64-darwin";
       };
 
-      linux_x86-64 = lib.mkSys {
+      linux_x86-64 = localLib.mkSys {
         inherit nixpkgs nixpkgs-unstable overlays;
         system = "x86_64-linux";
       };
 
-      linux_arm64 = lib.mkSys {
+      linux_arm64 = localLib.mkSys {
         inherit nixpkgs nixpkgs-unstable overlays;
         system = "aarch64-linux";
       };
 
-      mkDarwinHome = lib.mkSystemHome {
+      mkDarwinHome = localLib.mkSystemHome {
         inherit nixpkgs home-manager;
         sys = darwin_x86_64;
         defaultModules = [
@@ -65,7 +65,7 @@
       };
 
     in
-    rec {
+    {
       # Standalone home manager configs, these are for users on not NixOS machines (mainly macos)
       homeConfigurations = {
 
@@ -93,16 +93,39 @@
         });
       };
 
-      darwinConfigurations = {
-        "Sagittarius-A" = darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
-          specialArgs = inputs // {
-            inherit (darwin_x86_64) pkgs pkgsUnstable;
-          };
-          modules = [
-            ./hosts/Sagittarius-A/configuration.nix
-          ];
+      darwinDefaults = {
+        system = "x86_64-darwin";
+        specialArgs = inputs // {
+          inherit localLib;
+          inherit (darwin_x86_64) pkgs pkgsUnstable;
         };
+      };
+
+      defaultSystemModules = [
+        ./modules/system/base
+        home-manager.darwinModules.home-manager
+        ({config, ...}: {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.sharedModules = [
+            ./modules/home/base
+          ];
+          home-manager.extraSpecialArgs = {
+            inherit localLib;
+            systemConfig = config;
+          };
+        })
+      ];
+
+      darwinConfigurations = {
+        "Sagittarius-A" = darwin.lib.darwinSystem (
+          self.darwinDefaults //
+          {
+            modules =
+              self.defaultSystemModules ++
+              [./hosts/Sagittarius-A/configuration.nix];
+          }
+        );
       };
 
       nixosConfigurations = {

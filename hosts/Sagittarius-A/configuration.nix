@@ -1,14 +1,23 @@
-{ pkgs, pkgsUnstable, home-manager,  ... }:
+{ pkgs, pkgsUnstable, home-manager, ... }:
 {
 
-  imports = [
-    home-manager.darwinModules.home-manager
-  ];
+  # Bespoke Options
+
+  base.font.enable = true;
+  base.font.family = "Iosevka";
+
+  base.headless = false;
+  base.hdpi = true;
+
+  base.nixConfigFlakeDir = "/Users/gaborpihaj/workspace/personal/nix-config";
+
+  # Upstream options
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
-  [
-  ];
+    [
+    ];
 
   # https://github.com/nix-community/home-manager/issues/423
   environment.variables = {
@@ -17,22 +26,18 @@
 
   programs.zsh.enable = true;
 
-  users.users.gaborpihaj = {
-    home = "/Users/gaborpihaj";
-  };
+  users.users.gaborpihaj.home = "/Users/gaborpihaj";
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
   home-manager.users.gaborpihaj = import ./Sagittarius-A.nix;
 
   home-manager.extraSpecialArgs = {
     inherit pkgsUnstable;
-     localPackages = import ../../packages {inherit pkgs; };
-     fontFamily = "Iosevka";
-     jdk = pkgs.openjdk11_headless;
-     emacsGui = true;
-     hdpi = true;
-     nixConfigFlakeDir = "/Users/gaborpihaj/workspace/personal/nix-config";
+    localPackages = import ../../packages { inherit pkgs; };
+    fontFamily = "Iosevka";
+    jdk = pkgs.openjdk11_headless;
+    emacsGui = true;
+    hdpi = true;
+    nixConfigFlakeDir = "/Users/gaborpihaj/workspace/personal/nix-config";
   };
 
   # Auto upgrade nix package and the daemon service.

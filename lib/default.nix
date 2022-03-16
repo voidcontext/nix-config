@@ -48,4 +48,7 @@
     in
     mkHome (configure sys.pkgs);
 
+  optionalStr = cond: str:
+    if cond then str
+    else  "";
 }
