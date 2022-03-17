@@ -174,7 +174,7 @@
     enable = true;
   };
 
-    systemd.services.tun-deneb = {
+  systemd.services.tun-deneb = {
     description = "SSH Tunnel to deneb";
     after = [ "network.target" ];
 
