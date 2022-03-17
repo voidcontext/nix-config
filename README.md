@@ -1,29 +1,13 @@
 # nix-config
 
-## Basics
+Darwin:
 
-To update arbitrary host run
-
-```bash
-$ bin/hm-switch.sh
+```
+$ nix build .#darwinConfigurations.$HOST.system && ./result/sw/bin/darwin-rebuild switch --flake .
 ```
 
-To update work laptop run
+Linux:
 
-```bash
-$ HM_HOST=work bin/hm-switch.sh
 ```
-
-## Mac specific
-
-To install fira code font
-
-```bash
-$ brew tap homebrew/cask-fonts
-$ brew cask install font-fira-code
+$ sudo nixos-rebuild switch --flake '/opt/nix-config#$HOST'
 ```
-
-
-## Troubleshooting
-
-- hie doesn't work properly -> run `nix-shell -I ~ --command 'hpack && cabal configure'`
