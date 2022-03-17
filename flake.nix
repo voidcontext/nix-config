@@ -136,14 +136,14 @@
         deneb = nixpkgs.lib.nixosSystem {
           inherit (linux_x86-64) system;
           specialArgs = inputs // { inherit (linux_x86-64) pkgs pkgsUnstable; };
-          modules = self.defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
+          modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (linux_arm64) system;
           specialArgs = inputs // { inherit (linux_arm64) pkgs pkgsUnstable; };
-          modules = self.defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
+          modules = defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
     };
