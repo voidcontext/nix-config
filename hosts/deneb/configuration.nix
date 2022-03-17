@@ -19,6 +19,11 @@
       ./blog.nix
     ];
 
+  # https://github.com/nix-community/home-manager/issues/423
+  environment.variables = {
+    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+  };
+
   # Login / ssh / security
 
   services.openssh.passwordAuthentication = false;
@@ -48,10 +53,12 @@
     ];
   };
 
+  users.users.tun = {
+    isNormalUser = true;
+  };
+
   # Home manager
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
   home-manager.users.vdx = import ./home-vdx.nix;
 
   home-manager.extraSpecialArgs = {
