@@ -185,7 +185,7 @@
       User = "tun";
 
       ExecStart = ''
-        ${pkgs.openssh}/bin/ssh -i /home/tun/.ssh/id_rsa -R 5522:localhost:22 tun@vdx.hu -p5422 -N
+        ${pkgs.openssh}/bin/ssh -i /home/tun/.ssh/id_rsa -R 5522:localhost:22 tun@vdx.hu -p5422 -N -o ServerAliveInterval=30 -o ServerAliveCountMax=3
       '';
 
       Restart = "on-failure";
