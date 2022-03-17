@@ -20,10 +20,6 @@ in
         (setenv "SHELL" "${pkgs.zsh}/bin/zsh")
       '';
 
-      programs.zsh.initExtra = ''
-        update_symlink $HOME/Applications/Emacs.app ${config.programs.emacs.finalPackage}/Applications/Emacs.app
-      '';
-
       programs.emacs = {
         enable = true;
         inherit package;
@@ -92,6 +88,11 @@ in
     }
 
     # Optionals
+    (mkIf pkgs.stdenv.isDarwin {
+      programs.zsh.initExtra = ''
+        update_symlink $HOME/Applications/Emacs.app ${config.programs.emacs.finalPackage}/Applications/Emacs.app
+      '';
+    })
 
     (mkIf (!systemConfig.base.headless) {
       home.file.".emacs.d/init.el".text = ''
