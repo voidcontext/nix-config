@@ -79,7 +79,7 @@
     };
   };
 
-# Login / ssh / security
+  # Login / ssh / security
 
   programs.ssh.extraConfig = ''
     IPQoS cs0 cs0
@@ -96,7 +96,7 @@
   security.pam.enableSSHAgentAuth = true;
   security.pam.services.sudo.sshAgentAuth = true;
 
-# users
+  # users
 
   users.mutableUsers = false;
   users.users = {

@@ -1,4 +1,4 @@
-{config, ...}:
+{ config, ... }:
 
 {
   environment.systemPackages = [

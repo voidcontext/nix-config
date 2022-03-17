@@ -17,7 +17,7 @@
 
       # Additional imports
       ./blog.nix
-    ] ;
+    ];
 
   # Login / ssh / security
 
@@ -34,7 +34,7 @@
 
   # security.acme.email = "admin+acme@gaborpihaj.com";
 
-  networking.firewall.allowedTCPPorts = [443];
+  networking.firewall.allowedTCPPorts = [ 443 ];
 
   # User Management
 

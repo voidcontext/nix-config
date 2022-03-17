@@ -68,7 +68,7 @@
       defaultSystemModules = [
         ./modules/system/base
         home-manager.darwinModules.home-manager
-        ({config, pkgsUnstable, localPackages, ...}: {
+        ({ config, pkgsUnstable, localPackages, ... }: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
@@ -93,7 +93,7 @@
           {
             modules =
               self.defaultSystemModules ++
-              [./hosts/Sagittarius-A/configuration.nix];
+              [ ./hosts/Sagittarius-A/configuration.nix ];
           }
         );
 
@@ -102,7 +102,7 @@
           {
             modules =
               self.defaultSystemModules ++
-              [./hosts/Sagittarius-A/configuration.nix];
+              [ ./hosts/Sagittarius-A/configuration.nix ];
           }
         );
       };

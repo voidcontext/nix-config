@@ -1,4 +1,4 @@
-{pkgs, blog-beta, ...}:
+{ pkgs, blog-beta, ... }:
 
 {
   services.nginx.virtualHosts."beta.gaborpihaj.com" = {

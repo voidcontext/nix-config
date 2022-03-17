@@ -12,5 +12,5 @@
 
   optionalStr = cond: str:
     if cond then str
-    else  "";
+    else "";
 }
