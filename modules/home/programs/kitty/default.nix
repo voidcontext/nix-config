@@ -20,9 +20,8 @@ with lib;
     '';
 
     programs.zsh.initExtra = ''
-      update_symlink $HOME/Applications/Emacs.app ${config.programs.emacs.finalPackage}/Applications/Emacs.app
+      update_symlink $HOME/Applications/kitty.app ${pkgs.kitty}/Applications/Kitty.app
     '';
-
 
     programs.kitty = {
       enable = true;
