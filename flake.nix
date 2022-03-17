@@ -125,7 +125,7 @@
           {
             modules =
               defaultDarwinSystemModules ++
-              [ ./hosts/Sagittarius-A/configuration.nix ];
+              [ ./hosts/work/configuration.nix ];
           }
         );
       };
