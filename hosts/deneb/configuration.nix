@@ -1,12 +1,21 @@
 { pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, ... }:
 {
-  imports = nix-config-extras.extraModules.deneb ++ 
+
+  # Bespoke Options
+
+  base.font.enable = false;
+  base.headless = true;
+
+  base.nixConfigFlakeDir = "/opt/nix-config";
+
+  # Upstream options
+
+  imports = nix-config-extras.extraModules.deneb ++
     [
       # DO NOT REMOVE THIS! Default configuration for DO droplet
       (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
       # Additional imports
-      home-manager.nixosModules.home-manager
       ./blog.nix
     ] ;
 

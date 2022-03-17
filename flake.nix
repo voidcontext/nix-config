@@ -54,52 +54,14 @@
         system = "aarch64-linux";
       };
 
-      mkDarwinHome = localLib.mkSystemHome {
-        inherit nixpkgs home-manager;
-        sys = darwin_x86_64;
-        defaultModules = [
-          ./modules/common
-          ./modules/emacs
-          ./modules/kitty
-        ];
-      };
-
     in
     {
-      # Standalone home manager configs, these are for users on not NixOS machines (mainly macos)
-      homeConfigurations = {
-
-        "gaborpihaj@work" = mkDarwinHome (pkgs: {
-          username = "gaborpihaj";
-          configuration = ./hosts/work.nix;
-          jdk = pkgs.openjdk11_headless;
-          extraModules = [
-            ./modules/scala
-          ];
-          nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
-        });
-
-        "gaborpihaj@Sagittarius-A*" = mkDarwinHome (pkgs: {
-          username = "gaborpihaj";
-          configuration = ./hosts/Sagittarius-A.nix;
-          jdk = pkgs.openjdk11_headless;
-          extraModules = [
-            ./modules/scala
-            ./modules/clojure
-            ./modules/rust
-            ./modules/lima
-          ];
-          nixConfigFlakeDir = "$HOME/workspace/personal/nix-config";
-        });
-      };
-
       darwinDefaults = {
         system = "x86_64-darwin";
         specialArgs = inputs // {
           inherit localLib;
           inherit (darwin_x86_64) pkgs pkgsUnstable;
           localPackages = import ./packages { inherit (darwin_x86_64) pkgs; };
-
         };
       };
 
@@ -134,6 +96,15 @@
               [./hosts/Sagittarius-A/configuration.nix];
           }
         );
+
+        work = darwin.lib.darwinSystem (
+          self.darwinDefaults //
+          {
+            modules =
+              self.defaultSystemModules ++
+              [./hosts/Sagittarius-A/configuration.nix];
+          }
+        );
       };
 
       nixosConfigurations = {
@@ -142,14 +113,14 @@
         deneb = nixpkgs.lib.nixosSystem {
           inherit (linux_x86-64) system;
           specialArgs = inputs // { inherit (linux_x86-64) pkgs pkgsUnstable; };
-          modules = [ ./hosts/deneb/configuration.nix ];
+          modules = self.defaultSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (linux_arm64) system;
           specialArgs = inputs // { inherit (linux_arm64) pkgs pkgsUnstable; };
-          modules = [ ./hosts/electra/configuration.nix ];
+          modules = self.defaultSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
     };

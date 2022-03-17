@@ -4,6 +4,16 @@ let
   workspace = "$HOME/workspace";
 in
 {
+  base.zsh.gpg-ssh.enable = true;
+
+  base.git.name = "Gabor Pihaj";
+  base.git.email = "gabor.pihaj@gmail.com";
+  base.git.sign = true;
+  base.git.signing-key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
+
+  development.java.jdk = pkgs.openjdk11_headless;
+
+  programs.home-manager.enable = true;
 
   programs.zsh.initExtraBeforeCompInit = ''
     eval "$(${pkgs.lima}/bin/limactl completion zsh)"
