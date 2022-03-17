@@ -67,7 +67,6 @@
 
       defaultSystemModules = [
         ./modules/system/base
-        home-manager.darwinModules.home-manager
         ({ config, pkgsUnstable, localPackages, ... }: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
@@ -87,12 +86,20 @@
         })
       ];
 
+      defaultDarwinSystemModules = self.defaultSystemModules ++ [
+        home-manager.darwinModules.home-manager
+      ];
+
+      defaultNixosSystemModules = self.defaultSystemModules ++ [
+        home-manager.nixosModules.home-manager
+      ];
+
       darwinConfigurations = {
         "Sagittarius-A" = darwin.lib.darwinSystem (
           self.darwinDefaults //
           {
             modules =
-              self.defaultSystemModules ++
+              self.defaultDarwinSystemModules ++
               [ ./hosts/Sagittarius-A/configuration.nix ];
           }
         );
@@ -101,7 +108,7 @@
           self.darwinDefaults //
           {
             modules =
-              self.defaultSystemModules ++
+              self.defaultDarwinSystemModules ++
               [ ./hosts/Sagittarius-A/configuration.nix ];
           }
         );
@@ -113,14 +120,14 @@
         deneb = nixpkgs.lib.nixosSystem {
           inherit (linux_x86-64) system;
           specialArgs = inputs // { inherit (linux_x86-64) pkgs pkgsUnstable; };
-          modules = self.defaultSystemModules ++ [ ./hosts/deneb/configuration.nix ];
+          modules = self.defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (linux_arm64) system;
           specialArgs = inputs // { inherit (linux_arm64) pkgs pkgsUnstable; };
-          modules = self.defaultSystemModules ++ [ ./hosts/electra/configuration.nix ];
+          modules = self.defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
     };
