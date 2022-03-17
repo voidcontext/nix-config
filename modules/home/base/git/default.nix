@@ -7,6 +7,8 @@ let
   templateDir = "${home}/.git-templates";
 in
 {
+  options.base.git.enable = mkEnableOption "base.git config";
+
   options.base.git.name = mkOption {
     type = types.str;
   };
@@ -20,7 +22,7 @@ in
     type = types.str;
   };
 
-  config = {
+  config = mkIf cfg.enable {
     home.packages = [
       pkgs.delta
     ];

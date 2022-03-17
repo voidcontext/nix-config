@@ -8,6 +8,7 @@ in
   base.zsh.gpg-ssh.enable = true;
   base.yubikey-tools.enable = true;
 
+  base.git.enable = true;
   base.git.name = "Gabor Pihaj";
   base.git.email = "gabor.pihaj@gmail.com";
   base.git.sign = true;
