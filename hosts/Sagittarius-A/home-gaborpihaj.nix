@@ -19,6 +19,8 @@ in
   development.rust.enable = true;
   development.scala.enable = true;
 
+  virtualization.lima.enable = true;
+
   programs.home-manager.enable = true;
 
   home.packages = [

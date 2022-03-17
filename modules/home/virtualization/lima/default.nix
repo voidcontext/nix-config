@@ -1,7 +1,8 @@
-{ lib, pkgs, pkgsUnstable, ... }:
+{ config, lib, pkgs, pkgsUnstable, ... }:
 
 with lib;
 let
+  cfg = config.virtualization.lima;
   lima = pkgsUnstable.lima;
   docker = pkgs.docker-client;
   lima-docker = pkgs.writeShellScriptBin "lima-docker" ''
@@ -45,7 +46,9 @@ let
   '';
 in
 {
-  config = mkIf pkgs.stdenv.isDarwin {
+  options.virtualization.lima.enable = mkEnableOption "lima";
+
+  config = mkIf cfg.enable {
     home.packages = [
       lima
       lima-docker
