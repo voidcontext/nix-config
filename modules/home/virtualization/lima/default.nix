@@ -1,5 +1,6 @@
-{ pkgs, pkgsUnstable, ... }:
+{ lib, pkgs, pkgsUnstable, ... }:
 
+with lib;
 let
   lima = pkgsUnstable.lima;
   docker = pkgs.docker-client;
@@ -44,9 +45,11 @@ let
   '';
 in
 {
-  home.packages = [
-    lima
-    lima-docker
-    docker
-  ];
+  config = mkIf pkgs.stdenv.isDarwin {
+    home.packages = [
+      lima
+      lima-docker
+      docker
+    ];
+  };
 }
