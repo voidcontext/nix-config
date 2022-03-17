@@ -54,8 +54,6 @@
         system = "aarch64-linux";
       };
 
-    in
-    {
       darwinDefaults = {
         system = "x86_64-darwin";
         specialArgs = inputs // {
@@ -86,29 +84,47 @@
         })
       ];
 
-      defaultDarwinSystemModules = self.defaultSystemModules ++ [
+      defaultDarwinSystemModules = defaultSystemModules ++ [
         home-manager.darwinModules.home-manager
       ];
 
-      defaultNixosSystemModules = self.defaultSystemModules ++ [
+      defaultNixosSystemModules = defaultSystemModules ++ [
         home-manager.nixosModules.home-manager
       ];
 
+    in
+    {
+
+      apps."${darwin_x86_64.system}".rebuild = {
+        type = "app";
+        program = "${localLib.mkRebuildDarwin darwin_x86_64.pkgs}/bin/rebuild";
+      };
+
+      apps."${linux_arm64.system}".rebuild = {
+        type = "app";
+        program = "${localLib.mkRebuildNixos linux_arm64.pkgs}/bin/rebuild";
+      };
+
+      apps."${linux_x86-64.system}".rebuild = {
+        type = "app";
+        program = "${localLib.mkRebuildNixos linux_x86-64.pkgs}/bin/rebuild";
+      };
+
       darwinConfigurations = {
         "Sagittarius-A" = darwin.lib.darwinSystem (
-          self.darwinDefaults //
+          darwinDefaults //
           {
             modules =
-              self.defaultDarwinSystemModules ++
+              defaultDarwinSystemModules ++
               [ ./hosts/Sagittarius-A/configuration.nix ];
           }
         );
 
         work = darwin.lib.darwinSystem (
-          self.darwinDefaults //
+          darwinDefaults //
           {
             modules =
-              self.defaultDarwinSystemModules ++
+              defaultDarwinSystemModules ++
               [ ./hosts/Sagittarius-A/configuration.nix ];
           }
         );
