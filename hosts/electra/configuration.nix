@@ -1,10 +1,18 @@
 { config, pkgs, lib, home-manager, nix-config-extras, ... }:
 
 {
+  # Bespoke Options
+
+  base.font.enable = false;
+  base.headless = true;
+
+  base.nixConfigFlakeDir = "/opt/nix-config";
+
+  # Upstream options
+
   imports = nix-config-extras.electra.extraModules ++
     [
       # Additional imports
-      home-manager.nixosModules.home-manager
       ./samba.nix
     ];
 
@@ -128,19 +136,7 @@
     };
   };
 
-  # Home manager
-
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
   home-manager.users.vdx = import ./home-vdx.nix;
-
-  home-manager.extraSpecialArgs = {
-    emacsGui = false;
-    hdpi = false;
-    fontFamily = "nonexistent";
-    nixConfigFlakeDir = "/opt/nix-config";
-  };
-
 
   environment.systemPackages = [
     pkgs.arp-scan
