@@ -46,6 +46,12 @@ with lib;
         map ctrl+cmd+a goto_layout fat
         map ctrl+cmd+p last_used_layout
 
+        # Move the active window in the indicated direction
+        map cmd+shift+up move_window up
+        map cmd+shift+left move_window left
+        map cmd+shift+right move_window right
+        map cmd+shift+down move_window down
+
         map cmd+equal change_font_size all +1.0
         map cmd+minus change_font_size all -1.0
 
