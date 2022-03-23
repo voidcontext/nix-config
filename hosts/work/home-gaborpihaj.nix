@@ -11,6 +11,7 @@ in
   base.git.signing-key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
 
   development.java.jdk = pkgs.openjdk11_headless;
+  development.scala.enable = true;
 
   programs.home-manager.enable = true;
 
