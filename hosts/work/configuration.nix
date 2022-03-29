@@ -28,13 +28,6 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
-  nix = {
-    package = pkgsUnstable.nix;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    trustedUsers = ["root" "gaborpihaj"];
-    # binaryCachePublicKeys = [
-    # ];
-  };
+  nix.package = pkgsUnstable.nix;
+  nix.trustedUsers = ["root" "gaborpihaj"];
 }

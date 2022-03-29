@@ -70,10 +70,5 @@
     RuntimeDirectorySize=500M
   '';
 
-  nix = {
-    package = pkgsUnstable.nix;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
+  nix.package = pkgsUnstable.nix;
 }
