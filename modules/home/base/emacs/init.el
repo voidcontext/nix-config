@@ -74,6 +74,7 @@
 
 (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'adoc-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 
 ;; the package manager
@@ -350,6 +351,8 @@
   (setq plantuml-default-exec-mode 'executable)
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 )
+
+(use-package adoc-mode)
 
 (eval-after-load "paredit"
   '(progn

@@ -82,6 +82,8 @@ in
 
           # Yaml
           yaml-mode
+
+          adoc-mode
         ];
 
       };
