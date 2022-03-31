@@ -13,6 +13,9 @@
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
+    scala-mode.url = "github:Kazark/emacs-scala-mode?ref=scala3";
+    scala-mode.flake = false;
+
     # add github access token in ~/.config/nix/nix.con
     # access-tokens = github.com=ghp_...
     nix-config-extras.url = "github:voidcontext/nix-config-extras/0468eda053d0d38c8521f9a249721ffda5dbc528";
@@ -78,7 +81,7 @@
             ./modules/home/virtualization/lima
           ];
           home-manager.extraSpecialArgs = {
-            inherit localLib pkgsUnstable localPackages;
+            inherit localLib pkgsUnstable localPackages inputs;
             systemConfig = config;
           };
         })

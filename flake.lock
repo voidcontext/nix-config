@@ -214,7 +214,25 @@
         "home-manager": "home-manager",
         "nix-config-extras": "nix-config-extras",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "scala-mode": "scala-mode"
+      }
+    },
+    "scala-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1641325538,
+        "narHash": "sha256-xFNJ6MGTyitjjPjMFC40mcN8iNdyIEPNlW5P2XyZ8vE=",
+        "owner": "Kazark",
+        "repo": "emacs-scala-mode",
+        "rev": "1ef3ce5dc4750d396276a2331411c42983127906",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kazark",
+        "ref": "scala3",
+        "repo": "emacs-scala-mode",
+        "type": "github"
       }
     },
     "simple-nixos-mailserver": {

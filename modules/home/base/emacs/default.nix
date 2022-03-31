@@ -1,4 +1,4 @@
-{ systemConfig, lib, pkgs, config, ... }:
+{ systemConfig, lib, pkgs, config, inputs, ... }:
 
 with lib;
 with builtins;
@@ -24,6 +24,20 @@ in
         enable = true;
         inherit package;
         #package = pkgs.emacsGit;
+        overrides = self: super: {
+          scala-mode = pkgs.stdenv.mkDerivation {
+            name = "scala-mode";
+            nativeBuildInputs = [ package ];
+            src = inputs.scala-mode;
+            buildPhase = ''
+              ${package}/bin/emacs --batch -Q -L . -f batch-byte-compile *.el
+            '';
+            installPhase = ''
+              mkdir -p $out/share/emacs/site-lisp
+              install *.el* $out/share/emacs/site-lisp
+            '';
+          };
+        };
         extraPackages = epkgs: with epkgs; [
           # Common
           ag
