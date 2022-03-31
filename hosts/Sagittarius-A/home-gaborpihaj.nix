@@ -39,6 +39,8 @@ in
     pkgs.weechat
   ];
 
+  programs.nix-index.enable = true;
+  programs.nix-index.enableZshIntegration = true;
 
   programs.zsh.initExtra = ''
     export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash

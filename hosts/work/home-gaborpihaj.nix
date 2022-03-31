@@ -29,6 +29,9 @@ in
     tf = "terraform";
   };
 
+  programs.nix-index.enable = true;
+  programs.nix-index.enableZshIntegration = true;
+
   home.file.".emacs.d/init.el".text = ''
     (setq org-todo-keywords
         '((sequence "TODO" "|" "DONE")
