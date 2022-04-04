@@ -98,6 +98,8 @@ in
           yaml-mode
 
           adoc-mode
+
+          org-kanban
         ];
 
       };

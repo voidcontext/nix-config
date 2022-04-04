@@ -354,6 +354,8 @@
 
 (use-package adoc-mode)
 
+(use-package org-kanban)
+
 (eval-after-load "paredit"
   '(progn
      (define-key paredit-mode-map (kbd "M-}") 'paredit-close-curly-and-newline)
