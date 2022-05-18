@@ -1,4 +1,5 @@
-{ pkgs, localPackages, ... }:
+
+{ pkgs, pkgsUnstable, localPackages, ... }:
 
 let
   workspace = "$HOME/workspace";
@@ -45,8 +46,20 @@ in
     pkgs.awscli2
     pkgs.plantuml
 
+    pkgsUnstable.lima
+
     # extra packages
     localPackages.adr-tools
     localPackages.tfswitch
   ];
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = "/Users/gaborpihaj/.ssh/github_OVO7030MB.lan";
+      };
+    };
+  };
 }

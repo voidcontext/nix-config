@@ -85,17 +85,8 @@
 
 ;; Packages
 
-(use-package gruvbox-theme)
+(use-package moe-theme)
 (load-theme 'gruvbox-dark-soft t)
-
-(use-package inkpot-theme)
-(load-theme 'inkpot t t)
-
-(use-package kaolin-themes)
-(load-theme 'kaolin-temple t t)
-
-(use-package afternoon-theme)
-(load-theme 'afternoon t t)
 
 (use-package vterm)
 (add-hook 'vterm-mode-hook

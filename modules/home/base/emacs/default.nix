@@ -44,9 +44,9 @@ in
           multi-term
           use-package
           gruvbox-theme
-          afternoon-theme
-          inkpot-theme
           kaolin-themes
+          moe-theme
+          darktooth-theme
           vterm
           multi-vterm
           which-key

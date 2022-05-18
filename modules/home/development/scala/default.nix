@@ -1,10 +1,8 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, pkgsUnstable, config, ... }:
 
 with lib;
 let
   cfg = config.development.scala;
-  metals = pkgs.callPackage ./metals.nix { inherit (config.development.java) jdk; };
-
   sbt = pkgs.writeShellScriptBin "sbt" ''
     ${pkgs.sbt}/bin/sbt -java-home $JAVA_HOME "$@"
   '';
@@ -45,8 +43,7 @@ in
       pkgs.visualvm
       pkgs.scalafmt
       pkgs.scalafix
-      # pkgs.metals
-      metals
+      pkgsUnstable.metals
 
       pkgs.jekyll # for microsite generation
       pkgs.hugo # for site generation (http4s)
