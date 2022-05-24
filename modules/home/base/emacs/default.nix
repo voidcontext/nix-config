@@ -40,31 +40,32 @@ in
         };
         extraPackages = epkgs: with epkgs; [
           # Common
-          ag
-          multi-term
           use-package
+
+          # General Tools
+          which-key
+          ag
+          direnv
+
+          # Themes
           gruvbox-theme
           kaolin-themes
           moe-theme
           darktooth-theme
-          vterm
-          multi-vterm
-          which-key
 
+          # General editor enhancements
           multiple-cursors
           default-text-scale
+          undo-tree
           ace-window # switch between windows with M-o
-          direnv
-          expand-region
-          flycheck
           git-gutter
-          highlight-symbol
           magit
+          highlight-symbol
           rainbow-delimiters # color coded parantheses, braces, etc
           rainbow-mode # visualising color-codes like #5d7f2f
-          undo-tree
           paredit
 
+          #IDE functions
           projectile
           treemacs
           treemacs-projectile
@@ -77,28 +78,24 @@ in
           company-restclient
           ivy
           ivy-rich
+
+          #Coding
+          flycheck
           lsp-mode
           lsp-treemacs
           lsp-mode
           lsp-ui
           dap-mode
           posframe
-          yasnippet
 
           terraform-mode
-
-          plantuml-mode
-
           sql-indent
-
-          # Nix
           nix-mode
-
-          # Yaml
           yaml-mode
 
+          # Misc
+          plantuml-mode
           adoc-mode
-
           org-kanban
         ];
 

@@ -13,7 +13,6 @@
  sentence-end-double-space nil
  mac-command-modifier 'super
  show-paren-delay 0
- multi-term-program (concat user-profile-bin "/zsh")
  gc-cons-threshold 100000000
  read-process-output-max (* 1024 1024)
 )
@@ -87,14 +86,6 @@
 
 (use-package moe-theme)
 (load-theme 'gruvbox-dark-soft t)
-
-(use-package vterm)
-(add-hook 'vterm-mode-hook
-          (lambda ()
-            (setq show-trailing-whitespace nil)
-            (display-line-numbers-mode -1)))
-
-(use-package multi-vterm)
 
 (use-package which-key)
 
@@ -245,10 +236,6 @@
   :hook
   (prog-mode . rainbow-mode))
 
-(use-package expand-region
-  :bind
-  ("C-=" . 'er/expand-region))
-
 (use-package flycheck
   :init
   (global-flycheck-mode))
@@ -317,11 +304,6 @@
 ;;  (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
   )
-
-(use-package yasnippet
-  :config
-  (yas-global-mode 1))
-
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
