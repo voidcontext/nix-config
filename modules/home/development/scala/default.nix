@@ -11,21 +11,6 @@ in
   options.development.scala.enable = mkEnableOption "scala";
 
   config = mkIf cfg.enable {
-
-    home.file.".ammonite/predef.sc".text = ''
-      interp.load.ivy(
-        "com.lihaoyi" %
-        s"ammonite-shell_''${scala.util.Properties.versionNumberString}" %
-        ammonite.Constants.version
-      )
-      @
-      val shellSession = ammonite.shell.ShellSession()
-      import shellSession._
-      import ammonite.ops._
-      import ammonite.shell._
-      ammonite.shell.Configure(interp, repl, wd)
-    '';
-
     # emacs
     home.file.".emacs.d/init.el".text = (builtins.readFile ./init.el);
 
@@ -36,17 +21,12 @@ in
     ];
 
     home.packages = [
-      pkgs.ammonite
-      pkgs.asciinema
       pkgs.coursier
       sbt
       pkgs.visualvm
       pkgs.scalafmt
       pkgs.scalafix
       pkgsUnstable.metals
-
-      pkgs.jekyll # for microsite generation
-      pkgs.hugo # for site generation (http4s)
     ];
 
     programs.zsh.shellAliases = {
