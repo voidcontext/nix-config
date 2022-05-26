@@ -87,6 +87,7 @@ in
           lsp-ui
           dap-mode
           posframe
+          yasnippet # this is need for implementing missing members, etc
 
           terraform-mode
           sql-indent

@@ -305,6 +305,10 @@
   (setq lsp-ui-doc-include-signature t)
   )
 
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
