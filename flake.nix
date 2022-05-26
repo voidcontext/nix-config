@@ -12,6 +12,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     scala-mode.url = "github:Kazark/emacs-scala-mode?ref=scala3";
     scala-mode.flake = false;
