@@ -8,6 +8,7 @@ let
     else pkgs.emacsUnstable;
 in
 {
+
   config = mkMerge [
     # Defaults
     {
@@ -99,18 +100,15 @@ in
           adoc-mode
           org-kanban
         ];
-
       };
+
     }
 
-    # Optionals
-    (mkIf pkgs.stdenv.isDarwin {
-      programs.zsh.initExtra = ''
-        update_symlink $HOME/Applications/Emacs.app ${config.programs.emacs.finalPackage}/Applications/Emacs.app
-      '';
-    })
-
     (mkIf (!systemConfig.base.headless) {
+      base.darwin_symlinks = {
+        "$HOME/Applications/Emacs.app" = "${config.programs.emacs.finalPackage}/Applications/Emacs.app";
+      };
+
       home.file.".emacs.d/init.el".text = ''
         (scroll-bar-mode -1)
 

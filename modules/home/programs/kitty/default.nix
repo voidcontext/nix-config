@@ -2,7 +2,12 @@
 
 with lib;
 {
+
   config = mkIf (!systemConfig.base.headless) {
+    base.darwin_symlinks = {
+      "$HOME/Applications/kitty.app" = "${pkgs.kitty}/Applications/Kitty.app";
+    };
+
     programs.zsh.plugins = [
       {
         name = "zsh-window-title";
@@ -17,10 +22,6 @@ with lib;
 
     programs.zsh.initExtraBeforeCompInit = ''
       DISABLE_AUTO_TITLE="true"
-    '';
-
-    programs.zsh.initExtra = ''
-      update_symlink $HOME/Applications/kitty.app ${pkgs.kitty}/Applications/Kitty.app
     '';
 
     programs.kitty = {

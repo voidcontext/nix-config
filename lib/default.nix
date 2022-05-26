@@ -23,6 +23,7 @@ in
     ${mkRebuildInitVars pkgs}
 
     nix build ./#darwinConfigurations.$host.system && ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
+    update-symlinks
   '';
 
   mkRebuildNixos = pkgs: pkgs.writeShellScriptBin "rebuild" ''

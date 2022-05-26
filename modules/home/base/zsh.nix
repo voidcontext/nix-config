@@ -19,17 +19,7 @@
       if [ "HM_ZSH_ENV" != "loaded" ]; then
         source $HOME/.zshenv
       fi
-    '' + (localLib.optionalStr pkgs.stdenv.hostPlatform.isDarwin ''
-      function update_symlink () {
-        _symlink=$1
-        _expected_path=$2
-        _current_path=$(realpath $_symlink)
-        if [ "$_expected_path" != "$_current_path" ]; then
-          rm $_symlink
-          ln -s $_expected_path $_symlink
-        fi
-      }
-    '');
+    '';
 
     initExtra = ''
       PATH=$HOME/bin:$PATH:/usr/local/bin
