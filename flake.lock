@@ -24,17 +24,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1645812075,
-        "narHash": "sha256-7wJB+IjkMD0PX+RdyF9etZKPwXMm4uqwruMUUzoOw2Q=",
-        "owner": "voidcontext",
-        "repo": "blog.gaborpihaj.com",
-        "rev": "f56cbcc7d198dbf7774488703164723550c6725e",
-        "type": "github"
+        "lastModified": 1655414754,
+        "narHash": "sha256-zQeEbP8ngDY6Z7N0NwMW4UqypgVLjO2sNJmh6s1h4ew=",
+        "ref": "main",
+        "rev": "a240ec24d143da9bb6648bfc4ad4374dafeff83e",
+        "revCount": 21,
+        "type": "git",
+        "url": "ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git"
       },
       "original": {
-        "owner": "voidcontext",
-        "repo": "blog.gaborpihaj.com",
-        "type": "github"
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git"
       }
     },
     "darwin": {

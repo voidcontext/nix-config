@@ -22,7 +22,7 @@
     nix-config-extras.url = "github:voidcontext/nix-config-extras/0468eda053d0d38c8521f9a249721ffda5dbc528";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
 
-    blog-beta.url = "github:voidcontext/blog.gaborpihaj.com";
+    blog-beta.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
     blog-beta.inputs.nixpkgs.follows = "nixpkgs";
   };
 
