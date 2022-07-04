@@ -42,11 +42,12 @@ in
 
   home.packages = [
     pkgs.postgresql_10
-    pkgs.terraform
+    pkgsUnstable.terraform
     pkgs.awscli2
     pkgs.plantuml
 
     pkgsUnstable.lima
+    pkgsUnstable.docker-client
 
     # extra packages
     localPackages.adr-tools

@@ -56,6 +56,7 @@ in
         pkgs.duf
         pkgs.du-dust
         pkgs.exa
+        pkgs.xh
       ];
 
       nix.extraOptions = ''
