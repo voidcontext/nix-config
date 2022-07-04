@@ -21,11 +21,8 @@ in
     ];
 
     home.packages = [
-      pkgs.coursier
       sbt
       pkgs.visualvm
-      pkgs.scalafmt
-      pkgs.scalafix
       pkgsUnstable.metals
     ];
 
