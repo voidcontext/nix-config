@@ -67,6 +67,7 @@ in
           paredit
 
           #IDE functions
+          doom-modeline
           projectile
           treemacs
           treemacs-projectile

@@ -309,6 +309,13 @@
   :config
   (yas-global-mode 1))
 
+
+(use-package doom-modeline
+  :init 
+  (doom-modeline-mode 1)
+  (setq doom-modeline-buffer-file-name-style 'file-name)
+  )
+
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
