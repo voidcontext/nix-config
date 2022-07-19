@@ -34,13 +34,16 @@ in
 
 
 
-  mkSys = { system, nixpkgs, nixpkgs-unstable, overlays ? [ ] }:
+  mkSys = { system, nixpkgs, nixpkgs-unstable, nixpkgs-oldstable, overlays ? [ ] }:
     {
       inherit system;
       pkgs = import nixpkgs {
         inherit system overlays;
       };
       pkgsUnstable = import nixpkgs-unstable {
+        inherit system overlays;
+      };
+      pkgsOldStable = import nixpkgs-oldstable {
         inherit system overlays;
       };
     };

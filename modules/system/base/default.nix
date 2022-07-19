@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, pkgsOldStable, config, ... }:
 
 with lib;
 let cfg = config.base;
@@ -27,11 +27,11 @@ in
     {
       # https://github.com/nix-community/home-manager/issues/423
       environment.variables = {
-        TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+        TERMINFO_DIRS = "${pkgsOldStable.kitty.terminfo.outPath}/share/terminfo";
       };
 
       environment.systemPackages = [
-        pkgs.ag
+        pkgs.silver-searcher # pkgs.ag
         pkgs.bashInteractive
         pkgs.bwm_ng
         pkgs.coreutils
@@ -45,7 +45,7 @@ in
         pkgs.nmap
         pkgs.pstree
         pkgs.pwgen
-        pkgs.telnet
+        pkgs.inetutils # pkgs.telnet
         pkgs.tree
         pkgs.watch
         pkgs.wget

@@ -2,13 +2,14 @@
   "description" = "voidcontext's dotfiles";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/release-21.11";
+    nixpkgs.url = "nixpkgs/release-22.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs-oldstable.url = "nixpkgs/release-21.11";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:rycee/home-manager/release-21.11";
+    home-manager.url = "github:rycee/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -19,14 +20,14 @@
 
     # add github access token in ~/.config/nix/nix.con
     # access-tokens = github.com=ghp_...
-    nix-config-extras.url = "github:voidcontext/nix-config-extras/0468eda053d0d38c8521f9a249721ffda5dbc528";
+    nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?commit=0468eda053d0d38c8521f9a249721ffda5dbc528";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
 
     blog-beta.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
     blog-beta.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
+  outputs = { self, darwin, nixpkgs, nixpkgs-unstable, nixpkgs-oldstable, home-manager, emacs-overlay, ... }@inputs:
     let
       localLib = import ./lib;
 
@@ -44,17 +45,17 @@
       overlays = [ emacs-overlay.overlay weechatOverlay ];
 
       darwin_x86_64 = localLib.mkSys {
-        inherit nixpkgs nixpkgs-unstable overlays;
+        inherit nixpkgs nixpkgs-unstable nixpkgs-oldstable overlays;
         system = "x86_64-darwin";
       };
 
       linux_x86-64 = localLib.mkSys {
-        inherit nixpkgs nixpkgs-unstable overlays;
+        inherit nixpkgs nixpkgs-unstable nixpkgs-oldstable overlays;
         system = "x86_64-linux";
       };
 
       linux_arm64 = localLib.mkSys {
-        inherit nixpkgs nixpkgs-unstable overlays;
+        inherit nixpkgs nixpkgs-unstable nixpkgs-oldstable overlays;
         system = "aarch64-linux";
       };
 
@@ -62,14 +63,14 @@
         system = "x86_64-darwin";
         specialArgs = inputs // {
           inherit localLib;
-          inherit (darwin_x86_64) pkgs pkgsUnstable;
+          inherit (darwin_x86_64) pkgs pkgsUnstable pkgsOldStable;
           localPackages = import ./packages { inherit (darwin_x86_64) pkgs; };
         };
       };
 
       defaultSystemModules = [
         ./modules/system/base
-        ({ config, pkgsUnstable, localPackages, ... }: {
+        ({ config, pkgsUnstable, pkgsOldStable, localPackages, ... }: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
@@ -82,7 +83,7 @@
             ./modules/home/virtualization/lima
           ];
           home-manager.extraSpecialArgs = {
-            inherit localLib pkgsUnstable localPackages inputs;
+            inherit localLib pkgsUnstable pkgsOldStable localPackages inputs;
             systemConfig = config;
           };
         })

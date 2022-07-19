@@ -117,16 +117,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1643933536,
-        "narHash": "sha256-yRmsWAG4DnLxLIUtlaZsl0kH7rN5xSoyNRlf0YZrcH4=",
+        "lastModified": 1656169755,
+        "narHash": "sha256-Nlnm4jeQWEGjYrE6hxi/7HYHjBSZ/E0RtjCYifnNsWk=",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "2860d7e3bb350f18f7477858f3513f9798896831",
+        "rev": "4a3d01fb53f52ac83194081272795aa4612c2381",
         "type": "github"
       },
       "original": {
         "owner": "rycee",
-        "ref": "release-21.11",
+        "ref": "release-22.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -141,30 +141,29 @@
       "locked": {
         "lastModified": 1647280314,
         "narHash": "sha256-ZPP9rpq5dxWK44LookvYxD5axvxyqFL7CVAOqOiuSK8=",
-        "owner": "voidcontext",
-        "repo": "nix-config-extras",
+        "ref": "refs/heads/main",
         "rev": "0468eda053d0d38c8521f9a249721ffda5dbc528",
-        "type": "github"
+        "revCount": 11,
+        "type": "git",
+        "url": "ssh://git@github.com/voidcontext/nix-config-extras?commit=0468eda053d0d38c8521f9a249721ffda5dbc528"
       },
       "original": {
-        "owner": "voidcontext",
-        "repo": "nix-config-extras",
-        "rev": "0468eda053d0d38c8521f9a249721ffda5dbc528",
-        "type": "github"
+        "type": "git",
+        "url": "ssh://git@github.com/voidcontext/nix-config-extras?commit=0468eda053d0d38c8521f9a249721ffda5dbc528"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1647125019,
-        "narHash": "sha256-PXA76/iIqtbrA0ydCyc7Wpdw7TQTnfEowM87YtTXfB4=",
+        "lastModified": 1658237535,
+        "narHash": "sha256-z3Ff9oSXEPSZMfXdM+r29oJxtyKUnlUOc18U9E6Q48g=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b0e141e3fe13ec21f50429773d2e3890e02a80da",
+        "rev": "e732e1fdbf79bec59f7ade4a3675b091b4a9f6d6",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
-        "ref": "nixos-unstable",
+        "ref": "release-22.05",
         "type": "indirect"
       }
     },
@@ -198,6 +197,21 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-oldstable": {
+      "locked": {
+        "lastModified": 1656782578,
+        "narHash": "sha256-1eMCBEqJplPotTo/SZ/t5HU6Sf2I8qKlZi9MX7jv9fw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "573603b7fdb9feb0eb8efc16ee18a015c667ab1b",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "release-21.11",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1655567057,
@@ -213,21 +227,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1650921206,
-        "narHash": "sha256-RGlfTC2ktqLVw0gBvZeCM//B4ig2CdQJm39sDvm0DBQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3a9e0f239d80fa134e8fcbdee4dfc793902da37e",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "release-21.11",
-        "type": "indirect"
-      }
-    },
     "root": {
       "inputs": {
         "blog-beta": "blog-beta",
@@ -235,7 +234,8 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "nix-config-extras": "nix-config-extras",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-oldstable": "nixpkgs-oldstable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "scala-mode": "scala-mode"
       }
@@ -260,7 +260,10 @@
     "simple-nixos-mailserver": {
       "inputs": {
         "blobs": "blobs",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nix-config-extras",
+          "nixpkgs"
+        ],
         "nixpkgs-21_05": "nixpkgs-21_05",
         "nixpkgs-21_11": "nixpkgs-21_11",
         "utils": "utils"
