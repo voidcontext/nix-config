@@ -27,45 +27,49 @@
       # [[ $TMUX != "" ]] && export TERM="screen-256color"
     '';
 
-    shellAliases = {
-      ls = "exa";
-      la = "exa -la";
-      df = "duf";
-      du = "dunst";
+    shellAliases =
+      let
+        configInputs = "--inputs-from ${systemConfig.base.nixConfigFlakeDir}";
+      in {
+        ls = "exa";
+        la = "exa -la";
+        df = "duf";
+        du = "dunst";
 
-      e = "emacs -nw";
-      ec = "emacsclient -nw -a= -s default";
-      reload-zsh = "source ~/.zshrc";
-      nsh = "nix-shell";
+        e = "emacs -nw";
+        ec = "emacsclient -nw -a= -s default";
+        reload-zsh = "source ~/.zshrc";
+        nsh = "nix-shell";
 
-      enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
-      learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
+        enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
+        learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
 
-      java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
+        java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
 
-      gcs = "git commit -v -S";
-      gdc = "git diff --cached";
-      gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
-      gbpurge = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
-      gmf = "git merge --ff-only";
-      gmfh = "git merge FETCH_HEAD";
-      gsl = "git shortlog -s -n";
-      gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
+        gcs = "git commit -v -S";
+        gdc = "git diff --cached";
+        gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
+        gbpurge = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
+        gmf = "git merge --ff-only";
+        gmfh = "git merge FETCH_HEAD";
+        gsl = "git shortlog -s -n";
+        gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
 
-      rcd = "cd $(git rev-parse --show-toplevel)";
+        rcd = "cd $(git rev-parse --show-toplevel)";
 
-      dk = "docker";
-      dkps = "docker ps";
-      dkrma = "docker rm -f $(docker ps -a -q)";
+        dk = "docker";
+        dkps = "docker ps";
+        dkrma = "docker rm -f $(docker ps -a -q)";
 
-      dkc = "docker compose";
-      dkce = "docker compose exec";
-      dkcu = "docker compose up -d";
-      dkcl = "docker compose logs";
-      dkcr = "docker compose stop && docker compose rm -f && docker compose up";
+        dkc = "docker compose";
+        dkce = "docker compose exec";
+        dkcu = "docker compose up -d";
+        dkcl = "docker compose logs";
+        dkcr = "docker compose stop && docker compose rm -f && docker compose up";
 
-      nsp = "nix search --inputs-from ${systemConfig.base.nixConfigFlakeDir} nixpkgs";
-      nsu = "nix search --inputs-from ${systemConfig.base.nixConfigFlakeDir} nixpkgs-unstable";
+        nsp = "nix search ${configInputs} nixpkgs";
+        nsu = "nix search ${configInputs} nixpkgs-unstable";
+        nr = "nix run ${configInputs}";
     };
 
     sessionVariables = {
