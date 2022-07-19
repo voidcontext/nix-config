@@ -52,9 +52,10 @@ in
 
         #modern unix
         pkgs.bat
+        pkgs.bottom
         pkgs.delta
-        pkgs.duf
         pkgs.du-dust
+        pkgs.duf
         pkgs.exa
         pkgs.xh
       ];
