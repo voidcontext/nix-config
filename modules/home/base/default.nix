@@ -46,7 +46,11 @@ in
       home.packages = optional pkgs.stdenv.isDarwin update-symlinks;
 
       home.file.".gnupg/gpg-agent.conf".text = ''
-        enable-ssh-support
+      enable-ssh-support
+      '';
+
+      home.file.".gnupg/scdaemon.conf".text = ''
+      disable-ccid
       '';
 
       programs.tmux = {
