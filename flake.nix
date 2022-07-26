@@ -25,6 +25,9 @@
 
     blog-beta.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
     blog-beta.inputs.nixpkgs.follows = "nixpkgs";
+
+    rnix-lsp.url = "github:nix-community/rnix-lsp?ref=v0.2.5";
+    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, darwin, nixpkgs, nixpkgs-unstable, nixpkgs-oldstable, home-manager, emacs-overlay, ... }@inputs:
@@ -44,17 +47,17 @@
 
       overlays = [ emacs-overlay.overlay weechatOverlay ];
 
-      darwin_x86_64 = localLib.mkSys {
+      x86_64-darwin = localLib.mkSys {
         inherit nixpkgs nixpkgs-unstable nixpkgs-oldstable overlays;
         system = "x86_64-darwin";
       };
 
-      linux_x86-64 = localLib.mkSys {
+      x86_64-linux = localLib.mkSys {
         inherit nixpkgs nixpkgs-unstable nixpkgs-oldstable overlays;
         system = "x86_64-linux";
       };
 
-      linux_arm64 = localLib.mkSys {
+      aarch64-linux = localLib.mkSys {
         inherit nixpkgs nixpkgs-unstable nixpkgs-oldstable overlays;
         system = "aarch64-linux";
       };
@@ -63,8 +66,8 @@
         system = "x86_64-darwin";
         specialArgs = inputs // {
           inherit localLib;
-          inherit (darwin_x86_64) pkgs pkgsUnstable pkgsOldStable;
-          localPackages = import ./packages { inherit (darwin_x86_64) pkgs; };
+          inherit (x86_64-darwin) pkgs pkgsUnstable pkgsOldStable;
+          localPackages = import ./packages { inherit (x86_64-darwin) pkgs; };
         };
       };
 
@@ -100,19 +103,19 @@
     in
     {
 
-      apps."${darwin_x86_64.system}".rebuild = {
+      apps.x86_64-darwin.rebuild = {
         type = "app";
-        program = "${localLib.mkRebuildDarwin darwin_x86_64.pkgs}/bin/rebuild";
+        program = "${localLib.mkRebuildDarwin x86_64-darwin.pkgs}/bin/rebuild";
       };
 
-      apps."${linux_arm64.system}".rebuild = {
+      apps.aarch64-linux.rebuild = {
         type = "app";
-        program = "${localLib.mkRebuildNixos linux_arm64.pkgs}/bin/rebuild";
+        program = "${localLib.mkRebuildNixos aarch64-linux.pkgs}/bin/rebuild";
       };
 
-      apps."${linux_x86-64.system}".rebuild = {
+      apps.x86-64-linux.rebuild = {
         type = "app";
-        program = "${localLib.mkRebuildNixos linux_x86-64.pkgs}/bin/rebuild";
+        program = "${localLib.mkRebuildNixos x86_64-linux.pkgs}/bin/rebuild";
       };
 
       darwinConfigurations = {
@@ -139,18 +142,25 @@
 
         # NixOS VM @ DO
         deneb = nixpkgs.lib.nixosSystem {
-          inherit (linux_x86-64) system;
-          specialArgs = inputs // { inherit (linux_x86-64) pkgs pkgsUnstable; };
+          inherit (x86_64-linux) system;
+          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; };
           modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
-          inherit (linux_arm64) system;
-          specialArgs = inputs // { inherit (linux_arm64) pkgs pkgsUnstable; };
+          inherit (aarch64-linux) system;
+          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable; };
           modules = defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
+
+      devShells.x86_64-darwin.default =
+        with x86_64-darwin; pkgs.mkShell {
+          buildInputs = [
+            inputs.rnix-lsp.packages.x86_64-darwin.rnix-lsp
+          ];
+        };
     };
 }
 

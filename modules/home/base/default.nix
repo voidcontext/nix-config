@@ -27,6 +27,7 @@ in
     ./bin
     ./emacs
     ./git
+    ./helix.nix
     ./starship.nix
     ./zsh.nix
   ];

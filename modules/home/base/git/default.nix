@@ -63,7 +63,7 @@ in
       extraConfig = {
         core = {
           pager = "${pkgs.delta}/bin/delta";
-          editor = "emacsclient -nw -a= -s git";
+          editor = "hx";
           hookspath = "${templateDir}/hooks";
         };
         init = {

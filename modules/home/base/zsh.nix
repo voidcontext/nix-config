@@ -35,6 +35,7 @@
         la = "exa -la";
         df = "duf";
         du = "dunst";
+        h = "hx";
 
         e = "emacs -nw";
         ec = "emacsclient -nw -a= -s default";
@@ -73,9 +74,9 @@
     };
 
     sessionVariables = {
-      EDITOR = "emacs -nw";
+      EDITOR = "hx";
       PAGER = "less -R";
-      PSQL_EDITOR = "emacsclient -nw -a= -s psql";
+      PSQL_EDITOR = "hx";
     };
 
     plugins = [

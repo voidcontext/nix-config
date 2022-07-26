@@ -1,4 +1,3 @@
-
 { pkgs, pkgsUnstable, localPackages, ... }:
 
 let
@@ -45,6 +44,7 @@ in
     pkgsUnstable.terraform
     pkgs.awscli2
     pkgs.plantuml
+    pkgs.gh
 
     pkgsUnstable.lima
     pkgsUnstable.docker-client
