@@ -17,6 +17,7 @@
 
       # Additional imports
       ./blog.nix
+      ./spellcasterhub.nix
     ];
 
   # Login / ssh / security
