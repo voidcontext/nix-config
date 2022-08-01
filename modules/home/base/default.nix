@@ -20,7 +20,7 @@ let
       ${b}
       '') "" updateCommands
     }
-    '';
+  '';
 in
 {
   imports = [
@@ -37,7 +37,7 @@ in
     base.yubikey-tools.enable = mkEnableOption "yubikey-tools";
     base.darwin_symlinks = mkOption {
       type = types.attrsOf types.str;
-      default = {};
+      default = { };
     };
   };
 
@@ -47,11 +47,11 @@ in
       home.packages = optional pkgs.stdenv.isDarwin update-symlinks;
 
       home.file.".gnupg/gpg-agent.conf".text = ''
-      enable-ssh-support
+        enable-ssh-support
       '';
 
       home.file.".gnupg/scdaemon.conf".text = ''
-      disable-ccid
+        disable-ccid
       '';
 
       programs.tmux = {

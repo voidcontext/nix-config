@@ -26,14 +26,14 @@
 
     rnix-lsp.url = "github:nix-community/rnix-lsp?ref=v0.2.5";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, darwin, nixpkgs, nixpkgs-unstable, nixpkgs-oldstable, home-manager, emacs-overlay, ... }@inputs:
     let
-      
+
       localLib = import ./lib;
 
       weechatOverlay = self: super:
@@ -150,7 +150,7 @@
         # NixOS VM @ DO
         deneb = nixpkgs.lib.nixosSystem {
           inherit (x86_64-linux) system;
-          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; helix = mkHelix "x86-64_linux";};
+          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; helix = mkHelix "x86-64_linux"; };
           modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
@@ -165,6 +165,7 @@
       devShells.x86_64-darwin.default =
         with x86_64-darwin; pkgs.mkShell {
           buildInputs = [
+            pkgs.nixpkgs-fmt
             inputs.rnix-lsp.packages.x86_64-darwin.rnix-lsp
           ];
         };

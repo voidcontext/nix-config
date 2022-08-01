@@ -30,7 +30,8 @@
     shellAliases =
       let
         configInputs = "--inputs-from ${systemConfig.base.nixConfigFlakeDir}";
-      in {
+      in
+      {
         ls = "exa";
         la = "exa -la";
         df = "duf";
@@ -71,7 +72,7 @@
         nsp = "nix search ${configInputs} nixpkgs";
         nsu = "nix search ${configInputs} nixpkgs-unstable";
         nr = "nix run ${configInputs}";
-    };
+      };
 
     sessionVariables = {
       EDITOR = "hx";

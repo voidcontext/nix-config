@@ -1,6 +1,6 @@
-{helix, ... }:
+{ helix, ... }:
 
- {
+{
   # Helix
 
   programs.helix = {
