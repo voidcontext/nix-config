@@ -1,11 +1,11 @@
-{pkgsUnstable, ... }:
+{helix, ... }:
 
  {
   # Helix
 
   programs.helix = {
     enable = true;
-    package = pkgsUnstable.helix;
+    package = helix.package;
     settings = {
       theme = "gruvbox";
     };

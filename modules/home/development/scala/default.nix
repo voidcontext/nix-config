@@ -28,6 +28,7 @@ in
 
     programs.zsh.shellAliases = {
       clean-metals = "rm -rf .bsp .metals .bloop project/metals.sbt project/.bloop";
+      clean-metals-manual = "rm -rf .bsp .metals .bloop project/.bloop";
     };
   };
 }

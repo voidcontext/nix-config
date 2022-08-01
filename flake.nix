@@ -18,8 +18,6 @@
     scala-mode.url = "github:Kazark/emacs-scala-mode?ref=scala3";
     scala-mode.flake = false;
 
-    # add github access token in ~/.config/nix/nix.con
-    # access-tokens = github.com=ghp_...
     nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?commit=0468eda053d0d38c8521f9a249721ffda5dbc528";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -28,10 +26,14 @@
 
     rnix-lsp.url = "github:nix-community/rnix-lsp?ref=v0.2.5";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+    
+    helix.url = "github:helix-editor/helix";
+    helix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, darwin, nixpkgs, nixpkgs-unstable, nixpkgs-oldstable, home-manager, emacs-overlay, ... }@inputs:
     let
+      
       localLib = import ./lib;
 
       weechatOverlay = self: super:
@@ -62,18 +64,23 @@
         system = "aarch64-linux";
       };
 
-      darwinDefaults = {
+      mkHelix = system: {
+        package = inputs.helix.packages.${system}.default;
+      };
+
+      darwinDefaults = rec {
         system = "x86_64-darwin";
         specialArgs = inputs // {
           inherit localLib;
           inherit (x86_64-darwin) pkgs pkgsUnstable pkgsOldStable;
           localPackages = import ./packages { inherit (x86_64-darwin) pkgs; };
+          helix = mkHelix system;
         };
       };
 
       defaultSystemModules = [
         ./modules/system/base
-        ({ config, pkgsUnstable, pkgsOldStable, localPackages, ... }: {
+        ({ config, pkgsUnstable, pkgsOldStable, localPackages, helix, ... }: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
@@ -86,7 +93,7 @@
             ./modules/home/virtualization/lima
           ];
           home-manager.extraSpecialArgs = {
-            inherit localLib pkgsUnstable pkgsOldStable localPackages inputs;
+            inherit localLib pkgsUnstable pkgsOldStable localPackages inputs helix;
             systemConfig = config;
           };
         })
@@ -143,14 +150,14 @@
         # NixOS VM @ DO
         deneb = nixpkgs.lib.nixosSystem {
           inherit (x86_64-linux) system;
-          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; };
+          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; helix = mkHelix "x86-64_linux";};
           modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (aarch64-linux) system;
-          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable; };
+          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable; helix = mkHelix "aarch-64_linux"; };
           modules = defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
