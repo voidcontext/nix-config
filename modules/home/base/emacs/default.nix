@@ -4,8 +4,8 @@ with lib;
 with builtins;
 let
   package =
-    if systemConfig.base.headless then pkgs.emacsUnstable-nox
-    else pkgs.emacsUnstable;
+    if systemConfig.base.headless then pkgs.emacs-nox
+    else pkgs.emacs;
 in
 {
 
