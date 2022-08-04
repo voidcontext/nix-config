@@ -47,6 +47,7 @@ in
         pkgs.pwgen
         pkgs.inetutils # pkgs.telnet
         pkgs.tree
+        pkgs.ncurses # for tput
         pkgs.watch
         pkgs.wget
 

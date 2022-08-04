@@ -21,7 +21,7 @@ in
 
   mkRebuildDarwin = pkgs: pkgs.writeShellScriptBin "rebuild" ''
     ${mkRebuildInitVars pkgs}
-
+    TERM=kitty
     nix build ./#darwinConfigurations.$host.system && ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
     update-symlinks
   '';
