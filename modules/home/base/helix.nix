@@ -20,16 +20,16 @@
     package = helix.package;
     settings = {
       theme = "gruvbox";
-      # editor.whitespace.render = "all";
-      editor.whitespace.render.space = "all";
-      editor.whitespace.render.tab = "all";
-      editor.whitespace.render.newline = "none";
+      editor.whitespace.render = "all";
+      # editor.whitespace.render.space = "all";
+      # editor.whitespace.render.tab = "all";
+      # editor.whitespace.render.newline = "none";
       editor.indent-guides.render = true;
       # editor.indent-guides.character = "╎";
       editor.indent-guides.character = "|";
       editor.file-picker.hidden = false;
       editor.file-picker.git-ignore   = false;
-      keys.insert.j = { k = "normal_mode"; };
+      keys.insert.j = { k = "normal_mode"; }; # Maps `jk` to exit insert mode
     };
     languages = [
       {
