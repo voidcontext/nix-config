@@ -18,7 +18,7 @@
     scala-mode.url = "github:Kazark/emacs-scala-mode?ref=scala3";
     scala-mode.flake = false;
 
-    nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?commit=0468eda053d0d38c8521f9a249721ffda5dbc528";
+    nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?ref=main";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
 
     blog-beta.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
@@ -120,7 +120,7 @@
         program = "${localLib.mkRebuildNixos aarch64-linux.pkgs}/bin/rebuild";
       };
 
-      apps.x86-64-linux.rebuild = {
+      apps.x86_64-linux.rebuild = {
         type = "app";
         program = "${localLib.mkRebuildNixos x86_64-linux.pkgs}/bin/rebuild";
       };
@@ -150,14 +150,14 @@
         # NixOS VM @ DO
         deneb = nixpkgs.lib.nixosSystem {
           inherit (x86_64-linux) system;
-          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; helix = mkHelix "x86-64_linux"; };
+          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable pkgsOldStable; helix = mkHelix "x86_64-linux"; };
           modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (aarch64-linux) system;
-          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable; helix = mkHelix "aarch-64_linux"; };
+          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable pkgsOldStable; helix = mkHelix "aarch64-linux"; };
           modules = defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
