@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, nix-config-extras, ... }:
+{ config, pkgs, pkgsUnstable, lib, home-manager, nix-config-extras, ... }:
 
 {
   # Bespoke Options
@@ -18,13 +18,16 @@
 
   # NixOS wants to enable GRUB by default
   boot.loader.grub.enable = false;
-  # Enables the generation of /boot/extlinux/extlinux.conf
-  boot.loader.generic-extlinux-compatible.enable = true;
+  # Disables the generation of /boot/extlinux/extlinux.conf
+  boot.loader.generic-extlinux-compatible.enable = false;
+  boot.loader.raspberryPi.enable = true;
+  boot.loader.raspberryPi.version = 4;
 
   # !!! If your board is a Raspberry Pi 1, select this:
   #boot.kernelPackages = pkgs.linuxPackages_rpi;
   # !!! Otherwise (even if you have a Raspberry Pi 2 or 3), pick this:
   boot.kernelPackages = pkgs.linuxPackages_rpi4;
+  boot.tmpOnTmpfs = true;
 
   # !!! This is only for ARMv6 / ARMv7. Don't enable this on AArch64, cache.nixos.org works there.
   #nix.binaryCaches = lib.mkForce [ "http://nixos-arm.dezgeg.me/channel" ];
@@ -35,11 +38,16 @@
   # On a Raspberry Pi 4 with 4 GB, you should either disable this parameter or increase to at least 64M if you want the USB ports to work.
   #boot.kernelParams = ["cma=32M"];
 
+  boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
+
   # Required for the Wireless firmware (Rpi4)
   hardware.enableRedistributableFirmware = true;
 
+  powerManagement.cpuFreqGovernor = "ondemand";
+
   # ttyAMA0 is the serial console broken out to the GPIO
   boot.kernelParams = [
+    "usb-storage.quirks=0480:a006:u,152d:0578:u"
     "8250.nr_uarts=1" # may be required only when using u-boot
     "console=ttyAMA0,115200"
     "console=tty1"
@@ -47,18 +55,14 @@
 
   # File systems configuration for using the installer's partition layout
   fileSystems = {
-    # Prior to 19.09, the boot partition was hosted on the smaller first partition
-    # Starting with 19.09, the /boot folder is on the main bigger partition.
-    # The following is to be used only with older images.
-    /*
-      "/boot" = {
-      device = "/dev/disk/by-label/NIXOS_BOOT";
-      fsType = "vfat";
-      };
-    */
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
+    "/" = { 
+      device = "/dev/disk/by-uuid/bab2c768-6e36-43c4-8add-867fcd92a959";
       fsType = "ext4";
+    };
+  
+    "/boot" = {
+      device = "/dev/disk/by-uuid/3247-4D1D";
+      fsType = "vfat";
     };
 
     "/Volumes/raid" = {
@@ -73,10 +77,12 @@
   };
 
   # !!! Adding a swap file is optional, but strongly recommended!
-  swapDevices = [{ device = "/swapfile"; size = 2048; }];
+  # swapDevices = [{ device = "/dev/disk/by-partuuid/ffa8342f-03";}];
+
+  system.stateVersion = "21.11";
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgsUnstable.nix;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -145,7 +151,7 @@
     pkgs.bwm_ng
     pkgs.cryptsetup
     pkgs.dnsutils
-    pkgs.emacs27-nox
+    pkgs.emacs-nox
     pkgs.git
     pkgs.htop
     pkgs.iperf3
@@ -198,7 +204,7 @@
     enable = true;
     hostName = "nextcloud.vdx.hu";
     home = "/Volumes/raid/nextcloud";
-    package = pkgs.nextcloud22;
+    package = pkgs.nextcloud24;
     maxUploadSize = "20G";
     config = {
       dbtype = "pgsql";
