@@ -79,7 +79,7 @@ in
         forwardAgent = true;
         remoteForwards = [
           {
-            bind = { address = "/run/user/1008/gnupg/S.gpg-agent"; };
+            bind = { address = "/run/user/1004/gnupg/S.gpg-agent"; };
             host = { address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent"; };
           }
         ];
