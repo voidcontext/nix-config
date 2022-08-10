@@ -79,7 +79,7 @@
   # !!! Adding a swap file is optional, but strongly recommended!
   # swapDevices = [{ device = "/dev/disk/by-partuuid/ffa8342f-03";}];
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.05";
 
   nix = {
     package = pkgsUnstable.nix;
@@ -250,11 +250,16 @@
   services.bind = {
     enable = true;
     cacheNetworks = [ "127.0.0.0/24" "192.168.24.0/24" ];
+    forwarders = [
+      "192.168.24.1"
+      # "8.8.8.8"
+      # "1.1.1.1"
+    ];
     zones = [
       {
         name = "nextcloud.vdx.hu";
         master = true;
-        file = "/etc/nixos/nextcloud.vdx.hu.zone";
+        file = "/opt/nix-config/hosts/electra/nextcloud.vdx.hu.zone";
         masters = [ ];
         slaves = [ ];
         extraConfig = "";
@@ -262,7 +267,7 @@
       {
         name = "electra.lan";
         master = true;
-        file = "/etc/nixos/electra.lan.zone";
+        file = "/opt/nix-config/hosts/electra/electra.lan.zone";
         masters = [ ];
         slaves = [ ];
         extraConfig = "";
@@ -280,6 +285,7 @@
       };
     '';
     extraOptions = ''
+      dnssec-validation no;
       allow-transfer {"none";};
       max-cache-size 50%;
     '';
