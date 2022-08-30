@@ -13,7 +13,13 @@ in
   config = mkIf cfg.enable {
     # emacs
     home.file.".emacs.d/init.el".text = (builtins.readFile ./init.el);
-
+    
+    programs.zsh.shellAliases = {
+      sc  = "sbt --client";
+      sbi = "sbt --client bloopInstall";
+      st  = "sbt --client test";
+    };
+    
     programs.emacs.extraPackages = epkgs: with epkgs; [
       lsp-metals
       sbt-mode
