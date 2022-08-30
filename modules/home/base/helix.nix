@@ -37,6 +37,7 @@
       
       # It's quite helpful, but the placement is a bit annoying
       editor.lsp.auto-signature-help = false;
+      editor.lsp.display-messages = true;
       
       keys.insert.j = { k = "normal_mode"; }; # Maps `jk` to exit insert mode
     };
