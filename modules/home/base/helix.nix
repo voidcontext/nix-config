@@ -22,6 +22,8 @@
       theme = "gruvbox";
 
       editor.true-color = true;
+      editor.cursorline = true;
+      editor.bufferline = "multiple";
 
       editor.whitespace.render = "all";
       # editor.whitespace.render.space = "all";

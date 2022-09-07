@@ -42,11 +42,11 @@
     "crane": {
       "flake": false,
       "locked": {
-        "lastModified": 1654444508,
-        "narHash": "sha256-4OBvQ4V7jyt7afs6iKUvRzJ1u/9eYnKzVQbeQdiamuY=",
+        "lastModified": 1661875961,
+        "narHash": "sha256-f1h/2c6Teeu1ofAHWzrS8TwBPcnN+EEu+z1sRVmMQTk=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "db5482bf225acc3160899124a1df5a617cfa27b5",
+        "rev": "d9f394e4e20e97c2a60c3ad82c2b6ef99be19e24",
         "type": "github"
       },
       "original": {
@@ -79,11 +79,11 @@
     "devshell": {
       "flake": false,
       "locked": {
-        "lastModified": 1655976588,
-        "narHash": "sha256-VreHyH6ITkf/1EX/8h15UqhddJnUleb0HgbC3gMkAEQ=",
+        "lastModified": 1660811669,
+        "narHash": "sha256-V6lmsaLNFz41myppL0yxglta92ijkSvpZ+XVygAh+bU=",
         "owner": "numtide",
         "repo": "devshell",
-        "rev": "899ca4629020592a13a46783587f6e674179d1db",
+        "rev": "c2feacb46ee69949124c835419861143c4016fb5",
         "type": "github"
       },
       "original": {
@@ -96,57 +96,52 @@
       "inputs": {
         "alejandra": [
           "helix",
-          "nixCargoIntegration",
+          "nci",
           "nixpkgs"
         ],
         "crane": "crane",
         "devshell": [
           "helix",
-          "nixCargoIntegration",
+          "nci",
           "devshell"
         ],
         "flake-utils-pre-commit": [
           "helix",
-          "nixCargoIntegration",
+          "nci",
           "nixpkgs"
         ],
         "gomod2nix": [
           "helix",
-          "nixCargoIntegration",
+          "nci",
           "nixpkgs"
         ],
         "mach-nix": [
           "helix",
-          "nixCargoIntegration",
+          "nci",
           "nixpkgs"
         ],
         "nixpkgs": [
           "helix",
-          "nixCargoIntegration",
-          "nixpkgs"
-        ],
-        "node2nix": [
-          "helix",
-          "nixCargoIntegration",
+          "nci",
           "nixpkgs"
         ],
         "poetry2nix": [
           "helix",
-          "nixCargoIntegration",
+          "nci",
           "nixpkgs"
         ],
         "pre-commit-hooks": [
           "helix",
-          "nixCargoIntegration",
+          "nci",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1655975833,
-        "narHash": "sha256-g8sdfuglIZ24oWVbntVzniNTJW+Z3n9DNL9w9Tt+UCE=",
+        "lastModified": 1662176993,
+        "narHash": "sha256-Sy7DsGAveDUFBb6YDsUSYZd/AcXfP/MOMIwMt/NgY84=",
         "owner": "nix-community",
         "repo": "dream2nix",
-        "rev": "4e75e665ec3a1cddae5266bed0dd72fce0b74a23",
+        "rev": "809bc5940214744eb29778a9a0b03f161979c1b2",
         "type": "github"
       },
       "original": {
@@ -208,11 +203,11 @@
     },
     "flake-utils_3": {
       "locked": {
-        "lastModified": 1637014545,
-        "narHash": "sha256-26IZAc5yzlD9FlDT54io1oqG/bBoyka+FJk5guaX4x4=",
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "bba5dcc8e0b20ab664967ad83d24d64cb64ec4f4",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
         "type": "github"
       },
       "original": {
@@ -223,18 +218,18 @@
     },
     "helix": {
       "inputs": {
-        "nixCargoIntegration": "nixCargoIntegration",
+        "nci": "nci",
         "nixpkgs": [
           "nixpkgs"
         ],
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1661308557,
-        "narHash": "sha256-F0vufm2K5Gvp9zQOzfHkpIoq2Bj3cQ/ZVlOz3FxGO/c=",
+        "lastModified": 1662536553,
+        "narHash": "sha256-pRV/ldYS6FXsMOR/xlWuivrR2GiS8P0e54HpFz399Ew=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "ccae718a67f39542281125610764b733d90b26f8",
+        "rev": "a123fb60572720a5fd0817b194f4d34534f87b4e",
         "type": "github"
       },
       "original": {
@@ -285,6 +280,33 @@
         "type": "github"
       }
     },
+    "nci": {
+      "inputs": {
+        "devshell": "devshell",
+        "dream2nix": "dream2nix",
+        "nixpkgs": [
+          "helix",
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "helix",
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1662177071,
+        "narHash": "sha256-x6XF//RdZlw81tFAYM1TkjY+iQIpyMCWZ46r9o4wVQY=",
+        "owner": "yusdacra",
+        "repo": "nix-cargo-integration",
+        "rev": "65270dea87bb82fc02102a15221677eea237680e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yusdacra",
+        "repo": "nix-cargo-integration",
+        "type": "github"
+      }
+    },
     "nix-config-extras": {
       "inputs": {
         "nixpkgs": [
@@ -305,33 +327,6 @@
         "ref": "main",
         "type": "git",
         "url": "ssh://git@github.com/voidcontext/nix-config-extras"
-      }
-    },
-    "nixCargoIntegration": {
-      "inputs": {
-        "devshell": "devshell",
-        "dream2nix": "dream2nix",
-        "nixpkgs": [
-          "helix",
-          "nixpkgs"
-        ],
-        "rust-overlay": [
-          "helix",
-          "rust-overlay"
-        ]
-      },
-      "locked": {
-        "lastModified": 1656453541,
-        "narHash": "sha256-ZCPVnS6zJOZJvIlwU3rKR8MBVm6A3F4/0mA7G1lQ3D0=",
-        "owner": "yusdacra",
-        "repo": "nix-cargo-integration",
-        "rev": "9eb74345b30cd2e536d9dac9d4435d3c475605c7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "yusdacra",
-        "repo": "nix-cargo-integration",
-        "type": "github"
       }
     },
     "nixpkgs": {
@@ -456,11 +451,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1655779671,
-        "narHash": "sha256-6feeiGa6fb7ZPVHR71uswkmN1701TAJpwYQA8QffmRk=",
+        "lastModified": 1662087605,
+        "narHash": "sha256-Gpf2gp2JenKGf+TylX/YJpttY2bzsnvAMLdLaxoZRyU=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "8159585609a772b041cce6019d5c21d240709244",
+        "rev": "60c2cfaa8b90ed8cebd18b214fac8682dcf222dd",
         "type": "github"
       },
       "original": {
