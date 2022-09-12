@@ -1,11 +1,13 @@
-{ lib, pkgs, pkgsOldStable, config, systemConfig, ... }:
+{ lib, pkgs, pkgsUnstable, config, systemConfig, ... }:
 
 with lib;
+let kitty = pkgsUnstable.kitty;
+in
 {
 
   config = mkIf (!systemConfig.base.headless) {
     base.darwin_symlinks = {
-      "$HOME/Applications/kitty.app" = "${pkgsOldStable.kitty}/Applications/Kitty.app";
+      "$HOME/Applications/kitty.app" = "${kitty}/Applications/Kitty.app";
     };
 
     programs.zsh.plugins = [
@@ -27,7 +29,7 @@ with lib;
     programs.kitty = {
       enable = true;
 
-      package = pkgsOldStable.kitty;
+      package = kitty;
 
       font.name = "${systemConfig.base.font.family} Nerd Font Mono";
       font.size = 14;

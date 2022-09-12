@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgsOldStable, config, ... }:
+{ lib, pkgs, pkgsUnstable, config, ... }:
 
 with lib;
 let cfg = config.base;
@@ -27,7 +27,7 @@ in
     {
       # https://github.com/nix-community/home-manager/issues/423
       environment.variables = {
-        TERMINFO_DIRS = "${pkgsOldStable.kitty.terminfo.outPath}/share/terminfo";
+        TERMINFO_DIRS = "${pkgsUnstable.kitty.terminfo.outPath}/share/terminfo";
       };
 
       environment.systemPackages = [

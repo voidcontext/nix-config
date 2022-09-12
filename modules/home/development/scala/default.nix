@@ -29,7 +29,7 @@ in
     home.packages = [
       sbt
       pkgs.visualvm
-      pkgsUnstable.metals
+      pkgs.metals
     ];
 
     programs.zsh.shellAliases = {
