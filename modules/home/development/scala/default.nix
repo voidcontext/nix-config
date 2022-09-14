@@ -6,6 +6,38 @@ let
   sbt = pkgs.writeShellScriptBin "sbt" ''
     ${pkgs.sbt}/bin/sbt -java-home $JAVA_HOME "$@"
   '';
+  
+  # From: https://github.com/gvolpe/neovim-flake/blob/main/lib/metalsBuilder.nix
+  metalsBuilder = { version, outputHash }:
+    let
+      metalsDeps = pkgs.stdenv.mkDerivation {
+        name = "metals-deps-${version}";
+        buildCommand = ''
+          export COURSIER_CACHE=$(pwd)
+          ${pkgs.coursier}/bin/cs fetch org.scalameta:metals_2.13:${version} \
+            -r bintray:scalacenter/releases \
+            -r sonatype:snapshots > deps
+          mkdir -p $out/share/java
+          cp -n $(< deps) $out/share/java/
+        '';
+        outputHashMode = "recursive";
+        outputHashAlgo = "sha256";
+        inherit outputHash;
+      };
+    in
+    pkgs.metals.overrideAttrs (old: {
+      inherit version;
+      extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
+      buildInputs = [ metalsDeps ];
+    });
+
+  metals = metalsBuilder {
+    # version = "0.11.7";
+    # outputHash = "sha256-Zc/0kod3JM58WpyxwXiyQdixBHOJV7UDGg1YZtHJ3hw=";
+    version = "0.11.8+92-cfb33b0b-SNAPSHOT";
+    outputHash = "sha256-hju2cHBRvBtSClOVbOJTnlS+VxVfwZcF+ihILMqduXM=";
+  };
+
 in
 {
   options.development.scala.enable = mkEnableOption "scala";
@@ -27,9 +59,9 @@ in
     ];
 
     home.packages = [
+      metals
       sbt
       pkgs.visualvm
-      pkgs.metals
     ];
 
     programs.zsh.shellAliases = {

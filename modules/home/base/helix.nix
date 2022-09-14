@@ -38,7 +38,7 @@
       editor.file-picker.git-ignore   = false;
       
       # It's quite helpful, but the placement is a bit annoying
-      editor.lsp.auto-signature-help = false;
+      # editor.lsp.auto-signature-help = false;
       editor.lsp.display-messages = true;
 
       keys.insert.j = { k = "normal_mode"; }; # Maps `jk` to exit insert mode
@@ -47,6 +47,11 @@
       {
         name = "scala";
         auto-format = false;
+        config = {
+          # Arbitrary config, only needed to prevent helix sending null to metals,
+          # see https://github.com/helix-editor/helix/issues/3823
+          metals.showInferredType = true;
+        };
       }
       {
         name = "nix";
