@@ -21,6 +21,9 @@ let
       '') "" updateCommands
     }
   '';
+  batr = pkgs.writeShellScriptBin "batr" ''
+    ${pkgs.bat}/bin/bat ''$(${pkgs.coreutils}/bin/realpath ''$(${pkgs.which}/bin/which $1))
+  '';
 in
 {
   imports = [
@@ -44,7 +47,9 @@ in
   config = mkMerge [
     # Always applied
     {
-      home.packages = optional pkgs.stdenv.isDarwin update-symlinks;
+      home.packages = optional pkgs.stdenv.isDarwin update-symlinks ++ [
+        batr
+      ];
 
       home.file.".gnupg/gpg-agent.conf".text = ''
         enable-ssh-support
