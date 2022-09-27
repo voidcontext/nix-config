@@ -3,10 +3,7 @@
 with lib;
 let
   cfg = config.development.scala;
-  sbt = pkgs.writeShellScriptBin "sbt" ''
-    ${pkgs.sbt}/bin/sbt -java-home $JAVA_HOME "$@"
-  '';
-  
+
   # From: https://github.com/gvolpe/neovim-flake/blob/main/lib/metalsBuilder.nix
   metalsBuilder = { version, outputHash }:
     let
@@ -32,12 +29,15 @@ let
     });
 
   metals = metalsBuilder {
-    # version = "0.11.7";
-    # outputHash = "sha256-Zc/0kod3JM58WpyxwXiyQdixBHOJV7UDGg1YZtHJ3hw=";
     version = "0.11.8";
     outputHash = "sha256-j7je+ZBTIkRfOPpUWbwz4JR06KprMn8sZXONrtI/n8s=";
   };
 
+  metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
+    ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall"
+    ${pkgs.bloop}/bin/bloop clean
+  '';
+  
 in
 {
   options.development.scala.enable = mkEnableOption "scala";
@@ -60,7 +60,8 @@ in
 
     home.packages = [
       metals
-      sbt
+      metals-reload
+      pkgs.sbt
       pkgs.visualvm
     ];
 
