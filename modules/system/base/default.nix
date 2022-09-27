@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgsUnstable, config, ... }:
+{ lib, pkgs, pkgsUnstable, config, inputs, ... }:
 
 with lib;
 let cfg = config.base;
@@ -64,9 +64,10 @@ in
       nix.extraOptions = ''
         experimental-features = nix-command flakes
       '';
-      nix.binaryCaches = [ "https://nix-community.cachix.org" ];
+      nix.binaryCaches = [ "https://nix-community.cachix.org" "https://helix.cachix.org" ];
       nix.binaryCachePublicKeys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
       ];
     }
     (mkIf cfg.font.enable {
