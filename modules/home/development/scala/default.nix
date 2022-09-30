@@ -32,10 +32,10 @@ let
     version = "0.11.8";
     outputHash = "sha256-j7je+ZBTIkRfOPpUWbwz4JR06KprMn8sZXONrtI/n8s=";
   };
-
+  
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
     ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall"
-    ${pkgs.bloop}/bin/bloop clean
+    ${pkgsUnstable.bloop}/bin/bloop clean
   '';
   
 in
@@ -51,6 +51,11 @@ in
       sbi = "sbt --client bloopInstall";
       st  = "sbt --client test";
     };
+
+    # Make navigation in dependency code work with metals/bloop    
+    programs.zsh.initExtra = ''
+      export SBT_OPTS=-Dbloop.export-jar-classifiers=sources
+    '';
     
     programs.emacs.extraPackages = epkgs: with epkgs; [
       lsp-metals
@@ -63,6 +68,7 @@ in
       metals-reload
       pkgs.sbt
       pkgs.visualvm
+      pkgsUnstable.bloop
     ];
 
     programs.zsh.shellAliases = {
