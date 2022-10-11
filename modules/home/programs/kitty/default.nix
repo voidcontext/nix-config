@@ -50,6 +50,8 @@ in
         map ctrl+cmd+g goto_layout grid
         map ctrl+cmd+a goto_layout fat
         map ctrl+cmd+p last_used_layout
+        
+        map cmd+shift+n launch --cwd=current
 
         # Move the active window in the indicated direction
         map cmd+shift+up move_window up
