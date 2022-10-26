@@ -72,6 +72,8 @@
         nsp = "nix search ${configInputs} nixpkgs";
         nsu = "nix search ${configInputs} nixpkgs-unstable";
         nr = "nix run ${configInputs}";
+        
+        nix-flake-lock-updated = ''cat flake.lock  | jq -r '.nodes | to_entries[] | (.key + ": " + (.value.locked.lastModified | strftime("%Y-%m-%d")))' '';
       };
 
     sessionVariables = {
