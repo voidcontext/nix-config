@@ -20,6 +20,9 @@
     nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?ref=main";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
 
+    blog.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
+    blog.inputs.nixpkgs.follows = "nixpkgs";
+
     blog-beta.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
     blog-beta.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -28,6 +31,9 @@
 
     helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
+    
+    indieweb-tools.url = "github:voidcontext/indieweb-tools";
+    indieweb-tools.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
