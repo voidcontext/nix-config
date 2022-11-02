@@ -2,6 +2,8 @@
 
 let
   wormholePort = 6009;
+  
+  iwtBin = name: "${indieweb-tools.packages."x86_64-linux".default}/bin/${name}";
 in
 {
   users.groups.indieweb = {};
@@ -31,7 +33,7 @@ in
       Group = "indieweb";
       
       ExecStart = ''
-        ${indieweb-tools.packages."x86_64-linux".default}/bin/wormhole
+        ${iwtBin "wormhole"}
       '';
 
       Restart = "on-failure";
@@ -55,7 +57,7 @@ in
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/5 * * * *      indieweb    ${indieweb-tools.packages."x86_64-linux".default}/bin/orion --config /opt/indieweb/indieweb.toml >> /var/log/indieweb-orion-cron.log"
+      "*/5 * * * *      indieweb    ${iwtBin "orion"} --config /opt/indieweb/indieweb.toml >> /var/log/indieweb-orion-cron.log 2>&1"
     ];
   };
 }

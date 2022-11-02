@@ -391,11 +391,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1667422858,
-        "narHash": "sha256-mL2jrG+zpwEFKghHiYBaxNPjwF/DKbjx+QBoF3EiUz0=",
+        "lastModified": 1667425939,
+        "narHash": "sha256-jA01uS79DR0n+JqGfaK7V8J0pmrIIRHK2G3eS+oFv3E=",
         "owner": "voidcontext",
         "repo": "indieweb-tools",
-        "rev": "f211fe303ccfb5bf5668dd8951506f1dffc3222d",
+        "rev": "d04322c92ec21935220070a2c66e6dde2a793f8a",
         "type": "github"
       },
       "original": {
