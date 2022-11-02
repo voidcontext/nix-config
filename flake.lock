@@ -25,11 +25,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1667338153,
-        "narHash": "sha256-s5MfGRQCHYFcy5yx49W3iilnEHDMPS/Oi1NUfHHDjpE=",
+        "lastModified": 1667339416,
+        "narHash": "sha256-YLDk6IBA/zv5hH+TCyku7LkPvfGvRrc3KNh3Fl9EZEU=",
         "ref": "main",
-        "rev": "a48c1dad9775aa3609e569ee3c5efc39dd113a5c",
-        "revCount": 26,
+        "rev": "13872314040e0c38505409ab7f699dd78c65fe08",
+        "revCount": 27,
         "type": "git",
         "url": "ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git"
       },
@@ -391,11 +391,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1667169588,
-        "narHash": "sha256-w/a6lGx11wNtQKXrO8MJIlXLf1Oi9IQBBGiH71PkP4M=",
+        "lastModified": 1667422858,
+        "narHash": "sha256-mL2jrG+zpwEFKghHiYBaxNPjwF/DKbjx+QBoF3EiUz0=",
         "owner": "voidcontext",
         "repo": "indieweb-tools",
-        "rev": "2a9e829412ad9d9bff01f4e5817df12e378e3ba9",
+        "rev": "f211fe303ccfb5bf5668dd8951506f1dffc3222d",
         "type": "github"
       },
       "original": {

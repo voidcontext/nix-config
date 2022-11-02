@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, ... }:
+{ pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, blog, blog-beta, ... }:
 {
 
   # Bespoke Options
@@ -16,8 +16,7 @@
       (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
       # Additional imports
-      ./blog.nix
-      ./spellcasterhub.nix
+      ./indieweb.nix
     ];
 
   # Login / ssh / security
@@ -66,6 +65,10 @@
 
   # Build configuration
 
+  environment.systemPackages = [
+    pkgs.goaccess
+  ];
+  
   services.logind.extraConfig = ''
     # Otherwise emacs cannot be built
     RuntimeDirectorySize=500M
@@ -74,4 +77,56 @@
   nix.package = pkgsUnstable.nix;
   nix.settings.substituters = [ "https://indieweb-tools.cachix.org" ];
   nix.settings.trusted-public-keys = [ "indieweb-tools.cachix.org-1:yPp4kg6bp8YLLEhuz/wRhEvPLuc3PJFZa5C8zEmw4es=" ];
+  
+  # Nginx Virtual hosts
+  services.nginx.virtualHosts."vdx.hu" = {
+    forceSSL = true;
+    enableACME = true;
+    extraConfig = ''
+      access_log /var/log/nginx/vdx.hu-access.log;
+      error_log /var/log/nginx/vdx.hu-error.log error;
+    '';
+  };
+
+  services.nginx.virtualHosts."gaborpihaj.com" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "${blog.defaultPackage."x86_64-linux"}";
+    
+    extraConfig = ''
+      access_log /var/log/nginx/gaborpihaj.com-access.log;
+      error_log /var/log/nginx/gaborpihaj.com-error.log error;
+    '';
+  };
+  
+  services.nginx.virtualHosts."beta.gaborpihaj.com" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "${blog-beta.defaultPackage."x86_64-linux"}";
+    basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
+    extraConfig = ''
+      access_log /var/log/nginx/beta.gaborpihaj.com-access.log;
+      error_log /var/log/nginx/beta.gaborpihaj.com-error.log error;
+    '';
+  };
+
+  services.nginx.virtualHosts."spellcasterhub.com" = {
+    forceSSL = true;
+    enableACME = true;
+    extraConfig = ''
+      access_log /var/log/nginx/spellcasterhub.com-access.log;
+      error_log /var/log/nginx/spellcasterhub.com-error.log error;
+    '';
+    # locations."/" = {
+    #   proxyPass = "http://127.0.0.1:12000";
+    #   proxyWebsockets = true; # needed if you need to use WebSocket
+    #   extraConfig =
+    #     # required when the target is also TLS server with multiple hosts
+    #     "proxy_ssl_server_name on;" +
+    #     # required when the server wants to use HTTP Authentication
+    #     "proxy_pass_header Authorization;"
+    #   ;    
+    # };
+    # basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
+  };
 }

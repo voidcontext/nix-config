@@ -29,7 +29,7 @@ in
   mkRebuildNixos = pkgs: pkgs.writeShellScriptBin "rebuild" ''
     ${mkRebuildInitVars pkgs}
 
-    sudo nixos-rebuild $cmd --flake "/opt/nix-config#$host"
+    sudo nixos-rebuild $cmd --flake "/opt/nix-config#$host" --show-trace
   '';
 
 
