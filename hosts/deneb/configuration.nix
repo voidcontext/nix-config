@@ -1,4 +1,17 @@
 { pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, blog, blog-beta, ... }:
+
+let 
+  goaccessPreReqs = pkgs.writeScriptBin "goaccess-prereqs" ''
+    set -e
+    
+    ${pkgs.coreutils}/bin/mkdir -p /var/www/stats
+    ${pkgs.coreutils}/bin/chmod 770 /var/www/stats
+    ${pkgs.coreutils}/bin/chown nginx.nginx /var/www/stats
+  '';
+  goaccessBin = "${pkgs.goaccess}/bin/goaccess";
+  goaccessCron = domain: 
+      "*/5 * * * *      nginx    ${goaccessBin} -o /var/www/stats/${domain}.html /var/log/nginx/${domain}-access.log* --log-format=COMBINED --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb";
+in
 {
 
   # Bespoke Options
@@ -88,6 +101,22 @@
     '';
   };
 
+  services.nginx.virtualHosts."stats.vdx.hu" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "/var/www/stats/";
+    locations."/" = {
+      extraConfig = ''
+        autoindex on;
+      '';
+    };
+    extraConfig = ''
+      access_log /var/log/nginx/stats.vdx.hu-access.log;
+      error_log /var/log/nginx/stats.vdx.hu-error.log error;
+    '';
+    basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
+  };
+
   services.nginx.virtualHosts."gaborpihaj.com" = {
     forceSSL = true;
     enableACME = true;
@@ -128,5 +157,36 @@
     #   ;    
     # };
     # basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
+  };
+  
+  # Goaccess stats
+  
+  
+  systemd.services.goaccess-prereqs = {
+    description = "Setup directories for goaccess stats";
+    before = [ "nginx.service" ];
+
+    wantedBy = [ "multi-user.target" ];
+    
+
+    serviceConfig = {
+      Type = "simple";
+      User = "root";
+
+      Group = "root";
+      
+      ExecStart = "${pkgs.bash}/bin/bash ${goaccessPreReqs}/bin/goaccess-prereqs";
+
+    };
+  };
+
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      (goaccessCron "gaborpihaj.com")
+      (goaccessCron "beta.gaborpihaj.com")
+      (goaccessCron "spellcasterhub.com")
+      (goaccessCron "vdx.hu")
+    ];
   };
 }
