@@ -153,15 +153,11 @@
     pkgs.dnsutils
     pkgs.emacs-nox
     pkgs.git
+    pkgs.gnupg
     pkgs.htop
     pkgs.iperf3
     pkgs.tmux
-    pkgs.gnupg
-
-    # modern unix
-    pkgs.bat
-    pkgs.du-dust
-    pkgs.duf
+    pkgs.usbutils
   ];
 
   networking = {
