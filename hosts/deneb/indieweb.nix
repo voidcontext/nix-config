@@ -1,4 +1,4 @@
-{indieweb-tools, ...}:
+{pkgs, indieweb-tools, ...}:
 
 let
   wormholePort = 6009;
@@ -6,11 +6,15 @@ let
   iwtBin = name: "${indieweb-tools.packages."x86_64-linux".default}/bin/${name}";
 in
 {
-  users.groups.indieweb = {};
+   users.groups.indieweb = {};
   
    users.users.indieweb = {
     isSystemUser = true;
     group = "indieweb";
+    # the home directory is needed so that indieweb can build gaborpihaj.com using nix
+    # `nix build` creates a `~/.cache/nix` 
+    createHome = true;
+    home = "/var/indieweb";
   };
   
   users.users.vdx.extraGroups = ["indieweb"];

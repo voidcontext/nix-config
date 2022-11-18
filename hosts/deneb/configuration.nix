@@ -1,16 +1,56 @@
 { pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, blog, blog-beta, ... }:
 
 let 
-  goaccessPreReqs = pkgs.writeScriptBin "goaccess-prereqs" ''
+  git = "${pkgs.git}/bin/git";
+  nix= "${pkgs.nix}/bin/nix";
+
+  staticSitePreReqs = pkgs.writeScriptBin "staticsite-prereqs" ''
     set -e
     
-    ${pkgs.coreutils}/bin/mkdir -p /var/www/stats
-    ${pkgs.coreutils}/bin/chmod 770 /var/www/stats
-    ${pkgs.coreutils}/bin/chown nginx.nginx /var/www/stats
+    init_site() {
+      site=$1
+      group=$2
+      ${pkgs.coreutils}/bin/mkdir -p /var/www/$site
+      ${pkgs.coreutils}/bin/chmod 770 /var/www/$site
+      ${pkgs.coreutils}/bin/chown nginx.$group /var/www/$site
+    }
+    
+    init_site stats.vdx.hu nginx
+    init_site gaborpihaj.com indieweb
+    init_site beta.gaborpihaj.com indieweb
   '';
+  staticsite-build = pkgs.writeScriptBin "staticsite-build" ''
+    set -e
+    
+    if [[ "$DEBUG" == 1 ]]; then
+      set -x
+    fi
+    
+    site=$1
+    commit=$2
+    
+    if [[ -z "$site" || -z "$commit" ]]; then
+      echo "Usage: staticsite-build site commit"
+      exit 1
+    fi
+    
+    cd /opt/src/$site
+    
+    if [[ `git status --porcelain` ]]; then
+      echo "There are local changes, exiting..."
+      exit 1
+    fi
+    
+    ${git} fetch --all
+    ${git} checkout $commit
+    ${nix} build --show-trace
+    rsync -a -O --no-perms ./result/ /var/www/$site/
+    rsync -a -O --no-perms --delete ./result/ /var/www/$site/
+  '';
+
   goaccessBin = "${pkgs.goaccess}/bin/goaccess";
   goaccessCron = domain: 
-      "*/5 * * * *      nginx    ${goaccessBin} -o /var/www/stats/${domain}.html /var/log/nginx/${domain}-access.log* --log-format=COMBINED --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb";
+      "*/5 * * * *      nginx    ${goaccessBin} -o /var/www/stats.vdx.hu/${domain}.html /var/log/nginx/${domain}-access.log --log-format=COMBINED --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb";
 in
 {
 
@@ -80,6 +120,7 @@ in
 
   environment.systemPackages = [
     pkgs.goaccess
+    staticsite-build
   ];
   
   services.logind.extraConfig = ''
@@ -104,7 +145,7 @@ in
   services.nginx.virtualHosts."stats.vdx.hu" = {
     forceSSL = true;
     enableACME = true;
-    root = "/var/www/stats/";
+    root = "/var/www/stats.vdx.hu/";
     locations."/" = {
       extraConfig = ''
         autoindex on;
@@ -162,8 +203,8 @@ in
   # Goaccess stats
   
   
-  systemd.services.goaccess-prereqs = {
-    description = "Setup directories for goaccess stats";
+  systemd.services.staticsite-prereqs = {
+    description = "Setup directories for static sites";
     before = [ "nginx.service" ];
 
     wantedBy = [ "multi-user.target" ];
@@ -175,7 +216,7 @@ in
 
       Group = "root";
       
-      ExecStart = "${pkgs.bash}/bin/bash ${goaccessPreReqs}/bin/goaccess-prereqs";
+      ExecStart = "${pkgs.bash}/bin/bash ${staticSitePreReqs}/bin/staticsite-prereqs";
 
     };
   };
