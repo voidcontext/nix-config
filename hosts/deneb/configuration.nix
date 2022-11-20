@@ -70,8 +70,9 @@ in
 
       # Additional imports
       ./indieweb.nix
+      ./wireguard.nix
     ];
-
+  
   # Login / ssh / security
 
   services.openssh.passwordAuthentication = false;
@@ -120,6 +121,7 @@ in
 
   environment.systemPackages = [
     pkgs.goaccess
+    pkgs.wireguard-tools
     staticsite-build
   ];
   

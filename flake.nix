@@ -150,14 +150,20 @@
         # NixOS VM @ DO
         deneb = nixpkgs.lib.nixosSystem {
           inherit (x86_64-linux) system;
-          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; helix = mkHelix "x86_64-linux"; };
+          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; 
+            helix = mkHelix "x86_64-linux"; 
+            secrets = inputs.nix-config-extras.secrets;
+          };
           modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
 
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (aarch64-linux) system;
-          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable; helix = mkHelix "aarch64-linux"; };
+          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable; 
+            helix = mkHelix "aarch64-linux"; 
+            secrets = inputs.nix-config-extras.secrets;
+          };
           modules = defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
