@@ -102,10 +102,6 @@ in
     ];
   };
 
-  users.users.tun = {
-    isNormalUser = true;
-  };
-
   # Home manager
 
   home-manager.users.vdx = import ./home-vdx.nix;
