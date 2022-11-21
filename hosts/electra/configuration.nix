@@ -14,6 +14,7 @@
     [
       # Additional imports
       ./samba.nix
+      ./wireguard.nix
     ];
 
   # NixOS wants to enable GRUB by default
@@ -158,6 +159,8 @@
     pkgs.iperf3
     pkgs.tmux
     pkgs.usbutils
+    pkgs.hdparm
+    pkgs.udisks
   ];
 
   networking = {
