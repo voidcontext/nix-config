@@ -13,6 +13,7 @@
   imports = nix-config-extras.electra.extraModules ++
     [
       # Additional imports
+      ./nextcloud.nix
       ./samba.nix
       ./wireguard.nix
     ];
@@ -175,38 +176,23 @@
   services.nginx.recommendedProxySettings = true;
   services.nginx.recommendedTlsSettings = true;
 
-  services.nextcloud = {
-    enable = true;
-    hostName = "nextcloud.vdx.hu";
-    home = "/Volumes/raid/nextcloud";
-    package = pkgs.nextcloud24;
-    maxUploadSize = "20G";
-    config = {
-      dbtype = "pgsql";
-      dbuser = "nextcloud";
-      dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
-      dbname = "nextcloud";
-      adminpassFile = "/Volumes/raid/config/nextcloud/.adminpassword";
-      adminuser = "root";
-      #      extraTrustedDomains = [ "nextcloud.electra0.lan" ];
-    };
-  };
-
-  services.nginx.virtualHosts."nextcloud.vdx.hu" = {
-    serverAliases = [ "netxcloud.vdx.hu" ];
-  };
-
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_11;
     dataDir = "/Volumes/raid/postgresql/${config.services.postgresql.package.psqlSchema}";
-    ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [
-      {
-        name = "nextcloud";
-        ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
-      }
-    ];
+    settings = {
+      # These 2 settings were meant to fix the following startup issue:
+      # Dec 01 15:12:03 electra postgres[24612]: [24612] LOG:  all server processes terminated; reinitializing
+      # Dec 01 15:12:05 electra postgres[26426]: [26426] LOG:  database system was interrupted; last known up at 2022-12-01 15:06:44 G>
+      # Dec 01 15:12:07 electra postgres[26426]: [26426] LOG:  database system was not properly shut down; automatic recovery in progr>
+      # Dec 01 15:12:07 electra postgres[26426]: [26426] LOG:  redo starts at 3/65A42760
+      # Dec 01 15:12:08 electra postgres[26426]: [26426] LOG:  invalid record length at 3/65D905F8: wanted 24, got 0
+      # Dec 01 15:12:08 electra postgres[26426]: [26426] LOG:  redo done at 3/65D90530
+      # Dec 01 15:12:08 electra postgres[26426]: [26426] LOG:  last completed transaction was at log time 2022-12-01 15:11:48.611876+00
+      # Dec 01 15:12:08 electra postgres[26426]: [26426] PANIC:  could not flush dirty data: Structure needs cleaning
+      fsync = "off";
+      data_sync_retry = true;
+    };
     authentication = lib.mkForce ''
       # Generated file; do not edit!
       # TYPE  DATABASE        USER            ADDRESS                 METHOD
@@ -216,53 +202,9 @@
     '';
   };
 
-  # ensure that postgres is running *before* running the setup
-  systemd.services."nextcloud-setup" = {
-    requires = [ "postgresql.service" ];
-    after = [ "postgresql.service" ];
-  };
-
-  services.bind = {
-    enable = true;
-    cacheNetworks = [ "127.0.0.0/24" "192.168.24.0/24" ];
-    forwarders = [
-      "192.168.24.1"
-      # "8.8.8.8"
-      # "1.1.1.1"
-    ];
-    zones = [
-      {
-        name = "nextcloud.vdx.hu";
-        master = true;
-        file = "/opt/nix-config/hosts/electra/nextcloud.vdx.hu.zone";
-        masters = [ ];
-        slaves = [ ];
-        extraConfig = "";
-      }
-      {
-        name = "electra.lan";
-        master = true;
-        file = "/opt/nix-config/hosts/electra/electra.lan.zone";
-        masters = [ ];
-        slaves = [ ];
-        extraConfig = "";
-      }
-    ];
-    ipv4Only = true;
-    extraConfig = ''
-      logging {
-        channel querylog {
-          file "/var/log/named-querylog";
-          severity debug 3;
-        };
-
-        category queries { querylog;};
-      };
-    '';
-    extraOptions = ''
-      dnssec-validation no;
-      allow-transfer {"none";};
-      max-cache-size 50%;
-    '';
-  };
+  services.dnsmasq.enable = true;
+  services.dnsmasq.servers = [ "192.168.24.1" ];
+  services.dnsmasq.extraConfig = ''
+    listen-address=127.0.0.1,192.168.24.2
+  '';
 }
