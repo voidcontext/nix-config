@@ -1,6 +1,8 @@
 { config, pkgsUnstable, ... }:
 
 {
+  home.stateVersion = "22.11";
+
   base.git.enable = true;
   base.git.name = "Gabor Pihaj";
   base.git.email = "gabor.pihaj@gmail.com";

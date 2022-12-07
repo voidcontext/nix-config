@@ -2,13 +2,13 @@
   "description" = "voidcontext's dotfiles";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/release-22.05";
+    nixpkgs.url = "nixpkgs/release-22.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:rycee/home-manager/release-22.05";
+    home-manager.url = "github:rycee/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -27,7 +27,8 @@
     blog-beta.inputs.nixpkgs.follows = "nixpkgs";
 
     rnix-lsp.url = "github:nix-community/rnix-lsp?ref=v0.2.5";
-    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+    # doesn't work with 22.11, produces: error: nixVersions.nix_2_4 has been removed
+    # rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
     helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,13 +44,14 @@
 
       weechatOverlay = self: super:
         {
-          weechat = super.weechat.override {
-            configure = { availablePlugins, ... }: {
-              scripts = with super.weechatScripts; [
-                weechat-matrix
-              ];
-            };
-          };
+          # TODO: fix in 22.11
+          # weechat = super.weechat.override {
+          #   configure = { availablePlugins, ... }: {
+          #     scripts = with super.weechatScripts; [
+          #       weechat-matrix
+          #     ];
+          #   };
+          # };
         };
 
       overlays = [ emacs-overlay.overlay weechatOverlay ];
