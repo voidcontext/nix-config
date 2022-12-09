@@ -496,11 +496,11 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver"
       },
       "locked": {
-        "lastModified": 1668938490,
-        "narHash": "sha256-E75lbJOCvisnMI5YzQzkcYl2OyFMHKVZb8qJk7iPYto=",
+        "lastModified": 1670424470,
+        "narHash": "sha256-Fm0xakx06xCEfJmgQZkBseTPx3O71i7K2OIMMWTtb+k=",
         "ref": "main",
-        "rev": "8f5fa3495d888f0b6a641d56e426007131b96e9d",
-        "revCount": 14,
+        "rev": "92f0308f031861868c83d2f99fa4ebde9754a9cf",
+        "revCount": 15,
         "type": "git",
         "url": "ssh://git@github.com/voidcontext/nix-config-extras"
       },
