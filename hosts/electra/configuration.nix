@@ -16,6 +16,7 @@
       ./nextcloud.nix
       ./samba.nix
       ./wireguard.nix
+      ./zigbee.nix
     ];
 
   # NixOS wants to enable GRUB by default
