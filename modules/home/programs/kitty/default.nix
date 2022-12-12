@@ -32,7 +32,7 @@ in
       package = kitty;
 
       font.name = "${systemConfig.base.font.family} Nerd Font Mono";
-      font.size = 14;
+      font.size = 15;
 
       settings = {
         tab_bar_style = "powerline";
