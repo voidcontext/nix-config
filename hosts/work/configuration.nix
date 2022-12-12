@@ -29,5 +29,5 @@
   services.nix-daemon.enable = true;
 
   nix.package = pkgsUnstable.nix;
-  nix.trustedUsers = [ "root" "gaborpihaj" ];
+  nix.settings.trusted-users = [ "root" "gaborpihaj" ];
 }

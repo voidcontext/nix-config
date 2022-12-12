@@ -43,7 +43,6 @@ in
   '';
 
   home.packages = [
-    pkgs.postgresql_10
     pkgsUnstable.terraform
     pkgs.awscli2
     pkgs.plantuml
