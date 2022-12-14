@@ -35,7 +35,10 @@
     
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
     indieweb-tools.inputs.nixpkgs.follows = "nixpkgs";
-  };
+    
+    mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
+    mqtt2influxdb2.inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
     let
@@ -162,7 +165,9 @@
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (aarch64-linux) system;
-          specialArgs = inputs // { inherit (aarch64-linux) pkgs pkgsUnstable; 
+          specialArgs = inputs // { 
+            inherit inputs;
+            inherit (aarch64-linux) pkgs pkgsUnstable; 
             helix = mkHelix "aarch64-linux"; 
             secrets = inputs.nix-config-extras.secrets;
           };
