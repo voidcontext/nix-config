@@ -8,13 +8,9 @@ in
     type = types.package;
   };
 
-  config = mkIf (config.development.scala.enable || config.development.clojure.enable) {
+  config = mkIf (config.development.scala.enable) {
     programs.zsh.initExtra = ''
       export JAVA_HOME="${cfg.jdk.home}"
-    '';
-
-    home.file.".emacs.d/init.el".text = ''
-      (setenv "JAVA_HOME" "${cfg.jdk.home}")
     '';
 
     home.packages = [

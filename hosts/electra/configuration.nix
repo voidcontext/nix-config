@@ -149,7 +149,6 @@
     pkgs.bwm_ng
     pkgs.cryptsetup
     pkgs.dnsutils
-    pkgs.emacs-nox
     pkgs.git
     pkgs.gnupg
     pkgs.htop

@@ -11,12 +11,6 @@
     home-manager.url = "github:rycee/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-
-    scala-mode.url = "github:Kazark/emacs-scala-mode?ref=scala3";
-    scala-mode.flake = false;
-
     nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?ref=main";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -40,7 +34,7 @@
     mqtt2influxdb2.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-  outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, emacs-overlay, ... }@inputs:
+  outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
 
       localLib = import ./lib;
@@ -57,7 +51,7 @@
           # };
         };
 
-      overlays = [ emacs-overlay.overlay weechatOverlay ];
+      overlays = [ weechatOverlay ];
       
       sysDefaults = system: {
         inherit nixpkgs nixpkgs-unstable overlays system;
@@ -90,9 +84,7 @@
           home-manager.useUserPackages = true;
           home-manager.sharedModules = [
             ./modules/home/base
-            ./modules/home/development/clojure
             ./modules/home/development/java
-            ./modules/home/development/rust
             ./modules/home/development/scala
             ./modules/home/programs/kitty
             ./modules/home/virtualization/lima

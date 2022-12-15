@@ -49,8 +49,6 @@ in
   options.development.scala.enable = mkEnableOption "scala";
 
   config = mkIf cfg.enable {
-    # emacs
-    home.file.".emacs.d/init.el".text = (builtins.readFile ./init.el);
     
     programs.zsh.shellAliases = {
       sc  = "sbt --client";
@@ -63,12 +61,6 @@ in
       export SBT_OPTS=-Dbloop.export-jar-classifiers=sources
     '';
     
-    programs.emacs.extraPackages = epkgs: with epkgs; [
-      lsp-metals
-      sbt-mode
-      scala-mode
-    ];
-
     home.packages = [
       metals
       metals-reload

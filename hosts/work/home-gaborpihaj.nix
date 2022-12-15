@@ -35,13 +35,6 @@ in
   programs.nix-index.enable = true;
   programs.nix-index.enableZshIntegration = true;
 
-  home.file.".emacs.d/init.el".text = ''
-    (setq org-todo-keywords
-        '((sequence "TODO" "|" "DONE")
-          (sequence "CODE" "PR" "UAT" "|" "PROD"))
-        org-startup-indented t)
-  '';
-
   home.packages = [
     pkgsUnstable.terraform
     pkgs.awscli2

@@ -98,7 +98,7 @@
     "crane_2": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "indieweb-tools",
           "nixpkgs"
@@ -121,7 +121,7 @@
     "crane_3": {
       "inputs": {
         "flake-compat": "flake-compat_2",
-        "flake-utils": "flake-utils_8",
+        "flake-utils": "flake-utils_7",
         "nixpkgs": [
           "mqtt2influxdb2",
           "nixpkgs"
@@ -238,27 +238,6 @@
         "type": "github"
       }
     },
-    "emacs-overlay": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1658723452,
-        "narHash": "sha256-TyUCByGJ3FMyTJIhzoW2kZmpY07x2TmUB7Y2pAApTAM=",
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "rev": "26386599653aa6040645f99a7446c47eefee05c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -306,21 +285,6 @@
         "type": "github"
       }
     },
-    "flake-utils_10": {
-      "locked": {
-        "lastModified": 1656928814,
-        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "flake-utils_2": {
       "locked": {
         "lastModified": 1644229661,
@@ -338,11 +302,11 @@
     },
     "flake-utils_3": {
       "locked": {
-        "lastModified": 1656928814,
-        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
         "type": "github"
       },
       "original": {
@@ -383,11 +347,11 @@
     },
     "flake-utils_6": {
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
         "type": "github"
       },
       "original": {
@@ -398,11 +362,11 @@
     },
     "flake-utils_7": {
       "locked": {
-        "lastModified": 1656928814,
-        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
         "type": "github"
       },
       "original": {
@@ -428,11 +392,11 @@
     },
     "flake-utils_9": {
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
         "type": "github"
       },
       "original": {
@@ -504,7 +468,7 @@
     "indieweb-tools": {
       "inputs": {
         "crane": "crane_2",
-        "flake-utils": "flake-utils_6",
+        "flake-utils": "flake-utils_5",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -527,7 +491,7 @@
     "mqtt2influxdb2": {
       "inputs": {
         "crane": "crane_3",
-        "flake-utils": "flake-utils_9",
+        "flake-utils": "flake-utils_8",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -734,7 +698,6 @@
         "blog": "blog",
         "blog-beta": "blog-beta",
         "darwin": "darwin",
-        "emacs-overlay": "emacs-overlay",
         "helix": "helix",
         "home-manager": "home-manager",
         "indieweb-tools": "indieweb-tools",
@@ -742,13 +705,12 @@
         "nix-config-extras": "nix-config-extras",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable_3",
-        "rnix-lsp": "rnix-lsp",
-        "scala-mode": "scala-mode"
+        "rnix-lsp": "rnix-lsp"
       }
     },
     "rust-overlay": {
       "inputs": {
-        "flake-utils": "flake-utils_4",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "helix",
           "nixpkgs"
@@ -770,7 +732,7 @@
     },
     "rust-overlay_2": {
       "inputs": {
-        "flake-utils": "flake-utils_7",
+        "flake-utils": "flake-utils_6",
         "nixpkgs": [
           "indieweb-tools",
           "nixpkgs"
@@ -792,7 +754,7 @@
     },
     "rust-overlay_3": {
       "inputs": {
-        "flake-utils": "flake-utils_10",
+        "flake-utils": "flake-utils_9",
         "nixpkgs": [
           "mqtt2influxdb2",
           "nixpkgs"
@@ -809,23 +771,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "scala-mode": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1652972403,
-        "narHash": "sha256-8dVeeajC7g5/NMPLrQh/3umVv5hG4FsTgwVQIkTk7tk=",
-        "owner": "Kazark",
-        "repo": "emacs-scala-mode",
-        "rev": "e22ef6247f53e2c6c8ab24aab81550472f2f4968",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Kazark",
-        "ref": "scala3",
-        "repo": "emacs-scala-mode",
         "type": "github"
       }
     },

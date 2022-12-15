@@ -28,7 +28,6 @@ in
 {
   imports = [
     ./bin
-    ./emacs
     ./git
     ./helix.nix
     ./starship.nix

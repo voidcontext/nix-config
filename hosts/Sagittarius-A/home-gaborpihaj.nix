@@ -17,7 +17,6 @@ in
   base.helix.fromGit = true;
 
   development.java.jdk = pkgs.openjdk11_headless;
-  development.clojure.enable = true;
   development.rust.enable = true;
   development.scala.enable = true;
 

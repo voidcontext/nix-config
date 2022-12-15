@@ -12,10 +12,6 @@
     initExtraBeforeCompInit = ''
       ZSH_THEME="simple"
 
-      if [ "$INSIDE_EMACS" != "vterm" ]; then
-          eval "$(starship init zsh)"
-      fi
-
       if [ "HM_ZSH_ENV" != "loaded" ]; then
         source $HOME/.zshenv
       fi
@@ -38,8 +34,6 @@
         du = "dunst";
         h = "hx";
 
-        e = "emacs -nw";
-        ec = "emacsclient -nw -a= -s default";
         reload-zsh = "source ~/.zshrc";
         nsh = "nix-shell";
 

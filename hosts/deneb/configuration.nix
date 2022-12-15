@@ -107,7 +107,6 @@ in
   home-manager.users.vdx = import ./home-vdx.nix;
 
   home-manager.extraSpecialArgs = {
-    emacsGui = false;
     hdpi = false;
     fontFamily = "nonexistent";
     nixConfigFlakeDir = "/opt/nix-config";
@@ -121,10 +120,10 @@ in
     staticsite-build
   ];
   
-  services.logind.extraConfig = ''
-    # Otherwise emacs cannot be built
-    RuntimeDirectorySize=500M
-  '';
+  # services.logind.extraConfig = ''
+  #   # Otherwise emacs cannot be built
+  #   RuntimeDirectorySize=500M
+  # '';
 
   nix.package = pkgsUnstable.nix;
   nix.settings.substituters = [ "https://indieweb-tools.cachix.org" ];
