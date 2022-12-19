@@ -17,6 +17,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     [
+      pkgs.wireguard-tools
     ];
 
   programs.zsh.enable = true;
