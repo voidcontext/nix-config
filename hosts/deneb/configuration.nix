@@ -2,7 +2,7 @@
 
 let 
   git = "${pkgs.git}/bin/git";
-  nix= "${pkgs.nix}/bin/nix";
+  nix = "${pkgs.nix}/bin/nix";
 
   staticSitePreReqs = pkgs.writeScriptBin "staticsite-prereqs" ''
     set -e
@@ -70,6 +70,7 @@ in
 
       # Additional imports
       ./indieweb.nix
+      ./monitoring.nix
       ./wireguard.nix
     ];
   
