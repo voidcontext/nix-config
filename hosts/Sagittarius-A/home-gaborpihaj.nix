@@ -17,7 +17,6 @@ in
   base.helix.fromGit = true;
 
   development.java.jdk = pkgs.openjdk11_headless;
-  development.rust.enable = true;
   development.scala.enable = true;
 
   virtualization.lima.enable = true;
