@@ -35,6 +35,7 @@ in
         pkgs.bashInteractive
         pkgs.bwm_ng
         pkgs.coreutils
+        pkgs.dogdns
         pkgs.gnugrep
         pkgs.gnupg
         pkgs.gnused
