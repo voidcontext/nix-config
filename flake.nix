@@ -20,9 +20,7 @@
     blog-beta.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
     blog-beta.inputs.nixpkgs.follows = "nixpkgs";
 
-    rnix-lsp.url = "github:nix-community/rnix-lsp?ref=v0.2.5";
-    # doesn't work with 22.11, produces: error: nixVersions.nix_2_4 has been removed
-    # rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+    nil.url = "github:oxalica/nil";
 
     helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +30,7 @@
     
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
     mqtt2influxdb2.inputs.nixpkgs.follows = "nixpkgs";
-    };
+  };
 
   outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
@@ -167,13 +165,20 @@
         };
       };
 
-      devShells.x86_64-darwin.default =
-        with x86_64-darwin; pkgs.mkShell {
-          buildInputs = [
-            pkgs.nixpkgs-fmt
-            inputs.rnix-lsp.packages.x86_64-darwin.rnix-lsp
-          ];
-        };
+      devShells = 
+        builtins.listToAttrs (builtins.map (arch:
+          {
+            name = arch.system;
+            value = {
+              default = with arch; pkgs.mkShell {
+                buildInputs = [
+                  pkgs.nixpkgs-fmt
+                  inputs.nil.packages.${system}.default
+                ];
+              };
+            };
+          }
+        ) [x86_64-darwin x86_64-linux aarch64-linux]);
     };
 }
 
