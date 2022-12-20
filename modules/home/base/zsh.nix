@@ -67,7 +67,7 @@
         nsu = "nix search ${configInputs} nixpkgs-unstable";
         nr = "nix run ${configInputs}";
         
-        nix-flake-lock-updated = ''cat flake.lock  | jq -r '.nodes | to_entries[] | (.key + ": " + (.value.locked.lastModified | strftime("%Y-%m-%d")))' '';
+        nix-flake-lock-updated = ''echo "Root input updated at" &&  cat flake.lock | jq -r '(.nodes.root.inputs | values[]) as $root_input | .nodes | to_entries | map(select(.key == $root_input))[] | ($root_input + "," + (.value.locked.lastModified | strftime("%Y-%m-%d")))'  | column -ts,'';
       };
 
     sessionVariables = {
