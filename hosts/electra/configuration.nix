@@ -58,11 +58,11 @@
 
   # File systems configuration for using the installer's partition layout
   fileSystems = {
-    "/" = { 
+    "/" = {
       device = "/dev/disk/by-uuid/bab2c768-6e36-43c4-8add-867fcd92a959";
       fsType = "ext4";
     };
-  
+
     "/boot" = {
       device = "/dev/disk/by-uuid/3247-4D1D";
       fsType = "vfat";

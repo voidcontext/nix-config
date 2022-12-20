@@ -5,7 +5,7 @@ let cfg = config.base.helix;
 in
 {
   # Helix
-  
+
   options = {
     base.helix.fromGit = mkOption {
       type = types.bool;
@@ -15,19 +15,19 @@ in
 
   config = mkMerge [
     {
-      
-      home.file."workspace/.ignore".text = ''
-      .bloop
-      .bsp
-      .direnv
-      .idea
-      .nix
-      .metals
 
-      node_modules
-      target
+      home.file."workspace/.ignore".text = ''
+        .bloop
+        .bsp
+        .direnv
+        .idea
+        .nix
+        .metals
+
+        node_modules
+        target
       '';
-  
+
       programs.helix = {
         enable = true;
         # package = pkgsUnstable.helix;
@@ -48,8 +48,8 @@ in
           editor.indent-guides.character = "|";
 
           editor.file-picker.hidden = false;
-          editor.file-picker.git-ignore   = false;
-      
+          editor.file-picker.git-ignore = false;
+
           # It's quite helpful, but the placement is a bit annoying
           # editor.lsp.auto-signature-help = false;
           editor.lsp.display-messages = true;
@@ -77,7 +77,7 @@ in
           }
         ];
       };
-    }  
+    }
     (mkIf cfg.fromGit {
       programs.helix.package = helix.package;
       programs.helix.settings.editor.bufferline = "multiple";
@@ -86,5 +86,5 @@ in
       programs.helix.package = pkgsUnstable.helix;
     })
   ];
-    
+
 }

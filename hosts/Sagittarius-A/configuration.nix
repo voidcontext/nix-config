@@ -24,7 +24,7 @@
   users.users.gaborpihaj.home = "/Users/gaborpihaj";
 
   home-manager.users.gaborpihaj = import ./home-gaborpihaj.nix;
-  
+
   security.pam.enableSudoTouchIdAuth = true;
 
   # Auto upgrade nix package and the daemon service.

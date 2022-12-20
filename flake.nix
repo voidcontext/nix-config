@@ -24,10 +24,10 @@
 
     helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
     indieweb-tools.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
     mqtt2influxdb2.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -50,7 +50,7 @@
         };
 
       overlays = [ weechatOverlay ];
-      
+
       sysDefaults = system: {
         inherit nixpkgs nixpkgs-unstable overlays system;
       };
@@ -145,8 +145,9 @@
         # NixOS VM @ DO
         deneb = nixpkgs.lib.nixosSystem {
           inherit (x86_64-linux) system;
-          specialArgs = inputs // { inherit (x86_64-linux) pkgs pkgsUnstable; 
-            helix = mkHelix "x86_64-linux"; 
+          specialArgs = inputs // {
+            inherit (x86_64-linux) pkgs pkgsUnstable;
+            helix = mkHelix "x86_64-linux";
             secrets = inputs.nix-config-extras.secrets;
           };
           modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
@@ -155,30 +156,31 @@
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem {
           inherit (aarch64-linux) system;
-          specialArgs = inputs // { 
+          specialArgs = inputs // {
             inherit inputs;
-            inherit (aarch64-linux) pkgs pkgsUnstable; 
-            helix = mkHelix "aarch64-linux"; 
+            inherit (aarch64-linux) pkgs pkgsUnstable;
+            helix = mkHelix "aarch64-linux";
             secrets = inputs.nix-config-extras.secrets;
           };
           modules = defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };
       };
 
-      devShells = 
-        builtins.listToAttrs (builtins.map (arch:
-          {
-            name = arch.system;
-            value = {
-              default = with arch; pkgs.mkShell {
-                buildInputs = [
-                  pkgs.nixpkgs-fmt
-                  inputs.nil.packages.${system}.default
-                ];
+      devShells =
+        builtins.listToAttrs (builtins.map
+          (arch:
+            {
+              name = arch.system;
+              value = {
+                default = with arch; pkgs.mkShell {
+                  buildInputs = [
+                    pkgs.nixpkgs-fmt
+                    inputs.nil.packages.${system}.default
+                  ];
+                };
               };
-            };
-          }
-        ) [x86_64-darwin x86_64-linux aarch64-linux]);
+            }
+          ) [ x86_64-darwin x86_64-linux aarch64-linux ]);
     };
 }
 

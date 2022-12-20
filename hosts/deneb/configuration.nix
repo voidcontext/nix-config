@@ -1,6 +1,6 @@
 { pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, blog, blog-beta, ... }:
 
-let 
+let
   git = "${pkgs.git}/bin/git";
   nix = "${pkgs.nix}/bin/nix";
 
@@ -49,8 +49,8 @@ let
   '';
 
   goaccessBin = "${pkgs.goaccess}/bin/goaccess";
-  goaccessCron = domain: 
-      "*/5 * * * *      nginx    ${goaccessBin} -o /var/www/stats.vdx.hu/${domain}.html /var/log/nginx/${domain}-access.log --log-format=COMBINED --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb";
+  goaccessCron = domain:
+    "*/5 * * * *      nginx    ${goaccessBin} -o /var/www/stats.vdx.hu/${domain}.html /var/log/nginx/${domain}-access.log --log-format=COMBINED --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb";
 in
 {
 
@@ -73,7 +73,7 @@ in
       ./monitoring.nix
       ./wireguard.nix
     ];
-  
+
   # Login / ssh / security
 
   services.openssh.passwordAuthentication = false;
@@ -120,7 +120,7 @@ in
     pkgs.wireguard-tools
     staticsite-build
   ];
-  
+
   # services.logind.extraConfig = ''
   #   # Otherwise emacs cannot be built
   #   RuntimeDirectorySize=500M
@@ -129,7 +129,7 @@ in
   nix.package = pkgsUnstable.nix;
   nix.settings.substituters = [ "https://indieweb-tools.cachix.org" ];
   nix.settings.trusted-public-keys = [ "indieweb-tools.cachix.org-1:yPp4kg6bp8YLLEhuz/wRhEvPLuc3PJFZa5C8zEmw4es=" ];
-  
+
   # Nginx Virtual hosts
   services.nginx.virtualHosts."vdx.hu" = {
     forceSSL = true;
@@ -160,13 +160,13 @@ in
     forceSSL = true;
     enableACME = true;
     root = "${blog.defaultPackage."x86_64-linux"}";
-    
+
     extraConfig = ''
       access_log /var/log/nginx/gaborpihaj.com-access.log;
       error_log /var/log/nginx/gaborpihaj.com-error.log error;
     '';
   };
-  
+
   services.nginx.virtualHosts."beta.gaborpihaj.com" = {
     forceSSL = true;
     enableACME = true;
@@ -197,23 +197,23 @@ in
     # };
     # basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
   };
-  
+
   # Goaccess stats
-  
-  
+
+
   systemd.services.staticsite-prereqs = {
     description = "Setup directories for static sites";
     before = [ "nginx.service" ];
 
     wantedBy = [ "multi-user.target" ];
-    
+
 
     serviceConfig = {
       Type = "simple";
       User = "root";
 
       Group = "root";
-      
+
       ExecStart = "${pkgs.bash}/bin/bash ${staticSitePreReqs}/bin/staticsite-prereqs";
 
     };

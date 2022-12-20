@@ -31,13 +31,13 @@ let
     version = "0.11.9";
     outputHash = "sha256-CJ34OZOAM0Le9U0KSe0nKINnxA3iUgqUMtS06YnjvVo=";
   };
-  
+
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
     ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall"
     ${pkgsUnstable.bloop}/bin/bloop clean
   '';
-  
+
   sbt-watcher = pkgs.writeShellScriptBin "sbt-watcher" ''
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
     ${pkgs.fswatch}/bin/fswatch -o *.sbt project/*.sbt | xargs -n1 -I{} sh -c '\
@@ -49,18 +49,18 @@ in
   options.development.scala.enable = mkEnableOption "scala";
 
   config = mkIf cfg.enable {
-    
+
     programs.zsh.shellAliases = {
-      sc  = "sbt --client";
+      sc = "sbt --client";
       sbi = "sbt --client bloopInstall";
-      st  = "sbt --client test";
+      st = "sbt --client test";
     };
 
     # Make navigation in dependency code work with metals/bloop    
     programs.zsh.initExtra = ''
       export SBT_OPTS=-Dbloop.export-jar-classifiers=sources
     '';
-    
+
     home.packages = [
       metals
       metals-reload

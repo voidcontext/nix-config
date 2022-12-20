@@ -1,16 +1,16 @@
-{pkgs, indieweb-tools, ...}:
+{ pkgs, indieweb-tools, ... }:
 
 let
   wormholePort = 6009;
-  
+
   iwtBin = name: "${indieweb-tools.packages."x86_64-linux".default}/bin/${name}";
-  
+
   iwtCronLog = "/var/log/indieweb-orion-cron.log";
 in
 {
-   users.groups.indieweb = {};
-  
-   users.users.indieweb = {
+  users.groups.indieweb = { };
+
+  users.users.indieweb = {
     isSystemUser = true;
     group = "indieweb";
     # the home directory is needed so that indieweb can build gaborpihaj.com using nix
@@ -18,15 +18,15 @@ in
     createHome = true;
     home = "/var/indieweb";
   };
-  
-  users.users.vdx.extraGroups = ["indieweb"];
-  
+
+  users.users.vdx.extraGroups = [ "indieweb" ];
+
   systemd.services.wormhole = {
     description = "Wormhole URL shortener";
     after = [ "network.target" ];
 
     wantedBy = [ "multi-user.target" ];
-    
+
     environment = {
       WORMHOLE_DB_PATH = "/opt/indieweb/wormhole.db";
       WORMHOLE_HTTP_PORT = "6009";
@@ -37,7 +37,7 @@ in
       User = "indieweb";
 
       Group = "indieweb";
-      
+
       ExecStart = ''
         ${iwtBin "wormhole"}
       '';
@@ -59,14 +59,14 @@ in
       ;
     };
   };
-  
+
   services.cron = {
     enable = true;
     systemCronJobs = [
       "*/5 * * * *      indieweb    ${iwtBin "orion"} --config /opt/indieweb/indieweb.toml >> ${iwtCronLog} 2>&1"
     ];
   };
-  
+
   services.logrotate.enable = true;
   services.logrotate.settings.indieweb-cron.enable = true;
   services.logrotate.settings.indieweb-cron.files = [ iwtCronLog ];

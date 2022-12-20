@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 
 pkgs.stdenv.mkDerivation rec {
   pname = "marksman";
@@ -9,11 +9,11 @@ pkgs.stdenv.mkDerivation rec {
     hash = "sha256-PlBCLe5NEv1eQWUtoypYQK18YOJE12+q/zFErGXWIP0=";
   };
 
-  phases = ["installPhase" "patchPhase"];
+  phases = [ "installPhase" "patchPhase" ];
 
   installPhase = ''
-  mkdir -p $out/bin
+    mkdir -p $out/bin
 
-  cp $src $out/bin/marksman && chmod +x $out/bin/marksman
+    cp $src $out/bin/marksman && chmod +x $out/bin/marksman
   '';
 }
