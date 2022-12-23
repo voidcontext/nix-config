@@ -5,7 +5,7 @@
     enable = true;
     hostName = "nextcloud.vdx.hu";
     home = "/Volumes/raid/nextcloud";
-    package = pkgs.nextcloud24;
+    package = pkgs.nextcloud25;
     maxUploadSize = "20G";
     https = true;
     config = {
@@ -15,14 +15,14 @@
       dbname = "nextcloud";
       adminpassFile = "/Volumes/raid/config/nextcloud/.adminpassword";
       adminuser = "root";
-      #      extraTrustedDomains = [ "nextcloud.electra0.lan" ];
+      extraTrustedDomains = [ "nextcloud.lan.vdx.hu" ];
     };
   };
 
   # Command to generate the certs:
   # openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=nextcloud.vdx.hu/OU=TEST/O=VDX/L=WALSALL/C=UK/' -keyout ./nextcloud-selfsigned.key -out ./nextcloud-selfsigned.crt  # 
   services.nginx.virtualHosts."nextcloud.vdx.hu" = {
-    serverAliases = [ "netxcloud.vdx.hu" ];
+    serverAliases = [ "nextcloud.lan.vdx.hu" ];
     forceSSL = true;
     sslCertificate = "/opt/secrets/nextcloud/nextcloud-selfsigned.crt";
     sslCertificateKey = "/opt/secrets/nextcloud/nextcloud-selfsigned.key";
@@ -38,11 +38,14 @@
   services.postgresql.ensureUsers = [
     {
       name = "nextcloud";
+      # GRANT ALL ON SCHEMA public TO nextcloud; -- must be added manually
       ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
     }
   ];
 
   services.dnsmasq.extraConfig = ''
     address=/nextcloud.vdx.hu/192.168.24.2
+    # address=/nextcloud.vdx.hu/192.168.24.2
+    address=/nextcloud.lan.vdx.hu/10.24.0.2
   '';
 }

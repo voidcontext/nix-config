@@ -178,8 +178,7 @@
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_11;
-    dataDir = "/Volumes/raid/postgresql/${config.services.postgresql.package.psqlSchema}";
+    package = pkgs.postgresql_15;
     settings = {
       # These 2 settings were meant to fix the following startup issue:
       # Dec 01 15:12:03 electra postgres[24612]: [24612] LOG:  all server processes terminated; reinitializing
@@ -205,6 +204,9 @@
   services.dnsmasq.enable = true;
   services.dnsmasq.servers = [ "192.168.24.1" ];
   services.dnsmasq.extraConfig = ''
-    listen-address=127.0.0.1,192.168.24.2
+    listen-address=127.0.0.1,192.168.24.2,10.24.0.2
+    
+    address=/deneb.lan.vdx.hu/10.24.0.1
+    address=/electra.lan.vdx.hu/10.24.0.2
   '';
 }
