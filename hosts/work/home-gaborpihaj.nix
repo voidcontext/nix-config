@@ -40,6 +40,7 @@ in
     pkgs.awscli2
     pkgs.plantuml
     pkgs.gh
+    pkgs.nil
 
     pkgsUnstable.lima
     pkgsUnstable.docker-client

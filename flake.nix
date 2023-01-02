@@ -37,6 +37,11 @@
 
       localLib = import ./lib;
 
+      defaultOverlay = final: prev: {
+        indieweb-tools = inputs.indieweb-tools.packages.${final.system}.default;
+        mqtt2influxdb2 = inputs.mqtt2influxdb2.packages.${final.system}.default;
+      };
+
       weechatOverlay = self: super:
         {
           # TODO: fix in 22.11
@@ -49,7 +54,7 @@
           # };
         };
 
-      overlays = [ weechatOverlay ];
+      overlays = [ defaultOverlay weechatOverlay inputs.nil.overlays.default ];
 
       sysDefaults = system: {
         inherit nixpkgs nixpkgs-unstable overlays system;
@@ -175,7 +180,6 @@
                 default = with arch; pkgs.mkShell {
                   buildInputs = [
                     pkgs.nixpkgs-fmt
-                    inputs.nil.packages.${system}.default
                   ];
                 };
               };

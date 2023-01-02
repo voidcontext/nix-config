@@ -37,6 +37,7 @@ in
     pkgs.postgresql_12
 
     pkgs.weechat
+    pkgs.nil
   ];
 
   programs.nix-index.enable = true;
