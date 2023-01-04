@@ -1,11 +1,13 @@
-{ pkgs, indieweb-tools, ... }:
+{ pkgs, ... }:
 
 let
-  wormholePort = 6009;
+  urlShortenerPort = 6009;
 
-  iwtBin = name: "${indieweb-tools.packages."x86_64-linux".default}/bin/${name}";
+  iwtBin = "${pkgs.indieweb-tools}/bin/iwt";
+  
+  urlShortenerBin = "${pkgs.indieweb-tools}/bin/iwt-url-shortener";
 
-  iwtCronLog = "/var/log/indieweb-orion-cron.log";
+  iwtCronLog = "/var/log/indieweb/cross-publish.log";
 in
 {
   users.groups.indieweb = { };
@@ -21,15 +23,15 @@ in
 
   users.users.vdx.extraGroups = [ "indieweb" ];
 
-  systemd.services.wormhole = {
-    description = "Wormhole URL shortener";
+  systemd.services.iwt-url-shortener = {
+    description = "IWT URL shortener";
     after = [ "network.target" ];
 
     wantedBy = [ "multi-user.target" ];
 
     environment = {
-      WORMHOLE_DB_PATH = "/opt/indieweb/wormhole.db";
-      WORMHOLE_HTTP_PORT = "6009";
+      IWT_URL_SHORTENER_DB_PATH = "/opt/indieweb/url-shortener.db";
+      IWT_URL_SHORTENER_HTTP_PORT = builtins.toString urlShortenerPort;
     };
 
     serviceConfig = {
@@ -39,7 +41,7 @@ in
       Group = "indieweb";
 
       ExecStart = ''
-        ${iwtBin "wormhole"}
+        ${urlShortenerBin}
       '';
 
       Restart = "on-failure";
@@ -49,7 +51,7 @@ in
 
   services.nginx.virtualHosts."vdx.hu" = {
     locations."/s/" = {
-      proxyPass = "http://127.0.0.1:${builtins.toString wormholePort}";
+      proxyPass = "http://127.0.0.1:${builtins.toString urlShortenerPort}";
       # proxyWebsockets = true; # needed if you need to use WebSocket
       extraConfig =
         # required when the target is also TLS server with multiple hosts
@@ -63,7 +65,7 @@ in
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/5 * * * *      indieweb    ${iwtBin "orion"} --config /opt/indieweb/indieweb.toml >> ${iwtCronLog} 2>&1"
+      "*/5 * * * *      indieweb    ${iwtBin} --config /opt/indieweb/indieweb.toml cross-publish >> ${iwtCronLog} 2>&1"
     ];
   };
 
