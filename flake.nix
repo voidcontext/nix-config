@@ -180,6 +180,7 @@
                 default = with arch; pkgs.mkShell {
                   buildInputs = [
                     pkgs.nixpkgs-fmt
+                    pkgs.git-crypt
                   ];
                 };
               };
