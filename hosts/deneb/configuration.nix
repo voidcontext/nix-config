@@ -63,16 +63,16 @@ in
 
   # Upstream options
 
-  imports = nix-config-extras.extraModules.deneb ++
-    [
-      # DO NOT REMOVE THIS! Default configuration for DO droplet
-      (modulesPath + "/virtualisation/digital-ocean-config.nix")
+  imports = [
+    # DO NOT REMOVE THIS! Default configuration for DO droplet
+    (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
-      # Additional imports
-      ./indieweb.nix
-      ./monitoring.nix
-      ./wireguard.nix
-    ];
+    # Additional imports
+    ./extras.nix
+    ./indieweb.nix
+    ./monitoring.nix
+    ./wireguard.nix
+  ];
 
   # Login / ssh / security
 

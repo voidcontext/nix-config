@@ -35,7 +35,8 @@ in
         pkgs.bashInteractive
         pkgs.bwm_ng
         pkgs.coreutils
-        pkgs.dogdns
+        pkgs.git
+        pkgs.git-crypt
         pkgs.gnugrep
         pkgs.gnupg
         pkgs.gnused
@@ -56,6 +57,7 @@ in
         pkgs.bat
         pkgs.bottom
         pkgs.delta
+        pkgs.dogdns
         pkgs.du-dust
         pkgs.duf
         pkgs.exa
