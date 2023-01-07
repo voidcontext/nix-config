@@ -10,6 +10,9 @@
 
     home-manager.url = "github:rycee/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    
+    sops-nix.url = github:Mic92/sops-nix;
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?ref=main";
     nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +35,7 @@
     mqtt2influxdb2.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+  outputs = { self, darwin, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, ... }@inputs:
     let
 
       localLib = import ./lib;
@@ -105,6 +108,7 @@
 
       defaultNixosSystemModules = defaultSystemModules ++ [
         home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
       ];
 
     in
@@ -180,6 +184,7 @@
                 default = with arch; pkgs.mkShell {
                   buildInputs = [
                     pkgs.nixpkgs-fmt
+                    pkgs.sops
                   ];
                 };
               };

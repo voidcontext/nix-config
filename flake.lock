@@ -630,6 +630,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1672500394,
+        "narHash": "sha256-yzwBzCoeRBoRzm7ySHhm72kBG0QjgFalLz2FY48iLI4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "feda52be1d59f13b9aa02f064b4f14784b9a06c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1659606041,
@@ -770,7 +786,8 @@
         "nil": "nil_2",
         "nix-config-extras": "nix-config-extras",
         "nixpkgs": "nixpkgs_5",
-        "nixpkgs-unstable": "nixpkgs-unstable_3"
+        "nixpkgs-unstable": "nixpkgs-unstable_3",
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -914,6 +931,27 @@
         "ref": "nixos-22.11",
         "repo": "nixos-mailserver",
         "type": "gitlab"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1672543202,
+        "narHash": "sha256-nlCUtcIZxaBqUBG1GyaXhZmfyG5WK4e6LqypP8llX9E=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "b35586cc5abacd4eba9ead138b53e2a60920f781",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "utils": {
