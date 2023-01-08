@@ -35,7 +35,7 @@
         h = "hx";
 
         reload-zsh = "source ~/.zshrc";
-        nsh = "nix-shell";
+        nsh = "nix-shell -I nixpkgs=/Users/gaborpihaj/workspace/personal/nix-config/nixpkgs.nix";
 
         enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
         learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
