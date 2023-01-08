@@ -11,8 +11,8 @@
     home-manager.url = "github:rycee/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?ref=main";
-    nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
+    # nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?ref=main";
+    # nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
 
     blog.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
     blog.inputs.nixpkgs.follows = "nixpkgs";
@@ -38,6 +38,7 @@
     let
 
       localLib = import ./lib;
+      secrets = import ./secrets.nix;
 
       defaultOverlay = final: prev: {
         indieweb-tools = inputs.indieweb-tools.packages.${final.system}.default;
@@ -153,9 +154,9 @@
         deneb = nixpkgs.lib.nixosSystem {
           inherit (x86_64-linux) system;
           specialArgs = inputs // {
+            inherit secrets;
             inherit (x86_64-linux) pkgs pkgsUnstable;
             helix = mkHelix "x86_64-linux";
-            secrets = inputs.nix-config-extras.secrets;
           };
           modules = defaultNixosSystemModules ++ [ ./hosts/deneb/configuration.nix ];
         };
@@ -164,10 +165,9 @@
         electra = nixpkgs.lib.nixosSystem {
           inherit (aarch64-linux) system;
           specialArgs = inputs // {
-            inherit inputs;
+            inherit secrets;
             inherit (aarch64-linux) pkgs pkgsUnstable;
             helix = mkHelix "aarch64-linux";
-            secrets = inputs.nix-config-extras.secrets;
           };
           modules = defaultNixosSystemModules ++ [ ./hosts/electra/configuration.nix ];
         };

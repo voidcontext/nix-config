@@ -1,2 +1,2 @@
+**/secrets.nix filter=git-crypt diff=git-crypt
 hosts/*/extras.nix filter=git-crypt diff=git-crypt
-hosts/*/secrets.nix filter=git-crypt diff=git-crypt
