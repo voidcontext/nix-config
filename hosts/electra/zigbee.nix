@@ -1,12 +1,13 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, config, ... }:
 
 let
+  secrets = import ./secrets.nix;
   zigbeeUser = "zigbee2mqtt";
   mqtt2influxdb2Setup = pkgs.writeShellScriptBin "mqtt2influxdb2-setup" ''
     mkdir -p /var/mqtt2influxdb2
     chown iot /var/mqtt2influxdb2
   '';
-  mqtt2influxdb2Bin = "${inputs.mqtt2influxdb2.packages."aarch64-linux".default}/bin/mqtt2influxdb2";
+  mqtt2influxdb2Bin = "${pkgs.mqtt2influxdb2}/bin/mqtt2influxdb2";
 in
 {
 
@@ -46,6 +47,46 @@ in
   ];
 
   services.influxdb2.enable = true;
+
+  services.telegraf.enable = true;
+
+  services.telegraf.extraConfig.inputs.cpu = { };
+  services.telegraf.extraConfig.inputs.mem = { };
+  services.telegraf.extraConfig.inputs.net = { };
+  services.telegraf.extraConfig.inputs.disk = { };
+  services.telegraf.extraConfig.inputs.file = [{
+    files = [ "/sys/class/thermal/thermal_zone0/temp" ];
+    name_override = "cpu_temperature";
+    data_format = "value";
+    data_type = "integer";
+  }];
+
+  # services.telegraf.extraConfig.inputs.exec = [{
+  #   commands = [ "${pkgs.libraspberrypi}/bin/vcgencmd measure_temp" ];
+  #   name_override = "gpu_temperature";
+  #   data_format = "grok";
+  #   grok_patterns = ["%{NUMBER:value:float}"];
+  # }];
+
+  services.telegraf.extraConfig.inputs.openweathermap = {
+    app_id = secrets.openweathermap.app_id;
+    city_id = [ secrets.openweathermap.city_id ];
+    fetch = [ "weather" ];
+    tags = {
+      target_bucket = "sensors";
+      location = "outdoor";
+      city = secrets.openweathermap.city;
+    };
+  };
+
+  services.telegraf.extraConfig.outputs.influxdb_v2 = {
+    urls = [ "http://127.0.0.1:8086" ];
+    token = secrets.influxdb.telegraf-token;
+    organization = "iot";
+    bucket = "monitoring";
+    bucket_tag = "target_bucket";
+  };
+  users.users.telegraf.extraGroups = [ "video" ];
 
   environment.systemPackages = [
     pkgs.influxdb2
