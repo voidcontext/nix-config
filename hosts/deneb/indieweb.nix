@@ -4,7 +4,7 @@ let
   urlShortenerPort = 6009;
 
   iwtBin = "${pkgs.indieweb-tools}/bin/iwt";
-  
+
   urlShortenerBin = "${pkgs.indieweb-tools}/bin/iwt-url-shortener";
 
   iwtCronLog = "/var/log/indieweb/cross-publish.log";
