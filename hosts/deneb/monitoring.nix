@@ -1,5 +1,7 @@
 { pkgs, ... }:
 
+let secrets = import ./secrets.nix;
+in
 {
 
   services.influxdb2.enable = true;
@@ -11,7 +13,7 @@
   services.telegraf.extraConfig.inputs.disk = { };
   services.telegraf.extraConfig.outputs.influxdb_v2 = {
     urls = [ "http://127.0.0.1:8086" ];
-    token = "uiv3Se6iGBc08XkEnW4vwxFl6qHZlKwl_dVUVGekaLWPdDe-MaBhF_nOWgUTjSMDusAzSTdey42dR4hCWM5XoA==";
+    token = secrets.influxdb.telegraf-token;
     organization = "monitoring";
     bucket = "monitoring";
   };
