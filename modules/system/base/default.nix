@@ -66,6 +66,8 @@ in
 
       nix.extraOptions = ''
         experimental-features = nix-command flakes
+        keep-outputs = true
+        keep-derivations = true
       '';
       nix.settings.substituters = [ "https://nix-community.cachix.org" "https://helix.cachix.org" ];
       nix.settings.trusted-public-keys = [
