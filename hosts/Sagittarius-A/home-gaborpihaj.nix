@@ -56,13 +56,14 @@ in {
 
   programs.ssh = {
     enable = true;
-    forwardAgent = true;
     matchBlocks = {
       "spellcasterhub.com" = {
         port = 5422;
+        forwardAgent = true;
       };
       "vdx.hu" = {
         port = 5422;
+        forwardAgent = true;
       };
       "vdx.hu.gpg" = {
         hostname = "vdx.hu";
