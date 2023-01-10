@@ -1,6 +1,9 @@
-{ systemConfig, localLib, pkgs, ... }:
-
 {
+  systemConfig,
+  localLib,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
 
@@ -23,52 +26,50 @@
       # [[ $TMUX != "" ]] && export TERM="screen-256color"
     '';
 
-    shellAliases =
-      let
-        configInputs = "--inputs-from ${systemConfig.base.nixConfigFlakeDir}";
-      in
-      {
-        ls = "exa";
-        la = "exa -la";
-        df = "duf";
-        du = "dunst";
-        h = "hx";
+    shellAliases = let
+      configInputs = "--inputs-from ${systemConfig.base.nixConfigFlakeDir}";
+    in {
+      ls = "exa";
+      la = "exa -la";
+      df = "duf";
+      du = "dunst";
+      h = "hx";
 
-        reload-zsh = "source ~/.zshrc";
-        nsh = "nix-shell -I nixpkgs=/Users/gaborpihaj/workspace/personal/nix-config/nixpkgs.nix";
+      reload-zsh = "source ~/.zshrc";
+      nsh = "nix-shell -I nixpkgs=/Users/gaborpihaj/workspace/personal/nix-config/nixpkgs.nix";
 
-        enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
-        learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
+      enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
+      learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
 
-        java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
+      java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
 
-        gcs = "git commit -v -S";
-        gdc = "git diff --cached";
-        gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
-        gbpurge = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
-        gmf = "git merge --ff-only";
-        gmfh = "git merge FETCH_HEAD";
-        gsl = "git shortlog -s -n";
-        gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
+      gcs = "git commit -v -S";
+      gdc = "git diff --cached";
+      gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
+      gbpurge = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
+      gmf = "git merge --ff-only";
+      gmfh = "git merge FETCH_HEAD";
+      gsl = "git shortlog -s -n";
+      gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
 
-        rcd = "cd $(git rev-parse --show-toplevel)";
+      rcd = "cd $(git rev-parse --show-toplevel)";
 
-        dk = "docker";
-        dkps = "docker ps";
-        dkrma = "docker rm -f $(docker ps -a -q)";
+      dk = "docker";
+      dkps = "docker ps";
+      dkrma = "docker rm -f $(docker ps -a -q)";
 
-        dkc = "docker compose";
-        dkce = "docker compose exec";
-        dkcu = "docker compose up -d";
-        dkcl = "docker compose logs";
-        dkcr = "docker compose stop && docker compose rm -f && docker compose up";
+      dkc = "docker compose";
+      dkce = "docker compose exec";
+      dkcu = "docker compose up -d";
+      dkcl = "docker compose logs";
+      dkcr = "docker compose stop && docker compose rm -f && docker compose up";
 
-        nsp = "nix search ${configInputs} nixpkgs";
-        nsu = "nix search ${configInputs} nixpkgs-unstable";
-        nr = "nix run ${configInputs}";
+      nsp = "nix search ${configInputs} nixpkgs";
+      nsu = "nix search ${configInputs} nixpkgs-unstable";
+      nr = "nix run ${configInputs}";
 
-        nix-flake-lock-updated = ''echo "Root input updated at" &&  cat flake.lock | jq -r '(.nodes.root.inputs | values[]) as $root_input | .nodes | to_entries | map(select(.key == $root_input))[] | ($root_input + "," + (.value.locked.lastModified | strftime("%Y-%m-%d")))'  | column -ts,'';
-      };
+      nix-flake-lock-updated = ''echo "Root input updated at" &&  cat flake.lock | jq -r '(.nodes.root.inputs | values[]) as $root_input | .nodes | to_entries | map(select(.key == $root_input))[] | ($root_input + "," + (.value.locked.lastModified | strftime("%Y-%m-%d")))'  | column -ts,'';
+    };
 
     sessionVariables = {
       EDITOR = "hx";

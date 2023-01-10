@@ -1,7 +1,9 @@
-{ lib, config, ... }:
-
-with lib;
 {
+  lib,
+  config,
+  ...
+}:
+with lib; {
   options.base.user-bin.enable = mkEnableOption "user-bin";
 
   config = mkIf config.base.user-bin.enable {

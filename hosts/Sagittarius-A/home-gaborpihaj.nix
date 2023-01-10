@@ -1,9 +1,11 @@
-{ config, pkgs, localPackages, ... }:
-
-let
-  workspace = "$HOME/workspace";
-in
 {
+  config,
+  pkgs,
+  localPackages,
+  ...
+}: let
+  workspace = "$HOME/workspace";
+in {
   home.stateVersion = "22.11";
 
   base.zsh.gpg-ssh.enable = true;
@@ -69,8 +71,8 @@ in
         forwardAgent = true;
         remoteForwards = [
           {
-            bind = { address = "/run/user/1000/gnupg/S.gpg-agent"; };
-            host = { address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent"; };
+            bind = {address = "/run/user/1000/gnupg/S.gpg-agent";};
+            host = {address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent";};
           }
         ];
       };
@@ -80,8 +82,8 @@ in
         forwardAgent = true;
         remoteForwards = [
           {
-            bind = { address = "/run/user/1004/gnupg/S.gpg-agent"; };
-            host = { address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent"; };
+            bind = {address = "/run/user/1004/gnupg/S.gpg-agent";};
+            host = {address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent";};
           }
         ];
       };

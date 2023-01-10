@@ -1,7 +1,11 @@
-{ config, lib, pkgs, pkgsUnstable, ... }:
-
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  pkgsUnstable,
+  ...
+}:
+with lib; let
   cfg = config.virtualization.lima;
   lima = pkgsUnstable.lima;
   docker = pkgs.docker-client;
@@ -44,8 +48,7 @@ let
     EOF
         esac
   '';
-in
-{
+in {
   options.virtualization.lima.enable = mkEnableOption "lima";
 
   config = mkIf cfg.enable {

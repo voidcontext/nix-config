@@ -1,10 +1,14 @@
-{ lib, pkgs, pkgsUnstable, config, systemConfig, ... }:
-
-with lib;
-let kitty = pkgsUnstable.kitty;
-in
 {
-
+  lib,
+  pkgs,
+  pkgsUnstable,
+  config,
+  systemConfig,
+  ...
+}:
+with lib; let
+  kitty = pkgsUnstable.kitty;
+in {
   config = mkIf (!systemConfig.base.headless) {
     base.darwin_symlinks = {
       "$HOME/Applications/kitty.app" = "${kitty}/Applications/Kitty.app";
@@ -50,7 +54,7 @@ in
         map ctrl+cmd+g goto_layout grid
         map ctrl+cmd+a goto_layout fat
         map ctrl+cmd+p last_used_layout
-        
+
         map cmd+shift+enter launch --cwd=current
 
         # Move the active window in the indicated direction
@@ -109,7 +113,6 @@ in
         # dark gray
         color15               #928374
       '';
-
     };
   };
 }

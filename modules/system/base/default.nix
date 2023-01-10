@@ -1,9 +1,14 @@
-{ lib, pkgs, pkgsUnstable, config, inputs, ... }:
-
-with lib;
-let cfg = config.base;
-in
 {
+  lib,
+  pkgs,
+  pkgsUnstable,
+  config,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.base;
+in {
   options.base.nixConfigFlakeDir = mkOption {
     type = types.str;
     example = "/opt/nix-config";
@@ -27,7 +32,7 @@ in
     {
       # https://github.com/nix-community/home-manager/issues/423
       environment.variables = {
-        TERMINFO_DIRS = [ "${pkgsUnstable.kitty.terminfo.outPath}/share/terminfo" ];
+        TERMINFO_DIRS = ["${pkgsUnstable.kitty.terminfo.outPath}/share/terminfo"];
       };
 
       environment.systemPackages = [
@@ -69,7 +74,7 @@ in
         keep-outputs = true
         keep-derivations = true
       '';
-      nix.settings.substituters = [ "https://nix-community.cachix.org" "https://helix.cachix.org" ];
+      nix.settings.substituters = ["https://nix-community.cachix.org" "https://helix.cachix.org"];
       nix.settings.trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
@@ -80,7 +85,7 @@ in
 
       fonts.fonts = [
         (pkgs.nerdfonts.override {
-          fonts = [ cfg.font.family ];
+          fonts = [cfg.font.family];
         })
       ];
     })

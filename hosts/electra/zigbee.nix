@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
-
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   secrets = import ./secrets.nix;
   zigbeeUser = "zigbee2mqtt";
   mqtt2influxdb2Setup = pkgs.writeShellScriptBin "mqtt2influxdb2-setup" ''
@@ -8,10 +10,8 @@ let
     chown iot /var/mqtt2influxdb2
   '';
   mqtt2influxdb2Bin = "${pkgs.mqtt2influxdb2}/bin/mqtt2influxdb2";
-in
-{
-
-  users.groups.iot = { };
+in {
+  users.groups.iot = {};
 
   users.users.iot = {
     isSystemUser = true;
@@ -29,20 +29,20 @@ in
     frontend.port = 8080;
   };
 
-  systemd.services."zigbee2mqtt.service".requires = [ "mosquitto.service" ];
-  systemd.services."zigbee2mqtt.service".after = [ "mosquitto.service" ];
+  systemd.services."zigbee2mqtt.service".requires = ["mosquitto.service"];
+  systemd.services."zigbee2mqtt.service".after = ["mosquitto.service"];
 
   services.mosquitto.enable = true;
   services.mosquitto.listeners = [
     # zigbee2mqtt
     {
-      acl = [ "topic readwrite #" ];
+      acl = ["topic readwrite #"];
       port = 1883;
 
       settings.allow_anonymous = true;
 
-      users."${zigbeeUser}".acl = [ "readwrite #" ];
-      users.vdx.acl = [ "readwrite #" ];
+      users."${zigbeeUser}".acl = ["readwrite #"];
+      users.vdx.acl = ["readwrite #"];
     }
   ];
 
@@ -50,16 +50,18 @@ in
 
   services.telegraf.enable = true;
 
-  services.telegraf.extraConfig.inputs.cpu = { };
-  services.telegraf.extraConfig.inputs.mem = { };
-  services.telegraf.extraConfig.inputs.net = { };
-  services.telegraf.extraConfig.inputs.disk = { };
-  services.telegraf.extraConfig.inputs.file = [{
-    files = [ "/sys/class/thermal/thermal_zone0/temp" ];
-    name_override = "cpu_temperature";
-    data_format = "value";
-    data_type = "integer";
-  }];
+  services.telegraf.extraConfig.inputs.cpu = {};
+  services.telegraf.extraConfig.inputs.mem = {};
+  services.telegraf.extraConfig.inputs.net = {};
+  services.telegraf.extraConfig.inputs.disk = {};
+  services.telegraf.extraConfig.inputs.file = [
+    {
+      files = ["/sys/class/thermal/thermal_zone0/temp"];
+      name_override = "cpu_temperature";
+      data_format = "value";
+      data_type = "integer";
+    }
+  ];
 
   # services.telegraf.extraConfig.inputs.exec = [{
   #   commands = [ "${pkgs.libraspberrypi}/bin/vcgencmd measure_temp" ];
@@ -70,8 +72,8 @@ in
 
   services.telegraf.extraConfig.inputs.openweathermap = {
     app_id = secrets.openweathermap.app_id;
-    city_id = [ secrets.openweathermap.city_id ];
-    fetch = [ "weather" ];
+    city_id = [secrets.openweathermap.city_id];
+    fetch = ["weather"];
     tags = {
       target_bucket = "sensors";
       location = "outdoor";
@@ -80,13 +82,13 @@ in
   };
 
   services.telegraf.extraConfig.outputs.influxdb_v2 = {
-    urls = [ "http://127.0.0.1:8086" ];
+    urls = ["http://127.0.0.1:8086"];
     token = secrets.influxdb.telegraf-token;
     organization = "iot";
     bucket = "monitoring";
     bucket_tag = "target_bucket";
   };
-  users.users.telegraf.extraGroups = [ "video" ];
+  users.users.telegraf.extraGroups = ["video"];
 
   environment.systemPackages = [
     pkgs.influxdb2
@@ -101,13 +103,12 @@ in
   systemd.services.mqtt2influxdb2-setup = {
     description = "mqtt2influxdb2 setup";
 
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
 
     serviceConfig = {
       Type = "simple";
       User = "root";
       Group = "root";
-
 
       ExecStart = "${mqtt2influxdb2Setup}/bin/mqtt2influxdb2-setup";
 
@@ -118,9 +119,9 @@ in
 
   systemd.services.mqtt2influxdb2 = {
     description = "MQTT to Influxdb2 forwarder";
-    after = [ "mosquitto.service" "influxdb2.service" "mqtt2influxdb2-setup.service" ];
+    after = ["mosquitto.service" "influxdb2.service" "mqtt2influxdb2-setup.service"];
 
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
 
     environment = {
       MQTT2INFLUXDB2_CONFIG_FILE = "/opt/etc/mqtt2influxdb2/config.toml";

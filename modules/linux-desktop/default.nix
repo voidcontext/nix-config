@@ -1,15 +1,15 @@
-{ config, pkgs, ... }:
-
-with builtins;
-
-let
+{
+  config,
+  pkgs,
+  ...
+}:
+with builtins; let
   xtermTheme = fetchurl {
     name = "Earthsong";
     url = "https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/Xresources/Earthsong";
     sha256 = "1hvhqn6qrylyxmyz1icap1l2mk3741xv7b6lqymjjn4sxw5dd244";
   };
-in
-{
+in {
   fonts.fontconfig.enable = true;
 
   home.packages = [

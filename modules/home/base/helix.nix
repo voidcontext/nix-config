@@ -1,9 +1,13 @@
-{ pkgsUnstable, lib, config, helix, ... }:
-
-with lib;
-let cfg = config.base.helix;
-in
 {
+  pkgsUnstable,
+  lib,
+  config,
+  helix,
+  ...
+}:
+with lib; let
+  cfg = config.base.helix;
+in {
   # Helix
 
   options = {
@@ -15,7 +19,6 @@ in
 
   config = mkMerge [
     {
-
       home.file."workspace/.ignore".text = ''
         .bloop
         .bsp
@@ -54,7 +57,7 @@ in
           # editor.lsp.auto-signature-help = false;
           editor.lsp.display-messages = true;
 
-          keys.insert.j = { k = "normal_mode"; }; # Maps `jk` to exit insert mode
+          keys.insert.j = {k = "normal_mode";}; # Maps `jk` to exit insert mode
         };
         languages = [
           {
@@ -86,5 +89,4 @@ in
       programs.helix.package = pkgsUnstable.helix;
     })
   ];
-
 }

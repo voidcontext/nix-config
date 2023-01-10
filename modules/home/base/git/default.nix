@@ -1,12 +1,14 @@
-{ lib, config, pkgs, ... }:
-
-with lib;
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.base.git;
   home = config.home.homeDirectory;
   templateDir = "${home}/.git-templates";
-in
-{
+in {
   options.base.git.enable = mkEnableOption "base.git config";
 
   options.base.git.name = mkOption {
@@ -53,7 +55,8 @@ in
       userName = cfg.name;
       userEmail = cfg.email;
       signing =
-        if cfg.sign then {
+        if cfg.sign
+        then {
           signByDefault = cfg.sign;
           key = cfg.signing-key;
         }

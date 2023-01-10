@@ -1,9 +1,12 @@
-{ lib, pkgs, config, ... }:
-
-with lib;
-let cfg = config.development.java;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.development.java;
+in {
   options.development.java.jdk = mkOption {
     type = types.package;
   };

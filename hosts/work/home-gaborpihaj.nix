@@ -1,9 +1,11 @@
-{ pkgs, pkgsUnstable, localPackages, ... }:
-
-let
-  workspace = "$HOME/workspace";
-in
 {
+  pkgs,
+  pkgsUnstable,
+  localPackages,
+  ...
+}: let
+  workspace = "$HOME/workspace";
+in {
   home.stateVersion = "22.11";
 
   base.git.enable = true;

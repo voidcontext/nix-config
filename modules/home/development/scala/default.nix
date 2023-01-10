@@ -1,30 +1,36 @@
-{ lib, pkgs, pkgsUnstable, config, ... }:
-
-with lib;
-let
+{
+  lib,
+  pkgs,
+  pkgsUnstable,
+  config,
+  ...
+}:
+with lib; let
   cfg = config.development.scala;
 
   # From: https://github.com/gvolpe/neovim-flake/blob/main/lib/metalsBuilder.nix
-  metalsBuilder = { version, outputHash }:
-    let
-      metalsDeps = pkgs.stdenv.mkDerivation {
-        name = "metals-deps-${version}";
-        buildCommand = ''
-          export COURSIER_CACHE=$(pwd)
-          ${pkgs.coursier}/bin/cs fetch org.scalameta:metals_2.13:${version} \
-            -r bintray:scalacenter/releases \
-            -r sonatype:snapshots > deps
-          mkdir -p $out/share/java
-          cp -n $(< deps) $out/share/java/
-        '';
-        outputHashMode = "recursive";
-        outputHashAlgo = "sha256";
-        inherit outputHash;
-      };
-    in
+  metalsBuilder = {
+    version,
+    outputHash,
+  }: let
+    metalsDeps = pkgs.stdenv.mkDerivation {
+      name = "metals-deps-${version}";
+      buildCommand = ''
+        export COURSIER_CACHE=$(pwd)
+        ${pkgs.coursier}/bin/cs fetch org.scalameta:metals_2.13:${version} \
+          -r bintray:scalacenter/releases \
+          -r sonatype:snapshots > deps
+        mkdir -p $out/share/java
+        cp -n $(< deps) $out/share/java/
+      '';
+      outputHashMode = "recursive";
+      outputHashAlgo = "sha256";
+      inherit outputHash;
+    };
+  in
     pkgs.metals.overrideAttrs (old: {
       inherit version;
-      buildInputs = [ metalsDeps ];
+      buildInputs = [metalsDeps];
     });
 
   metals = metalsBuilder {
@@ -44,19 +50,17 @@ let
       ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall" && \
       ${pkgsUnstable.bloop}/bin/bloop clean'
   '';
-in
-{
+in {
   options.development.scala.enable = mkEnableOption "scala";
 
   config = mkIf cfg.enable {
-
     programs.zsh.shellAliases = {
       sc = "sbt --client";
       sbi = "sbt --client bloopInstall";
       st = "sbt --client test";
     };
 
-    # Make navigation in dependency code work with metals/bloop    
+    # Make navigation in dependency code work with metals/bloop
     programs.zsh.initExtra = ''
       export SBT_OPTS=-Dbloop.export-jar-classifiers=sources
     '';

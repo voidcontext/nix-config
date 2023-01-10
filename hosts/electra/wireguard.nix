@@ -1,20 +1,22 @@
-{ pkgs, secrets, ... }:
-
 {
+  pkgs,
+  secrets,
+  ...
+}: {
   environment.systemPackages = [
     pkgs.wireguard-tools
   ];
 
   networking.firewall = {
-    allowedUDPPorts = [ 51820 ];
+    allowedUDPPorts = [51820];
   };
 
-  # 
+  #
   networking.wireguard.interfaces = {
     # "wg0" is the network interface name. You can name the interface arbitrarily.
     wg0 = {
       # Determines the IP address and subnet of the server's end of the tunnel interface.
-      ips = [ "10.24.0.2/24" ];
+      ips = ["10.24.0.2/24"];
 
       # The port that WireGuard listens to. Must be accessible by the client.
       listenPort = 51820;
@@ -42,12 +44,11 @@
         {
           # Sagittarius-A*
           publicKey = secrets.wireguard.deneb.publicKey;
-          allowedIPs = [ "10.24.0.0/24" ];
+          allowedIPs = ["10.24.0.0/24"];
           endpoint = "188.166.172.212:51820";
           persistentKeepalive = 25;
         }
       ];
     };
   };
-
 }

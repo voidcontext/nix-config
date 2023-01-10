@@ -1,7 +1,11 @@
-{ lib, config, systemConfig, pkgs, ... }:
-
-with lib;
-let
+{
+  lib,
+  config,
+  systemConfig,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.base;
   updateCommands = attrsets.mapAttrsToList (name: value: "update_symlink ${name} ${value}") cfg.darwin_symlinks;
   update-symlinks = pkgs.writeShellScriptBin "update-symlinks" ''
@@ -16,16 +20,16 @@ let
     }
     ${
       lists.foldl (a: b: ''
-      ${a}
-      ${b}
-      '') "" updateCommands
+        ${a}
+        ${b}
+      '') ""
+      updateCommands
     }
   '';
   batr = pkgs.writeShellScriptBin "batr" ''
     ${pkgs.bat}/bin/bat ''$(${pkgs.coreutils}/bin/realpath ''$(${pkgs.which}/bin/which $1))
   '';
-in
-{
+in {
   imports = [
     ./bin
     ./git
@@ -39,16 +43,18 @@ in
     base.yubikey-tools.enable = mkEnableOption "yubikey-tools";
     base.darwin_symlinks = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
     };
   };
 
   config = mkMerge [
     # Always applied
     {
-      home.packages = optional pkgs.stdenv.isDarwin update-symlinks ++ [
-        batr
-      ];
+      home.packages =
+        optional pkgs.stdenv.isDarwin update-symlinks
+        ++ [
+          batr
+        ];
 
       home.file.".gnupg/gpg-agent.conf".text = ''
         enable-ssh-support
@@ -67,12 +73,10 @@ in
       programs.direnv.enable = true;
       programs.direnv.enableZshIntegration = true;
       programs.direnv.nix-direnv.enable = true;
-
     }
 
     # Optionals
     (mkIf cfg.zsh.gpg-ssh.enable {
-
       programs.zsh.initExtra = ''
         export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent
       '';

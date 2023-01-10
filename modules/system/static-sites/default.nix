@@ -1,14 +1,15 @@
-{ pkgs, lib, config, ... }:
-
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 # This module helps setting up static sites
-# When autoRebuildGit is enabled, then 
-# - the site should be a buildable flake cloned into /opt/src/${domainName} 
+# When autoRebuildGit is enabled, then
+# - the site should be a buildable flake cloned into /opt/src/${domainName}
 # - the repo should be owned by indieweb:indieweb
-
 with builtins;
-with lib;
-
-let
+with lib; let
   cfg = config.static-sites;
 
   setup = pkgs.writeShellScriptBin "static-site-setup" ''
@@ -30,42 +31,42 @@ let
 
   rebuild = pkgs.writeShellScriptBin "static-site-rebuild" ''
     set -e
-    
+
     SITE=$1
- 
+
     if [[ "$DEBUG" == 1 ]]; then
       set -x
     fi
-  
+
     if [[ -z "$SITE" ]]; then
       echo "SITE env var must be set"
       exit 1
     fi
-    
+
     root_dir=/opt/src/$SITE
     dest_dir=/var/www/$SITE
-    
+
     if [ ! -d $root_dir ]; then
       echo "$root_dir is not a directory, exiting..."
       exit 1
     fi
-  
+
     cd $root_dir
-  
+
     if [[ `git status --porcelain` ]]; then
       echo "There are local changes, exiting..."
       exit 1
     fi
-    
+
     commit=$(cat $dest_dir/.commit_hash)
-  
+
     ${git} fetch --all
     ${git} merge --ff-only
 
     current_commit=$(${git} show | head -n1 | ${awk} '{print $2}')
     if [ "$commit" == "$current_commit" ]; then
       echo "No changes, exiting..."
-      exit 0    
+      exit 0
     fi
 
     ${nix} build --show-trace
@@ -102,39 +103,40 @@ let
   };
 
   rebuildLogFile = config: "/var/log/static-sites/${config.domainName}-rebuild.log";
-in
-{
+in {
   options.static-sites = mkOption {
     type = types.attrsOf (types.submodule static-site-options);
   };
 
   config = {
-    users.groups.staticsites = { };
+    users.groups.staticsites = {};
 
-    systemd.services = {
-      static-sites-setup = {
-        description = "Setup directories for static site cron logs";
-        before = [ "nginx.service" ];
+    systemd.services =
+      {
+        static-sites-setup = {
+          description = "Setup directories for static site cron logs";
+          before = ["nginx.service"];
 
-        wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
 
-        serviceConfig = {
-          Type = "simple";
-          User = "root";
+          serviceConfig = {
+            Type = "simple";
+            User = "root";
 
-          Group = "root";
+            Group = "root";
 
-          ExecStart = "${setup}/bin/static-site-setup";
+            ExecStart = "${setup}/bin/static-site-setup";
+          };
         };
-      };
-    } // mapAttrs'
+      }
+      // mapAttrs'
       (name: config: {
         name = "static-site-${name}-prereqs";
         value = {
           description = "Setup directories for static site ${name}";
-          before = [ "nginx.service" ];
+          before = ["nginx.service"];
 
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
 
           environment = {
             SITE = config.domainName;
@@ -154,7 +156,8 @@ in
       })
       cfg;
 
-    services.nginx.virtualHosts = mapAttrs'
+    services.nginx.virtualHosts =
+      mapAttrs'
       (name: config: {
         name = "${config.domainName}";
         value = {
@@ -163,7 +166,8 @@ in
           root = "/var/www/${config.domainName}/";
           locations."/" = {
             extraConfig =
-              if config.autoIndex then ''
+              if config.autoIndex
+              then ''
                 autoindex on;
               ''
               else "";
@@ -180,24 +184,26 @@ in
     services.cron.enable = true;
     services.cron.systemCronJobs =
       filter (v: v != null)
-        (mapAttrsToList
-          (name: config:
-            if config.autoRebuildGit then
-              "*/5 * * * *      ${config.owner} ${rebuild}/bin/static-site-rebuild ${config.domainName} >> ${rebuildLogFile config} 2>&1"
+      (mapAttrsToList
+        (
+          name: config:
+            if config.autoRebuildGit
+            then "*/5 * * * *      ${config.owner} ${rebuild}/bin/static-site-rebuild ${config.domainName} >> ${rebuildLogFile config} 2>&1"
             else null
-          )
-          cfg);
+        )
+        cfg);
 
     services.logrotate.enable = true;
     services.logrotate.settings.static-sites-cron.enable = any (config: config.autoRebuildGit) (attrValues cfg);
     services.logrotate.settings.static-sites-cron.files =
       filter (v: v != null)
-        (mapAttrsToList
-          (name: config:
-            if config.autoRebuildGit then
-              (rebuildLogFile config)
+      (mapAttrsToList
+        (
+          name: config:
+            if config.autoRebuildGit
+            then (rebuildLogFile config)
             else null
-          )
-          cfg);
+        )
+        cfg);
   };
 }

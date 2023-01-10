@@ -1,6 +1,9 @@
-{ pkgs, pkgsUnstable, home-manager, ... }:
 {
-
+  pkgs,
+  pkgsUnstable,
+  home-manager,
+  ...
+}: {
   # Bespoke Options
 
   base.font.enable = true;
@@ -15,10 +18,9 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [
-      pkgs.wireguard-tools
-    ];
+  environment.systemPackages = [
+    pkgs.wireguard-tools
+  ];
 
   programs.zsh.enable = true;
 

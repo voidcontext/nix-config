@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.vdx.hu";
@@ -15,14 +13,14 @@
       dbname = "nextcloud";
       adminpassFile = "/Volumes/raid/config/nextcloud/.adminpassword";
       adminuser = "root";
-      extraTrustedDomains = [ "nextcloud.lan.vdx.hu" ];
+      extraTrustedDomains = ["nextcloud.lan.vdx.hu"];
     };
   };
 
   # Command to generate the certs:
-  # openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=nextcloud.vdx.hu/OU=TEST/O=VDX/L=WALSALL/C=UK/' -keyout ./nextcloud-selfsigned.key -out ./nextcloud-selfsigned.crt  # 
+  # openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=nextcloud.vdx.hu/OU=TEST/O=VDX/L=WALSALL/C=UK/' -keyout ./nextcloud-selfsigned.key -out ./nextcloud-selfsigned.crt  #
   services.nginx.virtualHosts."nextcloud.vdx.hu" = {
-    serverAliases = [ "nextcloud.lan.vdx.hu" ];
+    serverAliases = ["nextcloud.lan.vdx.hu"];
     forceSSL = true;
     sslCertificate = "/opt/secrets/nextcloud/nextcloud-selfsigned.crt";
     sslCertificateKey = "/opt/secrets/nextcloud/nextcloud-selfsigned.key";
@@ -30,11 +28,11 @@
 
   # ensure that postgres is running *before* running the setup
   systemd.services."nextcloud-setup" = {
-    requires = [ "postgresql.service" ];
-    after = [ "postgresql.service" ];
+    requires = ["postgresql.service"];
+    after = ["postgresql.service"];
   };
 
-  services.postgresql.ensureDatabases = [ "nextcloud" ];
+  services.postgresql.ensureDatabases = ["nextcloud"];
   services.postgresql.ensureUsers = [
     {
       name = "nextcloud";

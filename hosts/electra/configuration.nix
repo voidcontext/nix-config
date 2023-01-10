@@ -1,6 +1,12 @@
-{ config, pkgs, pkgsUnstable, lib, home-manager, nix-config-extras, ... }:
-
 {
+  config,
+  pkgs,
+  pkgsUnstable,
+  lib,
+  home-manager,
+  nix-config-extras,
+  ...
+}: {
   # Bespoke Options
 
   base.font.enable = false;
@@ -10,14 +16,13 @@
 
   # Upstream options
 
-  imports =
-    [
-      ./extras.nix
-      ./nextcloud.nix
-      ./samba.nix
-      ./wireguard.nix
-      ./zigbee.nix
-    ];
+  imports = [
+    ./extras.nix
+    ./nextcloud.nix
+    ./samba.nix
+    ./wireguard.nix
+    ./zigbee.nix
+  ];
 
   # NixOS wants to enable GRUB by default
   boot.loader.grub.enable = false;
@@ -41,7 +46,7 @@
   # On a Raspberry Pi 4 with 4 GB, you should either disable this parameter or increase to at least 64M if you want the USB ports to work.
   #boot.kernelParams = ["cma=32M"];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
+  boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage"];
 
   # Required for the Wireless firmware (Rpi4)
   hardware.enableRedistributableFirmware = true;
@@ -71,13 +76,13 @@
     "/Volumes/raid" = {
       device = "/dev/disk/by-uuid/c8ff3ec3-d05b-4364-a270-17063920d74f";
       fsType = "ext4";
-      options = [ "defaults" "nofail" ];
+      options = ["defaults" "nofail"];
     };
 
     "/Volumes/data" = {
       device = "/dev/disk/by-uuid/56b9fcd9-22a1-41c7-b605-4691c1a12958";
       fsType = "ext4";
-      options = [ "defaults" "nofail" ];
+      options = ["defaults" "nofail"];
     };
   };
 
@@ -85,7 +90,12 @@
 
   # !!! Adding a swap file is optional, but strongly recommended!
   # swapDevices = [{ device = "/dev/disk/by-partuuid/ffa8342f-03";}];
-  swapDevices = [{ device = "/swapfile"; size = 4096; }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 4096;
+    }
+  ];
 
   system.stateVersion = "22.05";
 
@@ -122,7 +132,7 @@
     pi = {
       isNormalUser = true;
       home = "/home/pi";
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = ["wheel" "networkmanager"];
       openssh.authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDADgf8KaKWIqwJmQPhyLKLwfUplk6RDQ0j/SgcwuHlVj6WRVJJZbFEutnKn5gfZ75M2Wzmsrn7F1W1/CEvmGohE7bLz00ZpM38Hlw/1U2S7ABZ1GwistN42HBMy/jufme0vb4bzFKWH6sXsEnezg1zUPAJlIBA0OxVuKaTQAQOTIEi1ytVrq2wNa9Iiv+Bb6OeK/Vnt8HFOv1H3xmZNtn/N7X35kO5aCwaUlHPpr/7jxQf02fuNhnc0jU6VVygG7uwlfu3j/1lT7DDeIAEYbIeOXRg6Xn+HzDpHdv6FSipSwp499f8tC3TUZDdXT+iSAL9IOZuaujX0qME4bOJZOJuSGPckj9n97gbzoxFEzPsyAFRDgT7MRzQg4QW0fUj3/R9P/DqtxA8F/qfqOQ+Wy2AJ0M+eXrDuZoxZ4F6j4jKaxoUfylYWplILC9kxkk4q0enocOuzxGM6j9rVg9T1wG4/4auKSqENS5QXsvYAsu63RE4WwxAwxuSIymMwA0WhJ6PGgFzlFHluRP8NVlMeCuCZ+0eopH7hqvwZH4m9RmsnadMk0wkZ6ZjsJ0oeFjIxOysiaQbM9lbE0iuoRKRO4E2pfOXt+Nu94r6W8IUVkGYs7PdpsTntnv2pKh8P28/7uE09/U1DfgyYq8BZ+z9bb7GFwpfuZGCXAAvooZDY40b+Q== cardno:000605439573"
       ];
@@ -130,7 +140,7 @@
 
     vdx = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "video" ];
+      extraGroups = ["wheel" "networkmanager" "video"];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDADgf8KaKWIqwJmQPhyLKLwfUplk6RDQ0j/SgcwuHlVj6WRVJJZbFEutnKn5gfZ75M2Wzmsrn7F1W1/CEvmGohE7bLz00ZpM38Hlw/1U2S7ABZ1GwistN42HBMy/jufme0vb4bzFKWH6sXsEnezg1zUPAJlIBA0OxVuKaTQAQOTIEi1ytVrq2wNa9Iiv+Bb6OeK/Vnt8HFOv1H3xmZNtn/N7X35kO5aCwaUlHPpr/7jxQf02fuNhnc0jU6VVygG7uwlfu3j/1lT7DDeIAEYbIeOXRg6Xn+HzDpHdv6FSipSwp499f8tC3TUZDdXT+iSAL9IOZuaujX0qME4bOJZOJuSGPckj9n97gbzoxFEzPsyAFRDgT7MRzQg4QW0fUj3/R9P/DqtxA8F/qfqOQ+Wy2AJ0M+eXrDuZoxZ4F6j4jKaxoUfylYWplILC9kxkk4q0enocOuzxGM6j9rVg9T1wG4/4auKSqENS5QXsvYAsu63RE4WwxAwxuSIymMwA0WhJ6PGgFzlFHluRP8NVlMeCuCZ+0eopH7hqvwZH4m9RmsnadMk0wkZ6ZjsJ0oeFjIxOysiaQbM9lbE0iuoRKRO4E2pfOXt+Nu94r6W8IUVkGYs7PdpsTntnv2pKh8P28/7uE09/U1DfgyYq8BZ+z9bb7GFwpfuZGCXAAvooZDY40b+Q== cardno:000605439573"
@@ -143,7 +153,7 @@
       createHome = true;
       home = "/Volumes/raid/git";
       shell = "${pkgs.git}/bin/git-shell";
-      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDADgf8KaKWIqwJmQPhyLKLwfUplk6RDQ0j/SgcwuHlVj6WRVJJZbFEutnKn5gfZ75M2Wzmsrn7F1W1/CEvmGohE7bLz00ZpM38Hlw/1U2S7ABZ1GwistN42HBMy/jufme0vb4bzFKWH6sXsEnezg1zUPAJlIBA0OxVuKaTQAQOTIEi1ytVrq2wNa9Iiv+Bb6OeK/Vnt8HFOv1H3xmZNtn/N7X35kO5aCwaUlHPpr/7jxQf02fuNhnc0jU6VVygG7uwlfu3j/1lT7DDeIAEYbIeOXRg6Xn+HzDpHdv6FSipSwp499f8tC3TUZDdXT+iSAL9IOZuaujX0qME4bOJZOJuSGPckj9n97gbzoxFEzPsyAFRDgT7MRzQg4QW0fUj3/R9P/DqtxA8F/qfqOQ+Wy2AJ0M+eXrDuZoxZ4F6j4jKaxoUfylYWplILC9kxkk4q0enocOuzxGM6j9rVg9T1wG4/4auKSqENS5QXsvYAsu63RE4WwxAwxuSIymMwA0WhJ6PGgFzlFHluRP8NVlMeCuCZ+0eopH7hqvwZH4m9RmsnadMk0wkZ6ZjsJ0oeFjIxOysiaQbM9lbE0iuoRKRO4E2pfOXt+Nu94r6W8IUVkGYs7PdpsTntnv2pKh8P28/7uE09/U1DfgyYq8BZ+z9bb7GFwpfuZGCXAAvooZDY40b+Q== cardno:000612711012" ];
+      openssh.authorizedKeys.keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDADgf8KaKWIqwJmQPhyLKLwfUplk6RDQ0j/SgcwuHlVj6WRVJJZbFEutnKn5gfZ75M2Wzmsrn7F1W1/CEvmGohE7bLz00ZpM38Hlw/1U2S7ABZ1GwistN42HBMy/jufme0vb4bzFKWH6sXsEnezg1zUPAJlIBA0OxVuKaTQAQOTIEi1ytVrq2wNa9Iiv+Bb6OeK/Vnt8HFOv1H3xmZNtn/N7X35kO5aCwaUlHPpr/7jxQf02fuNhnc0jU6VVygG7uwlfu3j/1lT7DDeIAEYbIeOXRg6Xn+HzDpHdv6FSipSwp499f8tC3TUZDdXT+iSAL9IOZuaujX0qME4bOJZOJuSGPckj9n97gbzoxFEzPsyAFRDgT7MRzQg4QW0fUj3/R9P/DqtxA8F/qfqOQ+Wy2AJ0M+eXrDuZoxZ4F6j4jKaxoUfylYWplILC9kxkk4q0enocOuzxGM6j9rVg9T1wG4/4auKSqENS5QXsvYAsu63RE4WwxAwxuSIymMwA0WhJ6PGgFzlFHluRP8NVlMeCuCZ+0eopH7hqvwZH4m9RmsnadMk0wkZ6ZjsJ0oeFjIxOysiaQbM9lbE0iuoRKRO4E2pfOXt+Nu94r6W8IUVkGYs7PdpsTntnv2pKh8P28/7uE09/U1DfgyYq8BZ+z9bb7GFwpfuZGCXAAvooZDY40b+Q== cardno:000612711012"];
     };
   };
 
@@ -168,8 +178,8 @@
     hostName = "electra";
     firewall = {
       allowPing = true;
-      allowedTCPPorts = [ 80 443 53 5201 ]; # nginx nginx dns iperf
-      allowedUDPPorts = [ 53 5201 ]; # dns iperf
+      allowedTCPPorts = [80 443 53 5201]; # nginx nginx dns iperf
+      allowedUDPPorts = [53 5201]; # dns iperf
     };
   };
 
@@ -207,10 +217,10 @@
   };
 
   services.dnsmasq.enable = true;
-  services.dnsmasq.servers = [ "192.168.24.1" ];
+  services.dnsmasq.servers = ["192.168.24.1"];
   services.dnsmasq.extraConfig = ''
     listen-address=127.0.0.1,192.168.24.2,10.24.0.2
-    
+
     address=/deneb.lan.vdx.hu/10.24.0.1
     address=/electra.lan.vdx.hu/10.24.0.2
   '';

@@ -1,6 +1,9 @@
-{ pkgs, pkgsUnstable, home-manager, ... }:
 {
-
+  pkgs,
+  pkgsUnstable,
+  home-manager,
+  ...
+}: {
   # Bespoke Options
 
   base.font.enable = true;
@@ -15,9 +18,8 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [
-    ];
+  environment.systemPackages = [
+  ];
 
   programs.zsh.enable = true;
 
@@ -29,5 +31,5 @@
   services.nix-daemon.enable = true;
 
   nix.package = pkgsUnstable.nix;
-  nix.settings.trusted-users = [ "root" "gaborpihaj" ];
+  nix.settings.trusted-users = ["root" "gaborpihaj"];
 }

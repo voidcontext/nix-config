@@ -1,21 +1,22 @@
-{ pkgs, secrets, ... }:
-
 {
+  pkgs,
+  secrets,
+  ...
+}: {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   # enable NAT
   networking.nat.enable = true;
   networking.nat.externalInterface = "ens3";
-  networking.nat.internalInterfaces = [ "wg0" ];
+  networking.nat.internalInterfaces = ["wg0"];
   networking.firewall = {
-    allowedUDPPorts = [ 51820 ];
+    allowedUDPPorts = [51820];
   };
-
 
   networking.wireguard.interfaces = {
     # "wg0" is the network interface name. You can name the interface arbitrarily.
     wg0 = {
       # Determines the IP address and subnet of the server's end of the tunnel interface.
-      ips = [ "10.24.0.1/24" ];
+      ips = ["10.24.0.1/24"];
 
       # The port that WireGuard listens to. Must be accessible by the client.
       listenPort = 51820;
@@ -44,19 +45,19 @@
           # Sagittarius-A*
           publicKey = secrets.wireguard.sagittarius-a.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-          allowedIPs = [ "10.24.0.3/32" ];
+          allowedIPs = ["10.24.0.3/32"];
         }
         {
           # electra
           publicKey = secrets.wireguard.electra.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-          allowedIPs = [ "10.24.0.2/32" ];
+          allowedIPs = ["10.24.0.2/32"];
         }
         {
           # KJ-XS
           publicKey = secrets.wireguard.KJ-XS.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-          allowedIPs = [ "10.24.0.4/32" ];
+          allowedIPs = ["10.24.0.4/32"];
         }
         # { # John Doe
         #   publicKey = "{john doe's public key}";
@@ -65,5 +66,4 @@
       ];
     };
   };
-
 }

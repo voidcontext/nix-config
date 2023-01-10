@@ -1,6 +1,4 @@
-{ config, ... }:
-
-{
+{config, ...}: {
   environment.systemPackages = [
     config.services.samba.package
   ];

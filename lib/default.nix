@@ -1,5 +1,4 @@
 let
-
   mkHostnameExpr = pkgs: ''${pkgs.inetutils}/bin/hostname | ${pkgs.gnused}/bin/sed 's/\.\(local\|lan\)//' '';
 
   mkRebuildInitVars = pkgs: ''
@@ -15,37 +14,39 @@ let
       host=$(${mkHostnameExpr pkgs})
     fi
   '';
+in {
+  mkRebuildDarwin = pkgs:
+    pkgs.writeShellScriptBin "rebuild" ''
+      ${mkRebuildInitVars pkgs}
+      TERM=kitty
+      nix build ./#darwinConfigurations.$host.system --show-trace && ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
+      update-symlinks
+    '';
 
-in
-{
+  mkRebuildNixos = pkgs:
+    pkgs.writeShellScriptBin "rebuild" ''
+      ${mkRebuildInitVars pkgs}
 
-  mkRebuildDarwin = pkgs: pkgs.writeShellScriptBin "rebuild" ''
-    ${mkRebuildInitVars pkgs}
-    TERM=kitty
-    nix build ./#darwinConfigurations.$host.system --show-trace && ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
-    update-symlinks
-  '';
+      sudo nixos-rebuild $cmd --flake "/opt/nix-config#$host" --show-trace
+    '';
 
-  mkRebuildNixos = pkgs: pkgs.writeShellScriptBin "rebuild" ''
-    ${mkRebuildInitVars pkgs}
-
-    sudo nixos-rebuild $cmd --flake "/opt/nix-config#$host" --show-trace
-  '';
-
-
-
-  mkSys = { system, nixpkgs, nixpkgs-unstable, overlays ? [ ] }:
-    {
-      inherit system;
-      pkgs = import nixpkgs {
-        inherit system overlays;
-      };
-      pkgsUnstable = import nixpkgs-unstable {
-        inherit system overlays;
-      };
+  mkSys = {
+    system,
+    nixpkgs,
+    nixpkgs-unstable,
+    overlays ? [],
+  }: {
+    inherit system;
+    pkgs = import nixpkgs {
+      inherit system overlays;
     };
+    pkgsUnstable = import nixpkgs-unstable {
+      inherit system overlays;
+    };
+  };
 
   optionalStr = cond: str:
-    if cond then str
+    if cond
+    then str
     else "";
 }
