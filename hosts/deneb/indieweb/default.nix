@@ -15,6 +15,7 @@ in
   users.users.indieweb = {
     isSystemUser = true;
     group = "indieweb";
+    extraGroups = [ "staticsites" ];
     # the home directory is needed so that indieweb can build gaborpihaj.com using nix
     # `nix build` creates a `~/.cache/nix` 
     createHome = true;
@@ -22,6 +23,17 @@ in
   };
 
   users.users.vdx.extraGroups = [ "indieweb" ];
+
+  static-sites."gaborpihaj.com" = {
+    enable = true;
+    domainName = "gaborpihaj.com";
+    owner = "indieweb";
+    group = "nginx";
+    autoRebuildGit = true;
+  };
+
+  #****************************************************************************
+  # URL Shortener
 
   systemd.services.iwt-url-shortener = {
     description = "IWT URL shortener";
@@ -61,6 +73,9 @@ in
       ;
     };
   };
+
+  #****************************************************************************
+  # Cross publishing
 
   services.cron = {
     enable = true;

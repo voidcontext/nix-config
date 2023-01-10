@@ -1,53 +1,6 @@
-{ pkgs, pkgsUnstable, modulesPath, home-manager, nix-config-extras, blog, blog-beta, ... }:
+{ pkgs, pkgsUnstable, modulesPath, home-manager, ... }:
 
 let
-  git = "${pkgs.git}/bin/git";
-  nix = "${pkgs.nix}/bin/nix";
-
-  staticSitePreReqs = pkgs.writeScriptBin "staticsite-prereqs" ''
-    set -e
-    
-    init_site() {
-      site=$1
-      group=$2
-      ${pkgs.coreutils}/bin/mkdir -p /var/www/$site
-      ${pkgs.coreutils}/bin/chmod 770 /var/www/$site
-      ${pkgs.coreutils}/bin/chown nginx.$group /var/www/$site
-    }
-    
-    init_site stats.vdx.hu nginx
-    init_site gaborpihaj.com indieweb
-    init_site beta.gaborpihaj.com indieweb
-  '';
-  staticsite-build = pkgs.writeScriptBin "staticsite-build" ''
-    set -e
-    
-    if [[ "$DEBUG" == 1 ]]; then
-      set -x
-    fi
-    
-    site=$1
-    commit=$2
-    
-    if [[ -z "$site" || -z "$commit" ]]; then
-      echo "Usage: staticsite-build site commit"
-      exit 1
-    fi
-    
-    cd /opt/src/$site
-    
-    if [[ `git status --porcelain` ]]; then
-      echo "There are local changes, exiting..."
-      exit 1
-    fi
-    
-    ${git} fetch --all
-    ${git} checkout $commit
-    ${nix} build --show-trace
-    rsync -a -O --no-perms ./result/ /var/www/$site/
-    rsync -a -O --no-perms --delete ./result/ /var/www/$site/
-  '';
-
   goaccessBin = "${pkgs.goaccess}/bin/goaccess";
   goaccessCron = domain:
     "*/5 * * * *      nginx    ${goaccessBin} -o /var/www/stats.vdx.hu/${domain}.html /var/log/nginx/${domain}-access.log --log-format=COMBINED --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb";
@@ -69,7 +22,7 @@ in
 
     # Additional imports
     ./extras.nix
-    ./indieweb.nix
+    ./indieweb
     ./monitoring.nix
     ./wireguard.nix
   ];
@@ -118,7 +71,6 @@ in
   environment.systemPackages = [
     pkgs.goaccess
     pkgs.wireguard-tools
-    staticsite-build
   ];
 
   # services.logind.extraConfig = ''
@@ -140,42 +92,11 @@ in
     '';
   };
 
-  services.nginx.virtualHosts."stats.vdx.hu" = {
-    forceSSL = true;
-    enableACME = true;
-    root = "/var/www/stats.vdx.hu/";
-    locations."/" = {
-      extraConfig = ''
-        autoindex on;
-      '';
-    };
-    extraConfig = ''
-      access_log /var/log/nginx/stats.vdx.hu-access.log;
-      error_log /var/log/nginx/stats.vdx.hu-error.log error;
-    '';
+  static-sites."stats.vdx.hu" = {
+    enable = true;
+    domainName = "stats.vdx.hu";
     basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
-  };
-
-  services.nginx.virtualHosts."gaborpihaj.com" = {
-    forceSSL = true;
-    enableACME = true;
-    root = "${blog.defaultPackage."x86_64-linux"}";
-
-    extraConfig = ''
-      access_log /var/log/nginx/gaborpihaj.com-access.log;
-      error_log /var/log/nginx/gaborpihaj.com-error.log error;
-    '';
-  };
-
-  services.nginx.virtualHosts."beta.gaborpihaj.com" = {
-    forceSSL = true;
-    enableACME = true;
-    root = "${blog-beta.defaultPackage."x86_64-linux"}";
-    basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
-    extraConfig = ''
-      access_log /var/log/nginx/beta.gaborpihaj.com-access.log;
-      error_log /var/log/nginx/beta.gaborpihaj.com-error.log error;
-    '';
+    autoIndex = true;
   };
 
   services.nginx.virtualHosts."spellcasterhub.com" = {
@@ -199,25 +120,6 @@ in
   };
 
   # Goaccess stats
-
-
-  systemd.services.staticsite-prereqs = {
-    description = "Setup directories for static sites";
-    before = [ "nginx.service" ];
-
-    wantedBy = [ "multi-user.target" ];
-
-
-    serviceConfig = {
-      Type = "simple";
-      User = "root";
-
-      Group = "root";
-
-      ExecStart = "${pkgs.bash}/bin/bash ${staticSitePreReqs}/bin/staticsite-prereqs";
-
-    };
-  };
 
   services.cron = {
     enable = true;

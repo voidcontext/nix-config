@@ -11,15 +11,6 @@
     home-manager.url = "github:rycee/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # nix-config-extras.url = "git+ssh://git@github.com/voidcontext/nix-config-extras?ref=main";
-    # nix-config-extras.inputs.nixpkgs.follows = "nixpkgs";
-
-    blog.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
-    blog.inputs.nixpkgs.follows = "nixpkgs";
-
-    blog-beta.url = "git+ssh://git@github.com/voidcontext/blog.gaborpihaj.com.git?ref=main";
-    blog-beta.inputs.nixpkgs.follows = "nixpkgs";
-
     nil.url = "github:oxalica/nil";
 
     helix.url = "github:helix-editor/helix";
@@ -85,6 +76,7 @@
 
       defaultSystemModules = [
         ./modules/system/base
+        ./modules/system/static-sites
         ({ config, pkgsUnstable, localPackages, helix, ... }: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
