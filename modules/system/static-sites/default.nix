@@ -103,107 +103,111 @@ with lib; let
   };
 
   rebuildLogFile = config: "/var/log/static-sites/${config.domainName}-rebuild.log";
-in {
-  options.static-sites = mkOption {
-    type = types.attrsOf (types.submodule static-site-options);
-  };
+in
+  if pkgs.stdenv.isDarwin
+  then {}
+  else {
+    options.static-sites = mkOption {
+      type = types.attrsOf (types.submodule static-site-options);
+      default = {};
+    };
 
-  config = {
-    users.groups.staticsites = {};
+    config = {
+      users.groups.staticsites = {};
 
-    systemd.services =
-      {
-        static-sites-setup = {
-          description = "Setup directories for static site cron logs";
-          before = ["nginx.service"];
+      systemd.services =
+        {
+          static-sites-setup = {
+            description = "Setup directories for static site cron logs";
+            before = ["nginx.service"];
 
-          wantedBy = ["multi-user.target"];
+            wantedBy = ["multi-user.target"];
 
-          serviceConfig = {
-            Type = "simple";
-            User = "root";
+            serviceConfig = {
+              Type = "simple";
+              User = "root";
 
-            Group = "root";
+              Group = "root";
 
-            ExecStart = "${setup}/bin/static-site-setup";
+              ExecStart = "${setup}/bin/static-site-setup";
+            };
           };
-        };
-      }
-      // mapAttrs'
-      (name: config: {
-        name = "static-site-${name}-prereqs";
-        value = {
-          description = "Setup directories for static site ${name}";
-          before = ["nginx.service"];
+        }
+        // mapAttrs'
+        (name: config: {
+          name = "static-site-${name}-prereqs";
+          value = {
+            description = "Setup directories for static site ${name}";
+            before = ["nginx.service"];
 
-          wantedBy = ["multi-user.target"];
+            wantedBy = ["multi-user.target"];
 
-          environment = {
-            SITE = config.domainName;
-            OWNER = config.owner;
-            GROUP = config.group;
+            environment = {
+              SITE = config.domainName;
+              OWNER = config.owner;
+              GROUP = config.group;
+            };
+
+            serviceConfig = {
+              Type = "simple";
+              User = "root";
+
+              Group = "root";
+
+              ExecStart = "${init}/bin/static-site-init";
+            };
           };
+        })
+        cfg;
 
-          serviceConfig = {
-            Type = "simple";
-            User = "root";
-
-            Group = "root";
-
-            ExecStart = "${init}/bin/static-site-init";
+      services.nginx.virtualHosts =
+        mapAttrs'
+        (name: config: {
+          name = "${config.domainName}";
+          value = {
+            forceSSL = true;
+            enableACME = true;
+            root = "/var/www/${config.domainName}/";
+            locations."/" = {
+              extraConfig =
+                if config.autoIndex
+                then ''
+                  autoindex on;
+                ''
+                else "";
+            };
+            extraConfig = ''
+              access_log /var/log/nginx/${config.domainName}-access.log;
+              error_log /var/log/nginx/${config.domainName}-error.log error;
+            '';
+            basicAuthFile = config.basicAuthFile;
           };
-        };
-      })
-      cfg;
+        })
+        cfg;
 
-    services.nginx.virtualHosts =
-      mapAttrs'
-      (name: config: {
-        name = "${config.domainName}";
-        value = {
-          forceSSL = true;
-          enableACME = true;
-          root = "/var/www/${config.domainName}/";
-          locations."/" = {
-            extraConfig =
-              if config.autoIndex
-              then ''
-                autoindex on;
-              ''
-              else "";
-          };
-          extraConfig = ''
-            access_log /var/log/nginx/${config.domainName}-access.log;
-            error_log /var/log/nginx/${config.domainName}-error.log error;
-          '';
-          basicAuthFile = config.basicAuthFile;
-        };
-      })
-      cfg;
+      services.cron.enable = true;
+      services.cron.systemCronJobs =
+        filter (v: v != null)
+        (mapAttrsToList
+          (
+            name: config:
+              if config.autoRebuildGit
+              then "*/5 * * * *      ${config.owner} ${rebuild}/bin/static-site-rebuild ${config.domainName} >> ${rebuildLogFile config} 2>&1"
+              else null
+          )
+          cfg);
 
-    services.cron.enable = true;
-    services.cron.systemCronJobs =
-      filter (v: v != null)
-      (mapAttrsToList
-        (
-          name: config:
-            if config.autoRebuildGit
-            then "*/5 * * * *      ${config.owner} ${rebuild}/bin/static-site-rebuild ${config.domainName} >> ${rebuildLogFile config} 2>&1"
-            else null
-        )
-        cfg);
-
-    services.logrotate.enable = true;
-    services.logrotate.settings.static-sites-cron.enable = any (config: config.autoRebuildGit) (attrValues cfg);
-    services.logrotate.settings.static-sites-cron.files =
-      filter (v: v != null)
-      (mapAttrsToList
-        (
-          name: config:
-            if config.autoRebuildGit
-            then (rebuildLogFile config)
-            else null
-        )
-        cfg);
-  };
-}
+      services.logrotate.enable = true;
+      services.logrotate.settings.static-sites-cron.enable = any (config: config.autoRebuildGit) (attrValues cfg);
+      services.logrotate.settings.static-sites-cron.files =
+        filter (v: v != null)
+        (mapAttrsToList
+          (
+            name: config:
+              if config.autoRebuildGit
+              then (rebuildLogFile config)
+              else null
+          )
+          cfg);
+    };
+  }
