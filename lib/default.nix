@@ -19,7 +19,8 @@ in {
     pkgs.writeShellScriptBin "rebuild" ''
       ${mkRebuildInitVars pkgs}
       TERM=kitty
-      nix build ./#darwinConfigurations.$host.system --show-trace && ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
+      nix build ./#darwinConfigurations.$host.system --show-trace && \
+        ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
       update-symlinks
     '';
 
@@ -27,23 +28,8 @@ in {
     pkgs.writeShellScriptBin "rebuild" ''
       ${mkRebuildInitVars pkgs}
 
-      sudo nixos-rebuild $cmd --flake "/opt/nix-config#$host" --show-trace
+      sudo nixos-rebuild $cmd --flake .#$host --show-trace
     '';
-
-  mkSys = {
-    system,
-    nixpkgs,
-    nixpkgs-unstable,
-    overlays ? [],
-  }: {
-    inherit system;
-    pkgs = import nixpkgs {
-      inherit system overlays;
-    };
-    pkgsUnstable = import nixpkgs-unstable {
-      inherit system overlays;
-    };
-  };
 
   optionalStr = cond: str:
     if cond

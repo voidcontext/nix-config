@@ -1,8 +1,8 @@
 {
+  pkgs,
   pkgsUnstable,
   lib,
   config,
-  helix,
   ...
 }:
 with lib; let
@@ -82,7 +82,7 @@ in {
       };
     }
     (mkIf cfg.fromGit {
-      programs.helix.package = helix.package;
+      programs.helix.package = pkgs.helixFlake;
       programs.helix.settings.editor.bufferline = "multiple";
     })
     (mkIf (!cfg.fromGit) {

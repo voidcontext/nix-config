@@ -11,6 +11,8 @@
     home-manager.url = "github:rycee/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    deploy-rs.url = "github:serokell/deploy-rs";
+
     nil.url = "github:oxalica/nil";
 
     helix.url = "github:helix-editor/helix";
@@ -27,19 +29,17 @@
 
   outputs = {
     self,
-    darwin,
     nixpkgs,
     nixpkgs-unstable,
+    darwin,
+    flake-utils,
     home-manager,
+    deploy-rs,
     ...
   } @ inputs: let
+    lib = nixpkgs.lib;
     localLib = import ./lib;
     secrets = import ./secrets.nix;
-
-    defaultOverlay = final: prev: {
-      indieweb-tools = inputs.indieweb-tools.packages.${final.system}.default;
-      mqtt2influxdb2 = inputs.mqtt2influxdb2.packages.${final.system}.default;
-    };
 
     weechatOverlay = self: super: {
       # TODO: fix in 22.11
@@ -52,32 +52,26 @@
       # };
     };
 
-    overlays = [defaultOverlay weechatOverlay inputs.nil.overlays.default];
+    overlays = [
+      (final: prev: {
+        deploy-rs = deploy-rs.packages.${final.system}.default;
+        indieweb-tools = inputs.indieweb-tools.packages.${final.system}.default;
+        mqtt2influxdb2 = inputs.mqtt2influxdb2.packages.${final.system}.default;
+        helixFlake = inputs.helix.packages.${final.system}.default;
+      })
+      weechatOverlay
+      inputs.nil.overlays.default
+    ];
 
-    sysDefaults = system: {
-      inherit nixpkgs nixpkgs-unstable overlays system;
-    };
-
-    x86_64-darwin = localLib.mkSys (sysDefaults "x86_64-darwin");
-
-    x86_64-linux = localLib.mkSys (sysDefaults "x86_64-linux");
-
-    aarch64-linux = localLib.mkSys (sysDefaults "aarch64-linux");
-
-    mkHelix = system: {
-      package = inputs.helix.packages.${system}.default;
-    };
-
-    darwinDefaults = rec {
-      system = "x86_64-darwin";
-      specialArgs =
-        inputs
-        // {
-          inherit localLib;
-          inherit (x86_64-darwin) pkgs pkgsUnstable;
-          localPackages = import ./packages {inherit (x86_64-darwin) pkgs;};
-          helix = mkHelix system;
-        };
+    defaultsFor = system: let
+      pkgs = import nixpkgs {inherit system overlays;};
+      pkgsUnstable = import nixpkgs-unstable {inherit system overlays;};
+    in {
+      inherit pkgs system;
+      specialArgs = {
+        inherit pkgs pkgsUnstable localLib inputs secrets;
+        localPackages = import ./packages {inherit pkgs;};
+      };
     };
 
     defaultSystemModules = [
@@ -87,7 +81,6 @@
         config,
         pkgsUnstable,
         localPackages,
-        helix,
         ...
       }: {
         home-manager.useGlobalPkgs = true;
@@ -100,101 +93,84 @@
           ./modules/home/virtualization/lima
         ];
         home-manager.extraSpecialArgs = {
-          inherit localLib pkgsUnstable localPackages inputs helix;
+          inherit localLib pkgsUnstable localPackages inputs;
           systemConfig = config;
         };
       })
     ];
-
-    defaultDarwinSystemModules =
-      defaultSystemModules
-      ++ [
-        home-manager.darwinModules.home-manager
-      ];
-
-    defaultNixosSystemModules =
-      defaultSystemModules
-      ++ [
-        home-manager.nixosModules.home-manager
-      ];
-  in {
-    apps.x86_64-darwin.rebuild = {
-      type = "app";
-      program = "${localLib.mkRebuildDarwin x86_64-darwin.pkgs}/bin/rebuild";
-    };
-
-    apps.aarch64-linux.rebuild = {
-      type = "app";
-      program = "${localLib.mkRebuildNixos aarch64-linux.pkgs}/bin/rebuild";
-    };
-
-    apps.x86_64-linux.rebuild = {
-      type = "app";
-      program = "${localLib.mkRebuildNixos x86_64-linux.pkgs}/bin/rebuild";
-    };
-
-    darwinConfigurations = {
-      "Sagittarius-A" = darwin.lib.darwinSystem (
-        darwinDefaults
-        // {
-          modules =
-            defaultDarwinSystemModules
-            ++ [./hosts/Sagittarius-A/configuration.nix];
-        }
-      );
-
-      work = darwin.lib.darwinSystem (
-        darwinDefaults
-        // {
-          modules =
-            defaultDarwinSystemModules
-            ++ [./hosts/work/configuration.nix];
-        }
-      );
-    };
-
-    nixosConfigurations = {
-      # NixOS VM @ DO
-      deneb = nixpkgs.lib.nixosSystem {
-        inherit (x86_64-linux) system;
-        specialArgs =
-          inputs
+  in
+    {
+      darwinConfigurations = lib.attrsets.genAttrs ["Sagittarius-A" "work"] (host:
+        darwin.lib.darwinSystem (
+          (defaultsFor flake-utils.lib.system.x86_64-darwin)
           // {
-            inherit secrets;
-            inherit (x86_64-linux) pkgs pkgsUnstable;
-            helix = mkHelix "x86_64-linux";
-          };
-        modules = defaultNixosSystemModules ++ [./hosts/deneb/configuration.nix];
+            modules =
+              defaultSystemModules
+              ++ [
+                home-manager.darwinModules.home-manager
+                (./hosts + "/${host}" + /configuration.nix)
+              ];
+          }
+        ));
+
+      nixosConfigurations = {
+        # NixOS VM @ DO
+        deneb = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.x86_64-linux)
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                home-manager.nixosModules.home-manager
+                ./hosts/deneb/configuration.nix
+              ];
+          });
+
+        # NixOS on a RaspberryPi 4 model B
+        electra = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.aarch64-linux)
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                home-manager.nixosModules.home-manager
+                ./hosts/electra/configuration.nix
+              ];
+          });
       };
 
-      # NixOS on a RaspberryPi 4 model B
-      electra = nixpkgs.lib.nixosSystem {
-        inherit (aarch64-linux) system;
-        specialArgs =
-          inputs
-          // {
-            inherit secrets;
-            inherit (aarch64-linux) pkgs pkgsUnstable;
-            helix = mkHelix "aarch64-linux";
-          };
-        modules = defaultNixosSystemModules ++ [./hosts/electra/configuration.nix];
-      };
-    };
+      deploy.nodes.electra = {
+        sshUser = "vdx";
+        sshOpts = ["-A"];
+        hostname = "electra.lan";
+        remoteBuild = true;
 
-    devShells = builtins.listToAttrs (builtins.map
-      (
-        arch: {
-          name = arch.system;
-          value = {
-            default = with arch;
-              pkgs.mkShell {
-                buildInputs = [
-                  pkgs.alejandra
-                  pkgs.git-crypt
-                ];
-              };
-          };
-        }
-      ) [x86_64-darwin x86_64-linux aarch64-linux]);
-  };
+        profiles.system.user = "root";
+        profiles.system.path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.electra;
+      };
+
+      deploy.nodes.deneb = {
+        sshUser = "vdx";
+        sshOpts = ["-A"];
+        hostname = "vdx.hu";
+        remoteBuild = true;
+
+        profiles.system.user = "root";
+        profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.deneb;
+      };
+    }
+    // (flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = (defaultsFor system).specialArgs.pkgs;
+      rebuild =
+        if pkgs.stdenv.isDarwin
+        then localLib.mkRebuildDarwin pkgs
+        else localLib.mkRebuildNixos pkgs;
+    in {
+      devShells.default = pkgs.mkShell {
+        buildInputs = [
+          pkgs.alejandra
+          pkgs.deploy-rs
+          pkgs.git-crypt
+          rebuild
+        ];
+      };
+    }));
 }
