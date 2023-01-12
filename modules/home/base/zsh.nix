@@ -104,6 +104,9 @@
       enable = true;
       #      theme = "lambda-mod";
       custom = "$HOME/.zsh/custom/";
+       extraConfig = ''
+        DISABLE_AUTO_UPDATE="true"
+      '';
       plugins = [
         "git"
         "z"
