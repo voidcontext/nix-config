@@ -73,6 +73,7 @@ in {
           {
             name = "nix";
             auto-format = false;
+            formatter = {command = "alejandra";};
           }
           {
             name = "rust";
