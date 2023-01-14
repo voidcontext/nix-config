@@ -7,7 +7,7 @@
   ...
 }:
 with lib; let
-  kitty = pkgsUnstable.kitty;
+  kitty = pkgs.kitty;
 in {
   config = mkIf (!systemConfig.base.headless) {
     base.darwin_symlinks = {
