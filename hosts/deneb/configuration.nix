@@ -23,6 +23,7 @@ in {
 
     # Additional imports
     ./extras.nix
+    ./git.nix
     ./indieweb
     ./monitoring.nix
     ./wireguard.nix
