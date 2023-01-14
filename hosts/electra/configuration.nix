@@ -172,6 +172,7 @@
     pkgs.tmux
     pkgs.usbutils
     pkgs.hdparm
+    pkgs.smartmontools
   ];
 
   networking = {
