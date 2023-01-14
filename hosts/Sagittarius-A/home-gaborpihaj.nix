@@ -65,6 +65,9 @@ in {
         port = 5422;
         forwardAgent = true;
       };
+      "git.vdx.hu" = {
+        port = 5422;
+      };
       "vdx.hu.gpg" = {
         hostname = "vdx.hu";
         user = "vdx";
