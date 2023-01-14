@@ -26,9 +26,7 @@
       # [[ $TMUX != "" ]] && export TERM="screen-256color"
     '';
 
-    shellAliases = let
-      configInputs = "--inputs-from ${systemConfig.base.nixConfigFlakeDir}";
-    in {
+    shellAliases = {
       ls = "exa";
       la = "exa -la";
       df = "duf";
@@ -36,7 +34,6 @@
       h = "hx";
 
       reload-zsh = "source ~/.zshrc";
-      nsh = "nix-shell -I nixpkgs=/Users/gaborpihaj/workspace/personal/nix-config/nixpkgs.nix";
 
       enable-gpg-ssh = "export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent";
       learn-gpg-cardno = ''gpg-connect-agent "scd serialno" "learn --force" /bye'';
@@ -64,9 +61,9 @@
       dkcl = "docker compose logs";
       dkcr = "docker compose stop && docker compose rm -f && docker compose up";
 
-      nsp = "nix search ${configInputs} nixpkgs";
-      nsu = "nix search ${configInputs} nixpkgs-unstable";
-      nr = "nix run ${configInputs}";
+      nsp = "nix search nixpkgs";
+      nsu = "nix search nixpkgs-unstable";
+      nr = "nix run";
 
       nix-flake-lock-updated = ''echo "Root input updated at" &&  cat flake.lock | jq -r '(.nodes.root.inputs | values[]) as $root_input | .nodes | to_entries | map(select(.key == $root_input))[] | ($root_input + "," + (.value.locked.lastModified | strftime("%Y-%m-%d")))'  | column -ts,'';
     };
@@ -104,7 +101,7 @@
       enable = true;
       #      theme = "lambda-mod";
       custom = "$HOME/.zsh/custom/";
-       extraConfig = ''
+      extraConfig = ''
         DISABLE_AUTO_UPDATE="true"
       '';
       plugins = [

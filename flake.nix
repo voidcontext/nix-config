@@ -74,30 +74,34 @@
       };
     };
 
-    defaultSystemModules = [
-      ./modules/system/base
-      ./modules/system/static-sites
-      ({
-        config,
-        pkgsUnstable,
-        localPackages,
-        ...
-      }: {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.sharedModules = [
-          ./modules/home/base
-          ./modules/home/development/java
-          ./modules/home/development/scala
-          ./modules/home/programs/kitty
-          ./modules/home/virtualization/lima
-        ];
-        home-manager.extraSpecialArgs = {
-          inherit localLib pkgsUnstable localPackages inputs;
-          systemConfig = config;
-        };
-      })
-    ];
+    defaultSystemModules =
+      (localLib.modules.nixpkgs-pin.system nixpkgs nixpkgs-unstable)
+      ++ [
+        ./modules/system/base
+        ./modules/system/static-sites
+        ({
+          config,
+          pkgsUnstable,
+          localPackages,
+          ...
+        }: {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.sharedModules =
+            (localLib.modules.nixpkgs-pin.home-manager nixpkgs nixpkgs-unstable)
+            ++ [
+              ./modules/home/base
+              ./modules/home/development/java
+              ./modules/home/development/scala
+              ./modules/home/programs/kitty
+              ./modules/home/virtualization/lima
+            ];
+          home-manager.extraSpecialArgs = {
+            inherit localLib pkgsUnstable localPackages inputs;
+            systemConfig = config;
+          };
+        })
+      ];
   in
     {
       darwinConfigurations = lib.attrsets.genAttrs ["Sagittarius-A" "work"] (host:
