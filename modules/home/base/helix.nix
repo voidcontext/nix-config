@@ -33,7 +33,6 @@ in {
 
       programs.helix = {
         enable = true;
-        # package = pkgsUnstable.helix;
         settings = {
           theme = "gruvbox";
 

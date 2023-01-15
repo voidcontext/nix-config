@@ -64,8 +64,33 @@
     ];
 
     defaultsFor = system: let
-      pkgs = import nixpkgs {inherit system overlays;};
-      pkgsUnstable = import nixpkgs-unstable {inherit system overlays;};
+      pkgs = import nixpkgs {
+        inherit system overlays;
+        config = {
+          allowUnfreePredicate = pkg:
+            builtins.elem (nixpkgs.lib.getName pkg) [
+              "steam"
+              "steam-run"
+              "steam-original"
+              "steam-runtime"
+              "nvidia-x11"
+              "nvidia-settings"
+            ];
+        };
+      };
+      pkgsUnstable = import nixpkgs-unstable {
+        inherit system overlays;
+        config = {
+          allowUnfreePredicate = pkg:
+            builtins.elem (nixpkgs.lib.getName pkg) [
+              "steam"
+              "steam-original"
+              "steam-runtime"
+              "nvidia-x11"
+              "nvidia-settings"
+            ];
+        };
+      };
     in {
       inherit pkgs system;
       specialArgs = {
@@ -137,6 +162,16 @@
               ++ [
                 home-manager.nixosModules.home-manager
                 ./hosts/electra/configuration.nix
+              ];
+          });
+
+        albeiro = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.x86_64-linux)
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                home-manager.nixosModules.home-manager
+                ./hosts/albeiro/configuration.nix
               ];
           });
       };
