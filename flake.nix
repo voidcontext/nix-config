@@ -195,6 +195,16 @@
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.deneb;
       };
+
+      deploy.nodes.albeiro= {
+        sshUser = "vdx";
+        sshOpts = ["-A"];
+        hostname = "albeiro.lan";
+        remoteBuild = true;
+
+        profiles.system.user = "root";
+        profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.albeiro;
+      };
     }
     // (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = (defaultsFor system).specialArgs.pkgs;
