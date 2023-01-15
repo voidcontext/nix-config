@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   base.git.enable = true;
   base.git.name = "Gabor Pihaj";
   base.git.email = "gabor.pihaj@gmail.com";

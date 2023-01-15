@@ -196,7 +196,7 @@
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.deneb;
       };
 
-      deploy.nodes.albeiro= {
+      deploy.nodes.albeiro = {
         sshUser = "vdx";
         sshOpts = ["-A"];
         hostname = "albeiro.lan";

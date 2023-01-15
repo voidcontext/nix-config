@@ -83,7 +83,7 @@ in {
     })
 
     (mkIf (pkgs.stdenv.isDarwin && cfg.gpg-ssh.enable) {
-       programs.zsh.initExtra = ''
+      programs.zsh.initExtra = ''
         export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent
       '';
     })

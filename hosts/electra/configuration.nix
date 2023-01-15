@@ -133,14 +133,14 @@
       isNormalUser = true;
       home = "/home/pi";
       extraGroups = ["wheel" "networkmanager"];
-      openssh.authorizedKeys.keys = [ secrets.ssh.public-keys.gpg ];
+      openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
     };
 
     vdx = {
       isNormalUser = true;
       extraGroups = ["wheel" "networkmanager" "video"];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = [ secrets.ssh.public-keys.gpg ];
+      openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
     };
 
     git = {

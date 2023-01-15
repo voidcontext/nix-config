@@ -43,7 +43,7 @@
   networking.interfaces.wlp3s0.useDHCP = true;
 
   networking.networkmanager.enable = true;
-  
+
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
@@ -94,7 +94,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keys = [ secrets.ssh.public-keys.gpg ];
+    openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
   };
 
   home-manager.users.vdx = import ./home-vdx.nix;

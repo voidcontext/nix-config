@@ -54,7 +54,7 @@ in {
     isNormalUser = true;
     extraGroups = ["wheel"];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [ secrets.ssh.public-keys.gpg ];
+    openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
   };
 
   # Home manager
