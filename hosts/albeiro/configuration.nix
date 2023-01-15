@@ -29,7 +29,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "alebiro"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
@@ -43,6 +43,7 @@
   networking.interfaces.wlp3s0.useDHCP = true;
 
   networking.networkmanager.enable = true;
+  
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
