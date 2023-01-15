@@ -11,7 +11,7 @@ with lib; let
     updateCommands = lists.foldl (a: b: ''
       ${a}
       ${b}
-    '') "" (attrsets.mapAttrsToList (name: value: "update_symlink ${name} ${value}") cfg.darwin_symlink);
+    '') "" (attrsets.mapAttrsToList (name: value: "update_symlink ${name} ${value}") cfg.darwin_symlinks);
   in
     pkgs.writeShellScriptBin "update-symlinks" ''
       function update_symlink () {
@@ -52,7 +52,10 @@ in {
       home.packages = optional pkgs.stdenv.isDarwin update-symlinks;
 
       programs.gpg.enable = true;
-
+      programs.gpg.scdaemonSettings = {
+        # On darwin ccid needs to be disabled (disable=true), on linux it needs to be enabled (disable=false) to make Yubikey work
+        disable-ccid = pkgs.stdenv.isDarwin;
+      };
       programs.tmux = {
         enable = true;
         terminal = "xterm-256color";
