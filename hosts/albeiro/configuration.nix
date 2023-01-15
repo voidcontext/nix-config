@@ -83,6 +83,10 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  security.sudo.enable = true;
+  security.pam.enableSSHAgentAuth = true;
+  security.pam.services.sudo.sshAgentAuth = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.vdx = {
     isNormalUser = true;
