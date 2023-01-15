@@ -5,6 +5,34 @@
   ...
 }: let
   workspace = "$HOME/workspace";
+
+  sshHostRoles = {
+    trusted = {...}: {
+      forwardAgent = true;
+    };
+
+    external = {...}: {
+      port = 5422;
+    };
+
+    gpg = {
+      userId,
+      hostname,
+      ...
+    }: {
+      inherit hostname;
+      user = "vdx";
+      forwardAgent = true;
+      remoteForwards = [
+        {
+          bind = {address = "/run/user/${builtins.toString userId}/gnupg/S.gpg-agent";};
+          host = {address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent";};
+        }
+      ];
+    };
+  };
+
+  configureSshHost = {roles, ...} @ args: (builtins.foldl' (acc: role: acc // (sshHostRoles.${role} args)) {} roles);
 in {
   home.stateVersion = "22.11";
 
@@ -57,40 +85,23 @@ in {
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "spellcasterhub.com" = {
-        port = 5422;
-        forwardAgent = true;
-      };
-      "vdx.hu" = {
-        port = 5422;
-        forwardAgent = true;
-      };
-      "git.vdx.hu" = {
-        port = 5422;
-      };
-      "vdx.hu.gpg" = {
+      "vdx.hu" = configureSshHost {roles = ["trusted" "external"];};
+      "vdx.hu.gpg" = configureSshHost {
+        roles = ["trusted" "external" "gpg"];
         hostname = "vdx.hu";
-        user = "vdx";
-        port = 5422;
-        forwardAgent = true;
-        remoteForwards = [
-          {
-            bind = {address = "/run/user/1000/gnupg/S.gpg-agent";};
-            host = {address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent";};
-          }
-        ];
+        userId = 1000;
       };
-      "electra.lan.gpg" = {
+
+      "git.vdx.hu" = configureSshHost {roles = ["external"];};
+
+      "electra.lan" = configureSshHost {roles = ["trusted"];};
+      "electra.lan.gpg" = configureSshHost {
+        roles = ["trusted" "gpg"];
         hostname = "electra.lan";
-        user = "vdx";
-        forwardAgent = true;
-        remoteForwards = [
-          {
-            bind = {address = "/run/user/1004/gnupg/S.gpg-agent";};
-            host = {address = "${config.home.homeDirectory}/.gnupg/S.gpg-agent";};
-          }
-        ];
+        userId = 1004;
       };
+
+      "albeiro.lan" = configureSshHost {roles = ["trusted"];};
     };
   };
 }
