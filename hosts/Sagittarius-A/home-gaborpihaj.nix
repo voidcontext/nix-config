@@ -8,7 +8,7 @@
 in {
   home.stateVersion = "22.11";
 
-  base.zsh.gpg-ssh.enable = true;
+  base.gpg-ssh.enable = true;
   base.yubikey-tools.enable = true;
 
   base.git.enable = true;

@@ -51,17 +51,7 @@ in {
     {
       home.packages = optional pkgs.stdenv.isDarwin update-symlinks;
 
-      # home.file.".gnupg/gpg-agent.conf".text = ''
-      #   enable-ssh-support
-      # '';
-
       programs.gpg.enable = true;
-      services.gpg-agent.enable = true;
-      services.gpg-agent.enableSshSupport = cfg.gpg-ssh.enable;
-      services.gpg-agent.pinentryFlavor = "curses";
-      programs.zsh.initExtra = ''
-        export GPG_TTY=$(tty)
-      '';
 
       programs.tmux = {
         enable = true;
@@ -73,6 +63,27 @@ in {
       programs.direnv.enableZshIntegration = true;
       programs.direnv.nix-direnv.enable = true;
     }
+
+    (mkIf pkgs.stdenv.isLinux {
+      services.gpg-agent.enable = true;
+      services.gpg-agent.enableSshSupport = cfg.gpg-ssh.enable;
+      services.gpg-agent.pinentryFlavor = "curses";
+      # programs.zsh.initExtra = ''
+      #   export GPG_TTY=$(tty)
+      # '';
+    })
+
+    (mkIf pkgs.stdenv.isDarwin {
+      home.file.".gnupg/gpg-agent.conf".text = ''
+        enable-ssh-support
+      '';
+    })
+
+    (mkIf (pkgs.stdenv.isDarwin && cfg.gpg-ssh.enable) {
+       programs.zsh.initExtra = ''
+        export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) && gpgconf --launch gpg-agent
+      '';
+    })
 
     # Optionals
     (mkIf cfg.yubikey-tools.enable {
