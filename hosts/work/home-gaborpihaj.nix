@@ -15,6 +15,7 @@ in {
   base.git.signing-key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
   base.helix.fromGit = true;
 
+  development.nix.enable = true;
   development.java.jdk = pkgs.openjdk11_headless;
   development.scala.enable = true;
 

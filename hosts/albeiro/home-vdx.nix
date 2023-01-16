@@ -8,6 +8,8 @@
 
   home.stateVersion = "21.11";
 
+  development.nix.enable = true;
+
   programs.zsh.initExtra = ''
     export XDG_DATA_HOME="$HOME/.local/share"
   '';

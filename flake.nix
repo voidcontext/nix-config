@@ -117,6 +117,7 @@
             ++ [
               ./modules/home/base
               ./modules/home/development/java
+              ./modules/home/development/nix
               ./modules/home/development/scala
               ./modules/home/programs/kitty
               ./modules/home/virtualization/lima

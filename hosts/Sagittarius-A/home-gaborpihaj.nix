@@ -46,6 +46,7 @@ in {
   base.git.signing-key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
   base.helix.fromGit = true;
 
+  development.nix.enable = true;
   development.java.jdk = pkgs.openjdk11_headless;
   development.scala.enable = true;
 
@@ -54,8 +55,6 @@ in {
   programs.home-manager.enable = true;
 
   home.packages = [
-    pkgs.nixpkgs-fmt
-    pkgs.nix-prefetch-git
     pkgs.neofetch
 
     pkgs.terraform
@@ -67,7 +66,6 @@ in {
     pkgs.postgresql_12
 
     pkgs.weechat
-    pkgs.nil
   ];
 
   programs.nix-index.enable = true;
