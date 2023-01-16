@@ -27,6 +27,7 @@ in {
         .nix
         .metals
 
+        .sass-cache
         node_modules
         target
       '';
