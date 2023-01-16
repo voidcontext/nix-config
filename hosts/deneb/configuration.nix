@@ -131,4 +131,6 @@ in {
       (goaccessCron "vdx.hu")
     ];
   };
+
+  system.stateVersion = "21.11";
 }
