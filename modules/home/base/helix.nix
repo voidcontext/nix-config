@@ -35,7 +35,7 @@ in {
       programs.helix = {
         enable = true;
         settings = {
-          theme = "gruvbox";
+          theme = "everforest_dark";
 
           editor.true-color = true;
           editor.cursorline = true;

@@ -483,6 +483,22 @@
         "type": "github"
       }
     },
+    "kitty-everforest-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1659743801,
+        "narHash": "sha256-1pIdsS3r3lscTqYD92/8lPOxe6k6JhUaSjm1x7gES/E=",
+        "owner": "ewal",
+        "repo": "kitty-everforest",
+        "rev": "02f113adad7eeb2db1649e987508de589aba26a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ewal",
+        "repo": "kitty-everforest",
+        "type": "github"
+      }
+    },
     "mqtt2influxdb2": {
       "inputs": {
         "crane": "crane_3",
@@ -745,6 +761,7 @@
         "helix": "helix",
         "home-manager": "home-manager",
         "indieweb-tools": "indieweb-tools",
+        "kitty-everforest-themes": "kitty-everforest-themes",
         "mqtt2influxdb2": "mqtt2influxdb2",
         "nil": "nil_2",
         "nixpkgs": "nixpkgs_5",
