@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   pkgsUnstable,
   ...
 }: {
@@ -13,5 +14,6 @@
 
   home.packages = [
     (pkgsUnstable.sqlite.override {interactive = true;})
+    pkgs.weechat
   ];
 }
