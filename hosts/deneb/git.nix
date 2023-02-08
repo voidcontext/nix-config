@@ -38,5 +38,6 @@
     rootUrl = "https://git.vdx.hu/";
     httpPort = 3001;
     settings.service.DISABLE_REGISTRATION = true;
+    settings.repository.ENABLE_PUSH_CREATE_USER = true;
   };
 }

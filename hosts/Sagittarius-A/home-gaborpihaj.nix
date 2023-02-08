@@ -33,6 +33,40 @@
   };
 
   configureSshHost = {roles, ...} @ args: (builtins.foldl' (acc: role: acc // (sshHostRoles.${role} args)) {} roles);
+
+  # usage, sync github repos that are not forks:
+  # gh api -H "Accept: application/vnd.github+json" /user/repos\?affiliation=owner\&page=1 | \
+  #   jq -r '.[] | select(.fork | not) | .name'                                            | \
+  #   xargs -I {} sync-git-repo git@github.com:voidcontext gitea@git.vdx.hu:voidcontext {}
+  sync-git-repo = pkgs.writeShellScriptBin "sync-git-repo" ''
+    set -e -o pipefail
+
+    source=$1
+    target=$2
+    repo=$3
+  
+    if [ -d $repo ]; then
+      echo "Syncing $source/$repo.git to $target/$repo.git"
+      cd $repo
+      git remote set-url origin "$source/$repo.git"
+
+      if [ $(git remote | grep target) ]; then  
+        git remote remove target 
+      fi
+    else
+      echo "Migrating $source/$repo.git to $target/$repo.git"
+
+      git clone --recurse-submodules "$source/$repo.git"
+      cd $repo
+    fi
+    git fetch --all --tags
+    git remote add target "$target/$repo.git"
+    # git lfs fetch --all
+    git push --all target
+    git push --tags target "refs/remotes/origin/*:refs/heads/*"
+    # git lfs push --all origin master
+    cd ..
+  '';
 in {
   home.stateVersion = "22.11";
 
@@ -66,6 +100,8 @@ in {
     pkgs.postgresql_12
 
     pkgs.weechat
+
+    sync-git-repo
   ];
 
   programs.nix-index.enable = true;
