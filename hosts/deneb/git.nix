@@ -17,13 +17,13 @@
     package = pkgsUnstable.forgejo.overrideAttrs (
       old: rec {
         pname = "forgejo";
-        version = "1.18.1-0";
+        version = "1.18.3-0";
 
         src = builtins.fetchurl {
           name = "${pname}-src-${version}.tar.gz";
           # see https://codeberg.org/forgejo/forgejo/releases
-          url = "https://codeberg.org/attachments/86af11d3-ff4c-4b1d-a4c6-ffa85bc99d31";
-          sha256 = "20d082d55a0fc0e965888a569fa38182ed1d3c1568d13603a8efcd628b1d8371";
+          url = "https://codeberg.org/attachments/384fd9ab-7c64-4c29-9b1b-cdb803c48103";
+          sha256 = "cc119dfb03c90f0edbc11bc096c72a6d01c31baa68ddd95ba5871c7da9dbb725";
         };
         postInstall =
           (old.postInstall or "")
