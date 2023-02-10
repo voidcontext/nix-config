@@ -98,7 +98,7 @@
       inherit pkgs system;
       specialArgs = {
         inherit pkgs pkgsUnstable localLib inputs secrets;
-        localPackages = import ./packages {inherit pkgs;};
+        localPackages = import ./packages {inherit pkgs pkgsUnstable;};
       };
     };
 

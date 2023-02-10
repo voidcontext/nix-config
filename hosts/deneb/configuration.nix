@@ -23,6 +23,7 @@ in {
     (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
     # Additional imports
+    ./backup.nix
     ./extras.nix
     ./git.nix
     ./indieweb
@@ -46,6 +47,7 @@ in {
   # security.acme.email = "admin+acme@gaborpihaj.com";
 
   networking.firewall.allowedTCPPorts = [443];
+  networking.hostName = "deneb";
 
   # User Management
 
