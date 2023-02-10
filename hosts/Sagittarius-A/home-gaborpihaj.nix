@@ -44,14 +44,14 @@
     source=$1
     target=$2
     repo=$3
-  
+
     if [ -d $repo ]; then
       echo "Syncing $source/$repo.git to $target/$repo.git"
       cd $repo
       git remote set-url origin "$source/$repo.git"
 
-      if [ $(git remote | grep target) ]; then  
-        git remote remove target 
+      if [ $(git remote | grep target) ]; then
+        git remote remove target
       fi
     else
       echo "Migrating $source/$repo.git to $target/$repo.git"

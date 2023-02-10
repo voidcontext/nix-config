@@ -4,8 +4,7 @@
   fetchurl,
   localPackages,
   ...
-}: 
-{
+}: {
   services.nginx.virtualHosts."git.vdx.hu" = {
     enableACME = true;
     forceSSL = true;
