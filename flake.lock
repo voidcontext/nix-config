@@ -470,11 +470,11 @@
         "nru": "nru"
       },
       "locked": {
-        "lastModified": 1673100026,
-        "narHash": "sha256-1CeBW+D7ntI8RtuzDj7dLpajmmD6xCAOSa+11E5ObL0=",
+        "lastModified": 1676656795,
+        "narHash": "sha256-gpFiu3yoWaxViquSHJjVZuLdmNKOPmTEUYSIFnh+tzQ=",
         "owner": "voidcontext",
         "repo": "indieweb-tools",
-        "rev": "f8a6c7102f969058dddda59334357c877bc979ed",
+        "rev": "95b4a9bad79d42a2af64430b49f9dad5b6c9b97b",
         "type": "github"
       },
       "original": {

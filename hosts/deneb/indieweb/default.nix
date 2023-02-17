@@ -21,6 +21,10 @@ in {
 
   users.users.vdx.extraGroups = ["indieweb"];
 
+  environment.systemPackages = [
+    pkgs.indieweb-tools
+  ];
+
   static-sites."gaborpihaj.com" = {
     enable = true;
     domainName = "gaborpihaj.com";
