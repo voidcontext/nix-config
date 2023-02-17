@@ -12,6 +12,7 @@
     encryption.mode = "repokey-blake2";
     encryption.passCommand = "cat /opt/secrets/borg/passphrase";
     environment.BORG_RSH = "ssh -i /root/.ssh/borgbase";
+    extraArgs = "--lock-wait 3600";
     startAt = "daily";
     prune.keep = {
       within = "1d"; # Keep all archives from the last day
