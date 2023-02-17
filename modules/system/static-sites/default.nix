@@ -199,6 +199,7 @@ in
 
       services.logrotate.enable = true;
       services.logrotate.settings.static-sites-cron.enable = any (config: config.autoRebuildGit) (attrValues cfg);
+      services.logrotate.settings.static-sites-cron.su = "root staticsites";
       services.logrotate.settings.static-sites-cron.files =
         filter (v: v != null)
         (mapAttrsToList
