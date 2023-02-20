@@ -19,7 +19,7 @@ in {
     pkgs.writeShellScriptBin "rebuild" ''
       ${mkRebuildInitVars pkgs}
       TERM=kitty
-      nix build ./#darwinConfigurations.$host.system --show-trace && \
+      nix build ./#darwinConfigurations.$host.system --extra-experimental-features nix-command --extra-experimental-features flakes --show-trace && \
         ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
       update-symlinks
     '';
