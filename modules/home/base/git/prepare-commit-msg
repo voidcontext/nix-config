@@ -13,7 +13,8 @@ echo "MSG HELPER:      $GC_HOOK_COMMIT_MSG_HELPER"
 
 if [[ -n "$GC_HOOK_COMMIT_MSG_HELPER"  && ( -z "$COMMIT_SOURCE" || "$COMMIT_SOURCE" == "message" )]]; then
     hint=$(cat "$COMMIT_MSG_FILE")
-    echo $($GC_HOOK_COMMIT_MSG_HELPER) > "$COMMIT_MSG_FILE"
+    msg=$($GC_HOOK_COMMIT_MSG_HELPER)
+    echo -n "$msg"  > "$COMMIT_MSG_FILE"
     echo "$hint" >> "$COMMIT_MSG_FILE"
 fi
 
