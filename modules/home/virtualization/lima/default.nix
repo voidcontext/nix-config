@@ -8,6 +8,15 @@
 with lib; let
   cfg = config.virtualization.lima;
   lima = pkgsUnstable.lima;
+  # lima = pkgsUnstable.lima.overrideAttrs (old: {
+  #   version = "${old.version}-1";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "lima-vm";
+  #     repo = old.pname;
+  #     rev = "v${old.version}";
+  #     sha256 = "sha256-g4FvkjBviI1m8zlc+GK/09dIqVkTQ2MqqK1Wkyu4qBc=";
+  #   };
+  # });
   docker = pkgs.docker-client;
   lima-docker = pkgs.writeShellScriptBin "lima-docker" ''
         cmd=$1
@@ -57,5 +66,9 @@ in {
       lima-docker
       docker
     ];
+    
+    programs.zsh.initExtraBeforeCompInit = ''
+      eval "$(${lima}/bin/limactl completion zsh)"
+    '';
   };
 }

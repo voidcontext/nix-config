@@ -19,11 +19,9 @@ in {
   development.java.jdk = pkgs.openjdk11_headless;
   development.scala.enable = true;
 
-  programs.home-manager.enable = true;
+  virtualization.lima.enable = true;
 
-  programs.zsh.initExtraBeforeCompInit = ''
-    eval "$(${pkgs.lima}/bin/limactl completion zsh)"
-  '';
+  programs.home-manager.enable = true;
 
   programs.zsh.initExtra = ''
     export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
@@ -39,14 +37,11 @@ in {
   programs.nix-index.enableZshIntegration = true;
 
   home.packages = [
-    pkgsUnstable.terraform
+    # pkgsUnstable.terraform
     pkgs.awscli2
     pkgs.plantuml
     pkgs.gh
     pkgs.nil
-
-    pkgsUnstable.lima
-    pkgsUnstable.docker-client
 
     # extra packages
     localPackages.adr-tools
