@@ -34,6 +34,11 @@ in {
       executable = true;
     };
 
+    home.file.".git-templates/hooks/prepare-commit-msg" = {
+      source = ./prepare-commit-msg;
+      executable = true;
+    };
+
     home.file.".config/git/ignore".text = ''
       .DS_Store
       .ammonite

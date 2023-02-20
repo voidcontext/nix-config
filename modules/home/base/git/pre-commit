@@ -3,6 +3,7 @@
 set -u
 
 CURRENT=$(pwd)
+
 EMAIL=$(git config --list | grep user\.email | tail -n 1 | cut  -d= -f2)
 GPG_SIGN_COONFIG=$(git config --get commit.gpgsign)
 
@@ -20,5 +21,4 @@ if [ "$GC_HOOK_GIT_USERNAME" != "$EMAIL" ]; then
     echo "Email is misconfigured, should be: $GC_HOOK_GIT_USERNAME, but it is $EMAIL ."
     exit 1;
 fi
-
 
