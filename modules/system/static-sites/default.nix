@@ -29,7 +29,7 @@ with lib; let
   rsync = "${pkgs.rsync}/bin/rsync";
   awk = "${pkgs.gawk}/bin/awk";
 
-  rebuild = pkgs.writeShellScriptBin "static-site-rebuild" ''
+  rebuild = name: afterRebuild: pkgs.writeShellScriptBin "static-site-rebuild-${name}" ''
     set -e
 
     SITE=$1
@@ -73,6 +73,8 @@ with lib; let
     ${rsync} -acO --no-t --no-perms ./result/ $dest_dir
     ${rsync} -acO --no-t --no-perms --delete ./result/ $dest_dir
     echo $current_commit >> $dest_dir/.commit_hash
+
+    ${afterRebuild}
   '';
 
   static-site-options = {
@@ -100,6 +102,11 @@ with lib; let
     options.autoIndex = mkEnableOption "Whether to turn on auto indexing on the root path";
 
     options.autoRebuildGit = mkEnableOption "Whether to auto rebuild the static site on changes";
+
+    options.afterRebuild = mkOption {
+      type = types.str;
+      default = "";
+    };
   };
 
   rebuildLogFile = config: "/var/log/static-sites/${config.domainName}-rebuild.log";
@@ -192,7 +199,7 @@ in
           (
             name: config:
               if config.autoRebuildGit
-              then "*/5 * * * *      ${config.owner} ${rebuild}/bin/static-site-rebuild ${config.domainName} >> ${rebuildLogFile config} 2>&1"
+              then "*/5 * * * *      ${config.owner} ${rebuild name config.afterRebuild}/bin/static-site-rebuild-${name} ${config.domainName} >> ${rebuildLogFile config} 2>&1"
               else null
           )
           cfg);

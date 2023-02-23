@@ -5,7 +5,7 @@
 
   urlShortenerBin = "${pkgs.indieweb-tools}/bin/iwt-url-shortener";
 
-  iwtCronLog = "/var/log/indieweb/cross-publish.log";
+  iwtCrossPublishLog = "/var/log/indieweb/cross-publish.log";
 in {
   users.groups.indieweb = {};
 
@@ -31,6 +31,9 @@ in {
     owner = "indieweb";
     group = "nginx";
     autoRebuildGit = true;
+    afterRebuild = ''
+      ${iwtBin} --config /opt/indieweb/indieweb.toml cross-publish >> ${iwtCrossPublishLog} 2>&1
+    '';
   };
 
   #****************************************************************************
@@ -78,14 +81,7 @@ in {
   #****************************************************************************
   # Cross publishing
 
-  services.cron = {
-    enable = true;
-    systemCronJobs = [
-      "*/5 * * * *      indieweb    ${iwtBin} --config /opt/indieweb/indieweb.toml cross-publish >> ${iwtCronLog} 2>&1"
-    ];
-  };
-
   services.logrotate.enable = true;
   services.logrotate.settings.indieweb-cron.enable = true;
-  services.logrotate.settings.indieweb-cron.files = [iwtCronLog];
+  services.logrotate.settings.indieweb-cron.files = [iwtCrossPublishLog];
 }
