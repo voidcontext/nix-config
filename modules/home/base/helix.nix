@@ -7,6 +7,9 @@
 }:
 with lib; let
   cfg = config.base.helix;
+  hxe = pkgs.writeShellScriptBin "hxe" ''
+    ${pkgs.helixFileExplorer}/bin/hx ''$@
+  '';
 in {
   # Helix
 
@@ -85,6 +88,10 @@ in {
     (mkIf cfg.fromGit {
       programs.helix.package = pkgs.helixFlake;
       programs.helix.settings.editor.bufferline = "multiple";
+
+      home.packages = [
+        hxe
+      ];
     })
     (mkIf (!cfg.fromGit) {
       programs.helix.package = pkgsUnstable.helix;

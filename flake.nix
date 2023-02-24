@@ -18,6 +18,9 @@
     helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
 
+    helix-file-explorer.url = "github:pinelang/helix-tree-explorer/tree_explore";
+    helix-file-explorer.inputs.nixpkgs.follows = "nixpkgs";
+
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
     # indieweb-tools.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -61,6 +64,7 @@
         indieweb-tools = inputs.indieweb-tools.packages.${final.system}.default;
         mqtt2influxdb2 = inputs.mqtt2influxdb2.packages.${final.system}.default;
         helixFlake = inputs.helix.packages.${final.system}.default;
+        helixFileExplorer = inputs.helix-file-explorer.packages.${final.system}.default;
       })
       weechatOverlay
       inputs.nil.overlays.default
