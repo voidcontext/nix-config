@@ -107,11 +107,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1667419884,
-        "narHash": "sha256-oLNw87ZI5NxTMlNQBv1wG2N27CUzo9admaFlnmavpiY=",
+        "lastModified": 1673295039,
+        "narHash": "sha256-AsdYgE8/GPwcelGgrntlijMg4t3hLFJFCRF3tL5WVjA=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "cfc0125eafadc9569d3d6a16ee928375b77e3100",
+        "rev": "87b9d090ad39b25b2400029c64825fc2a8868943",
         "type": "github"
       },
       "original": {
@@ -582,11 +582,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1676430618,
-        "narHash": "sha256-+E4jxyCXMlwIRTLgOpd8d41oTYmh5kK12erpn+zbtwI=",
+        "lastModified": 1677463041,
+        "narHash": "sha256-Vb7Vub2jMnOIzCxw5u1dfoIcnKrh1ct4aOfGlZ3A4EU=",
         "owner": "pinelang",
         "repo": "helix-tree-explorer",
-        "rev": "f0a4b109ad8570f14ed46f0130cae2238bc8dd6b",
+        "rev": "7e4feb02efcfb17faad01a26b1816a8c4c716d36",
         "type": "github"
       },
       "original": {
