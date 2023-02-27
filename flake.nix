@@ -13,7 +13,7 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
-    nil.url = "github:oxalica/nil";
+    nil.url = "github:oxalica/nil/2023-01-01";
 
     helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
