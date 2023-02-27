@@ -27,7 +27,7 @@
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
     mqtt2influxdb2.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/70a970f5a02b7febec1c3065e10c4155b99ecf86";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-22.11";
 
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
     kitty-everforest-themes.flake = false;

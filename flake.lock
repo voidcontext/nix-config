@@ -1168,17 +1168,17 @@
         "utils": "utils_3"
       },
       "locked": {
-        "lastModified": 1669838593,
-        "narHash": "sha256-wR4SVRtgRcgz1FR2i6hRl+m0RerlgkIlXyQ8/XtzVWk=",
+        "lastModified": 1671659164,
+        "narHash": "sha256-DbpT+v1POwFOInbrDL+vMbYV3mVbTkMxmJ5j50QnOcA=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "70a970f5a02b7febec1c3065e10c4155b99ecf86",
+        "rev": "bc667fb6afc45f6cc2d118ab77658faf2227cffd",
         "type": "gitlab"
       },
       "original": {
         "owner": "simple-nixos-mailserver",
+        "ref": "nixos-22.11",
         "repo": "nixos-mailserver",
-        "rev": "70a970f5a02b7febec1c3065e10c4155b99ecf86",
         "type": "gitlab"
       }
     },
