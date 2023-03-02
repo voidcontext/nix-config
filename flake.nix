@@ -22,10 +22,8 @@
     helix-file-explorer.inputs.nixpkgs.follows = "nixpkgs";
 
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
-    # indieweb-tools.inputs.nixpkgs.follows = "nixpkgs";
 
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
-    mqtt2influxdb2.inputs.nixpkgs.follows = "nixpkgs";
 
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-22.11";
 

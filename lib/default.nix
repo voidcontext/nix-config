@@ -17,10 +17,15 @@ let
 in {
   mkRebuildDarwin = pkgs:
     pkgs.writeShellScriptBin "rebuild" ''
+      set -e -o pipefail
       ${mkRebuildInitVars pkgs}
       TERM=kitty
-      nix build ./#darwinConfigurations.$host.system --extra-experimental-features nix-command --extra-experimental-features flakes --show-trace && \
-        ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
+      nix build ./#darwinConfigurations.$host.system     \
+        --extra-experimental-features nix-command        \
+        --extra-experimental-features flakes             \
+        --show-trace
+      
+      ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
       update-symlinks
     '';
 
