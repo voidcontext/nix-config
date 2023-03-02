@@ -68,7 +68,7 @@ in {
         map cmd+equal change_font_size all +1.0
         map cmd+minus change_font_size all -1.0
 
-        ${color-themes.everforest.dark.soft}
+        ${color-themes.gruvbox.dark}
       '';
     };
   };
