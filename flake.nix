@@ -27,6 +27,9 @@
 
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
     kitty-everforest-themes.flake = false;
+
+    kitty-gruvbox-themes.url = "github:wdomitrz/kitty-gruvbox-theme";
+    kitty-gruvbox-themes.flake = false;
   };
 
   outputs = {

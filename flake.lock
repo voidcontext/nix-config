@@ -602,6 +602,22 @@
         "type": "github"
       }
     },
+    "kitty-gruvbox-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673178094,
+        "narHash": "sha256-fWRVd/ZsuQ7obX4ZDBqfbPEE9s+p5Ls2hqI6JY92/3U=",
+        "owner": "wdomitrz",
+        "repo": "kitty-gruvbox-theme",
+        "rev": "b930abcc3a1cdcc763fb65988f07ee0270710f9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wdomitrz",
+        "repo": "kitty-gruvbox-theme",
+        "type": "github"
+      }
+    },
     "mk-naked-shell": {
       "flake": false,
       "locked": {
@@ -1033,6 +1049,7 @@
         "home-manager": "home-manager",
         "indieweb-tools": "indieweb-tools",
         "kitty-everforest-themes": "kitty-everforest-themes",
+        "kitty-gruvbox-themes": "kitty-gruvbox-themes",
         "mqtt2influxdb2": "mqtt2influxdb2",
         "nil": "nil_2",
         "nixpkgs": "nixpkgs_8",
