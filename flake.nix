@@ -16,10 +16,8 @@
     nil.url = "github:oxalica/nil/2023-01-01";
 
     helix.url = "github:helix-editor/helix";
-    helix.inputs.nixpkgs.follows = "nixpkgs";
 
     helix-file-explorer.url = "github:pinelang/helix-tree-explorer/tree_explore";
-    helix-file-explorer.inputs.nixpkgs.follows = "nixpkgs";
 
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
 
