@@ -66,7 +66,7 @@ in {
       lima-docker
       docker
     ];
-    
+
     programs.zsh.initExtraBeforeCompInit = ''
       eval "$(${lima}/bin/limactl completion zsh)"
     '';

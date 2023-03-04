@@ -71,7 +71,7 @@ in {
       sbt-watcher
       pkgs.sbt
       pkgs.visualvm
-      (pkgsUnstable.bloop.override { jre = config.development.java.jdk;})
+      (pkgsUnstable.bloop.override {jre = config.development.java.jdk;})
     ];
 
     programs.zsh.shellAliases = {

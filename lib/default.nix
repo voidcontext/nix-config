@@ -24,7 +24,7 @@ in {
         --show-trace                                   # \
         # --extra-experimental-features nix-command        \
         # --extra-experimental-features flakes             \
-      
+
       ./result/sw/bin/darwin-rebuild $cmd --flake .#$host
       update-symlinks
     '';

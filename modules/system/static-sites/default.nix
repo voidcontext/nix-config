@@ -29,53 +29,54 @@ with lib; let
   rsync = "${pkgs.rsync}/bin/rsync";
   awk = "${pkgs.gawk}/bin/awk";
 
-  rebuild = name: afterRebuild: pkgs.writeShellScriptBin "static-site-rebuild-${name}" ''
-    set -e
+  rebuild = name: afterRebuild:
+    pkgs.writeShellScriptBin "static-site-rebuild-${name}" ''
+      set -e
 
-    SITE=$1
+      SITE=$1
 
-    if [[ "$DEBUG" == 1 ]]; then
-      set -x
-    fi
+      if [[ "$DEBUG" == 1 ]]; then
+        set -x
+      fi
 
-    if [[ -z "$SITE" ]]; then
-      echo "SITE env var must be set"
-      exit 1
-    fi
+      if [[ -z "$SITE" ]]; then
+        echo "SITE env var must be set"
+        exit 1
+      fi
 
-    root_dir=/opt/src/$SITE
-    dest_dir=/var/www/$SITE
+      root_dir=/opt/src/$SITE
+      dest_dir=/var/www/$SITE
 
-    if [ ! -d $root_dir ]; then
-      echo "$root_dir is not a directory, exiting..."
-      exit 1
-    fi
+      if [ ! -d $root_dir ]; then
+        echo "$root_dir is not a directory, exiting..."
+        exit 1
+      fi
 
-    cd $root_dir
+      cd $root_dir
 
-    if [[ `git status --porcelain` ]]; then
-      echo "There are local changes, exiting..."
-      exit 1
-    fi
+      if [[ `git status --porcelain` ]]; then
+        echo "There are local changes, exiting..."
+        exit 1
+      fi
 
-    commit=$(cat $dest_dir/.commit_hash)
+      commit=$(cat $dest_dir/.commit_hash)
 
-    ${git} fetch --all
-    ${git} merge --ff-only
+      ${git} fetch --all
+      ${git} merge --ff-only
 
-    current_commit=$(${git} show | head -n1 | ${awk} '{print $2}')
-    if [ "$commit" == "$current_commit" ]; then
-      echo "No changes, exiting..."
-      exit 0
-    fi
+      current_commit=$(${git} show | head -n1 | ${awk} '{print $2}')
+      if [ "$commit" == "$current_commit" ]; then
+        echo "No changes, exiting..."
+        exit 0
+      fi
 
-    ${nix} build --show-trace
-    ${rsync} -acO --no-t --no-perms ./result/ $dest_dir
-    ${rsync} -acO --no-t --no-perms --delete ./result/ $dest_dir
-    echo $current_commit >> $dest_dir/.commit_hash
+      ${nix} build --show-trace
+      ${rsync} -acO --no-t --no-perms ./result/ $dest_dir
+      ${rsync} -acO --no-t --no-perms --delete ./result/ $dest_dir
+      echo $current_commit >> $dest_dir/.commit_hash
 
-    ${afterRebuild}
-  '';
+      ${afterRebuild}
+    '';
 
   static-site-options = {
     options.enable = mkEnableOption "Whether the static site is enabled";
