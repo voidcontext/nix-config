@@ -37,35 +37,22 @@
   # usage, sync github repos that are not forks:
   # gh api -H "Accept: application/vnd.github+json" /user/repos\?affiliation=owner\&page=1 | \
   #   jq -r '.[] | select(.fork | not) | .name'                                            | \
-  #   xargs -I {} sync-git-repo git@github.com:voidcontext gitea@git.vdx.hu:voidcontext {}
-  sync-git-repo = pkgs.writeShellScriptBin "sync-git-repo" ''
+  #   xargs -I {} mirror-git-repo git@github.com:voidcontext gitea@git.vdx.hu:voidcontext {}
+  mirror-git-repo = pkgs.writeShellScriptBin "mirror-git-repo" ''
     set -e -o pipefail
 
     source=$1
     target=$2
     repo=$3
 
-    if [ -d $repo ]; then
-      echo "Syncing $source/$repo.git to $target/$repo.git"
-      cd $repo
-      git remote set-url origin "$source/$repo.git"
 
-      if [ $(git remote | grep target) ]; then
-        git remote remove target
-      fi
-    else
-      echo "Migrating $source/$repo.git to $target/$repo.git"
+    git clone $source/$repo.git --mirror
 
-      git clone --recurse-submodules "$source/$repo.git"
-      cd $repo
-    fi
-    git fetch --all --tags
-    git remote add target "$target/$repo.git"
-    # git lfs fetch --all
-    git push --all target
-    git push --tags target "refs/remotes/origin/*:refs/heads/*"
-    # git lfs push --all origin master
-    cd ..
+    cd $repo.git
+    git remote add target $target/$repo.git
+    git push target --mirror
+
+    cd -
   '';
 in {
   home.stateVersion = "22.11";
@@ -101,7 +88,7 @@ in {
 
     pkgs.weechat
 
-    sync-git-repo
+    mirror-git-repo
   ];
 
   programs.nix-index.enable = true;
