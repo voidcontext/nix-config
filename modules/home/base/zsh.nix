@@ -103,6 +103,7 @@
       custom = "$HOME/.zsh/custom/";
       extraConfig = ''
         DISABLE_AUTO_UPDATE="true"
+        zstyle ':omz:update' mode disabled
       '';
       plugins = [
         "git"
