@@ -21,18 +21,6 @@
       map to guest = Never
 
       log level = 1
-      socket options = IPTOS_LOWDELAY TCP_NODELAY SO_RCVBUF=524288 SO_SNDBUF=524288
-      read raw = yes
-      write raw = yes
-      max xmit = 65536
-      dead time = 15
-
-      #use sendfile = true
-      aio read size = 16384
-      aio write size = 16384
-
-      #getwd cache = yes
-      #write cache size = 262144
     '';
     shares = {
       gabor = {
