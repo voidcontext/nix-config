@@ -74,7 +74,7 @@
     };
 
     "/Volumes/raid" = {
-      device = "/dev/disk/by-uuid/8829e98e-43b1-4e09-88b3-4b29411c426d";
+      device = "/dev/disk/by-uuid/c8ff3ec3-d05b-4364-a270-17063920d74f";
       fsType = "ext4";
       options = ["defaults" "nofail"];
     };
