@@ -79,6 +79,12 @@
       options = ["defaults" "nofail"];
     };
 
+    "/Volumes/secondary" = {
+      device = "/dev/disk/by-uuid/6f748b9d-a966-4dc7-9987-ceb26b277cae";
+      fsType = "ext4";
+      options = ["defaults" "nofail"];
+    };
+
     "/Volumes/data" = {
       device = "/dev/disk/by-uuid/56b9fcd9-22a1-41c7-b605-4691c1a12958";
       fsType = "ext4";
