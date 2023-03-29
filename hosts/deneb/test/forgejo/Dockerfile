@@ -1,7 +1,11 @@
 FROM codeberg.org/forgejo/forgejo:1.18.5-0
 
 COPY entrypoint.sh /entrypoint.sh
-COPY run-gitea.sh /run-gitea.sh
+
+RUN rm /etc/s6/gitea/setup
+COPY run-gitea.sh /etc/s6/gitea/run
+RUN cat /etc/templates/sshd_config | sed 's/\(AllowUsers.*\)/\1 gitea/' > /etc/templates/sshd_config 
+
 
 ARG backupfile
 
@@ -15,7 +19,9 @@ RUN addgroup gitea          && \
     adduser -S -H -D \
       -h /var/lib/gitea \
       -s /bin/bash \
-      gitea
+      gitea                 && \
+    echo "gitea:*" | chpasswd -e
+
       
 COPY $backupfile /backup
 RUN cd /backup && unzip $backupfile
@@ -25,18 +31,14 @@ RUN sqlite3 /var/lib/gitea/data/gitea.db < /backup/gitea-db.sql
 RUN mv /backup/app.ini /etc/gitea/conf/app.ini                           && \
     mv /backup/data/* /var/lib/gitea/data/                               && \
     # mv /backup/log/* /var/lib/gitea/log/                                 && \
-    mv /backup/repos/* /var/lib/gitea/repositories/                      && \
-    chown -R gitea:gitea /etc/gitea/conf/app.ini /var/lib/gitea
+    mv /backup/repos/* /var/lib/gitea/repositories/
 
 RUN cat /etc/gitea/conf/app.ini | sed 's/ROOT_URL=https:\/\/git.vdx.hu\//ROOT_URL=http:\/\/localhost:3001/' \
     > /etc/gitea/conf/app.ini
 
-RUN echo 
+RUN chown -R gitea:gitea /etc/gitea/conf/app.ini /var/lib/gitea
 
-USER gitea
+ENV GITEA_CUSTOM /var/lib/gitea
 
 RUN /entrypoint.sh
-ENTRYPOINT []
-CMD ["sh", "/run-gitea.sh"]
 
-    
