@@ -94,10 +94,6 @@ in {
   programs.nix-index.enable = true;
   programs.nix-index.enableZshIntegration = true;
 
-  programs.zsh.initExtra = ''
-    export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
-  '';
-
   programs.zsh.shellAliases = {
     p = "cd ${workspace}/personal";
     tf = "terraform";

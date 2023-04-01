@@ -9,15 +9,10 @@
 
     envExtra = ''
       export NIX_IGNORE_SYMLINK_STORE=1
-      export HM_ZSH_ENV=loaded
     '';
 
     initExtraBeforeCompInit = ''
       ZSH_THEME="simple"
-
-      if [ "HM_ZSH_ENV" != "loaded" ]; then
-        source $HOME/.zshenv
-      fi
     '';
 
     initExtra = ''

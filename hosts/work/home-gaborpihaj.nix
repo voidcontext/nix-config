@@ -23,10 +23,6 @@ in {
 
   programs.home-manager.enable = true;
 
-  programs.zsh.initExtra = ''
-    export NIX_BUILD_SHELL=$(nix-build -A bashInteractive '<nixpkgs>')/bin/bash
-  '';
-
   programs.zsh.shellAliases = {
     p = "cd ${workspace}/personal";
     d = "cd ${workspace}/work";
