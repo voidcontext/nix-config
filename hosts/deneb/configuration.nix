@@ -93,6 +93,9 @@ in {
       access_log /var/log/nginx/vdx.hu-access.log;
       error_log /var/log/nginx/vdx.hu-error.log error;
     '';
+    locations."/" = {
+      return = "301 https://gaborpihaj.com";
+    };
   };
 
   static-sites."stats.vdx.hu" = {
