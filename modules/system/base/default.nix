@@ -38,6 +38,7 @@ in {
       environment.systemPackages = [
         pkgs.silver-searcher # pkgs.ag
         pkgs.bashInteractive
+        pkgs.borgbackup
         pkgs.bwm_ng
         pkgs.coreutils
         pkgs.git
