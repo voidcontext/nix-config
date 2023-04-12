@@ -506,11 +506,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1678768788,
-        "narHash": "sha256-Cf+TMMOchynE3KdWRY6nAsc5ucbSS3KvZN+QiHOae7Y=",
+        "lastModified": 1679878443,
+        "narHash": "sha256-HOmebX5w335FGx4z1Ywg9TWHsFcgCJFmRLrgrs/ECGs=",
         "owner": "pinelang",
         "repo": "helix-tree-explorer",
-        "rev": "477fe42632ee6db70059faaf4a5b8baacc487429",
+        "rev": "cf9669f276dc223323d526d3dcf7c1bbc67a3922",
         "type": "github"
       },
       "original": {
