@@ -48,6 +48,12 @@
           allowedIPs = ["10.24.0.3/32"];
         }
         {
+          # Sagittarius-A* dev
+          publicKey = secrets.wireguard.sagittarius-a-dev.publicKey;
+          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+          allowedIPs = ["10.24.0.5/32"];
+        }
+        {
           # electra
           publicKey = secrets.wireguard.electra.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.

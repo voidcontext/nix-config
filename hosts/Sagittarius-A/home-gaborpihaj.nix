@@ -85,6 +85,8 @@ in {
     pkgs.nodejs
     pkgs.iperf3
     pkgs.postgresql_12
+    pkgs.wireguard-tools
+    pkgs.wireguard-go
 
     pkgs.weechat
 
