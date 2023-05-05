@@ -34,8 +34,8 @@ with lib; let
     });
 
   metals = metalsBuilder {
-    version = "0.11.11";
-    outputHash = "sha256-oz4lrRnpVzc9kN+iJv+mtV/S1wdMKwJBkKpvmWCSwE0=";
+    version = "0.11.12";
+    outputHash = "sha256-3zYjjrd3Hc2T4vwnajiAMNfTDUprKJZnZp2waRLQjI4=";
   };
 
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
