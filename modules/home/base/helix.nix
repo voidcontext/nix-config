@@ -55,7 +55,7 @@ in {
           editor.indent-guides.character = "|";
 
           editor.file-picker.hidden = false;
-          editor.file-picker.git-ignore = false;
+          editor.file-picker.git-ignore = true;
 
           # It's quite helpful, but the placement is a bit annoying
           # editor.lsp.auto-signature-help = false;
@@ -82,6 +82,9 @@ in {
           {
             name = "rust";
             auto-format = false;
+            config = {
+              files.excludeDirs = [ ".direnv" ] ;
+            };
           }
         ];
       };
