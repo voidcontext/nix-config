@@ -45,6 +45,7 @@ in {
         copy_on_select = "yes";
         macos_thicken_font = "0.3";
         macos_option_as_alt = "yes";
+        disable_ligatures_in = "tab cursor";
       };
 
       # theme = "Gruvbox Dark";
@@ -67,6 +68,10 @@ in {
 
         map cmd+equal change_font_size all +1.0
         map cmd+minus change_font_size all -1.0
+
+        map ctrl+alt+1 disable_ligatures_in active always
+        map ctrl+alt+2 disable_ligatures_in all never
+        map ctrl+alt+3 disable_ligatures_in tab cursor
 
         ${color-themes.gruvbox.dark.medium}
       '';
