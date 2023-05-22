@@ -226,5 +226,6 @@
 
     address=/deneb.lan.vdx.hu/10.24.0.1
     address=/electra.lan.vdx.hu/10.24.0.2
+    address=/elnath.lan.vdx.hu/10.24.0.6
   '';
 }

@@ -161,6 +161,17 @@
               ];
           });
 
+        # NixOS VM @ DO
+        elnath = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.x86_64-linux)
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                home-manager.nixosModules.home-manager
+                ./hosts/elnath/configuration.nix
+              ];
+          });
+
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.aarch64-linux)
           // {
@@ -202,6 +213,17 @@
 
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.deneb;
+      };
+
+      deploy.nodes.elnath = {
+        sshUser = "root";
+        sshOpts = ["-A" "-p5422"];
+        hostname = "161.35.168.86";
+        remoteBuild = true;
+        fastConnection = false;
+
+        profiles.system.user = "root";
+        profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.elnath;
       };
 
       deploy.nodes.albeiro = {

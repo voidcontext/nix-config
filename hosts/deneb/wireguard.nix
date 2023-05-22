@@ -65,6 +65,12 @@
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.4/32"];
         }
+        {
+          # elnath
+          publicKey = secrets.wireguard.elnath.publicKey;
+          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+          allowedIPs = ["10.24.0.6/32"];
+        }
         # { # John Doe
         #   publicKey = "{john doe's public key}";
         #   allowedIPs = [ "10.100.0.3/32" ];
