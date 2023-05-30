@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  pkgsUnstable,
   ...
 }:
 with lib; let
@@ -24,60 +25,80 @@ in {
     type = types.str;
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.delta
-    ];
+  options.base.git.cog.enable = mkEnableOption "cocogitto conventional commits";
 
-    home.file.".git-templates/hooks/pre-commit" = {
-      source = ./pre-commit;
-      executable = true;
-    };
+  config = mkMerge [
+    (mkIf cfg.enable {
+      home.packages = [
+        pkgs.delta
+      ];
 
-    home.file.".git-templates/hooks/prepare-commit-msg" = {
-      source = ./prepare-commit-msg;
-      executable = true;
-    };
+      home.file.".git-templates/hooks/pre-commit" = {
+        source = ./pre-commit;
+        executable = true;
+      };
 
-    home.file.".config/git/ignore".text = ''
-      .DS_Store
-      .ammonite
-      .bloop
-      .bloop/*
-      .bsp
-      .dotbin
-      .envrc
-      .metals
-      .sbt-hydra-history
-      .nix-shell
-      metals.sbt
-      result
-      *.worksheet.sc
-    '';
+      home.file.".git-templates/hooks/prepare-commit-msg" = {
+        source = ./prepare-commit-msg;
+        executable = true;
+      };
 
-    programs.git = {
-      enable = true;
-      userName = cfg.name;
-      userEmail = cfg.email;
-      signing =
-        if cfg.sign
-        then {
-          signByDefault = cfg.sign;
-          key = cfg.signing-key;
-        }
-        else {
-          signByDefault = false;
-        };
-      extraConfig = {
-        core = {
-          pager = "${pkgs.delta}/bin/delta";
-          editor = "hx";
-          hookspath = "${templateDir}/hooks";
-        };
-        init = {
-          inherit templateDir;
+      home.file.".config/git/ignore".text = ''
+        .DS_Store
+        .ammonite
+        .bloop
+        .bloop/*
+        .bsp
+        .dotbin
+        .envrc
+        .metals
+        .sbt-hydra-history
+        .nix-shell
+        metals.sbt
+        result
+        *.worksheet.sc
+      '';
+
+      programs.git = {
+        enable = true;
+        userName = cfg.name;
+        userEmail = cfg.email;
+        signing =
+          if cfg.sign
+          then {
+            signByDefault = cfg.sign;
+            key = cfg.signing-key;
+          }
+          else {
+            signByDefault = false;
+          };
+        extraConfig = {
+          core = {
+            pager = "${pkgs.delta}/bin/delta";
+            editor = "hx";
+            hookspath = "${templateDir}/hooks";
+          };
+          init = {
+            inherit templateDir;
+          };
         };
       };
-    };
-  };
+    })
+    (mkIf (cfg.enable && cfg.cog.enable) {
+      home.packages = [
+        pkgsUnstable.cocogitto
+      ];
+
+      programs.zsh.initExtra = ''
+        eval $(${pkgsUnstable.cocogitto}/bin/cog generate-completions zsh)
+      '';
+
+      programs.zsh.shellAliases = {
+        cc = "cog commit";
+        ccl = "cog changelog";
+        cchl = "cog check -l";
+      };
+      
+    })
+  ];
 }
