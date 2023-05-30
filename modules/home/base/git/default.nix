@@ -94,9 +94,12 @@ in {
       '';
 
       programs.zsh.shellAliases = {
-        cc = "cog commit";
+        cco = "cog commit";
         ccl = "cog changelog";
-        cchl = "cog check -l";
+        cchl = "cog check --from-latest-tag";
+        cb = "cog bump";
+        cba = "cog bump --auto";
+        cbad = "cog bump --auto  --dry-run";
       };
       
     })
