@@ -1,7 +1,4 @@
-{
-  pkgsUnstable,
-  ...
-}: {
+{pkgsUnstable, ...}: {
   home.stateVersion = "22.11";
 
   base.git.enable = true;

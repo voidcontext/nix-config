@@ -43,24 +43,24 @@ in {
     settings.repository.ENABLE_PUSH_CREATE_USER = true;
     settings.server.SSH_PORT = 5422;
     settings.server.LFS_START_SERVER = true;
-    settings.webhooks.ALLOWED_HOST_LIST="external,loopback";
+    settings.webhooks.ALLOWED_HOST_LIST = "external,loopback";
   };
 
   services.woodpecker-server = {
     enable = true;
     package = pkgsUnstable.woodpecker-server;
     environment = {
-      WOODPECKER_HOST="https://woodpecker.ci.vdx.hu";
-      WOODPECKER_OPEN="true";
-      WOODPECKER_ADMIN="voidcontext";
-      WOODPECKER_GITEA="true";
-      WOODPECKER_GITEA_URL="https://git.vdx.hu";
-      WOODPECKER_SERVER_ADDR=":${woodpeckerPort}";
-      WOODPECKER_GRPC_ADDR=":${builtins.toString woodpeckerGRPCPort}";
-      WOODPECKER_GITEA_CLIENT=secrets.woodpecker.gitea.client;
-      WOODPECKER_GITEA_SECRET=secrets.woodpecker.gitea.secret;
-      WOODPECKER_AGENT_SECRET=secrets.woodpecker.agent.secret;
-      WOODPECKER_LOG_LEVEL="info";
+      WOODPECKER_HOST = "https://woodpecker.ci.vdx.hu";
+      WOODPECKER_OPEN = "true";
+      WOODPECKER_ADMIN = "voidcontext";
+      WOODPECKER_GITEA = "true";
+      WOODPECKER_GITEA_URL = "https://git.vdx.hu";
+      WOODPECKER_SERVER_ADDR = ":${woodpeckerPort}";
+      WOODPECKER_GRPC_ADDR = ":${builtins.toString woodpeckerGRPCPort}";
+      WOODPECKER_GITEA_CLIENT = secrets.woodpecker.gitea.client;
+      WOODPECKER_GITEA_SECRET = secrets.woodpecker.gitea.secret;
+      WOODPECKER_AGENT_SECRET = secrets.woodpecker.agent.secret;
+      WOODPECKER_LOG_LEVEL = "info";
     };
   };
 

@@ -69,8 +69,8 @@
     pkgs.wireguard-tools
   ];
 
-
   nix.package = pkgsUnstable.nix;
+  nix.settings.trusted-substituters = ["file:///var/lib/woodpecker-agent/nix-store"];
 
   system.stateVersion = "22.11";
 }

@@ -83,7 +83,7 @@ in {
             name = "rust";
             auto-format = false;
             config = {
-              files.excludeDirs = [ ".direnv" ] ;
+              files.excludeDirs = [".direnv"];
             };
           }
         ];

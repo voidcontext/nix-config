@@ -104,14 +104,14 @@ in {
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "vdx.hu" = configureSshHost {roles = ["trusted" "external"];};
-      "vdx.hu.gpg" = configureSshHost {
+      "deneb.vdx.hu" = configureSshHost {roles = ["trusted" "external"];};
+      "deneb.vdx.hu.gpg" = configureSshHost {
         roles = ["trusted" "external" "gpg"];
         hostname = "vdx.hu";
         userId = 1000;
       };
 
-      # "elnath.vdx.hu" = configureSshHost {roles = ["trusted" "external"];};
+      "elnath.vdx.hu" = configureSshHost {roles = ["trusted" "external"];};
 
       "git.vdx.hu" = configureSshHost {roles = ["external"];};
 
