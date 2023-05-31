@@ -57,13 +57,15 @@
       # };
     };
 
+    defaultPackage = flake: system: flake.packages.${system}.default; 
+
     overlays = [
       (final: prev: {
-        deploy-rs = deploy-rs.packages.${final.system}.default;
-        indieweb-tools = inputs.indieweb-tools.packages.${final.system}.default;
-        mqtt2influxdb2 = inputs.mqtt2influxdb2.packages.${final.system}.default;
-        helixFlake = inputs.helix.packages.${final.system}.default;
-        helixFileExplorer = inputs.helix-file-explorer.packages.${final.system}.default;
+        deploy-rs = defaultPackage deploy-rs final.system;
+        indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
+        mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
+        helixFlake = defaultPackage inputs.helix final.system;
+        helixFileExplorer = defaultPackage inputs.helix-file-explorer final.system;
       })
       weechatOverlay
       inputs.nil.overlays.default
