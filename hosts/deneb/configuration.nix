@@ -100,7 +100,7 @@ in {
   static-sites."stats.vdx.hu" = {
     enable = true;
     domainName = "stats.vdx.hu";
-    basicAuthFile = "/opt/secrets/nginx/blog-beta.htpasswd";
+    basicAuthFile = "/opt/secrets/nginx/stats.vdx.hu.htpasswd";
     autoIndex = true;
   };
 
@@ -132,6 +132,7 @@ in {
       (goaccessCron "gaborpihaj.com")
       (goaccessCron "beta.gaborpihaj.com")
       (goaccessCron "spellcasterhub.com")
+      (goaccessCron "git.vdx.hu")
       (goaccessCron "vdx.hu")
     ];
   };

@@ -17,6 +17,10 @@ in {
   services.nginx.virtualHosts."git.vdx.hu" = {
     enableACME = true;
     forceSSL = true;
+    extraConfig = ''
+      access_log /var/log/nginx/git.vdx.hu-access.log;
+      error_log /var/log/nginx/git.vdx.hu-error.log error;
+    '';
     locations."/" = {
       proxyPass = "http://localhost:3001/";
     };
