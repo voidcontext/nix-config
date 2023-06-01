@@ -2,13 +2,12 @@
   config,
   lib,
   pkgs,
-  pkgsUnstable,
   ...
 }:
 with lib; let
   cfg = config.virtualization.lima;
-  lima = pkgsUnstable.lima;
-  # lima = pkgsUnstable.lima.overrideAttrs (old: {
+  lima = pkgs.unstable.lima;
+  # lima = pkgs.unstable.lima.overrideAttrs (old: {
   #   version = "${old.version}-1";
   #   src = pkgs.fetchFromGitHub {
   #     owner = "lima-vm";

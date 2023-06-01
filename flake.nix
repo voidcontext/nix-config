@@ -57,9 +57,9 @@
       # };
     };
 
-    defaultPackage = flake: system: flake.packages.${system}.default; 
+    defaultPackage = flake: system: flake.packages.${system}.default;
 
-    overlays = [
+    defaultOverlays = [
       (final: prev: {
         deploy-rs = defaultPackage deploy-rs final.system;
         indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
@@ -71,8 +71,8 @@
       inputs.nil.overlays.default
     ];
 
-    defaultsFor = system: let
-      pkgs = import nixpkgs {
+    importNixpkgs = nixpkgs: system: overlays:
+      import nixpkgs {
         inherit system overlays;
         config = {
           allowUnfreePredicate = pkg:
@@ -86,24 +86,17 @@
             ];
         };
       };
-      pkgsUnstable = import nixpkgs-unstable {
-        inherit system overlays;
-        config = {
-          allowUnfreePredicate = pkg:
-            builtins.elem (nixpkgs.lib.getName pkg) [
-              "steam"
-              "steam-original"
-              "steam-runtime"
-              "nvidia-x11"
-              "nvidia-settings"
-            ];
-        };
+
+    defaultsFor = system: let
+      unstable-overlay = final: prev: {
+        unstable = importNixpkgs nixpkgs-unstable system defaultOverlays;
       };
+      pkgs = importNixpkgs nixpkgs system ([unstable-overlay] ++ defaultOverlays);
     in {
       inherit pkgs system;
       specialArgs = {
-        inherit pkgs pkgsUnstable localLib inputs secrets;
-        localPackages = import ./packages {inherit pkgs pkgsUnstable;};
+        inherit pkgs localLib inputs secrets;
+        localPackages = import ./packages {inherit pkgs;};
       };
     };
 
@@ -114,7 +107,6 @@
         ./modules/system/static-sites
         ({
           config,
-          pkgsUnstable,
           localPackages,
           ...
         }: {
@@ -131,7 +123,7 @@
               ./modules/home/virtualization/lima
             ];
           home-manager.extraSpecialArgs = {
-            inherit localLib pkgsUnstable localPackages inputs;
+            inherit localLib localPackages inputs;
             systemConfig = config;
           };
         })

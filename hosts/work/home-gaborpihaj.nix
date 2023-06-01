@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgsUnstable,
   localPackages,
   ...
 }: let
@@ -34,7 +33,7 @@ in {
   programs.nix-index.enableZshIntegration = true;
 
   home.packages = [
-    # pkgsUnstable.terraform
+    # pkgs.unstable.terraform
     pkgs.awscli2
     pkgs.plantuml
     pkgs.gh

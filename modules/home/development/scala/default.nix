@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  pkgsUnstable,
   config,
   ...
 }:
@@ -41,14 +40,14 @@ with lib; let
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
     ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall"
-    ${pkgsUnstable.bloop}/bin/bloop clean
+    ${pkgs.unstable.bloop}/bin/bloop clean
   '';
 
   sbt-watcher = pkgs.writeShellScriptBin "sbt-watcher" ''
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
     ${pkgs.fswatch}/bin/fswatch -o *.sbt project/*.sbt | xargs -n1 -I{} sh -c '\
       ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall" && \
-      ${pkgsUnstable.bloop}/bin/bloop clean'
+      ${pkgs.unstable.bloop}/bin/bloop clean'
   '';
 in {
   options.development.scala.enable = mkEnableOption "scala";
@@ -71,7 +70,7 @@ in {
       sbt-watcher
       pkgs.sbt
       pkgs.visualvm
-      (pkgsUnstable.bloop.override {jre = config.development.java.jdk;})
+      (pkgs.unstable.bloop.override {jre = config.development.java.jdk;})
     ];
 
     programs.zsh.shellAliases = {

@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgsUnstable,
   home-manager,
   ...
 }: {
@@ -30,6 +29,6 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
-  nix.package = pkgsUnstable.nix;
+  nix.package = pkgs.unstable.nix;
   nix.settings.trusted-users = ["root" "gaborpihaj"];
 }

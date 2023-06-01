@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  pkgsUnstable,
   lib,
   home-manager,
   secrets,
@@ -106,7 +105,7 @@
   system.stateVersion = "22.11";
 
   nix = {
-    package = pkgsUnstable.nix;
+    package = pkgs.unstable.nix;
     gc = {
       automatic = true;
       dates = "weekly";

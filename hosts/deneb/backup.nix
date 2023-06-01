@@ -1,11 +1,7 @@
-{
-  pkgs,
-  pkgsUnstable,
-  ...
-}: let
+{pkgs, ...}: let
   secrets = import ./secrets.nix;
   influx = "${pkgs.influxdb2}/bin/influx";
-  gitea = "${pkgsUnstable.forgejo}/bin/gitea";
+  gitea = "${pkgs.unstable.forgejo}/bin/gitea";
   sudo = "${pkgs.sudo}/bin/sudo";
   commonConfig = {
     repo = secrets.backup.borg-repo;

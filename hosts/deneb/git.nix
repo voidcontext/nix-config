@@ -1,11 +1,10 @@
 {
   pkgs,
-  pkgsUnstable,
   inputs,
   fetchurl,
   ...
 }: let
-  forgejo = pkgsUnstable.forgejo;
+  forgejo = pkgs.unstable.forgejo;
   secrets = import ./secrets.nix;
   woodpeckerPort = "8000";
   woodpeckerGRPCPort = 8001;
@@ -48,7 +47,7 @@ in {
 
   services.woodpecker-server = {
     enable = true;
-    package = pkgsUnstable.woodpecker-server;
+    package = pkgs.unstable.woodpecker-server;
     environment = {
       WOODPECKER_HOST = "https://woodpecker.ci.vdx.hu";
       WOODPECKER_OPEN = "true";

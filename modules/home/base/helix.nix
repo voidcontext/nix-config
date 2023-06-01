@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgsUnstable,
   lib,
   config,
   ...
@@ -98,7 +97,7 @@ in {
       ];
     })
     (mkIf (!cfg.fromGit) {
-      programs.helix.package = pkgsUnstable.helix;
+      programs.helix.package = pkgs.unstable.helix;
     })
   ];
 }

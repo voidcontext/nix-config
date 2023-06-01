@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  pkgsUnstable,
   ...
 }: {
   home.stateVersion = "22.11";
@@ -13,7 +12,7 @@
   base.git.signing-key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
 
   home.packages = [
-    (pkgsUnstable.sqlite.override {interactive = true;})
+    (pkgs.unstable.sqlite.override {interactive = true;})
     pkgs.weechat
   ];
 }

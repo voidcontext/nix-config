@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  pkgsUnstable,
   ...
 }:
 with lib; let
@@ -86,11 +85,11 @@ in {
     })
     (mkIf (cfg.enable && cfg.cog.enable) {
       home.packages = [
-        pkgsUnstable.cocogitto
+        pkgs.unstable.cocogitto
       ];
 
       programs.zsh.initExtra = ''
-        eval $(${pkgsUnstable.cocogitto}/bin/cog generate-completions zsh)
+        eval $(${pkgs.unstable.cocogitto}/bin/cog generate-completions zsh)
       '';
 
       programs.zsh.shellAliases = {
@@ -101,7 +100,6 @@ in {
         cba = "cog bump --auto";
         cbad = "cog bump --auto  --dry-run";
       };
-      
     })
   ];
 }

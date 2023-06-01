@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  pkgsUnstable,
   ...
 }: let
   secrets = import ./secrets.nix;
@@ -36,7 +35,7 @@ in {
 
   services.woodpecker-agents.agents.docker = {
     enable = true;
-    package = pkgsUnstable.woodpecker-agent;
+    package = pkgs.unstable.woodpecker-agent;
     environment = {
       DOCKER_HOST = "unix:///run/podman/podman.sock";
       WOODPECKER_BACKEND = "docker";
