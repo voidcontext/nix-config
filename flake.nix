@@ -201,7 +201,7 @@
       deploy.nodes.deneb = {
         sshUser = "vdx";
         sshOpts = ["-A"];
-        hostname = "vdx.hu";
+        hostname = "deneb.vdx.hu";
         remoteBuild = true;
         fastConnection = true;
 
@@ -212,7 +212,7 @@
       deploy.nodes.elnath = {
         sshUser = "root";
         sshOpts = ["-A" "-p5422"];
-        hostname = "161.35.168.86";
+        hostname = "elnath.vdx.hu";
         remoteBuild = true;
         fastConnection = false;
 
