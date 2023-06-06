@@ -14,7 +14,7 @@ in {
     # "${inputs.nixpkgs-unstable}/nixos/modules/services/continuous-integration/woodpecker/server.nix"
   ];
 
-  virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
 
   systemd.services.woodpecker-agent-setup = {
     description = "woodpecker agent setup";
@@ -37,13 +37,13 @@ in {
     enable = true;
     package = pkgs.unstable.woodpecker-agent;
     environment = {
-      DOCKER_HOST = "unix:///run/podman/podman.sock";
+      DOCKER_HOST = "unix:///var/run/docker.sock";
       WOODPECKER_BACKEND = "docker";
       WOODPECKER_SERVER = "10.131.0.2:${builtins.toString woodpeckerGRPCPort}";
       WOODPECKER_AGENT_SECRET = secrets.woodpecker.agent.secret;
     };
     extraGroups = [
-      "podman"
+      "docker"
     ];
   };
 
