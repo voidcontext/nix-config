@@ -49,7 +49,7 @@ in {
         .bloop/*
         .bsp
         .dotbin
-        .envrc
+        .envrc.local
         .metals
         .sbt-hydra-history
         .nix-shell
