@@ -49,7 +49,7 @@ in {
   config = mkMerge [
     # Always applied
     {
-      home.packages = optional pkgs.stdenv.isDarwin update-symlinks;
+      home.packages = [pkgs.findutils] ++ (optional pkgs.stdenv.isDarwin update-symlinks);
 
       programs.gpg.enable = true;
       programs.gpg.scdaemonSettings = {
