@@ -25,6 +25,10 @@ in {
   };
 
   options.base.git.cog.enable = mkEnableOption "cocogitto conventional commits";
+  options.base.git.cog.package = mkOption {
+    type = types.package;
+    default = pkgs.unstable.cocogitto;
+  };
 
   config = mkMerge [
     (mkIf cfg.enable {
@@ -85,7 +89,7 @@ in {
     })
     (mkIf (cfg.enable && cfg.cog.enable) {
       home.packages = [
-        pkgs.unstable.cocogitto
+        cfg.cog.package
       ];
 
       programs.zsh.initExtra = ''
