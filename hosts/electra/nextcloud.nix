@@ -3,7 +3,7 @@
     enable = true;
     hostName = "nextcloud.vdx.hu";
     home = "/Volumes/raid/nextcloud";
-    package = pkgs.nextcloud25;
+    package = pkgs.nextcloud26;
     maxUploadSize = "20G";
     https = true;
     enableBrokenCiphersForSSE = false; # Disable backward compatibility workaround and use OpenSSL 3

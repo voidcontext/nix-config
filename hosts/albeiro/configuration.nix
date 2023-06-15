@@ -108,11 +108,12 @@
     alsa-tools
     lshw
     wirelesstools
-    (steam.override {
-      withPrimus = true;
-      extraPkgs = pkgs: [bumblebee glxinfo];
-    })
-    .run
+    steam
+    # (steam.override {
+    #   withPrimus = true;
+    #   extraPkgs = pkgs: [bumblebee glxinfo];
+    # })
+    # .run
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -32,7 +32,7 @@ in {
 
   # Login / ssh / security
 
-  services.openssh.passwordAuthentication = false;
+  services.openssh.settings.PasswordAuthentication = false;
   services.openssh.ports = [5422];
   services.openssh.extraConfig = ''
     # for gpg tunnel

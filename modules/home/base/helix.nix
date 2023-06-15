@@ -62,30 +62,32 @@ in {
 
           keys.insert.j = {k = "normal_mode";}; # Maps `jk` to exit insert mode
         };
-        languages = [
-          {
-            name = "scala";
-            auto-format = false;
-            config = {
-              # Arbitrary config, only needed to prevent helix sending null to metals,
-              # see https://github.com/helix-editor/helix/issues/3823
-              metals.showInferredType = true;
-              isHttpEnabled = true;
-            };
-          }
-          {
-            name = "nix";
-            auto-format = false;
-            formatter = {command = "alejandra";};
-          }
-          {
-            name = "rust";
-            auto-format = false;
-            config = {
-              files.excludeDirs = [".direnv"];
-            };
-          }
-        ];
+        languages = {
+          language = [
+            {
+              name = "scala";
+              auto-format = false;
+              config = {
+                # Arbitrary config, only needed to prevent helix sending null to metals,
+                # see https://github.com/helix-editor/helix/issues/3823
+                metals.showInferredType = true;
+                isHttpEnabled = true;
+              };
+            }
+            {
+              name = "nix";
+              auto-format = false;
+              formatter = {command = "alejandra";};
+            }
+            {
+              name = "rust";
+              auto-format = false;
+              config = {
+                files.excludeDirs = [".direnv"];
+              };
+            }
+          ];
+        };
       };
     }
     (mkIf cfg.fromGit {

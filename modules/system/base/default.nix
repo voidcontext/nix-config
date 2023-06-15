@@ -69,6 +69,8 @@ in {
         pkgs.xh
       ];
 
+      programs.zsh.enable = true;
+
       nix.extraOptions = ''
         experimental-features = nix-command flakes
         keep-outputs = true

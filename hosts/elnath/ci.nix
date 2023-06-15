@@ -9,11 +9,6 @@
     mkdir -p /var/lib/woodpecker-agent/nix-store/
   '';
 in {
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/continuous-integration/woodpecker/agents.nix"
-    # "${inputs.nixpkgs-unstable}/nixos/modules/services/continuous-integration/woodpecker/server.nix"
-  ];
-
   virtualisation.docker.enable = true;
 
   systemd.services.woodpecker-agent-setup = {

@@ -2,13 +2,13 @@
   "description" = "voidcontext's dotfiles";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/release-22.11";
+    nixpkgs.url = "nixpkgs/release-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:rycee/home-manager/release-22.11";
+    home-manager.url = "github:rycee/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -23,7 +23,7 @@
 
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-22.11";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
 
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
     kitty-everforest-themes.flake = false;

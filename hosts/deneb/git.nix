@@ -9,11 +9,6 @@
   woodpeckerPort = "8000";
   woodpeckerGRPCPort = 8001;
 in {
-  imports = [
-    # "${inputs.nixpkgs-unstable}/nixos/modules/services/continuous-integration/woodpecker/agents.nix"
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/continuous-integration/woodpecker/server.nix"
-  ];
-
   services.nginx.virtualHosts."git.vdx.hu" = {
     enableACME = true;
     forceSSL = true;
@@ -39,9 +34,10 @@ in {
     package = forgejo;
     appName = "forgejo @ git.vdx.hu"; # Give the site a name
     database.type = "sqlite3";
-    domain = "git.vdx.hu";
-    rootUrl = "https://git.vdx.hu/";
-    httpPort = 3001;
+    lfs.enable = true;
+    settings.server.DOMAIN = "git.vdx.hu";
+    settings.server.ROOT_URL = "https://git.vdx.hu/";
+    settings.server.HTTP_PORT = 3001;
     settings.service.DISABLE_REGISTRATION = true;
     settings.repository.ENABLE_PUSH_CREATE_USER = true;
     settings.server.SSH_PORT = 5422;

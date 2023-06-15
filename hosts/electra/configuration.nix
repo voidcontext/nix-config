@@ -34,7 +34,7 @@
   #boot.kernelPackages = pkgs.linuxPackages_rpi;
   # !!! Otherwise (even if you have a Raspberry Pi 2 or 3), pick this:
   boot.kernelPackages = pkgs.linuxPackages_rpi4;
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   # !!! This is only for ARMv6 / ARMv7. Don't enable this on AArch64, cache.nixos.org works there.
   #nix.binaryCaches = lib.mkForce [ "http://nixos-arm.dezgeg.me/channel" ];
@@ -120,7 +120,7 @@
   '';
 
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
+  services.openssh.settings.PasswordAuthentication = false;
   services.openssh.extraConfig = ''
     # for gpg tunnel
     StreamLocalBindUnlink yes
@@ -219,12 +219,18 @@
   };
 
   services.dnsmasq.enable = true;
-  services.dnsmasq.servers = ["192.168.24.1"];
-  services.dnsmasq.extraConfig = ''
-    listen-address=127.0.0.1,192.168.24.2,10.24.0.2
+  services.dnsmasq.settings.server = ["192.168.24.1"];
+  services.dnsmasq.settings.listen-address = "127.0.0.1,192.168.24.2,10.24.0.2";
+  services.dnsmasq.settings.address = [
+    "/deneb.lan.vdx.hu/10.24.0.1"
+    "/electra.lan.vdx.hu/10.24.0.2"
+    "/elnath.lan.vdx.hu/10.24.0.6"
+  ];
+  # services.dnsmasq.extraConfig = ''
+  #   listen-address=127.0.0.1,192.168.24.2,10.24.0.2
 
-    address=/deneb.lan.vdx.hu/10.24.0.1
-    address=/electra.lan.vdx.hu/10.24.0.2
-    address=/elnath.lan.vdx.hu/10.24.0.6
-  '';
+  #   address=/deneb.lan.vdx.hu/10.24.0.1
+  #   address=/electra.lan.vdx.hu/10.24.0.2
+  #   address=/elnath.lan.vdx.hu/10.24.0.6
+  # '';
 }
