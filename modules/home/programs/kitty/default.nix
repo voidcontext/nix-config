@@ -40,9 +40,11 @@ in {
       font.size = 15;
 
       settings = {
+        shell_integration = "no-cursor";
+        cursor_shape = "block";
         tab_bar_style = "powerline";
         copy_on_select = "yes";
-        macos_thicken_font = "0.3";
+        macos_thicken_font = "0";
         macos_option_as_alt = "yes";
         disable_ligatures_in = "tab cursor";
       };
