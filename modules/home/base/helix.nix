@@ -63,16 +63,17 @@ in {
           keys.insert.j = {k = "normal_mode";}; # Maps `jk` to exit insert mode
         };
         languages = {
+          language-server.metals.config = {
+            metals.showInferredType = true;
+            isHttpEnabled = true;
+          };
+          language-server.rust-analyzer.config = {
+            files.excludeDirs = [".direnv"];
+          };
           language = [
             {
               name = "scala";
               auto-format = false;
-              config = {
-                # Arbitrary config, only needed to prevent helix sending null to metals,
-                # see https://github.com/helix-editor/helix/issues/3823
-                metals.showInferredType = true;
-                isHttpEnabled = true;
-              };
             }
             {
               name = "nix";
@@ -82,9 +83,6 @@ in {
             {
               name = "rust";
               auto-format = false;
-              config = {
-                files.excludeDirs = [".direnv"];
-              };
             }
           ];
         };
