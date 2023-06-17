@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  localPackages,
   ...
 }:
 with lib; let
@@ -34,6 +35,12 @@ in {
         target
       '';
 
+      home.packages = [
+        pkgs.ltex-ls
+        # TODO: marksman is now in nixpkgs
+        localPackages.marksman-bin
+      ];
+
       programs.helix = {
         enable = true;
         settings = {
@@ -63,12 +70,17 @@ in {
           keys.insert.j = {k = "normal_mode";}; # Maps `jk` to exit insert mode
         };
         languages = {
-          language-server.metals.config = {
-            metals.showInferredType = true;
-            isHttpEnabled = true;
-          };
-          language-server.rust-analyzer.config = {
-            files.excludeDirs = [".direnv"];
+          language-server = {
+            metals.config = {
+              metals.showInferredType = true;
+              isHttpEnabled = true;
+            };
+            ltex-ls = {
+              command = "ltex-ls";
+            };  
+            rust-analyzer.config = {
+              files.excludeDirs = [".direnv"];
+            };
           };
           language = [
             {
@@ -83,6 +95,14 @@ in {
             {
               name = "rust";
               auto-format = false;
+            }
+            {
+              name = "markdown";
+              auto-format = false;
+              language-servers = [
+                {name = "ltex-ls";}
+                {name = "marksman";}
+              ];
             }
           ];
         };
