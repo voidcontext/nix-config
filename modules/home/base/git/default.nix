@@ -57,6 +57,7 @@ in {
         .metals
         .sbt-hydra-history
         .nix-shell
+        .markdown-root
         metals.sbt
         result
         *.worksheet.sc

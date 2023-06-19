@@ -41,7 +41,6 @@ in {
 
     # extra packages
     localPackages.adr-tools
-    localPackages.marksman-bin
     localPackages.tfswitch
   ];
 

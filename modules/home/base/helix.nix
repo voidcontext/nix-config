@@ -38,7 +38,7 @@ in {
       home.packages = [
         pkgs.ltex-ls
         # TODO: marksman is now in nixpkgs
-        localPackages.marksman-bin
+        pkgs.marksman
       ];
 
       programs.helix = {
@@ -99,6 +99,7 @@ in {
             {
               name = "markdown";
               auto-format = false;
+              roots = [".marksman.toml" ".markdown-root"];
               language-servers = [
                 {name = "ltex-ls";}
                 {name = "marksman";}
