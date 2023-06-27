@@ -40,14 +40,12 @@ with lib; let
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
     ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall"
-    ${pkgs.unstable.bloop}/bin/bloop clean
   '';
 
   sbt-watcher = pkgs.writeShellScriptBin "sbt-watcher" ''
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
     ${pkgs.fswatch}/bin/fswatch -o *.sbt project/*.sbt | xargs -n1 -I{} sh -c '\
-      ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall" && \
-      ${pkgs.unstable.bloop}/bin/bloop clean'
+      ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall"'
   '';
 in {
   options.development.scala.enable = mkEnableOption "scala";
