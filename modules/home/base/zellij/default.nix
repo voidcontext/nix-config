@@ -19,6 +19,9 @@ in {
     inherit package;
     settings = {
       theme = "gruvbox-dark";
+      keybinds = {
+        unbind = ["Alt Up" "Alt Down" "Alt Left" "Alt Right"];
+      };
     };
   };
 }
