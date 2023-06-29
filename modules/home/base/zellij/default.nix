@@ -7,21 +7,16 @@
     sha256 = "0mvkx5d69v4046bi9jr35rd5f0kz4prf0g7ja9xyh1xllpg8giv1";
   };
 in {
-  home.file.".config/zellij/themes" = {
+  xdg.configFile.".config/zellij/themes" = {
     recursive = true;
     source = "${src}/zellij-utils/assets/themes";
   };
-  home.file.".config/zellij/layouts/scala.kdl" = {
+  xdg.configFile."zellij/layouts/scala.kdl" = {
     source = ./layouts/scala.kdl;
   };
+  xdg.configFile."zellij/config.kdl".source = ./config.kdl;
   programs.zellij = {
     enable = true;
     inherit package;
-    settings = {
-      theme = "gruvbox-dark";
-      keybinds = {
-        unbind = ["Alt Up" "Alt Down" "Alt Left" "Alt Right"];
-      };
-    };
   };
 }
