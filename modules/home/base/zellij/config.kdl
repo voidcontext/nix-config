@@ -3,9 +3,9 @@ theme "gruvbox-dark"
 keybinds {
 	unbind "Alt Up" "Alt Down" "Alt Left" "Alt Right" "Ctrl o"
 	session {
-		bind "Ctrl e" { SwitchToMode "Normal"; }
+		bind "Ctrl y" { SwitchToMode "Normal"; }
 	}
 	shared_except "session" "locked" {
-		bind "Ctrl e" { SwitchToMode "Session"; }
+		bind "Ctrl y" { SwitchToMode "Session"; }
 	}
 }
