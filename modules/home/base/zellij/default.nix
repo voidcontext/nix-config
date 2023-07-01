@@ -11,9 +11,10 @@ in {
     recursive = true;
     source = "${src}/zellij-utils/assets/themes";
   };
-  xdg.configFile."zellij/layouts/scala.kdl" = {
-    source = ./layouts/scala.kdl;
-  };
+
+  xdg.configFile."zellij/layouts/rust.kdl".source = ./layouts/rust.kdl;
+  xdg.configFile."zellij/layouts/scala.kdl".source = ./layouts/scala.kdl;
+  
   xdg.configFile."zellij/config.kdl".source = ./config.kdl;
   programs.zellij = {
     enable = true;
