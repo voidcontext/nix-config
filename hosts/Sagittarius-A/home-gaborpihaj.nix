@@ -90,6 +90,7 @@ in {
     pkgs.wireguard-go
 
     pkgs.weechat
+    pkgs.lamina
 
     mirror-git-repo
   ];

@@ -39,6 +39,8 @@ in {
     pkgs.gh
     pkgs.nil
 
+    pkgs.lamina
+
     # extra packages
     localPackages.adr-tools
     localPackages.tfswitch

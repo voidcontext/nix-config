@@ -25,6 +25,8 @@
 
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
 
+    lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
+
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
     kitty-everforest-themes.flake = false;
 
@@ -64,6 +66,7 @@
         deploy-rs = defaultPackage deploy-rs final.system;
         indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
         mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
+        lamina = defaultPackage inputs.lamina final.system;
         helixFlake = defaultPackage inputs.helix final.system;
         helixFileExplorer = defaultPackage inputs.helix-file-explorer final.system;
       })
