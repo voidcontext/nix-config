@@ -1,0 +1,34 @@
+layout {
+	tab focus=true {
+		pane size=1 borderless=true {
+			plugin location="zellij:compact-bar"
+		}
+		pane split_direction="vertical" {
+			pane command="hxe"
+			pane command="cargo" start_suspended=true {
+				args "test" "--target=wasm32-unknown-unknown"
+			}
+		}
+	}
+	tab {
+		pane size=1 borderless=true {
+			plugin location="zellij:compact-bar"
+		}
+		pane split_direction="vertical" {
+			pane
+			pane {
+				pane size="40%" stacked=true {
+					pane command="git" {
+						args "diff"
+					}
+					pane command="git" {
+						args "status"
+					}
+					pane command="watch-http"
+ 				}
+				pane
+			}
+		}
+	
+	}
+ }

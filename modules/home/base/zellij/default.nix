@@ -13,6 +13,7 @@ in {
   };
 
   xdg.configFile."zellij/layouts/rust.kdl".source = ./layouts/rust.kdl;
+  xdg.configFile."zellij/layouts/rust-wasm-webapp.kdl".source = ./layouts/rust-wasm-webapp.kdl;
   xdg.configFile."zellij/layouts/scala.kdl".source = ./layouts/scala.kdl;
   
   xdg.configFile."zellij/config.kdl".source = ./config.kdl;
