@@ -43,6 +43,13 @@ in {
     settings.server.SSH_PORT = 5422;
     settings.server.LFS_START_SERVER = true;
     settings.webhooks.ALLOWED_HOST_LIST = "external,loopback";
+    settings."repository.signing".SIGNING_KEY = "ECC0A3B48A928D02B41B44397BCF5D144C6C06E3";
+    settings."repository.signing".SIGNING_NAME = "Forgejo @ git.vdx.hu";
+    settings."repository.signing".SIGNING_EMAIL = "forgejo@vdx.hu";
+    settings."repository.signing".INITIAL_COMMIT = "always";
+    settings."repository.signing".CRUD_ACTIONS = "parentsigned";
+    settings."repository.signing".WIKI = "never";
+    settings."repository.signing".MERGES = "basesigned, commitssigned";
   };
 
   services.woodpecker-server = {
