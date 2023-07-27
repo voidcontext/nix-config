@@ -4,8 +4,10 @@
   ...
 }: let
   workspace = "$HOME/workspace";
+  extras = import ./extras.nix;
+  teamReposFilter = builtins.toString (builtins.map (r: "repo:${r}") extras.teamRepos);
 in {
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.05";
 
   base.git.enable = true;
   base.git.name = "Gabor Pihaj";
@@ -32,11 +34,33 @@ in {
   programs.nix-index.enable = true;
   programs.nix-index.enableZshIntegration = true;
 
+  xdg.configFile."gh-dash/config.yml".text = builtins.toJSON {
+    prSections = [
+      {
+        title = "PRs to review";
+        filters = "is:open -author:@me ${teamReposFilter} review:none draft:false";
+      }
+      {
+        title = "Approved PRs";
+        filters = "is:open -author:@me ${teamReposFilter} review:approved";
+      }
+      {
+        title = "Draft PRs";
+        filters = "is:open -author:@me ${teamReposFilter} draft:true";
+      }
+      {
+        title = "My PRs";
+        filters = "is:open author:@me";
+      }
+    ];
+  };
+
   home.packages = [
     # pkgs.unstable.terraform
     pkgs.awscli2
     pkgs.plantuml
     pkgs.gh
+    pkgs.gh-dash
     pkgs.nil
 
     pkgs.lamina
