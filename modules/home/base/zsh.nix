@@ -61,6 +61,7 @@
       nr = "nix run";
 
       nix-flake-lock-updated = ''echo "Root input updated at" &&  cat flake.lock | jq -r '(.nodes.root.inputs | values[]) as $root_input | .nodes | to_entries | map(select(.key == $root_input))[] | ($root_input + "," + (.value.locked.lastModified | strftime("%Y-%m-%d")))'  | column -ts,'';
+      git-recursive-status = ''find . -name .git -type d -printf '\n##################################\n### >>> %p\n##################################\n' -execdir git status \; -prune'';
     };
 
     sessionVariables = {
