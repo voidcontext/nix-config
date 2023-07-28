@@ -8,6 +8,10 @@
 
   home.stateVersion = "21.11";
 
+  home.packages = [
+    pkgs.keepassxc
+  ];
+
   development.nix.enable = true;
 
   programs.zsh.initExtra = ''

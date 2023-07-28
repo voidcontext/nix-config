@@ -180,6 +180,7 @@
               ];
           });
 
+        # Asus X550C laptop
         albeiro = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.x86_64-linux)
           // {
             modules =
@@ -228,6 +229,7 @@
         sshOpts = ["-A"];
         hostname = "albeiro.lan";
         remoteBuild = true;
+        fastConnection = true;
 
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.albeiro;

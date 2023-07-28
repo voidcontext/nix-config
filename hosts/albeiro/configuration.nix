@@ -92,7 +92,7 @@
   users.users.vdx = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
   };
 
@@ -109,12 +109,15 @@
     lshw
     wirelesstools
     steam
+    docker
     # (steam.override {
     #   withPrimus = true;
     #   extraPkgs = pkgs: [bumblebee glxinfo];
     # })
     # .run
   ];
+
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
