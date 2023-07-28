@@ -50,7 +50,15 @@ in {
     settings."repository.signing".CRUD_ACTIONS = "parentsigned";
     settings."repository.signing".WIKI = "never";
     settings."repository.signing".MERGES = "basesigned, commitssigned";
-  };
+    settings.mailer.ENABLED        = true;
+    settings.mailer.FROM           = "forgejo@vdx.hu";
+    settings.mailer.MAILER_TYPE    = "smtp";
+    settings.mailer.SMTP_ADDR      = "mail.vdx.hu";
+    settings.mailer.SMTP_PORT      = 456;
+    settings.mailer.IS_TLS_ENABLED = true;
+    settings.mailer.USER           = "forgejo@vdx.hu";
+    settings.mailer.PASSWD         = secrets.git.forgejo.email.password;
+};
 
   services.woodpecker-server = {
     enable = true;
