@@ -1,12 +1,39 @@
 layout {
-	pane split_direction="vertical" {
-		pane command="hxe" close_on_exit=true
+	tab focus=true {
+		pane size=1 borderless=true {
+			plugin location="zellij:compact-bar"
+		}
+		pane split_direction="vertical" {
+			pane command="hxe"
 
-		pane {
-			pane command="tail" {
-				args "-f" ".metals/metals.log"
+			pane {
+				pane command="tail" {
+					args "-f" ".metals/metals.log"
+				}
+				pane command="metals-reload" start_suspended=true
 			}
-			pane command="sbt-watcher"
 		}
 	}
- }
+	tab {
+		pane size=1 borderless=true {
+			plugin location="zellij:compact-bar"
+		}
+		pane split_direction="vertical" {
+			pane
+
+			pane {
+				pane stacked=true {
+					pane command="clean-metals-manual" start_suspended=true
+					pane command="metals-reload" start_suspended=true
+					pane command="git" {
+						args "diff"
+					}
+					pane command="git" {
+						args "status"
+					}
+				}
+				pane
+			}
+		}
+	}
+}
