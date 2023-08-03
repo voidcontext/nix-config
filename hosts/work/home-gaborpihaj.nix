@@ -57,7 +57,7 @@ in {
 
   home.packages = [
     # pkgs.unstable.terraform
-    pkgs.awscli2
+    # pkgs.awscli2
     pkgs.plantuml
     pkgs.gh
     pkgs.gh-dash
