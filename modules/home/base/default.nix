@@ -30,7 +30,6 @@ with lib; let
   # '';
 in {
   imports = [
-    ./bin
     ./git
     ./helix.nix
     ./starship.nix
