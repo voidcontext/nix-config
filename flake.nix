@@ -13,8 +13,6 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
-    nil.url = "github:oxalica/nil/2023-01-01";
-
     helix.url = "github:helix-editor/helix";
 
     helix-file-explorer.url = "github:pinelang/helix-tree-explorer/tree_explore";
@@ -71,7 +69,6 @@
         helixFileExplorer = defaultPackage inputs.helix-file-explorer final.system;
       })
       weechatOverlay
-      inputs.nil.overlays.default
     ];
 
     importNixpkgs = nixpkgs: system: overlays:

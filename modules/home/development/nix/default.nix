@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = [
       pkgs.alejandra
-      pkgs.nil
+      pkgs.unstable.nil
       pkgs.nix-prefetch-git
       pkgs.nixpkgs-fmt
     ];

@@ -61,7 +61,6 @@ in {
     pkgs.plantuml
     pkgs.gh
     pkgs.gh-dash
-    pkgs.nil
 
     pkgs.lamina
 
