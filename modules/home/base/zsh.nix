@@ -11,16 +11,6 @@
       export NIX_IGNORE_SYMLINK_STORE=1
     '';
 
-    initExtraBeforeCompInit = ''
-      ZSH_THEME="simple"
-    '';
-
-    initExtra = ''
-      PATH=$HOME/bin:$PATH:/usr/local/bin
-
-      # [[ $TMUX != "" ]] && export TERM="screen-256color"
-    '';
-
     shellAliases = {
       ls = "exa";
       la = "exa -la";
