@@ -38,8 +38,13 @@ with lib; let
   };
 
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
+    sbt=sbt
+    if ! command -v $sbt &> /dev/null ; then
+      sbt=${pkgs.sbt}/bin/sbt
+    fi
+
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
-    ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall"
+    $sbt --client ";reload ;bloopInstall"
     ${pkgs.unstable.bloop}/bin/bloop clean
   '';
 
