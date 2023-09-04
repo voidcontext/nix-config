@@ -18,7 +18,6 @@ in {
 
     home.packages = [
       cfg.jdk
-      pkgs.visualvm
     ];
   };
 }
