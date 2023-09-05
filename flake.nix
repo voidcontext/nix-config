@@ -61,7 +61,7 @@
 
     defaultOverlays = [
       (final: prev: {
-        deploy-rs = defaultPackage deploy-rs final.system;
+        # deploy-rs = defaultPackage deploy-rs final.system;
         indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
         mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
         lamina = defaultPackage inputs.lamina final.system;
@@ -242,7 +242,7 @@
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.alejandra
-          pkgs.deploy-rs
+          pkgs.unstable.deploy-rs
           pkgs.git-crypt
           rebuild
         ];
