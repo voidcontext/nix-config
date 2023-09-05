@@ -69,7 +69,7 @@ in {
   base.helix.fromGit = true;
 
   development.nix.enable = true;
-  development.java.jdk = pkgs.openjdk11_headless;
+  development.java.jdk = pkgs.openjdk19_headless;
   development.scala.enable = true;
 
   virtualization.lima.enable = true;
