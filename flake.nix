@@ -15,8 +15,6 @@
 
     helix.url = "github:helix-editor/helix";
 
-    helix-file-explorer.url = "github:pinelang/helix-tree-explorer/tree_explore";
-
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
 
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
@@ -66,7 +64,6 @@
         mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
         lamina = defaultPackage inputs.lamina final.system;
         helixFlake = defaultPackage inputs.helix final.system;
-        helixFileExplorer = defaultPackage inputs.helix-file-explorer final.system;
       })
       weechatOverlay
     ];

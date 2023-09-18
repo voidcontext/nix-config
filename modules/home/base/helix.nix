@@ -2,14 +2,10 @@
   pkgs,
   lib,
   config,
-  localPackages,
   ...
 }:
 with lib; let
   cfg = config.base.helix;
-  hxe = pkgs.writeShellScriptBin "hxe" ''
-    ${pkgs.helixFileExplorer}/bin/hx ''$@
-  '';
 in {
   # Helix
 
@@ -174,7 +170,6 @@ in {
           editor.indent-guides.character = "|";
 
           editor.file-picker.hidden = false;
-          editor.file-picker.git-ignore = true;
 
           # It's quite helpful, but the placement is a bit annoying
           # editor.lsp.auto-signature-help = false;
@@ -225,10 +220,6 @@ in {
     (mkIf cfg.fromGit {
       programs.helix.package = pkgs.helixFlake;
       programs.helix.settings.editor.bufferline = "multiple";
-
-      home.packages = [
-        hxe
-      ];
     })
     (mkIf (!cfg.fromGit) {
       programs.helix.package = pkgs.unstable.helix;

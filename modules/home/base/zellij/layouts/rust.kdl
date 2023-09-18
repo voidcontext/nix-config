@@ -4,7 +4,7 @@ layout {
 			plugin location="zellij:compact-bar"
 		}
 		pane split_direction="vertical" {
-			pane command="hxe"
+			pane command="hx"
 			pane command="cargo" start_suspended=true {
 				args "test"
 			}

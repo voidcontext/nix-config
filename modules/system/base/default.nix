@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 with lib; let
@@ -38,14 +37,17 @@ in {
         pkgs.silver-searcher # pkgs.ag
         pkgs.bashInteractive
         pkgs.borgbackup
+        pkgs.broot
         pkgs.bwm_ng
         pkgs.coreutils
+        pkgs.findutils
         pkgs.git
         pkgs.git-crypt
         pkgs.gnugrep
         pkgs.gnupg
         pkgs.gnused
         pkgs.htop
+        pkgs.unstable.helix
         pkgs.jq
         pkgs.mc
         pkgs.mtr
