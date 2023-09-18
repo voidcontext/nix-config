@@ -5,8 +5,11 @@ layout {
 		}
 		pane split_direction="vertical" {
 			pane command="hx"
-			pane command="cargo" start_suspended=true {
-				args "test"
+			pane {
+				pane command="cargo" start_suspended=true {
+					args "test"
+				}
+				pane command="broot"
 			}
 		}
 	}

@@ -10,7 +10,7 @@ layout {
 				pane command="tail" {
 					args "-f" ".metals/metals.log"
 				}
-				pane command="metals-reload" start_suspended=true
+				pane command="broot"
 			}
 		}
 	}
