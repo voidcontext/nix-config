@@ -5,6 +5,7 @@
 }: let
   workspace = "$HOME/workspace";
   extras = import ./extras.nix;
+  cuopp-msg-helper = import ./scripts/cuopp-msg-helper.nix {inherit pkgs;};
   teamReposFilter = builtins.toString (builtins.map (r: "repo:${r}") extras.teamRepos);
 in {
   home.stateVersion = "23.05";
@@ -67,6 +68,7 @@ in {
     # extra packages
     localPackages.adr-tools
     localPackages.tfswitch
+    cuopp-msg-helper
   ];
 
   programs.ssh = {
