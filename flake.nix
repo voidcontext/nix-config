@@ -28,6 +28,8 @@
 
     kitty-gruvbox-themes.url = "github:wdomitrz/kitty-gruvbox-theme";
     kitty-gruvbox-themes.flake = false;
+
+    attic.url = "github:zhaofengli/attic";
   };
 
   outputs = {
@@ -66,6 +68,7 @@
         helixFlake = defaultPackage inputs.helix final.system;
       })
       weechatOverlay
+      inputs.attic.overlays.default
     ];
 
     importNixpkgs = nixpkgs: system: overlays:
@@ -158,6 +161,7 @@
             modules =
               defaultSystemModules
               ++ [
+                inputs.attic.nixosModules.atticd
                 home-manager.nixosModules.home-manager
                 ./hosts/elnath/configuration.nix
               ];
