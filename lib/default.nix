@@ -21,6 +21,8 @@ in {
       ${mkRebuildInitVars pkgs}
       TERM=kitty
       nix build ./#darwinConfigurations.$host.system     \
+        --extra-experimental-features nix-command        \
+        --extra-experimental-features flakes             \
         --show-trace                                   # \
         # --extra-experimental-features nix-command        \
         # --extra-experimental-features flakes             \
