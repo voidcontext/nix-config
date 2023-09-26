@@ -91,6 +91,7 @@ in {
 
     pkgs.weechat
     pkgs.lamina
+    pkgs.bashInteractive
 
     mirror-git-repo
   ];
