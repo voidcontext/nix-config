@@ -72,7 +72,8 @@ in {
   development.java.jdk = pkgs.openjdk19_headless;
   development.scala.enable = true;
 
-  virtualization.lima.enable = true;
+  # virtualization.lima.enable = true;
+  
 
   programs.home-manager.enable = true;
 
@@ -95,6 +96,10 @@ in {
     pkgs.attic-client
 
     mirror-git-repo
+
+    pkgs.lima
+    pkgs.colima
+    pkgs.docker-client
   ];
 
   programs.nix-index.enable = true;
