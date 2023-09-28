@@ -240,6 +240,9 @@
         then localLib.mkRebuildDarwin pkgs
         else localLib.mkRebuildNixos pkgs;
     in {
+      # Expose attic so that we can easily push it to our cache
+      packages.attic-client = pkgs.attic-client;
+
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.alejandra

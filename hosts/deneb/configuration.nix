@@ -81,6 +81,8 @@ in {
   # '';
 
   nix.package = pkgs.unstable.nix;
+  nix.settings.trusted-users = ["root" "vdx"];
+
   nix.settings.substituters = ["https://indieweb-tools.cachix.org"];
   nix.settings.trusted-public-keys = ["indieweb-tools.cachix.org-1:yPp4kg6bp8YLLEhuz/wRhEvPLuc3PJFZa5C8zEmw4es="];
 

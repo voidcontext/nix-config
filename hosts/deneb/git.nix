@@ -15,6 +15,7 @@ in {
     extraConfig = ''
       access_log /var/log/nginx/git.vdx.hu-access.log;
       error_log /var/log/nginx/git.vdx.hu-error.log error;
+      client_max_body_size 1G;
     '';
     locations."/" = {
       proxyPass = "http://localhost:3001/";

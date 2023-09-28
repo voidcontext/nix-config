@@ -77,11 +77,17 @@ in {
         experimental-features = nix-command flakes
         keep-outputs = true
         keep-derivations = true
+        netrc-file = /opt/attic-cache/netrc
       '';
-      nix.settings.substituters = ["https://nix-community.cachix.org" "https://helix.cachix.org"];
+      nix.settings.substituters = [
+        "https://nix-community.cachix.org"
+        "https://helix.cachix.org"
+        "https://cache.nix.vdx.hu/private"
+      ];
       nix.settings.trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+        "private:b6wO7rXF+4WtPCocEKlbdU/bTqEdJAqRrzOu0O3cK68="
       ];
     }
     (mkIf cfg.font.enable {

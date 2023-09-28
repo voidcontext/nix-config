@@ -1,3 +1,4 @@
 .direnv
 result
 forgejo-dump-*
+.envrc.local

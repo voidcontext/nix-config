@@ -1,6 +1,5 @@
 {
   pkgs,
-  home-manager,
   ...
 }: {
   # Bespoke Options
@@ -31,6 +30,7 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
+  nix.settings.trusted-users = ["root" "gaborpihaj"];
 
   nix.package = pkgs.unstable.nix;
 }

@@ -110,6 +110,7 @@
       options = "--delete-older-than 30d";
     };
   };
+  nix.settings.trusted-users = ["root" "vdx"];
 
   # Login / ssh / security
 

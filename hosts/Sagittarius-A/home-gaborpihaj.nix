@@ -92,6 +92,7 @@ in {
     pkgs.weechat
     pkgs.lamina
     pkgs.bashInteractive
+    pkgs.attic-client
 
     mirror-git-repo
   ];
