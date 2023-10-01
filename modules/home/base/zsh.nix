@@ -12,8 +12,8 @@
     '';
 
     shellAliases = {
-      ls = "exa";
-      la = "exa -la";
+      ls = "eza";
+      la = "eza -la";
       df = "duf";
       du = "dunst";
       h = "hx";

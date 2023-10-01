@@ -67,7 +67,8 @@ in {
         pkgs.dogdns
         pkgs.du-dust
         pkgs.duf
-        pkgs.exa
+        # pkgs.exa -- exa is unmaintained, eza is the maintained fork
+        pkgs.unstable.eza
         pkgs.xh
       ];
 
