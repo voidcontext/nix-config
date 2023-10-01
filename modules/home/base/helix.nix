@@ -35,6 +35,7 @@ in {
         pkgs.ltex-ls
         # TODO: marksman is now in nixpkgs
         pkgs.marksman
+        pkgs.alejandra
       ];
 
       home.file.".config/helix/themes/gruvbox_patched.toml".text = ''
