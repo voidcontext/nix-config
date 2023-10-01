@@ -16,21 +16,23 @@ in {
     };
   };
 
-  services.postgresql.ensureDatabases = ["atticd"];
+  services.postgresql.ensureDatabases = ["atticd_v2"];
 
   # Setting the permissions didn't really work, so I ran manually:
   # > ALTER DATABASE atticd OWNER TO atticd;
   services.postgresql.ensureUsers = [
     {
       name = "atticd";
-      ensurePermissions."DATABASE atticd" = "ALL PRIVILEGES";
+      ensurePermissions."DATABASE atticd_v2" = "ALL PRIVILEGES";
       ensurePermissions."ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
       ensurePermissions."ALL SEQUENCES IN SCHEMA public" = "ALL PRIVILEGES";
     }
   ];
   systemd.services.postgresql.postStart = pkgs.lib.mkAfter ''
-    $PSQL atticd -tAc 'GRANT ALL ON ALL TABLES IN SCHEMA public TO atticd' || true
-    $PSQL atticd -tAc 'GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO atticd' || true
+    $PSQL atticd_v2 -tAc 'GRANT ALL ON ALL TABLES IN SCHEMA public TO atticd' || true
+    $PSQL atticd_v2 -tAc 'GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO atticd' || true
+    $PSQL atticd_v2 -tAc 'ALTER DATABASE atticd_v2 OWNER TO atticd' || true
+    $PSQL atticd_v2 -tAc "ALTER USER attic WITH PASSWORD '${hostSecrets.attic.dbPassword}'" || true
   '';
 
   services.atticd = {
@@ -41,11 +43,16 @@ in {
     settings = {
       listen = "0.0.0.0:8010";
       api-endpoint = "https://cache.nix.vdx.hu/";
-      database.url = "postgresql://atticd:${hostSecrets.attic.dbPassword}@localhost/atticd?currentSchema=atticd";
-      storage.type = "s3";
-      storage.region = "ams3";
-      storage.bucket = "nix-binary-cache";
-      storage.endpoint = "https://nix-binary-cache.ams3.digitaloceanspaces.com";
+      database.url = "postgresql://atticd:${hostSecrets.attic.dbPassword}@localhost/atticd_v2";
+
+      # storage.type = "s3";
+      # storage.region = "ams3";
+      # storage.bucket = "nix-binary-cache";
+      # storage.endpoint = "https://nix-binary-cache.ams3.digitaloceanspaces.com";
+
+      storage.type = "local";
+      storage.path = "/var/lib/atticd/storage";
+      
       # Data chunking
       #
       # Warning: If you change any of the values here, it will be
