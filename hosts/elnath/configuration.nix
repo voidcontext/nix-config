@@ -50,7 +50,7 @@
   users.mutableUsers = false;
   users.users.vdx = {
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "docker"];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
   };
