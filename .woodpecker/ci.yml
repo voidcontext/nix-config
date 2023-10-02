@@ -1,0 +1,27 @@
+variables:
+  - common_settings: &common_settings
+      binary_cache: https://cache.nix.vdx.hu/private
+      binary_cache_public_key: private:O0/Z0BQZpKKHQQES65u7xNfZF7eCZoz9RKJi191TGaM=
+      binary_cache_token:
+        from_secret: attic_token
+
+when:
+  - event: push
+    branch: main
+  - event: pull_request
+
+pipeline:
+  cache-warmup:
+    image: git.vdx.hu/voidcontext/woodpecker-plugin-nix-attic:0.1.1
+    settings:
+      <<: *common_settings
+      script: |
+        make cache-warmup
+
+  # TODO: enable formatting checks later
+  # formating-check:
+  #   image: git.vdx.hu/voidcontext/woodpecker-plugin-nix-attic:0.1.1
+  #   settings:
+  #     <<: *common_settings
+  #     script: |
+  #       nix develop -c alejandra . --check
