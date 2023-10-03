@@ -1,14 +1,22 @@
-{
-  systemConfig,
-  localLib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.zsh = {
     enable = true;
 
     envExtra = ''
       export NIX_IGNORE_SYMLINK_STORE=1
+    '';
+
+    initExtra = pkgs.lib.mkAfter ''
+      copy_function() {
+      	test -n "$(declare -f "$1")" || return
+      	eval "''${_/$1/$2}"
+      }
+
+      copy_function _direnv_hook _direnv_hook__old
+
+      _direnv_hook() {
+      	_direnv_hook__old "$@" 2> >(egrep -v '^direnv: (export)')
+      }
     '';
 
     shellAliases = {
