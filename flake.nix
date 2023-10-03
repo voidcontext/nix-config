@@ -240,8 +240,8 @@
             name = "cache-warmup";
             paths = [
               pkgs.attic-client
+              pkgs.lamina
               # pkgs.indieweb-tools
-              # pkgs.lamina
             ];
           };
 
@@ -253,6 +253,7 @@
             paths = [
               pkgs.attic-client
               pkgs.helixFlake
+              pkgs.lamina
             ];
           };
     }
