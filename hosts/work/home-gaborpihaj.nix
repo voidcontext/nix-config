@@ -38,15 +38,19 @@ in {
   xdg.configFile."gh-dash/config.yml".text = builtins.toJSON {
     prSections = [
       {
-        title = "PRs to review";
+        title = "To review";
         filters = "is:open -author:@me ${teamReposFilter} review:none draft:false";
       }
       {
-        title = "Approved PRs";
+        title = "Approved";
         filters = "is:open -author:@me ${teamReposFilter} review:approved";
       }
       {
-        title = "Draft PRs";
+        title = "Changes requested";
+        filters = "is:open -author:@me ${teamReposFilter} review:changes_requested";
+      }
+      {
+        title = "Draft";
         filters = "is:open -author:@me ${teamReposFilter} draft:true";
       }
       {
