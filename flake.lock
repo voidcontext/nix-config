@@ -637,11 +637,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1696365284,
-        "narHash": "sha256-9EZcCDe3AW4BwzubNvg8/4IhMSakbhaACzilTr5/efU=",
+        "lastModified": 1696454364,
+        "narHash": "sha256-Yw0dZUf3tG4AceYRt9Poh/19y6jkhQ5sB96gBgOPPDE=",
         "ref": "refs/heads/main",
-        "rev": "57463e213f67768b8786307411ecc2aaf866e217",
-        "revCount": 33,
+        "rev": "d4206021b7b29e884a0ade0c6a95f9d00b4091cc",
+        "revCount": 34,
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/lamina-rs.git"
       },
