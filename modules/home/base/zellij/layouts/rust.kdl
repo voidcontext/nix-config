@@ -5,12 +5,7 @@ layout {
 		}
 		pane split_direction="vertical" {
 			pane command="hx"
-			pane {
-				pane command="cargo" start_suspended=true {
-					args "test"
-				}
-				pane command="broot"
-			}
+			pane command="broot"
 		}
 	}
 	tab {
@@ -20,14 +15,7 @@ layout {
 		pane split_direction="vertical" {
 			pane
 			pane {
-				pane size="40%" stacked=true {
-					pane command="git" {
-						args "diff"
-					}
-					pane command="git" {
-						args "status"
-					}
-				}
+				pane
 				pane
 			}
 		}

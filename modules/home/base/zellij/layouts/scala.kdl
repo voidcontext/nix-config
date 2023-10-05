@@ -22,16 +22,7 @@ layout {
 			pane
 
 			pane {
-				pane stacked=true {
-					pane command="clean-metals-manual" start_suspended=true
-					pane command="metals-reload" start_suspended=true
-					pane command="git" {
-						args "diff"
-					}
-					pane command="git" {
-						args "status"
-					}
-				}
+				pane
 				pane
 			}
 		}

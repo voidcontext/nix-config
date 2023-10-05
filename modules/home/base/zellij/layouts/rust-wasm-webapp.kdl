@@ -5,9 +5,7 @@ layout {
 		}
 		pane split_direction="vertical" {
 			pane command="hx"
-			pane command="cargo" start_suspended=true {
-				args "test" "--target=wasm32-unknown-unknown"
-			}
+			pane command="broot"
 		}
 	}
 	tab {
@@ -17,15 +15,7 @@ layout {
 		pane split_direction="vertical" {
 			pane
 			pane {
-				pane size="40%" stacked=true {
-					pane command="git" {
-						args "diff"
-					}
-					pane command="git" {
-						args "status"
-					}
-					pane command="watch-http"
- 				}
+				pane
 				pane
 			}
 		}
