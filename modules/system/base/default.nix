@@ -6,6 +6,11 @@
 }:
 with lib; let
   cfg = config.base;
+  trusted-substituters = [
+    "https://nix-community.cachix.org"
+    "https://helix.cachix.org"
+    "https://cache.nix.vdx.hu/private"
+  ];
 in {
   options.base.nixConfigFlakeDir = mkOption {
     type = types.str;
@@ -80,11 +85,8 @@ in {
         keep-derivations = true
         netrc-file = /opt/attic-cache/netrc
       '';
-      nix.settings.substituters = [
-        "https://nix-community.cachix.org"
-        "https://helix.cachix.org"
-        "https://cache.nix.vdx.hu/private"
-      ];
+      nix.settings.substituters = trusted-substituters;
+      nix.settings.trusted-substituters = trusted-substituters;
       nix.settings.trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
