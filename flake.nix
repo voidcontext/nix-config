@@ -64,10 +64,10 @@
         # deploy-rs = defaultPackage deploy-rs final.system;
         indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
         mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
-        lamina = defaultPackage inputs.lamina final.system;
         helixFlake = defaultPackage inputs.helix final.system;
       })
       weechatOverlay
+      inputs.lamina.overlays.default
       inputs.attic.overlays.default
     ];
 

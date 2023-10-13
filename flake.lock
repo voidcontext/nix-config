@@ -545,11 +545,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1694974999,
-        "narHash": "sha256-4aFSTFz7jGaKE/A1Fd4wEtLLHoz7h+XxrL5po3WuRDI=",
+        "lastModified": 1696413643,
+        "narHash": "sha256-gew/hGXp2Fh4cTx3atVq1sZJ/d5KLok9lF16qb4OacA=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "7fa5f341e931f9bdb4058e51ebf77276e9b82242",
+        "rev": "68fce3e160c64c488567f0e80f8d57bbbdd9dd82",
         "type": "github"
       },
       "original": {
@@ -637,11 +637,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1696365284,
-        "narHash": "sha256-9EZcCDe3AW4BwzubNvg8/4IhMSakbhaACzilTr5/efU=",
+        "lastModified": 1696539789,
+        "narHash": "sha256-MIjb351EfvZcqChQVKVgsrNcNK7O2mulfUKGTvX2qf0=",
         "ref": "refs/heads/main",
-        "rev": "57463e213f67768b8786307411ecc2aaf866e217",
-        "revCount": 33,
+        "rev": "d89dda8b4b175f166e3e9cfc478348a561207c18",
+        "revCount": 35,
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/lamina-rs.git"
       },
@@ -798,11 +798,11 @@
     },
     "nixpkgs-unstable_2": {
       "locked": {
-        "lastModified": 1691916148,
-        "narHash": "sha256-DamxLt6yl1Ic1vCvgKhjObrzqwlV0pJ7334yuC5y3ew=",
+        "lastModified": 1696419054,
+        "narHash": "sha256-EdR+dIKCfqL3voZUDYwcvgRDOektQB9KbhBVcE0/3Mo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "750fc50bfd132a44972aa15bb21937ae26303bc4",
+        "rev": "7131f3c223a2d799568e4b278380cd9dac2b8579",
         "type": "github"
       },
       "original": {
@@ -937,11 +937,11 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1691965785,
-        "narHash": "sha256-5lq2454ysIgv+g/1vHMae0C1MaTU51fZqjW8PcEq+4s=",
+        "lastModified": 1696524703,
+        "narHash": "sha256-KqzFNzhq0GpT09h1w2r2h7NxYvxDnzU3qOWYbfbAqyw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "771b86d407c567b57d791197ec464b46a5480b0b",
+        "rev": "ef8e9997fcb37d5c8372dc1349185bd0d31752a6",
         "type": "github"
       },
       "original": {
