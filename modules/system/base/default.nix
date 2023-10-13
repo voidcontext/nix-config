@@ -38,44 +38,48 @@ in {
         TERMINFO_DIRS = ["${pkgs.kitty.terminfo.outPath}/share/terminfo"];
       };
 
-      environment.systemPackages = [
-        pkgs.silver-searcher # pkgs.ag
-        pkgs.bashInteractive
-        pkgs.borgbackup
-        pkgs.broot
-        pkgs.bwm_ng
-        pkgs.coreutils
-        pkgs.findutils
-        pkgs.git
-        pkgs.git-crypt
-        pkgs.gnugrep
-        pkgs.gnupg
-        pkgs.gnused
-        pkgs.htop
-        pkgs.unstable.helix
-        pkgs.jq
-        pkgs.mc
-        pkgs.mtr
-        pkgs.nmap
-        pkgs.pstree
-        pkgs.pwgen
-        pkgs.inetutils # pkgs.telnet
-        pkgs.tree
-        pkgs.ncurses # for tput
-        pkgs.watch
-        pkgs.wget
+      environment.systemPackages =
+        (pkgs.lib.optional pkgs.stdenv.isLinux [
+          (pkgs.lib.trivial.warn "TODO: install this unconditionally once fixed on darwin" pkgs.borgbackup)
+        ])
+        ++ [
+          pkgs.silver-searcher # pkgs.ag
+          pkgs.bashInteractive
+          # pkgs.borgbackup
+          pkgs.broot
+          pkgs.bwm_ng
+          pkgs.coreutils
+          pkgs.findutils
+          pkgs.git
+          pkgs.git-crypt
+          pkgs.gnugrep
+          pkgs.gnupg
+          pkgs.gnused
+          pkgs.htop
+          pkgs.unstable.helix
+          pkgs.jq
+          pkgs.mc
+          pkgs.mtr
+          pkgs.nmap
+          pkgs.pstree
+          pkgs.pwgen
+          pkgs.inetutils # pkgs.telnet
+          pkgs.tree
+          pkgs.ncurses # for tput
+          pkgs.watch
+          pkgs.wget
 
-        #modern unix
-        pkgs.bat
-        pkgs.bottom
-        pkgs.delta
-        pkgs.dogdns
-        pkgs.du-dust
-        pkgs.duf
-        # pkgs.exa -- exa is unmaintained, eza is the maintained fork
-        pkgs.unstable.eza
-        pkgs.xh
-      ];
+          #modern unix
+          pkgs.bat
+          pkgs.bottom
+          pkgs.delta
+          pkgs.dogdns
+          pkgs.du-dust
+          pkgs.duf
+          # pkgs.exa -- exa is unmaintained, eza is the maintained fork
+          pkgs.unstable.eza
+          pkgs.xh
+        ];
 
       programs.zsh.enable = true;
 
