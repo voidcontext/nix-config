@@ -8,6 +8,7 @@ with lib; let
   cfg = config.base.git;
   home = config.home.homeDirectory;
   templateDir = "${home}/.git-templates";
+  prepare-commit-msg = import ./prepare-commit-msg.nix {inherit pkgs;};
 in {
   options.base.git.enable = mkEnableOption "base.git config";
 
@@ -42,7 +43,7 @@ in {
       };
 
       home.file.".git-templates/hooks/prepare-commit-msg" = {
-        source = ./prepare-commit-msg;
+        source = "${prepare-commit-msg}/bin/${prepare-commit-msg.name}";
         executable = true;
       };
 
