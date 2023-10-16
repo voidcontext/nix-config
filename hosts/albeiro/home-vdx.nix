@@ -6,7 +6,7 @@
   base.git.signing-key = "D67CE41772FAF6E369B74AAC369D85A32437F62D";
   base.gpg-ssh.enable = true;
 
-  home.stateVersion = "21.11";
+  home.stateVersion = "23.05";
 
   home.packages = [
     pkgs.keepassxc
