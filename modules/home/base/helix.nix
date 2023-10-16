@@ -177,6 +177,15 @@ in {
           editor.lsp.display-messages = true;
 
           keys.insert.j = {k = "normal_mode";}; # Maps `jk` to exit insert mode
+
+          keys.insert.up = "no_op";
+          keys.insert.down = "no_op";
+          keys.insert.left = "no_op";
+          keys.insert.right = "no_op";
+          keys.insert.pageup = "no_op";
+          keys.insert.pagedown = "no_op";
+          keys.insert.home = "no_op";
+          keys.insert.end = "no_op";
         };
         languages = {
           language-server = {

@@ -18,7 +18,7 @@ themes {
 }
 
 keybinds {
-	unbind "Alt Up" "Alt Down" "Alt Left" "Alt Right" "Ctrl o"
+	unbind "Alt Up" "Alt Down" "Alt Left" "Alt Right" "Ctrl o" "Alt ;"
 	session {
 		bind "Ctrl y" { SwitchToMode "Normal"; }
 	}
