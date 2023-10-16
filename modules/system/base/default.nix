@@ -39,7 +39,7 @@ in {
       };
 
       environment.systemPackages =
-        (pkgs.lib.optional pkgs.stdenv.isLinux [
+        (pkgs.lib.optionals pkgs.stdenv.isLinux [
           (pkgs.lib.trivial.warn "TODO: install this unconditionally once fixed on darwin" pkgs.borgbackup)
         ])
         ++ [
