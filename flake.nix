@@ -61,7 +61,7 @@
 
     defaultOverlays = [
       (final: prev: {
-        # deploy-rs = defaultPackage deploy-rs final.system;
+        deploy-rs-flake = defaultPackage deploy-rs final.system;
         indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
         mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
         helixFlake = defaultPackage inputs.helix final.system;
@@ -267,7 +267,7 @@
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.alejandra
-          pkgs.unstable.deploy-rs
+          pkgs.deploy-rs-flake
           pkgs.git-crypt
           rebuild
         ];
