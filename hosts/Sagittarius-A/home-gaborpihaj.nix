@@ -73,7 +73,6 @@ in {
   development.scala.enable = true;
 
   # virtualization.lima.enable = true;
-  
 
   programs.home-manager.enable = true;
 

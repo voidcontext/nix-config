@@ -52,7 +52,7 @@ in {
 
       storage.type = "local";
       storage.path = "/var/lib/atticd/storage";
-      
+
       # Data chunking
       #
       # Warning: If you change any of the values here, it will be

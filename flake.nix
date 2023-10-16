@@ -233,29 +233,29 @@
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.albeiro;
       };
 
-      packages.${flake-utils.lib.system.x86_64-linux}.cache-warmup = 
-        let pkgs = (defaultsFor flake-utils.lib.system.x86_64-linux).specialArgs.pkgs;
-        in
-          pkgs.symlinkJoin {
-            name = "cache-warmup";
-            paths = [
-              pkgs.attic-client
-              pkgs.lamina
-              # pkgs.indieweb-tools
-            ];
-          };
+      packages.${flake-utils.lib.system.x86_64-linux}.cache-warmup = let
+        pkgs = (defaultsFor flake-utils.lib.system.x86_64-linux).specialArgs.pkgs;
+      in
+        pkgs.symlinkJoin {
+          name = "cache-warmup";
+          paths = [
+            pkgs.attic-client
+            pkgs.lamina
+            # pkgs.indieweb-tools
+          ];
+        };
 
-      packages.${flake-utils.lib.system.x86_64-darwin}.cache-warmup = 
-        let pkgs = (defaultsFor flake-utils.lib.system.x86_64-darwin).specialArgs.pkgs;
-        in
-          pkgs.symlinkJoin {
-            name = "cache-warmup";
-            paths = [
-              pkgs.attic-client
-              pkgs.helixFlake
-              pkgs.lamina
-            ];
-          };
+      packages.${flake-utils.lib.system.x86_64-darwin}.cache-warmup = let
+        pkgs = (defaultsFor flake-utils.lib.system.x86_64-darwin).specialArgs.pkgs;
+      in
+        pkgs.symlinkJoin {
+          name = "cache-warmup";
+          paths = [
+            pkgs.attic-client
+            pkgs.helixFlake
+            pkgs.lamina
+          ];
+        };
     }
     // (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = (defaultsFor system).specialArgs.pkgs;

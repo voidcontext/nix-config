@@ -1,5 +1,4 @@
 {pkgs, ...}:
-
 pkgs.writeShellApplication {
   name = "prepare-commit-msg";
   runtimeInputs = [pkgs.coreutils];
@@ -23,4 +22,3 @@ pkgs.writeShellApplication {
     fi
   '';
 }
-
