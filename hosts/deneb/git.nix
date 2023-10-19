@@ -1,7 +1,5 @@
 {
   pkgs,
-  inputs,
-  fetchurl,
   ...
 }: let
   forgejo = pkgs.unstable.forgejo;
