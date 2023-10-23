@@ -32,7 +32,6 @@ in {
     ./git
     ./helix.nix
     ./starship.nix
-    ./zellij
     ./zsh.nix
   ];
 
