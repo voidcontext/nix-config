@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  kitty = pkgs.kitty;
+  kitty = pkgs.unstable.kitty;
   color-themes = import ./color-themes.nix {inherit inputs;};
 in {
   config = mkIf (!systemConfig.base.headless) {
@@ -46,6 +46,7 @@ in {
         macos_thicken_font = "0";
         macos_option_as_alt = "yes";
         disable_ligatures_in = "tab cursor";
+        allow_remote_control = "yes";
       };
 
       # theme = "Gruvbox Dark";
