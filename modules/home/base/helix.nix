@@ -38,8 +38,10 @@ with lib; let
     runtimeInputs = [open-in-helix pkgs.broot];
     text = ''
       _kitty_tab_id=$1
-      _root_dir=$2
-      open-in-helix "$_kitty_tab_id" "$(broot "$_root_dir")"
+
+      _file=$(broot)
+      _relative="''${_file#"$PWD/"}"
+      open-in-helix "$_kitty_tab_id" "$_relative"
     '';
   };
   launch-open-in-helix-broot = pkgs.writeShellApplication {
@@ -53,7 +55,7 @@ with lib; let
 
       _root_dir=$1
 
-      kitty @ launch --type overlay ${bin open-in-helix-broot} "$KITTY_TAB_ID" "$_root_dir"
+      kitty @ launch --type overlay --cwd current ${bin open-in-helix-broot} "$KITTY_TAB_ID"
     '';
   };
   kitty-tab-id = pkgs.writeShellApplication {

@@ -46,7 +46,8 @@ in {
         macos_thicken_font = "0";
         macos_option_as_alt = "yes";
         disable_ligatures_in = "tab cursor";
-        allow_remote_control = "yes";
+        allow_remote_control = "socket-only";
+        listen_on = "unix:/tmp/kitty.sock";
       };
 
       # theme = "Gruvbox Dark";
