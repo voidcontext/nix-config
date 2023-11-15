@@ -68,6 +68,7 @@ in {
     pkgs.gh-dash
 
     pkgs.lamina
+    pkgs.felis
 
     # extra packages
     localPackages.adr-tools
