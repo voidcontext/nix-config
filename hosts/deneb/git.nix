@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   forgejo = pkgs.unstable.forgejo;
   secrets = import ./secrets.nix;
   woodpeckerPort = "8000";
