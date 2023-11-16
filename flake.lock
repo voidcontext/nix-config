@@ -292,11 +292,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1700087153,
-        "narHash": "sha256-xF6FTucVnYfN3jZp8mfIQ/drAcp68upd2ihg0SGju+c=",
+        "lastModified": 1700173174,
+        "narHash": "sha256-IntFjDbeudPYThhkrOYBIbtM0ip6gzAQfZrcMp7BveY=",
         "ref": "refs/heads/main",
-        "rev": "2e417869e04a1610e56ceafb48b17493a1373882",
-        "revCount": 12,
+        "rev": "716b4dee99246a11a9d7da635385b590736d3da4",
+        "revCount": 14,
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/felis.git"
       },

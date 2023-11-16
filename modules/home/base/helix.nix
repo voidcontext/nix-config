@@ -6,67 +6,18 @@
 }:
 with lib; let
   cfg = config.base.helix;
-  open-in-helix =
-    pkgs.writeShellApplication
-    {
-      name = "open-in-helix";
-      runtimeInputs = [pkgs.kitty];
-      text = ''
-        _tab_id=$1
-        _file=$2
-
-        echo "Opening $_file in tab $_tab_id"
-
-        if [ -z "$_file" ]; then
-          echo "No file has been provided"
-          exit 0
-        fi
-
-        if [ ! -f "$_file" ]; then
-          echo "$_file doesn't exists or not a file"
-          exit 0
-        fi
-
-        kitty @ send-text --match "id:$_tab_id" '\E'
-        kitty @ send-text --match "id:$_tab_id" ":open $_file"
-        kitty @ send-text --match "id:$_tab_id" '\r'
-        echo "Opened..."
-      '';
-    };
   open-in-helix-broot = pkgs.writeShellApplication {
     name = "open-in-helix-broot";
-    runtimeInputs = [open-in-helix pkgs.broot];
+    runtimeInputs = [pkgs.felis pkgs.broot];
     text = ''
-      _kitty_tab_id=$1
-
-      _file=$(broot)
-      _relative="''${_file#"$PWD/"}"
-      open-in-helix "$_kitty_tab_id" "$_relative"
+      felis open-in-helix "$(broot)"
     '';
   };
   launch-open-in-helix-broot = pkgs.writeShellApplication {
     name = "launch-open-in-helix-broot";
     runtimeInputs = [open-in-helix-broot];
     text = ''
-      if [ -z "$KITTY_TAB_ID" ]; then
-        echo "KITTY_TAB_ID is not set"
-        exit 0
-      fi
-
-      _root_dir=$1
-
-      kitty @ launch --type overlay --cwd current ${bin open-in-helix-broot} "$KITTY_TAB_ID"
-    '';
-  };
-  kitty-tab-id = pkgs.writeShellApplication {
-    name = "kitty-tab-id";
-    runtimeInputs = [pkgs.jq];
-    text = ''
-      if ! command -v kitty > /dev/null; then
-        exit 0;
-      fi
-
-      kitty @ ls | jq '.[] | select(.is_active == true) | .tabs[] | select(.is_active == true) | .windows[] | select(.is_active == true) | .id'
+      kitty @ launch --type overlay --cwd current ${bin open-in-helix-broot}
     '';
   };
   bin = drv: "${drv}/bin/${drv.name}";
@@ -100,10 +51,8 @@ in {
         # TODO: marksman is now in nixpkgs
         pkgs.marksman
         pkgs.alejandra
-        open-in-helix
         open-in-helix-broot
         launch-open-in-helix-broot
-        kitty-tab-id
       ];
 
       programs.zsh.shellAliases = {
@@ -162,7 +111,7 @@ in {
           keys.insert.home = "no_op";
           keys.insert.end = "no_op";
 
-          keys.normal.space.e = '':sh launch-open-in-helix-broot $PWD'';
+          keys.normal.space.e = '':sh launch-open-in-helix-broot'';
         };
         languages = {
           language-server = {
