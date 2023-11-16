@@ -26,6 +26,10 @@ in {
       }
     ];
 
+    home.packages = [
+      pkgs.felis
+    ];
+
     programs.zsh.initExtraBeforeCompInit = ''
       DISABLE_AUTO_TITLE="true"
     '';
