@@ -72,7 +72,7 @@ in {
         map cmd+shift+right move_window right
         map cmd+shift+down move_window down
 
-        map ctrl+cmd+o pass_selection_to_program ${pkgs.felis}/bin/felis open-in-helix
+        map ctrl+cmd+o pass_selection_to_program ${pkgs.felis}/bin/felis open-file
 
         map cmd+equal change_font_size all +1.0
         map cmd+minus change_font_size all -1.0

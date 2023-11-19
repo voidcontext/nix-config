@@ -6,21 +6,6 @@
 }:
 with lib; let
   cfg = config.base.helix;
-  open-in-helix-broot = pkgs.writeShellApplication {
-    name = "open-in-helix-broot";
-    runtimeInputs = [pkgs.felis pkgs.broot];
-    text = ''
-      felis open-in-helix "$(broot)"
-    '';
-  };
-  launch-open-in-helix-broot = pkgs.writeShellApplication {
-    name = "launch-open-in-helix-broot";
-    runtimeInputs = [open-in-helix-broot];
-    text = ''
-      kitty @ launch --type overlay --cwd current ${bin open-in-helix-broot}
-    '';
-  };
-  bin = drv: "${drv}/bin/${drv.name}";
 in {
   # Helix
 
@@ -51,13 +36,7 @@ in {
         # TODO: marksman is now in nixpkgs
         pkgs.marksman
         pkgs.alejandra
-        open-in-helix-broot
-        launch-open-in-helix-broot
       ];
-
-      programs.zsh.shellAliases = {
-        hx = "export KITTY_TAB_ID=$(kitty-tab-id) && hx";
-      };
 
       programs.broot = {
         enable = true;
@@ -111,7 +90,7 @@ in {
           keys.insert.home = "no_op";
           keys.insert.end = "no_op";
 
-          keys.normal.space.e = '':sh launch-open-in-helix-broot'';
+          keys.normal.space.e = '':sh felis open-browser -l $(which broot)'';
         };
         languages = {
           language-server = {
