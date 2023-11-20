@@ -49,7 +49,7 @@ in {
         copy_on_select = "yes";
         macos_thicken_font = "0";
         macos_option_as_alt = "yes";
-        disable_ligatures_in = "tab cursor";
+        disable_ligatures = "cursor";
         allow_remote_control = "socket-only";
         listen_on = "unix:/tmp/kitty.sock";
       };
@@ -76,10 +76,6 @@ in {
 
         map cmd+equal change_font_size all +1.0
         map cmd+minus change_font_size all -1.0
-
-        map ctrl+alt+1 disable_ligatures_in active always
-        map ctrl+alt+2 disable_ligatures_in all never
-        map ctrl+alt+3 disable_ligatures_in tab cursor
 
         ${color-themes.gruvbox.dark.medium}
       '';
