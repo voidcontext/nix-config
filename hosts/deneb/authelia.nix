@@ -49,7 +49,7 @@ in {
     forceSSL = true;
     extraConfig = ''
       access_log /var/log/nginx/mapthat-dev.deneb.vdx.hu-access.log;
-      error_log /var/log/nginx/authelia-dev.deneb.vdx.hu-error.log error;
+      error_log /var/log/nginx/mapthat-dev.deneb.vdx.hu-error.log error;
 
       include ${autheliaLocationConfSnippet};
     '';
