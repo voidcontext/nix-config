@@ -132,18 +132,31 @@
       ];
   in
     {
-      darwinConfigurations = lib.attrsets.genAttrs ["Sagittarius-A" "work"] (host:
-        darwin.lib.darwinSystem (
+      darwinConfigurations = {
+        "Sagittarius-A" = darwin.lib.darwinSystem (
           (defaultsFor flake-utils.lib.system.x86_64-darwin)
           // {
             modules =
               defaultSystemModules
               ++ [
                 home-manager.darwinModules.home-manager
-                (./hosts + "/${host}" + /configuration.nix)
+                ./hosts/Sagittarius-A/configuration.nix
+                ./darwin-builder
               ];
           }
-        ));
+        );
+        "work" = darwin.lib.darwinSystem (
+          (defaultsFor flake-utils.lib.system.x86_64-darwin)
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                home-manager.darwinModules.home-manager
+                ./hosts/work/configuration.nix
+              ];
+          }
+        );
+      };
 
       nixosConfigurations = {
         # NixOS VM @ DO
@@ -207,7 +220,7 @@
         sshOpts = ["-A"];
         hostname = "deneb.vdx.hu";
         remoteBuild = true;
-        fastConnection = true;
+        fastConnection = false;
 
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.deneb;

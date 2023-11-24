@@ -29,5 +29,12 @@
   services.nix-daemon.enable = true;
   nix.settings.trusted-users = ["root" "gaborpihaj"];
 
+  # for bootstrapping the darwin builder
+  # nix.extraOptions = ''
+  # builders = ssh-ng://builder@linux-builder x86_64-linux /etc/nix/builder_ed25519 4 - - - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpCV2N4Yi9CbGFxdDFhdU90RStGOFFVV3JVb3RpQzVxQkorVXVFV2RWQ2Igcm9vdEBuaXhvcwo=
+
+  # builders-use-substitutes = true
+  # '';
+
   nix.package = pkgs.unstable.nix;
 }
