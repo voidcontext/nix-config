@@ -50,6 +50,12 @@ in {
               leave_broot = true;
               internal = ":print_path";
             }
+            {
+              invocation = "create {subpath}";
+              shortcut = "cr";
+              leave_broot = true;
+              external = "${pkgs.felis}/bin/felis open-file {directory}/{subpath}";
+            }
           ];
         };
       };
