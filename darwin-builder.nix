@@ -1,9 +1,9 @@
-{pkgs, nixpkgs, lib, ...}: let
+{pkgs, inputs, lib, ...}: let
   linuxSystem = "x86_64-linux";
-  darwin-builder = nixpkgs.lib.nixosSystem {
+  darwin-builder = inputs.nixpkgs.lib.nixosSystem {
     system = linuxSystem;
     modules = [
-      "${nixpkgs}/nixos/modules/profiles/macos-builder.nix"
+      "${inputs.nixpkgs}/nixos/modules/profiles/macos-builder.nix"
       {
         virtualisation.host.pkgs = pkgs;
         virtualisation.darwin-builder.hostPort = 33022;
