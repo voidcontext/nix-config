@@ -37,7 +37,7 @@
   security.pam.enableSSHAgentAuth = true;
   security.pam.services.sudo.sshAgentAuth = true;
 
-  security.acme.email = "admin+acme@gaborpihaj.com";
+  security.acme.defaults.email = "admin+acme@gaborpihaj.com";
   security.acme.acceptTerms = true;
   services.nginx.enable = true;
   services.nginx.recommendedProxySettings = true;

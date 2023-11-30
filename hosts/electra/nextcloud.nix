@@ -43,9 +43,8 @@
     }
   ];
 
-  services.dnsmasq.extraConfig = ''
-    address=/nextcloud.vdx.hu/192.168.24.2
-    # address=/nextcloud.vdx.hu/192.168.24.2
-    address=/nextcloud.lan.vdx.hu/10.24.0.2
-  '';
+  services.dnsmasq.settings.address = [
+    "/nextcloud.vdx.hu/192.168.24.2"
+    "/nextcloud.lan.vdx.hu/10.24.0.2"
+  ];
 }
