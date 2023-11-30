@@ -9,7 +9,7 @@ in {
     extraConfig = ''
       access_log /var/log/nginx/attic.elnath.vdx.hu-access.log;
       error_log /var/log/nginx/attic.elnath.vdx.hu-error.log error;
-      client_max_body_size 1G;
+      client_max_body_size 2G;
     '';
     locations."/" = {
       proxyPass = "http://localhost:8010";
