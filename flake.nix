@@ -88,6 +88,7 @@
               "nvidia-x11"
               "nvidia-settings"
               "minecraft-launcher"
+              "minecraft-server"
             ];
           nvidia.acceptLicense = true;
         };
@@ -110,6 +111,7 @@
       (localLib.modules.nixpkgs-pin.system nixpkgs nixpkgs-unstable)
       ++ [
         ./modules/system/base
+        ./modules/system/minecraft-bedrock.nix
         ./modules/system/static-sites
         ({
           config,
