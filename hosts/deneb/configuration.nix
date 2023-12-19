@@ -4,8 +4,20 @@
   secrets,
   ...
 }: let
-  goaccessBin = "${pkgs.goaccess}/bin/goaccess";
-  goaccessCron = domain: "*/5 * * * *      nginx    ${goaccessBin} -o /var/www/stats.vdx.hu/${domain}.html /var/log/nginx/${domain}-access.log --log-format=COMBINED --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb";
+  gen-access-html = pkgs.writeShellApplication {
+    name = "gen-access-html";
+    runtimeInputs = [pkgs.goaccess pkgs.gzip];
+    text = ''
+      set -e -o pipefail
+      _domain=$1
+
+      zcat -f "/var/log/nginx/''${_domain}-access.log"* |           \
+        goaccess - -o "/var/www/stats.vdx.hu/''${_domain}.html"     \
+        --log-format=COMBINED                                       \
+        --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb
+    '';
+  };
+  goaccessCron = domain: minute: hour: "${minute} ${hour} * * *      nginx    ${gen-access-html}/bin/gen-access-html ${domain}";
 in {
   # Bespoke Options
 
@@ -74,6 +86,7 @@ in {
   environment.systemPackages = [
     pkgs.goaccess
     pkgs.wireguard-tools
+    gen-access-html
   ];
 
   # services.logind.extraConfig = ''
@@ -132,11 +145,11 @@ in {
   services.cron = {
     enable = true;
     systemCronJobs = [
-      (goaccessCron "gaborpihaj.com")
-      (goaccessCron "beta.gaborpihaj.com")
-      (goaccessCron "spellcasterhub.com")
-      (goaccessCron "git.vdx.hu")
-      (goaccessCron "vdx.hu")
+      (goaccessCron "gaborpihaj.com" 0 1)
+      (goaccessCron "beta.gaborpihaj.com" 3 1)
+      (goaccessCron "spellcasterhub.com" 6 1)
+      (goaccessCron "git.vdx.hu" 9 1)
+      (goaccessCron "vdx.hu" 12 1)
     ];
   };
 
