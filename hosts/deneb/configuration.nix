@@ -26,6 +26,7 @@ in {
     ./extras.nix
     ./git.nix
     ./indieweb
+    ./mapthat.nix
     ./monitoring.nix
     ./wireguard.nix
   ];

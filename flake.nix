@@ -23,6 +23,7 @@
 
     lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
     felis.url = "git+https://git.vdx.hu/voidcontext/felis.git";
+    mapthat-backend.url = "git+ssh://gitea@git.vdx.hu:5422/mapthat/mapthat-backend.git?ref=refs/heads/nixos-module";
 
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
     kitty-everforest-themes.flake = false;
@@ -71,6 +72,7 @@
       weechatOverlay
       inputs.lamina.overlays.default
       inputs.attic.overlays.default
+      inputs.mapthat-backend.overlays.default
     ];
 
     importNixpkgs = nixpkgs: system: overlays:
@@ -129,6 +131,7 @@
             systemConfig = config;
           };
         })
+        inputs.mapthat-backend.nixosModules.default
       ];
   in
     {
