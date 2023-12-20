@@ -131,7 +131,6 @@
             systemConfig = config;
           };
         })
-        inputs.mapthat-backend.nixosModules.default
       ];
   in
     {
@@ -170,6 +169,7 @@
               ++ [
                 home-manager.nixosModules.home-manager
                 ./hosts/deneb/configuration.nix
+                inputs.mapthat-backend.nixosModules.default
               ];
           });
 
