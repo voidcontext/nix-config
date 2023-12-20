@@ -10,14 +10,23 @@
     text = ''
       set -e -o pipefail
       _domain=$1
+      _suffix=$2
+      shift 2
 
-      zcat -f "/var/log/nginx/''${_domain}-access.log"* |           \
-        goaccess - -o "/var/www/stats.vdx.hu/''${_domain}.html"     \
-        --log-format=COMBINED                                       \
-        --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb
+      zcat -f "/var/log/nginx/''${_domain}-access.log"* |                   \
+        goaccess - -o "/var/www/stats.vdx.hu/''${_domain}''${_suffix}.html" \
+        --log-format=COMBINED                                               \
+        --geoip-database=/opt/geoip/dbip-country-lite-2022-11.mmdb          \
+        "$@"
     '';
   };
-  goaccessCron = domain: minute: hour: "${minute} ${hour} * * *      nginx    ${gen-access-html}/bin/gen-access-html ${domain}";
+  goaccessCron = {
+    domain,
+    minute,
+    hour,
+    extraArgs ? "",
+    suffix ? "",
+  }: ''${builtins.toString minute} ${builtins.toString hour} * * *      nginx    ${gen-access-html}/bin/gen-access-html "${domain}" "${suffix}" "${extraArgs}"'';
 in {
   # Bespoke Options
 
@@ -145,11 +154,45 @@ in {
   services.cron = {
     enable = true;
     systemCronJobs = [
-      (goaccessCron "gaborpihaj.com" 0 1)
-      (goaccessCron "beta.gaborpihaj.com" 3 1)
-      (goaccessCron "spellcasterhub.com" 6 1)
-      (goaccessCron "git.vdx.hu" 9 1)
-      (goaccessCron "vdx.hu" 12 1)
+      (goaccessCron {
+        domain = "gaborpihaj.com";
+        minute = 0;
+        hour = 1;
+        extraArgs = "--ignore-crawlers";
+      })
+      (goaccessCron {
+        domain = "gaborpihaj.com";
+        minute = 5;
+        hour = 1;
+        extraArgs = "--crawlers-only";
+        suffix = "-crawlers";
+      })
+      (goaccessCron {
+        domain = "git.vdx.hu";
+        minute = 10;
+        hour = 1;
+        extraArgs = "--ignore-crawlers";
+      })
+      (goaccessCron {
+        domain = "git.vdx.hu";
+        minute = 15;
+        hour = 1;
+        extraArgs = "--crawlers-only";
+        suffix = "-crawlers";
+      })
+      (goaccessCron {
+        domain = "vdx.hu";
+        minute = 20;
+        hour = 1;
+        extraArgs = "--ignore-crawlers";
+      })
+      (goaccessCron {
+        domain = "vdx.hu";
+        minute = 25;
+        hour = 1;
+        extraArgs = "--crawlers-only";
+        suffix = "-crawlers";
+      })
     ];
   };
 
