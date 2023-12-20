@@ -903,16 +903,15 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "lastModified": 1701466922,
-        "narHash": "sha256-61zY6bYr8/Ggh179kaDR8C/IVfWg1AC7dKOPamkkh7w=",
-        "ref": "refs/heads/nixos-module",
-        "rev": "98b19a8eef77bde66ac14194b8c4a80d7243f602",
-        "revCount": 25,
+        "lastModified": 1702199464,
+        "narHash": "sha256-oWtjeyKIjss1y7RevUXe28erBIcHXyfpvWTacpNCo4E=",
+        "ref": "refs/heads/main",
+        "rev": "5ab63abaa8d98a831dcfe3d72ddb718565ec2de1",
+        "revCount": 15,
         "type": "git",
         "url": "ssh://gitea@git.vdx.hu:5422/mapthat/mapthat-backend.git"
       },
       "original": {
-        "ref": "refs/heads/nixos-module",
         "type": "git",
         "url": "ssh://gitea@git.vdx.hu:5422/mapthat/mapthat-backend.git"
       }
