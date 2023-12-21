@@ -31,4 +31,5 @@
 
   nix.package = pkgs.unstable.nix;
   nix.settings.trusted-users = ["root" "gaborpihaj"];
+  nix.settings.sandbox = true;
 }
