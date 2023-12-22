@@ -337,11 +337,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1700435169,
-        "narHash": "sha256-2fwR0PQcqok8B3PRROYIymjQVTkDbzC1nfElVO6u4us=",
+        "lastModified": 1703196408,
+        "narHash": "sha256-dMwji1XvdcFtct3VeANxjyGsBUQl+4cY7yDSfenijxs=",
         "ref": "refs/heads/main",
-        "rev": "3756b8cef35ce088aaf78d65de60e893485451d1",
-        "revCount": 20,
+        "rev": "993ffb42fdf1840165cc15672518bb1ecefe7372",
+        "revCount": 24,
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/felis.git"
       },
@@ -970,16 +970,16 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1699052141,
-        "narHash": "sha256-t96lI5myEMczOxLGN0AZakHVsHLo66Z0YNM27hKiLbs=",
-        "ref": "refs/heads/skip-build-deps",
-        "rev": "bae54b6d94f7caca6d03607c7a2bd0bedb7cc90d",
-        "revCount": 87,
+        "lastModified": 1700848307,
+        "narHash": "sha256-yfMxN7Nfk9hUp7jNJJREyDG4zCZT3hZWbkJ5MpbLWBk=",
+        "ref": "refs/tags/v0.10.0",
+        "rev": "0dcc9458df28c63d62408f31177118940a8ea381",
+        "revCount": 90,
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/nix-rust-utils.git"
       },
       "original": {
-        "ref": "refs/heads/skip-build-deps",
+        "ref": "refs/tags/v0.10.0",
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/nix-rust-utils.git"
       }
