@@ -1,5 +1,3 @@
-{pkgs, ...}:
-
-{
-	services.mapthat-backend.enable = true;
+{pkgs, ...}: {
+  services.mapthat-backend.enable = true;
 }

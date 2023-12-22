@@ -1,4 +1,9 @@
-{pkgs, inputs, lib, ...}: let
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: let
   linuxSystem = "x86_64-linux";
   darwin-builder = inputs.nixpkgs.lib.nixosSystem {
     system = linuxSystem;
