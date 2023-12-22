@@ -3,6 +3,7 @@
   ...
 }: let
   serverPort = 36456;
+  bedrockServerPort = 19132;
 in {
   services.minecraft-server = {
     enable = false;
@@ -22,8 +23,20 @@ in {
     };
     jvmOpts = "-Xms1024M -Xmx1024M -XX:+UseG1GC -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
   };
-
   # networking.firewall.allowedUDPPorts = [serverPort];
   # networking.firewall.allowedTCPPorts = [serverPort];
+
+
+  services.minecraft-bedrock-server = {
+    enable = true;
+    serverProperties = {
+      server-port = bedrockServerPort;
+    };
+    allowList = {
+      voidcontext = "8488f0e8-5594-4b74-84aa-6ac7ceafe64b";
+    };
+  };
+  networking.firewall.allowedUDPPorts = [bedrockServerPort];
+  networking.firewall.allowedTCPPorts = [bedrockServerPort];
 
 }

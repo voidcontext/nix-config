@@ -186,6 +186,7 @@
                 inputs.attic.nixosModules.atticd
                 home-manager.nixosModules.home-manager
                 ./hosts/elnath/configuration.nix
+                ./modules/system/minecraft-bedrock.nix
               ];
           });
 
