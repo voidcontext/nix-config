@@ -37,5 +37,4 @@
   # '';
 
   nix.package = pkgs.unstable.nix;
-  nix.settings.sandbox = true;
 }
