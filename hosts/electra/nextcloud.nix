@@ -7,7 +7,6 @@
     package = pkgs.nextcloud27;
     maxUploadSize = "20G";
     https = true;
-    enableBrokenCiphersForSSE = false; # Disable backward compatibility workaround and use OpenSSL 3
     config = {
       dbtype = "pgsql";
       dbuser = "nextcloud";

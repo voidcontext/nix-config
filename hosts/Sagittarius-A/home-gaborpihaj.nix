@@ -79,7 +79,7 @@ in {
   home.packages = [
     pkgs.neofetch
 
-    pkgs.terraform
+    # pkgs.terraform # 23.11 non free anymore
     localPackages.tfswitch
 
     pkgs.python3
@@ -92,7 +92,7 @@ in {
     pkgs.weechat
     pkgs.lamina
     pkgs.bashInteractive
-    pkgs.attic-client
+    # pkgs.attic-client # 23.11 build failure
 
     mirror-git-repo
 

@@ -14,8 +14,6 @@
 
   base.nixConfigFlakeDir = "/opt/nix-config";
 
-  nixpkgs.config.allowUnfreePackages = ["steam"];
-
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -151,4 +149,21 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
   nix.package = pkgs.unstable.nix;
+
+  # Disable sleep and suspend
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
+
+  # programs.hyprland = {
+  #   # Install the packages from nixpkgs
+  #   enable = true;
+  #   # Whether to enable XWayland
+  #   xwayland.enable = true;
+
+  #   # Optional
+  #   # Whether to enable patching wlroots for better Nvidia support
+  #   # enableNvidiaPatches = true;
+  # };
 }

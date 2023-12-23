@@ -2,13 +2,13 @@
   "description" = "voidcontext's dotfiles";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/release-23.05";
+    nixpkgs.url = "nixpkgs/release-23.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:rycee/home-manager/release-23.05";
+    home-manager.url = "github:rycee/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -19,7 +19,7 @@
 
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.11";
 
     lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
     felis.url = "git+https://git.vdx.hu/voidcontext/felis.git";
@@ -87,7 +87,9 @@
               "steam-runtime"
               "nvidia-x11"
               "nvidia-settings"
+              "minecraft-launcher"
             ];
+          nvidia.acceptLicense = true;
         };
       };
 
@@ -245,7 +247,7 @@
         sshOpts = ["-A"];
         hostname = "albeiro.lan";
         remoteBuild = true;
-        fastConnection = true;
+        fastConnection = false;
 
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.albeiro;
