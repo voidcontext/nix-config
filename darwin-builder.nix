@@ -19,12 +19,22 @@
 in {
   nix.distributedBuilds = true;
   nix.buildMachines = [
+    # {
+    #   hostName = "linux-builder";
+    #   sshUser = "builder";
+    #   system = linuxSystem;
+    #   sshKey = "/etc/nix/builder_ed25519";
+    #   # publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpCV2N4Yi9CbGFxdDFhdU90RStGOFFVV3JVb3RpQzVxQkorVXVFV2RWQ2Igcm9vdEBuaXhvcwo=";
+    #   maxJobs = 4;
+    #   supportedFeatures = ["kvm" "benchmark" "big-parallel" "nixos-test"];
+    #   protocol = "ssh";
+    # }
     {
-      hostName = "linux-builder";
-      sshUser = "builder";
-      system = linuxSystem;
-      sshKey = "/etc/nix/builder_ed25519";
-      # publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpCV2N4Yi9CbGFxdDFhdU90RStGOFFVV3JVb3RpQzVxQkorVXVFV2RWQ2Igcm9vdEBuaXhvcwo=";
+      hostName = "elnath.vdx.hu";
+      sshUser = "vdx";
+      system = "x86_64-linux";
+      sshKey = "/Users/gaborpihaj/workspace/personal/nix-config/y";
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURURW4rb05nNW9MYmNMRmdRZjFGSFNLdnQzVSs1UHp6VWwwN05CdzJDSFogcm9vdEBlbG=";
       maxJobs = 4;
       supportedFeatures = ["kvm" "benchmark" "big-parallel" "nixos-test"];
       protocol = "ssh";
@@ -41,14 +51,14 @@ in {
     }
   ];
 
-  launchd.daemons.darwin-builder = {
-    command = "${darwin-builder.config.system.build.macos-builder-installer}/bin/create-builder";
-    serviceConfig = {
-      KeepAlive = true;
-      RunAtLoad = true;
-      StandardOutPath = "/var/log/darwin-builder.log";
-      StandardErrorPath = "/var/log/darwin-builder.log";
-      WorkingDirectory = "/etc/nix/";
-    };
-  };
+  # launchd.daemons.darwin-builder = {
+  #   command = "${darwin-builder.config.system.build.macos-builder-installer}/bin/create-builder";
+  #   serviceConfig = {
+  #     KeepAlive = true;
+  #     RunAtLoad = true;
+  #     StandardOutPath = "/var/log/darwin-builder.log";
+  #     StandardErrorPath = "/var/log/darwin-builder.log";
+  #     WorkingDirectory = "/etc/nix/";
+  #   };
+  # };
 }
