@@ -15,10 +15,12 @@ in {
     };
     eula = true;
     declarative = true;
-    whitelist = secrets.allowList;
+    whitelist = secrets.minecraft.allowList;
     serverProperties = {
       "server-port" = serverPort;
       "white-list" = true;
+      "level-seed" = "6743789345153908210";
+      "level-name" = "Mountain village";
     };
     jvmOpts = "-Xms512M -Xmx1024M -XX:+UseG1GC -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
   };
