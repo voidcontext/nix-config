@@ -99,7 +99,13 @@ in {
     pkgs.lima
     pkgs.colima
     pkgs.docker-client
+
+    pkgs.prismlauncher
   ];
+
+  base.darwin_symlinks = {
+    "$HOME/Applications/Prismlauncher.app" = "${pkgs.prismlauncher}/Prismlauncher.app";
+  };
 
   programs.nix-index.enable = true;
   programs.nix-index.enableZshIntegration = true;

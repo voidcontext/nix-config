@@ -88,6 +88,7 @@
               "nvidia-x11"
               "nvidia-settings"
               "minecraft-launcher"
+              "minecraft-server"
             ];
           nvidia.acceptLicense = true;
         };
