@@ -3,7 +3,6 @@
   ...
 }: let
   serverPort = 36456;
-  bedrockServerPort = 19132;
   secrets = import ./secrets.nix;
 in {
   services.minecraft-server = {
@@ -29,16 +28,4 @@ in {
   
   networking.firewall.allowedUDPPorts = [serverPort];
   networking.firewall.allowedTCPPorts = [serverPort];
-
-
-  # services.minecraft-bedrock-server = {
-  #   enable = true;
-  #   serverProperties = {
-  #     server-port = bedrockServerPort;
-  #   };
-  #   allowList = secrets.allowList;
-  # };
-  # networking.firewall.allowedUDPPorts = [bedrockServerPort];
-  # networking.firewall.allowedTCPPorts = [bedrockServerPort];
-
 }
