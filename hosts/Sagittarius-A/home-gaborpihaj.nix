@@ -87,6 +87,8 @@ in {
     pkgs.neomutt
     pkgs.w3m
 
+    pkgs.opentofu
+
     pkgs.python3
     pkgs.nodejs
     pkgs.iperf3
