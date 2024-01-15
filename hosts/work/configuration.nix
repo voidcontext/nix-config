@@ -1,6 +1,5 @@
 {
   pkgs,
-  home-manager,
   ...
 }: {
   # Bespoke Options

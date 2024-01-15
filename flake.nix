@@ -103,7 +103,6 @@
       inherit pkgs system;
       specialArgs = {
         inherit pkgs localLib inputs secrets;
-        localPackages = import ./packages {inherit pkgs;};
       };
     };
 
@@ -114,7 +113,6 @@
         ./modules/system/static-sites
         ({
           config,
-          localPackages,
           ...
         }: {
           home-manager.useGlobalPkgs = true;
@@ -130,7 +128,7 @@
               ./modules/home/virtualization/lima
             ];
           home-manager.extraSpecialArgs = {
-            inherit localLib localPackages inputs;
+            inherit localLib inputs;
             systemConfig = config;
           };
         })

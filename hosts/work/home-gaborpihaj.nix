@@ -1,6 +1,5 @@
 {
   pkgs,
-  localPackages,
   ...
 }: let
   workspace = "$HOME/workspace";
@@ -61,8 +60,6 @@ in {
   };
 
   home.packages = [
-    # pkgs.unstable.terraform
-    # pkgs.awscli2
     pkgs.plantuml
     pkgs.gh
     pkgs.gh-dash
@@ -70,8 +67,6 @@ in {
     pkgs.lamina
 
     # extra packages
-    localPackages.adr-tools
-    localPackages.tfswitch
     cuopp-msg-helper
   ];
 

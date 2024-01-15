@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  localPackages,
   ...
 }: let
   workspace = "$HOME/workspace";
@@ -80,7 +79,6 @@ in {
     pkgs.neofetch
 
     # pkgs.terraform # 23.11 non free anymore
-    localPackages.tfswitch
 
     pkgs.python3
     pkgs.nodejs
