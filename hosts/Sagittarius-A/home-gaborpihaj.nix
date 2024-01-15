@@ -54,6 +54,10 @@
     cd -
   '';
 in {
+  imports = [
+    ./extras.nix
+  ];
+
   home.stateVersion = "22.11";
 
   base.gpg-ssh.enable = true;
@@ -79,6 +83,9 @@ in {
     pkgs.neofetch
 
     # pkgs.terraform # 23.11 non free anymore
+
+    pkgs.neomutt
+    pkgs.w3m
 
     pkgs.python3
     pkgs.nodejs
