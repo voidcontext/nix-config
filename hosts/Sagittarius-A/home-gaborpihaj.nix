@@ -99,7 +99,7 @@ in {
     pkgs.weechat
     pkgs.lamina
     pkgs.bashInteractive
-    # pkgs.attic-client # 23.11 build failure
+    pkgs.attic-client
 
     mirror-git-repo
 
