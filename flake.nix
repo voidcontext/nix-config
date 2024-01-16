@@ -22,7 +22,7 @@
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.11";
 
     lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
-    felis.url = "git+https://git.vdx.hu/voidcontext/felis.git";
+    felis.url = "git+https://git.vdx.hu/voidcontext/felis.git?ref=refs/tags/v0.1.0";
     mapthat-backend.url = "git+ssh://gitea@git.vdx.hu:5422/mapthat/mapthat-backend.git";
 
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
@@ -44,7 +44,6 @@
     deploy-rs,
     ...
   } @ inputs: let
-    lib = nixpkgs.lib;
     localLib = import ./lib;
     secrets = import ./secrets.nix;
 

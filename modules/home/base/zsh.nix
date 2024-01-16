@@ -21,10 +21,11 @@
 
     shellAliases = {
       ls = "eza";
-      la = "eza -la";
+      la = "ls -la";
       df = "duf";
-      du = "dunst";
+      du = "dust";
       h = "hx";
+      fo = "felis open-file";
 
       reload-zsh = "source ~/.zshrc";
 
