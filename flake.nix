@@ -110,10 +110,7 @@
       ++ [
         ./modules/system/base
         ./modules/system/static-sites
-        ({
-          config,
-          ...
-        }: {
+        ({config, ...}: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.sharedModules =
@@ -185,6 +182,18 @@
               ];
           });
 
+        # NixOS @ Hetzner
+        kraz = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.x86_64-linux)
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                # inputs.attic.nixosModules.atticd
+                home-manager.nixosModules.home-manager
+                ./hosts/kraz/configuration.nix
+              ];
+          });
+
         # NixOS on a RaspberryPi 4 model B
         electra = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.aarch64-linux)
           // {
@@ -238,6 +247,17 @@
 
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.elnath;
+      };
+
+      deploy.nodes.kraz = {
+        sshUser = "vdx";
+        sshOpts = ["-A" "-p5422"];
+        hostname = "178.63.71.182";
+        remoteBuild = true;
+        fastConnection = false;
+
+        profiles.system.user = "root";
+        profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kraz;
       };
 
       deploy.nodes.albeiro = {

@@ -80,6 +80,11 @@ in {
     woodpeckerGRPCPort
   ];
 
+  # allow Woodpecker GRPC port on the VPN so that agents can connect
+  networking.firewall.interfaces."wg0".allowedTCPPorts = [
+    woodpeckerGRPCPort
+  ];
+
   environment.systemPackages = [
     forgejo
   ];
