@@ -20,7 +20,6 @@
 
     # Additional imports
     ./attic.nix
-    ./ci.nix
     ./minecraft.nix
     ./monitoring.nix
     ./wireguard.nix
