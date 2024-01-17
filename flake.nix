@@ -292,6 +292,8 @@
             pkgs.attic-client
             pkgs.helixFlake
             pkgs.lamina
+            pkgs.felis
+            pkgs.attic-client
           ];
         };
     }
