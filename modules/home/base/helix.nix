@@ -110,6 +110,8 @@ in {
             };
             rust-analyzer.config = {
               files.excludeDirs = [".direnv"];
+              check.command = "clippy";
+              check.extraArgs = "--all-targets";
             };
           };
           language = [
