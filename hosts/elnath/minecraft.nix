@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   serverPort = 36456;
   secrets = import ./secrets.nix;
 in {
@@ -25,7 +22,7 @@ in {
   };
 
   systemd.services.minecraft-server.wantedBy = [];
-  
+
   networking.firewall.allowedUDPPorts = [serverPort];
   networking.firewall.allowedTCPPorts = [serverPort];
 }

@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   workspace = "$HOME/workspace";
   extras = import ./extras.nix;
   cuopp-msg-helper = import ./scripts/cuopp-msg-helper.nix {inherit pkgs;};
