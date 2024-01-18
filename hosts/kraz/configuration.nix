@@ -99,6 +99,13 @@
     openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
   };
 
+  users.users.remote-builder = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      secrets.ssh.public-keys."gaborpihaj@Sagittarius-A.lan -> kraz remote-build"
+    ];
+  };
   # Home manager
 
   home-manager.users.vdx = import ./home-vdx.nix;
@@ -109,7 +116,7 @@
     nixConfigFlakeDir = "/opt/nix-config";
   };
   nix.package = pkgs.unstable.nix;
-  nix.settings.trusted-users = ["root" "vdx"];
+  nix.settings.trusted-users = ["root" "vdx" "remote-builder"];
 
   # Nginx
 
