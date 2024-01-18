@@ -4,7 +4,7 @@
     hostName = "nextcloud.vdx.hu";
     home = "/Volumes/nextcloud";
     datadir = "/Volumes/nextcloud/";
-    package = pkgs.nextcloud27;
+    package = pkgs.nextcloud28;
     maxUploadSize = "20G";
     https = true;
     config = {
@@ -16,6 +16,21 @@
       adminuser = "root";
       extraTrustedDomains = ["nextcloud.lan.vdx.hu"];
     };
+    phpExtraExtensions = all: [all.redis];
+    extraOptions = {
+      "filelocking.enabled" = true;
+      "memcache.local" = ''\OC\Memcache\Redis'';
+      "memcache.locking" = ''\OC\Memcache\Redis'';
+      redis = {
+        host = "localhost";
+        port = "16379";
+      };
+    };
+  };
+
+  services.redis.servers.nextcloud = {
+    enable = true;
+    port = 16379;
   };
 
   # Command to generate the certs:
