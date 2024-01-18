@@ -2,13 +2,13 @@
   hostSecrets = import ./secrets.nix;
 in {
   # Nix binary Cache ----
-  services.nginx.virtualHosts."attic.elnath.vdx.hu" = {
+  services.nginx.virtualHosts."attic.kraz.vdx.hu" = {
     enableACME = true;
     forceSSL = true;
     serverAliases = ["cache.nix.vdx.hu"];
     extraConfig = ''
-      access_log /var/log/nginx/attic.elnath.vdx.hu-access.log;
-      error_log /var/log/nginx/attic.elnath.vdx.hu-error.log error;
+      access_log /var/log/nginx/attic.kraz.vdx.hu-access.log;
+      error_log /var/log/nginx/attic.kraz.vdx.hu-error.log error;
       client_max_body_size 2G;
     '';
     locations."/" = {
@@ -16,6 +16,7 @@ in {
     };
   };
 
+  services.postgresql.enable = true;
   services.postgresql.ensureDatabases = ["atticd_v2"];
 
   # Setting the permissions didn't really work, so I ran manually:
@@ -32,7 +33,7 @@ in {
     $PSQL atticd_v2 -tAc 'GRANT ALL ON ALL TABLES IN SCHEMA public TO atticd' || true
     $PSQL atticd_v2 -tAc 'GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO atticd' || true
     $PSQL atticd_v2 -tAc 'ALTER DATABASE atticd_v2 OWNER TO atticd' || true
-    $PSQL atticd_v2 -tAc "ALTER USER attic WITH PASSWORD '${hostSecrets.attic.dbPassword}'" || true
+    $PSQL atticd_v2 -tAc "ALTER USER atticd WITH PASSWORD '${hostSecrets.attic.dbPassword}'" || true
   '';
 
   services.atticd = {
@@ -42,7 +43,7 @@ in {
 
     settings = {
       listen = "0.0.0.0:8010";
-      api-endpoint = "https://cache.nix.vdx.hu/";
+      api-endpoint = "https://attic.kraz.vdx.hu/";
       database.url = "postgresql://atticd:${hostSecrets.attic.dbPassword}@localhost/atticd_v2";
 
       # storage.type = "s3";

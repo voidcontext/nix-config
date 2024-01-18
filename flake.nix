@@ -188,7 +188,7 @@
             modules =
               defaultSystemModules
               ++ [
-                # inputs.attic.nixosModules.atticd
+                inputs.attic.nixosModules.atticd
                 home-manager.nixosModules.home-manager
                 ./hosts/kraz/configuration.nix
               ];

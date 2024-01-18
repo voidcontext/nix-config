@@ -11,6 +11,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
+    ./attic.nix
     ./ci.nix
     ./monitoring.nix
     ./wireguard.nix
@@ -109,6 +110,14 @@
   };
   nix.package = pkgs.unstable.nix;
   nix.settings.trusted-users = ["root" "vdx"];
+
+  # Nginx
+
+  security.acme.defaults.email = "admin+acme@vdx.hu";
+  security.acme.acceptTerms = true;
+  services.nginx.enable = true;
+  services.nginx.recommendedProxySettings = true;
+  networking.firewall.allowedTCPPorts = [80 443];
 
   # FIXME
   # This value determines the NixOS release with which your system is to be

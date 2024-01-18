@@ -19,7 +19,6 @@
     (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
     # Additional imports
-    ./attic.nix
     ./minecraft.nix
     ./monitoring.nix
     ./wireguard.nix
