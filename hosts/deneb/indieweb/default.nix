@@ -31,9 +31,9 @@ in {
     owner = "indieweb";
     group = "nginx";
     autoRebuildGit = true;
-    afterRebuild = ''
-      ${iwtBin} --config /opt/indieweb/indieweb.toml cross-publish >> ${iwtCrossPublishLog} 2>&1
-    '';
+    # afterRebuild = ''
+    #   ${iwtBin} --config /opt/indieweb/indieweb.toml cross-publish >> ${iwtCrossPublishLog} 2>&1
+    # '';
   };
 
   #****************************************************************************

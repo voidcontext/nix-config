@@ -62,6 +62,16 @@ in {
       data_type = "integer";
     }
   ];
+  services.telegraf.extraConfig.inputs.ping = {
+    urls = [
+      "192.168.24.1" # openwrt router
+      "192.168.1.254" # bt router
+      "deneb.vdx.hu"
+      "kraz.vdx.hu"
+    ];
+    count = 10;
+    binary = "${pkgs.iputils}/bin/ping";
+  };
 
   # services.telegraf.extraConfig.inputs.exec = [{
   #   commands = [ "${pkgs.libraspberrypi}/bin/vcgencmd measure_temp" ];

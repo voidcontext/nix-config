@@ -226,13 +226,7 @@
 
   services.dnsmasq.enable = true;
   services.dnsmasq.settings.server = ["192.168.24.1"];
-  services.dnsmasq.settings.listen-address = "127.0.0.1,192.168.24.2,10.24.0.2";
-  services.dnsmasq.settings.address = [
-    "/deneb.lan.vdx.hu/10.24.0.1"
-    "/electra.lan.vdx.hu/10.24.0.2"
-    "/elnath.lan.vdx.hu/10.24.0.6"
-    "/kraz.lan.vdx.hu/10.24.0.7"
-  ];
+  services.dnsmasq.settings.listen-address = "127.0.0.1,192.168.24.2";
   # services.dnsmasq.extraConfig = ''
   #   listen-address=127.0.0.1,192.168.24.2,10.24.0.2
 

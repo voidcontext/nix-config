@@ -8,6 +8,7 @@ in {
   services.telegraf.extraConfig.inputs.cpu = {};
   services.telegraf.extraConfig.inputs.mem = {};
   services.telegraf.extraConfig.inputs.disk = {};
+  services.telegraf.extraConfig.inputs.net = {};
   services.telegraf.extraConfig.outputs.influxdb_v2 = {
     urls = ["http://127.0.0.1:8086"];
     token = secrets.influxdb.telegraf-token;

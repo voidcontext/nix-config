@@ -84,4 +84,24 @@
       ];
     };
   };
+
+  services.dnsmasq.enable = true;
+  services.dnsmasq.servers = ["8.8.8.8"];
+  services.dnsmasq.extraConfig = ''
+    interface=wg0
+  '';
+  services.dnsmasq.settings.listen-address = "127.0.0.1,10.24.0.1";
+  services.dnsmasq.settings.address = [
+    "/deneb.lan.vdx.hu/10.24.0.1"
+
+    "/electra.lan.vdx.hu/10.24.0.2"
+    "/nextcloud.vdx.hu/10.24.0.2"
+    "/electra.lan/192.168.24.2"
+
+    "/elnath.lan.vdx.hu/10.24.0.6"
+
+    "/kraz.lan.vdx.hu/10.24.0.7"
+  ];
+  networking.firewall.interfaces."wg0".allowedTCPPorts = [53];
+  networking.firewall.interfaces."wg0".allowedUDPPorts = [53];
 }
