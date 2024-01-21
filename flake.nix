@@ -140,7 +140,6 @@
               ++ [
                 home-manager.darwinModules.home-manager
                 ./hosts/Sagittarius-A/configuration.nix
-                ./darwin-builder.nix
               ];
           }
         );
