@@ -19,7 +19,7 @@
     (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
     # Additional imports
-    ./minecraft.nix
+    # ./minecraft.nix
     ./monitoring.nix
     ./wireguard.nix
   ];
