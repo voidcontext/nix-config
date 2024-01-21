@@ -42,7 +42,6 @@ in {
     (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
     # Additional imports
-    ./authelia.nix
     ./backup.nix
     ./extras.nix
     ./git.nix
