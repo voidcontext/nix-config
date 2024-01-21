@@ -124,7 +124,34 @@
   security.acme.acceptTerms = true;
   services.nginx.enable = true;
   services.nginx.recommendedProxySettings = true;
-  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedTCPPorts = [
+    # nginx
+    80
+    443
+    # minecraft servers on k3s
+    32101 # mountain village
+  ];
+  networking.firewall.allowedUDPPorts = [
+    # minecraft servers on k3s
+    32101 # mountain village
+  ];
+
+  # k3s
+  services.k3s.enable = true;
+  services.k3s.role = "server";
+  environment.systemPackages = [pkgs.k3s];
+  networking.firewall.interfaces."wg0".allowedTCPPorts = [
+    6443
+  ];
+  networking.firewall.trustedInterfaces = [ "cni+" ];
+
+  services.xinetd.enable = true;
+  services.xinetd.services = [
+    { name = "svn"; unlisted = true; port = 32101;
+      server = "/usr/bin/env"; # not used if "redirect" is specified, but required by Nixos, *and* must be executable
+      extraConfig = "redirect = 10.43.16.47 32101";
+    }
+  ];
 
   # FIXME
   # This value determines the NixOS release with which your system is to be
