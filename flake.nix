@@ -169,18 +169,6 @@
               ];
           });
 
-        # NixOS VM @ DO
-        elnath = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.x86_64-linux)
-          // {
-            modules =
-              defaultSystemModules
-              ++ [
-                inputs.attic.nixosModules.atticd
-                home-manager.nixosModules.home-manager
-                ./hosts/elnath/configuration.nix
-              ];
-          });
-
         # NixOS @ Hetzner
         kraz = nixpkgs.lib.nixosSystem ((defaultsFor flake-utils.lib.system.x86_64-linux)
           // {
@@ -235,17 +223,6 @@
 
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.deneb;
-      };
-
-      deploy.nodes.elnath = {
-        sshUser = "root";
-        sshOpts = ["-A" "-p5422"];
-        hostname = "elnath.vdx.hu";
-        remoteBuild = true;
-        fastConnection = false;
-
-        profiles.system.user = "root";
-        profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.elnath;
       };
 
       deploy.nodes.kraz = {

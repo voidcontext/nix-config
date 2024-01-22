@@ -66,13 +66,7 @@
           allowedIPs = ["10.24.0.4/32"];
         }
         {
-          # elnath
-          publicKey = secrets.wireguard.elnath.publicKey;
-          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-          allowedIPs = ["10.24.0.6/32"];
-        }
-        {
-          # elnath
+          # kraz
           publicKey = secrets.wireguard.kraz.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.7/32"];
@@ -97,8 +91,6 @@
     "/electra.lan.vdx.hu/10.24.0.2"
     "/nextcloud.vdx.hu/10.24.0.2"
     "/electra.lan/192.168.24.2"
-
-    "/elnath.lan.vdx.hu/10.24.0.6"
 
     "/kraz.lan.vdx.hu/10.24.0.7"
   ];

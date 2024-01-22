@@ -132,7 +132,6 @@ in {
         userId = 1000;
       };
 
-      "elnath.vdx.hu" = configureSshHost {roles = ["trusted" "external"];};
       "kraz.vdx.hu" = configureSshHost {roles = ["trusted" "external"];};
 
       "git.vdx.hu" = configureSshHost {roles = ["external"];};
