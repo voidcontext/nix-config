@@ -107,6 +107,11 @@ in {
     pkgs.colima
     pkgs.docker-client
 
+    pkgs.kubectl
+    pkgs.k9s
+    pkgs.kubectx
+    pkgs.fluxcd
+
     pkgs.prismlauncher
   ];
 

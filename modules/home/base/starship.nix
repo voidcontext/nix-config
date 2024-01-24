@@ -64,6 +64,10 @@
       #       symbol = " ";
       #     };
 
+      kubernetes = {
+        disabled =  false;
+      };
+
       #     java = {
       #       symbol = " ";
       #     };
