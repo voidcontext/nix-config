@@ -118,23 +118,6 @@
   nix.package = pkgs.unstable.nix;
   nix.settings.trusted-users = ["root" "vdx" "remote-builder"];
 
-  # Nginx
-
-  security.acme.defaults.email = "admin+acme@vdx.hu";
-  security.acme.acceptTerms = true;
-  # services.nginx.enable = true;
-  services.nginx.recommendedProxySettings = true;
-  networking.firewall.allowedTCPPorts = [
-    # nginx
-    80
-    443
-    # minecraft servers on k3s
-    32101 # mountain village
-  ];
-  networking.firewall.allowedUDPPorts = [
-    # minecraft servers on k3s
-    32101 # mountain village
-  ];
 
   # k3s
   services.k3s.enable = true;
@@ -145,31 +128,18 @@
     6443
   ];
   networking.firewall.trustedInterfaces = ["cni+"];
+  networking.firewall.allowedTCPPorts = [
+    # traefik
+    80
+    443
+    # minecraft servers on k3s
+    32101 # mountain village
+  ];
+  networking.firewall.allowedUDPPorts = [
+    # minecraft servers on k3s
+    32101 # mountain village
+  ];
 
-  services.nginx.virtualHosts."staging.gaborpihaj.com" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."^~ /.well-known/acme-challenge" = {
-      proxyPass = "http://localhost:8080";
-      extraConfig = ''
-        auth_basic off;
-      '';
-    };
-    locations."/" = {
-      proxyPass = "http://localhost:8443";
-      basicAuthFile = "/opt/secrets/nginx/staging.gaborpihaj.com.htpasswd";
-    };
-  };
-  services.nginx.virtualHosts."gaborpihaj.com" = {
-    enableACME = false;
-    forceSSL = true;
-    sslCertificate = "/opt/secrets/nginx/gaborpihaj.com/fullchain.pem";
-    sslCertificateKey = "/opt/secrets/nginx/gaborpihaj.com/key.pem";
-    sslTrustedCertificate = "/opt/secrets/nginx/gaborpihaj.com/chain.pem";
-    locations."/" = {
-      proxyPass = "http://localhost:8443";
-    };
-  };
   services.xinetd.enable = true;
   services.xinetd.services = [
     {

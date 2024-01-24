@@ -1,21 +1,6 @@
 {pkgs, ...}: let
   hostSecrets = import ./secrets.nix;
 in {
-  # Nix binary Cache ----
-  services.nginx.virtualHosts."attic.kraz.vdx.hu" = {
-    enableACME = true;
-    forceSSL = true;
-    serverAliases = ["cache.nix.vdx.hu"];
-    extraConfig = ''
-      access_log /var/log/nginx/attic.kraz.vdx.hu-access.log;
-      error_log /var/log/nginx/attic.kraz.vdx.hu-error.log error;
-      client_max_body_size 2G;
-    '';
-    locations."/" = {
-      proxyPass = "http://localhost:8010";
-    };
-  };
-
   services.postgresql.enable = true;
   services.postgresql.ensureDatabases = ["atticd_v2"];
 
