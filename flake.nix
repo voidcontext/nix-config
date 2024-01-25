@@ -121,7 +121,6 @@
               ./modules/home/development/nix
               ./modules/home/development/scala
               ./modules/home/programs/kitty
-              ./modules/home/virtualization/lima
             ];
           home-manager.extraSpecialArgs = {
             inherit localLib inputs;

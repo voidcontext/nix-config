@@ -18,8 +18,6 @@ in {
   development.java.jdk = pkgs.openjdk17_headless;
   development.scala.enable = true;
 
-  virtualization.lima.enable = true;
-
   programs.home-manager.enable = true;
 
   programs.zsh.shellAliases = {
@@ -60,13 +58,17 @@ in {
     pkgs.plantuml
     pkgs.gh
     pkgs.gh-dash
+    pkgs.colima
 
     pkgs.lamina
+
+    pkgs.kubectl
+    pkgs.k9s
+    pkgs.kubectx
 
     # extra packages
     cuopp-msg-helper
   ];
-
   programs.ssh = {
     enable = true;
     matchBlocks = {
