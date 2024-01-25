@@ -17,6 +17,13 @@
       _direnv_hook() {
       	_direnv_hook__old "$@" 2> >(egrep -v '^direnv: (export)')
       }
+
+      kubeoff
+      KUBE_PS1_SEPARATOR=" ctx:"
+      KUBE_PS1_PREFIX=""
+      KUBE_PS1_SUFFIX=" "
+      KUBE_PS1_DIVIDER=" ns:"
+      PROMPT='$(kube_ps1)'$PROMPT
     '';
 
     shellAliases = {
@@ -54,6 +61,8 @@
       dkcu = "docker compose up -d";
       dkcl = "docker compose logs";
       dkcr = "docker compose stop && docker compose rm -f && docker compose up";
+
+      kb = "kubectl";
 
       nsp = "nix search nixpkgs";
       nsu = "nix search nixpkgs-unstable";
@@ -103,6 +112,7 @@
       plugins = [
         "git"
         "z"
+        "kube-ps1"
       ];
     };
   };

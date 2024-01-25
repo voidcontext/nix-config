@@ -65,7 +65,7 @@
       #     };
 
       kubernetes = {
-        disabled =  false;
+        disabled = true;
       };
 
       #     java = {
