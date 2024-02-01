@@ -109,6 +109,7 @@ in {
     pkgs.k9s
     pkgs.kubectx
     pkgs.fluxcd
+    pkgs.kubernetes-helm
 
     pkgs.prismlauncher
   ];
