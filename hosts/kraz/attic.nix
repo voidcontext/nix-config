@@ -28,7 +28,7 @@ in {
 
     settings = {
       listen = "0.0.0.0:8010";
-      api-endpoint = "https://attic.kraz.vdx.hu/";
+      api-endpoint = "https://cache.nix.vdx.hu/";
       database.url = "postgresql://atticd:${hostSecrets.attic.dbPassword}@localhost/atticd_v2";
 
       # storage.type = "s3";
