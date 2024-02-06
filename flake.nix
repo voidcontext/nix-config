@@ -279,13 +279,13 @@
         then localLib.mkRebuildDarwin pkgs
         else localLib.mkRebuildNixos pkgs;
     in {
-      devShells.default = pkgs.mkShell {
+      devShells.default = (builtins.trace (builtins.attrNames self) (pkgs.mkShell {
         buildInputs = [
           pkgs.alejandra
           pkgs.deploy-rs-flake
           pkgs.git-crypt
           rebuild
         ];
-      };
+      }));
     }));
 }

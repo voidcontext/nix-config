@@ -65,6 +65,7 @@ in {
     pkgs.kubectl
     pkgs.k9s
     pkgs.kubectx
+    pkgs.awscli2
 
     # extra packages
     cuopp-msg-helper

@@ -5,9 +5,6 @@
   ...
 }:
 # This module helps setting up static sites
-# When autoRebuildGit is enabled, then
-# - the site should be a buildable flake cloned into /opt/src/${domainName}
-# - the repo should be owned by indieweb:indieweb
 with builtins;
 with lib; let
   cfg = config.static-sites;
@@ -101,13 +98,6 @@ with lib; let
     };
 
     options.autoIndex = mkEnableOption "Whether to turn on auto indexing on the root path";
-
-    options.autoRebuildGit = mkEnableOption "Whether to auto rebuild the static site on changes";
-
-    options.afterRebuild = mkOption {
-      type = types.str;
-      default = "";
-    };
   };
 
   rebuildLogFile = config: "/var/log/static-sites/${config.domainName}-rebuild.log";
