@@ -1,8 +1,6 @@
 {pkgs, ...}: let
   urlShortenerPort = 6009;
 
-  iwtBin = "${pkgs.indieweb-tools}/bin/iwt";
-
   urlShortenerBin = "${pkgs.indieweb-tools}/bin/iwt-url-shortener";
 
   iwtCrossPublishLog = "/var/log/indieweb/cross-publish.log";
@@ -24,17 +22,6 @@ in {
   environment.systemPackages = [
     pkgs.indieweb-tools
   ];
-
-  static-sites."gaborpihaj.com" = {
-    enable = true;
-    domainName = "gaborpihaj.com";
-    owner = "indieweb";
-    group = "nginx";
-    autoRebuildGit = true;
-    # afterRebuild = ''
-    #   ${iwtBin} --config /opt/indieweb/indieweb.toml cross-publish >> ${iwtCrossPublishLog} 2>&1
-    # '';
-  };
 
   #****************************************************************************
   # URL Shortener
