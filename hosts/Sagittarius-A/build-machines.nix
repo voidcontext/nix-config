@@ -5,8 +5,8 @@
       hostName = "kraz.vdx.hu";
       sshUser = "remote-builder";
       system = "x86_64-linux";
-      sshKey = "/Users/gaborpihaj/.ssh/kraz-remote-builer";
-      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURURW4rb05nNW9MYmNMRmdRZjFGSFNLdnQzVSs1UHp6VWwwN05CdzJDSFogcm9vdEBlbG=";
+      sshKey = "/Users/gaborpihaj/.ssh/kraz-remote-builder";
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUdaMmMwektSeHcwa0syZEZCZ042QlVDY2kyUng3RnpLTlh0MGx1K0JaTHggcm9vdEBoZXR6bmVyCg==%";
       maxJobs = 8;
       supportedFeatures = ["kvm" "benchmark" "big-parallel" "nixos-test"];
       protocol = "ssh";
