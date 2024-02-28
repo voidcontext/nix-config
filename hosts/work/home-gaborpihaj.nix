@@ -2,6 +2,7 @@
   workspace = "$HOME/workspace";
   extras = import ./extras.nix;
   cuopp-msg-helper = import ./scripts/cuopp-msg-helper.nix {inherit pkgs;};
+  new-branch = import ./scripts/nb.nix {inherit pkgs;};
   teamReposFilter = builtins.toString (builtins.map (r: "repo:${r}") extras.teamRepos);
 in {
   home.stateVersion = "23.05";
@@ -24,6 +25,8 @@ in {
     p = "cd ${workspace}/personal";
     d = "cd ${workspace}/work";
     tf = "terraform";
+    assume = "export GRANTED_ALIAS_CONFIGURED=true && source .assume-wrapped";
+    nb = "new-branch";
   };
 
   programs.nix-index.enable = true;
@@ -69,6 +72,7 @@ in {
 
     # extra packages
     cuopp-msg-helper
+    new-branch
   ];
   programs.ssh = {
     enable = true;
