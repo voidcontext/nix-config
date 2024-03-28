@@ -11,6 +11,8 @@
     home-manager.url = "github:rycee/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     deploy-rs.url = "github:serokell/deploy-rs";
 
     helix.url = "github:helix-editor/helix";
@@ -91,11 +93,13 @@
         };
       };
 
-    defaultsFor = system: let
+    defaultsFor = system: defaultsForWithOverlays system [];
+
+    defaultsForWithOverlays = system: overlays: let
       unstable-overlay = final: prev: {
         unstable = importNixpkgs nixpkgs-unstable system defaultOverlays;
       };
-      pkgs = importNixpkgs nixpkgs system ([unstable-overlay] ++ defaultOverlays);
+      pkgs = importNixpkgs nixpkgs system ([unstable-overlay] ++ defaultOverlays ++ overlays);
     in {
       inherit pkgs system;
       specialArgs = {
@@ -127,7 +131,7 @@
         })
       ];
   in
-    {
+    rec {
       darwinConfigurations = {
         "Sagittarius-A" = darwin.lib.darwinSystem (
           (defaultsFor flake-utils.lib.system.x86_64-darwin)
@@ -242,6 +246,57 @@
         profiles.system.user = "root";
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.albeiro;
       };
+
+      packages.${flake-utils.lib.system.aarch64-linux}.uconsole-sd-image = let
+        system = flake-utils.lib.system.aarch64-linux;
+        pkgs =
+          importNixpkgs nixpkgs system
+          [
+            (final: super: {
+              makeModulesClosure = x:
+                super.makeModulesClosure (x // {allowMissing = true;});
+            })
+          ];
+      in
+        (nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          modules = [
+            "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+            ({pkgs, ...}: {
+              boot.kernelPackages = let
+                linux_sgx_pkg = {
+                  fetchurl,
+                  buildLinux,
+                  ...
+                } @ args:
+                  buildLinux (args
+                    // rec {
+                      version = "6.1.y-labrat97-1";
+                      modDirVersion = version;
+
+                      src = fetchurl {
+                        url = "https://github.com/labrat97/uconsole-linux/archive/57c9d7dac2553f5d55b8c5f095bdfd277a225b0a.zip";
+                        # After the first build attempt, look for "hash mismatch" and then 2 lines below at the "got:" line.
+                        # Use "sha256-....." value here.
+                        hash = "";
+                      };
+
+                      extraMeta.branch = "6.1";
+                    }
+                    // (args.argsOverride or {}));
+                linux_sgx = pkgs.callPackage linux_sgx_pkg {};
+              in
+                pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_sgx);
+              powerManagement.cpuFreqGovernor = "ondemand";
+              services.openssh.enable = true;
+            })
+          ];
+        })
+        .config
+        .system
+        .build
+        .sdImage;
 
       packages.${flake-utils.lib.system.x86_64-linux}.cache-warmup = let
         pkgs = (defaultsFor flake-utils.lib.system.x86_64-linux).specialArgs.pkgs;
