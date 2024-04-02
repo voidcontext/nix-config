@@ -202,6 +202,21 @@
                 ./hosts/albeiro/configuration.nix
               ];
           });
+
+        orkaria = nixpkgs.lib.nixosSystem ((defaultsForWithOverlays flake-utils.lib.system.aarch64-linux [
+            (final: super: {
+              makeModulesClosure = x:
+                super.makeModulesClosure (x // {allowMissing = true;});
+            })
+          ])
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                home-manager.nixosModules.home-manager
+                ./hosts/orkaria/configuration.nix
+              ];
+          });
       };
 
       deploy.nodes.electra = {
@@ -247,56 +262,9 @@
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.albeiro;
       };
 
-      packages.${flake-utils.lib.system.aarch64-linux}.uconsole-sd-image = let
-        system = flake-utils.lib.system.aarch64-linux;
-        pkgs =
-          importNixpkgs nixpkgs system
-          [
-            (final: super: {
-              makeModulesClosure = x:
-                super.makeModulesClosure (x // {allowMissing = true;});
-            })
-          ];
-      in
-        (nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          modules = [
-            "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-            inputs.nixos-hardware.nixosModules.raspberry-pi-4
-            ({pkgs, ...}: {
-              boot.kernelPackages = let
-                linux_sgx_pkg = {
-                  fetchurl,
-                  buildLinux,
-                  ...
-                } @ args:
-                  buildLinux (args
-                    // rec {
-                      version = "6.1.y-labrat97-1";
-                      modDirVersion = version;
-
-                      src = fetchurl {
-                        url = "https://github.com/labrat97/uconsole-linux/archive/57c9d7dac2553f5d55b8c5f095bdfd277a225b0a.zip";
-                        # After the first build attempt, look for "hash mismatch" and then 2 lines below at the "got:" line.
-                        # Use "sha256-....." value here.
-                        hash = "";
-                      };
-
-                      extraMeta.branch = "6.1";
-                    }
-                    // (args.argsOverride or {}));
-                linux_sgx = pkgs.callPackage linux_sgx_pkg {};
-              in
-                pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_sgx);
-              powerManagement.cpuFreqGovernor = "ondemand";
-              services.openssh.enable = true;
-            })
-          ];
-        })
-        .config
-        .system
-        .build
-        .sdImage;
+      packages.${flake-utils.lib.system.aarch64-linux}.uconsole-sd-image = (import ./images/uconsole.nix) {
+        inherit inputs importNixpkgs;
+      };
 
       packages.${flake-utils.lib.system.x86_64-linux}.cache-warmup = let
         pkgs = (defaultsFor flake-utils.lib.system.x86_64-linux).specialArgs.pkgs;
@@ -329,6 +297,23 @@
         if pkgs.stdenv.isDarwin
         then localLib.mkRebuildDarwin pkgs
         else localLib.mkRebuildNixos pkgs;
+      swapboot = pkgs.writeShellApplication {
+        name = "swap-boot";
+        runtimeInputs = [pkgs.util-linux pkgs.gawk];
+        text = ''
+          set -x
+          set -o pipefail
+          _official_image="$1"
+          _nixos_image="$2"
+          _result_image="$3"
+
+          _orig_boot_size=$(sfdisk --dump "$_official_image" | grep img2 | sed 's/.*start=\ \+\([0-9]\+\).*/\1/')
+          _nixos_boot_size=$(sfdisk --dump "$_nixos_image" | grep img2 | sed 's/.*start=\ \+\([0-9]\+\).*/\1/')
+          dd if="$_official_image" of="$_result_image" count="$_orig_boot_size"
+          dd if="$_nixos_image" skip="$_nixos_boot_size" of="$_result_image" seek="$_orig_boot_size"
+          echo "Size of boot partition: $_orig_boot_size"
+        '';
+      };
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
@@ -336,6 +321,10 @@
           pkgs.deploy-rs-flake
           pkgs.git-crypt
           rebuild
+          
+          pkgs.util-linux
+          pkgs.zstd
+          swapboot
         ];
       };
     }));
