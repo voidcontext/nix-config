@@ -32,7 +32,7 @@
   #boot.kernelPackages = pkgs.linuxPackages_rpi;
   # !!! Otherwise (even if you have a Raspberry Pi 2 or 3), pick this:
   boot.kernelPackages = pkgs.linuxPackages_rpi4;
-  boot.tmp.useTmpfs = true;
+  boot.tmp.useTmpfs = false;
 
   # !!! This is only for ARMv6 / ARMv7. Don't enable this on AArch64, cache.nixos.org works there.
   #nix.binaryCaches = lib.mkForce [ "http://nixos-arm.dezgeg.me/channel" ];
@@ -111,6 +111,19 @@
     };
   };
   nix.settings.trusted-users = ["root" "vdx" "remote-builder"];
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+    {
+      hostName = "kraz.vdx.hu";
+      sshUser = "remote-builder";
+      system = "x86_64-linux";
+      sshKey = "/Users/vdx/.ssh/kraz-remote-builder";
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUdaMmMwektSeHcwa0syZEZCZ042QlVDY2kyUng3RnpLTlh0MGx1K0JaTHggcm9vdEBoZXR6bmVyCg==%";
+      maxJobs = 8;
+      supportedFeatures = ["kvm" "benchmark" "big-parallel" "nixos-test"];
+      protocol = "ssh";
+    }
+  ];
 
   # Login / ssh / security
 
