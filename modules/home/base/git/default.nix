@@ -48,6 +48,7 @@ in {
       };
 
       home.file.".config/git/ignore".text = ''
+        *.worksheet.sc
         .DS_Store
         .ammonite
         .bloop
@@ -55,13 +56,14 @@ in {
         .bsp
         .dotbin
         .envrc.local
-        .metals
-        .sbt-hydra-history
-        .nix-shell
+        .gittmp
+        .jj
         .markdown-root
+        .metals
+        .nix-shell
+        .sbt-hydra-history
         metals.sbt
         result
-        *.worksheet.sc
       '';
 
       programs.git = {
@@ -86,6 +88,27 @@ in {
           init = {
             inherit templateDir;
           };
+        };
+      };
+
+      programs.jujutsu = {
+        enable = true;
+        package = pkgs.unstable.jujutsu;
+        settings = {
+          user = {
+            name = cfg.name;
+            email = cfg.email;
+          };
+          signing =
+            if cfg.sign
+            then {
+              sign-all = cfg.sign;
+              backend = "gpg";
+              key = cfg.signing-key;
+            }
+            else {
+              sign-all = false;
+            };
         };
       };
     })
