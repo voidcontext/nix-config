@@ -71,6 +71,12 @@
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.7/32"];
         }
+        {
+          # orkaria
+          publicKey = secrets.wireguard.orkaria.publicKey;
+          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+          allowedIPs = ["10.24.0.8/32"];
+        }
         # { # John Doe
         #   publicKey = "{john doe's public key}";
         #   allowedIPs = [ "10.100.0.3/32" ];

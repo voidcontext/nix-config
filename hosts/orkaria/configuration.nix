@@ -1,0 +1,95 @@
+{
+  pkgs,
+  secrets,
+  ...
+}: 
+let orkaria-secrets = import ./secrets.nix;
+in
+{
+  imports = [
+    ./wireguard.nix
+  ];
+
+  boot.kernelParams = [
+    "snd_bcm2835.enable_compat_alsa=0"
+    "snd_bcm2835.enable_headphones=1"
+    "snd_bcm2835.enable_hdmi=1"
+  ];
+
+  base.headless = false;
+  base.font.family = "Iosevka";
+
+  system.stateVersion = "23.11";
+
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+
+  powerManagement.cpuFreqGovernor = "ondemand";
+  # users.mutableUsers = false;
+  users.users = {
+    vdx = {
+      isNormalUser = true;
+      hashedPassword = orkaria-secrets.passwords.vdx;
+      extraGroups = ["wheel" "networkmanager" "video" "audio"];
+      shell = pkgs.zsh;
+      openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
+    };
+    devuser = {
+      isNormalUser = true;
+      hashedPassword = orkaria-secrets.passwords.nixos;
+      extraGroups = ["wheel" "networkmanager" "video" "audio"];
+      shell = pkgs.zsh;
+    };
+  };
+
+  home-manager.users.vdx = import ./home-vdx.nix;
+
+  networking.networkmanager.enable = true;
+
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.lxqt.enable = true;
+  # services.xserver.desktopManager.cinnamon.enable = true;
+
+  security.sudo.enable = true;
+  security.pam.enableSSHAgentAuth = true;
+  security.pam.services.sudo.sshAgentAuth = true;
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    firefox
+    dosbox
+    unzip
+    pciutils
+    alsa-tools
+    lshw
+    wirelesstools
+    smplayer
+    vlc
+    (retroarch.override {
+      cores = with libretro; [
+        mesen
+        snes9x
+      ];
+    })
+  ];
+
+  nix = {
+    # package = pkgs.unstable.nix;
+    package = pkgs.unstable.nix;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
+  nix.settings.trusted-users = ["root" "vdx"];
+  networking = {
+    hostName = "orkaria";
+  };
+}

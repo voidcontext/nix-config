@@ -11,7 +11,10 @@
     home-manager.url = "github:rycee/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/9a763a7acc4cfbb8603bb0231fec3eda864f81c0";
+    nixos-uconsole.url = "git+ssh://gitea@git.vdx.hu:5422/voidcontext/nixos-uconsole-staging.git";
+    nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-uconsole.inputs.nixos-hardware.follows = "nixos-hardware";
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
@@ -103,7 +106,8 @@
     in {
       inherit pkgs system;
       specialArgs = {
-        inherit pkgs localLib inputs secrets;
+        inherit localLib inputs secrets;
+        inherit (inputs) nixpkgs nixos-hardware; # for nixos-uconsole
       };
     };
 
@@ -111,7 +115,6 @@
       (localLib.modules.nixpkgs-pin.system nixpkgs nixpkgs-unstable)
       ++ [
         ./modules/system/base
-        ./modules/system/static-sites
         ({config, ...}: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
@@ -164,6 +167,7 @@
             modules =
               defaultSystemModules
               ++ [
+                ./modules/system/static-sites
                 home-manager.nixosModules.home-manager
                 ./hosts/deneb/configuration.nix
               ];
@@ -200,6 +204,23 @@
               ++ [
                 home-manager.nixosModules.home-manager
                 ./hosts/albeiro/configuration.nix
+              ];
+          });
+
+        orkaria = nixpkgs.lib.nixosSystem ((defaultsForWithOverlays flake-utils.lib.system.aarch64-linux [
+            (final: super: {
+              makeModulesClosure = x:
+                super.makeModulesClosure (x // {allowMissing = true;});
+            })
+          ])
+          // {
+            modules =
+              defaultSystemModules
+              ++ [
+                inputs.nixos-uconsole.nixosModules.default
+                inputs.nixos-uconsole.nixosModules."kernel-6.1-potatomania-cross-build"
+                home-manager.nixosModules.home-manager
+                ./hosts/orkaria/configuration.nix
               ];
           });
       };
@@ -247,59 +268,19 @@
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.albeiro;
       };
 
-      packages.${flake-utils.lib.system.aarch64-linux}.uconsole-sd-image = let
-        system = flake-utils.lib.system.aarch64-linux;
-        pkgs =
-          importNixpkgs nixpkgs system
-          [
-            (final: super: {
-              makeModulesClosure = x:
-                super.makeModulesClosure (x // {allowMissing = true;});
-            })
-          ];
-      in
-        (nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          modules = [
-            "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-            inputs.nixos-hardware.nixosModules.raspberry-pi-4
-            ({pkgs, ...}: {
-              boot.kernelPackages = let
-                linux_sgx_pkg = {
-                  fetchurl,
-                  buildLinux,
-                  ...
-                } @ args:
-                  buildLinux (args
-                    // rec {
-                      version = "6.1.y-labrat97-1";
-                      modDirVersion = version;
+      deploy.nodes.orkaria = {
+        sshUser = "vdx";
+        sshOpts = ["-A"];
+        hostname = "192.168.24.227";
+        remoteBuild = false;
+        fastConnection = false;
 
-                      src = fetchurl {
-                        url = "https://github.com/labrat97/uconsole-linux/archive/57c9d7dac2553f5d55b8c5f095bdfd277a225b0a.zip";
-                        # After the first build attempt, look for "hash mismatch" and then 2 lines below at the "got:" line.
-                        # Use "sha256-....." value here.
-                        hash = "";
-                      };
-
-                      extraMeta.branch = "6.1";
-                    }
-                    // (args.argsOverride or {}));
-                linux_sgx = pkgs.callPackage linux_sgx_pkg {};
-              in
-                pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_sgx);
-              powerManagement.cpuFreqGovernor = "ondemand";
-              services.openssh.enable = true;
-            })
-          ];
-        })
-        .config
-        .system
-        .build
-        .sdImage;
+        profiles.system.user = "root";
+        profiles.system.path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.orkaria;
+      };
 
       packages.${flake-utils.lib.system.x86_64-linux}.cache-warmup = let
-        pkgs = (defaultsFor flake-utils.lib.system.x86_64-linux).specialArgs.pkgs;
+        pkgs = (defaultsFor flake-utils.lib.system.x86_64-linux).pkgs;
       in
         pkgs.symlinkJoin {
           name = "cache-warmup";
@@ -311,7 +292,7 @@
         };
 
       packages.${flake-utils.lib.system.x86_64-darwin}.cache-warmup = let
-        pkgs = (defaultsFor flake-utils.lib.system.x86_64-darwin).specialArgs.pkgs;
+        pkgs = (defaultsFor flake-utils.lib.system.x86_64-darwin).pkgs;
       in
         pkgs.symlinkJoin {
           name = "cache-warmup";
@@ -324,7 +305,7 @@
         };
     }
     // (flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = (defaultsFor system).specialArgs.pkgs;
+      pkgs = (defaultsFor system).pkgs;
       rebuild =
         if pkgs.stdenv.isDarwin
         then localLib.mkRebuildDarwin pkgs

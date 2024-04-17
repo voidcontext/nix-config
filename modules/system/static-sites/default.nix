@@ -45,86 +45,83 @@ with lib; let
 
     options.autoIndex = mkEnableOption "Whether to turn on auto indexing on the root path";
   };
-in
-  if pkgs.stdenv.isDarwin
-  then {}
-  else {
-    options.static-sites = mkOption {
-      type = types.attrsOf (types.submodule static-site-options);
-      default = {};
-    };
+in {
+  options.static-sites = mkOption {
+    type = types.attrsOf (types.submodule static-site-options);
+    default = {};
+  };
 
-    config = {
-      users.groups.staticsites = {};
+  config = {
+    users.groups.staticsites = {};
 
-      systemd.services =
-        {
-          static-sites-setup = {
-            description = "Setup directories for static site cron logs";
-            before = ["nginx.service"];
+    systemd.services =
+      {
+        static-sites-setup = {
+          description = "Setup directories for static site cron logs";
+          before = ["nginx.service"];
 
-            wantedBy = ["multi-user.target"];
+          wantedBy = ["multi-user.target"];
 
-            serviceConfig = {
-              Type = "simple";
-              User = "root";
+          serviceConfig = {
+            Type = "simple";
+            User = "root";
 
-              Group = "root";
+            Group = "root";
 
-              ExecStart = "${setup}/bin/static-site-setup";
-            };
+            ExecStart = "${setup}/bin/static-site-setup";
           };
-        }
-        // mapAttrs'
-        (name: config: {
-          name = "static-site-${name}-prereqs";
-          value = {
-            description = "Setup directories for static site ${name}";
-            before = ["nginx.service"];
+        };
+      }
+      // mapAttrs'
+      (name: config: {
+        name = "static-site-${name}-prereqs";
+        value = {
+          description = "Setup directories for static site ${name}";
+          before = ["nginx.service"];
 
-            wantedBy = ["multi-user.target"];
+          wantedBy = ["multi-user.target"];
 
-            environment = {
-              SITE = config.domainName;
-              OWNER = config.owner;
-              GROUP = config.group;
-            };
-
-            serviceConfig = {
-              Type = "simple";
-              User = "root";
-
-              Group = "root";
-
-              ExecStart = "${init}/bin/static-site-init";
-            };
+          environment = {
+            SITE = config.domainName;
+            OWNER = config.owner;
+            GROUP = config.group;
           };
-        })
-        cfg;
 
-      services.nginx.virtualHosts =
-        mapAttrs'
-        (name: config: {
-          name = "${config.domainName}";
-          value = {
-            forceSSL = true;
-            enableACME = true;
-            root = "/var/www/${config.domainName}/";
-            locations."/" = {
-              extraConfig =
-                if config.autoIndex
-                then ''
-                  autoindex on;
-                ''
-                else "";
-            };
-            extraConfig = ''
-              access_log /var/log/nginx/${config.domainName}-access.log;
-              error_log /var/log/nginx/${config.domainName}-error.log error;
-            '';
-            basicAuthFile = config.basicAuthFile;
+          serviceConfig = {
+            Type = "simple";
+            User = "root";
+
+            Group = "root";
+
+            ExecStart = "${init}/bin/static-site-init";
           };
-        })
-        cfg;
-    };
-  }
+        };
+      })
+      cfg;
+
+    services.nginx.virtualHosts =
+      mapAttrs'
+      (name: config: {
+        name = "${config.domainName}";
+        value = {
+          forceSSL = true;
+          enableACME = true;
+          root = "/var/www/${config.domainName}/";
+          locations."/" = {
+            extraConfig =
+              if config.autoIndex
+              then ''
+                autoindex on;
+              ''
+              else "";
+          };
+          extraConfig = ''
+            access_log /var/log/nginx/${config.domainName}-access.log;
+            error_log /var/log/nginx/${config.domainName}-error.log error;
+          '';
+          basicAuthFile = config.basicAuthFile;
+        };
+      })
+      cfg;
+  };
+}
