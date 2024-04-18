@@ -50,6 +50,22 @@
       gsl = "git shortlog -s -n";
       gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
 
+      jb = "jj branch";
+      jbl = "jj branch list";
+      jbs = "jj branch set";
+      jde = "jj desc";
+      jdm = "jj desc -m";
+      jdf = "jj diff";
+      jgf = "jj git fetch";
+      jgp = "jj git push";
+      jl = "jj log";
+      jop = "jj op";
+      jopl = "jj op list";
+      job = "jj obslog";
+      jn = "jj new";
+      jnm = "jj new main";
+      jst = "jj st";
+
       rcd = "cd $(git rev-parse --show-toplevel)";
 
       dk = "docker";
