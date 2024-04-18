@@ -42,19 +42,30 @@
       #     };
 
       git_branch = {
+        disabled = true;
         symbol = " ";
         style = "bold blue";
       };
 
       git_metrics = {
-        disabled = false;
+        disabled = true;
         added_style = "italic green";
         deleted_style = "italic red";
       };
 
       git_status = {
+        disabled = true;
         style = "purple";
       };
+
+      git_commit = {
+        disabled = true;
+      };
+
+      git_state = {
+        disabled = true;
+      };
+
 
       #     golang = {
       #       symbol = " ";
