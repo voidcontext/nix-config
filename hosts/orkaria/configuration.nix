@@ -2,8 +2,7 @@
   pkgs,
   config-extras,
   ...
-}: 
-{
+}: {
   imports = [
     ./wireguard.nix
   ];

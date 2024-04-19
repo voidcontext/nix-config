@@ -1,7 +1,4 @@
-{
-  config-extras,
-  ...
-}: {
+{config-extras, ...}: {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   # enable NAT
   networking.nat.enable = true;

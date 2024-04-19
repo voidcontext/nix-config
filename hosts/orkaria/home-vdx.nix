@@ -3,8 +3,7 @@
   config,
   config-extras,
   ...
-}: 
-let
+}: let
   sshHostRoles = {
     trusted = {...}: {
       forwardAgent = true;
@@ -32,8 +31,7 @@ let
   };
 
   configureSshHost = {roles, ...} @ args: (builtins.foldl' (acc: role: acc // (sshHostRoles.${role} args)) {} roles);
-in
-{
+in {
   imports = [
     config-extras.hosts.Sagittarius-A
   ];

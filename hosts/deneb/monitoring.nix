@@ -1,4 +1,8 @@
-{pkgs, config-extras, ...}:{
+{
+  pkgs,
+  config-extras,
+  ...
+}: {
   services.influxdb2.enable = true;
 
   services.telegraf.enable = true;

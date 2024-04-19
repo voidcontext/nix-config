@@ -1,4 +1,8 @@
-{pkgs, config-extras, ...}: let
+{
+  pkgs,
+  config-extras,
+  ...
+}: let
   secrets = config-extras.secrets.hosts.deneb;
   influx = "${pkgs.influxdb2}/bin/influx";
   gitea = "${pkgs.unstable.forgejo}/bin/gitea";

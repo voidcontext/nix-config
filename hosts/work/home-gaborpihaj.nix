@@ -1,4 +1,8 @@
-{pkgs, config-extras, ...}: let
+{
+  pkgs,
+  config-extras,
+  ...
+}: let
   workspace = "$HOME/workspace";
   cuopp-msg-helper = import ./scripts/cuopp-msg-helper.nix {inherit pkgs;};
   new-branch = import ./scripts/nb.nix {inherit pkgs;};

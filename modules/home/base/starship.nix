@@ -66,7 +66,6 @@
         disabled = true;
       };
 
-
       #     golang = {
       #       symbol = " ";
       #     };

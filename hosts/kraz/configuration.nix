@@ -117,7 +117,6 @@
   nix.package = pkgs.unstable.nix;
   nix.settings.trusted-users = ["root" "vdx" "remote-builder"];
 
-
   # k3s
   services.k3s.enable = true;
   services.k3s.package = pkgs.unstable.k3s_1_29;

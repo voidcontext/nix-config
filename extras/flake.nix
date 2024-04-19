@@ -4,7 +4,7 @@
   inputs = {
   };
 
-  outputs = { self }: {
+  outputs = {self}: {
     hosts = {
       deneb = {};
       electra = {};
