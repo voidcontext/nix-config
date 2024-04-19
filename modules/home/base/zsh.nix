@@ -51,20 +51,24 @@
       gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
 
       jb = "jj branch";
+      jbc = "jj branch create";
       jbl = "jj branch list";
       jbs = "jj branch set";
       jde = "jj desc";
-      jdm = "jj desc -m";
       jdf = "jj diff";
+      jdfd = "jj diff --tool delta";
+      jdm = "jj desc -m";
       jgf = "jj git fetch";
       jgp = "jj git push";
       jl = "jj log";
-      jop = "jj op";
-      jopl = "jj op list";
-      job = "jj obslog";
       jn = "jj new";
       jnm = "jj new main";
-      jst = "jj st";
+      job = "jj obslog";
+      jop = "jj op";
+      jopl = "jj op list";
+      jr = "jj rebase";
+      jsq = "jj squash";
+      jst = "jj status";
 
       rcd = "cd $(git rev-parse --show-toplevel)";
 

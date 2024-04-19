@@ -99,6 +99,9 @@ in {
             name = cfg.name;
             email = cfg.email;
           };
+          template-aliases = {
+            "format_short_id(id)" = "id.shortest()";
+          };
           signing =
             if cfg.sign
             then {
