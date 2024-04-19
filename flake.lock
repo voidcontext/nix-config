@@ -70,18 +70,6 @@
         "type": "gitlab"
       }
     },
-    "config-extras": {
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-ZXnHvxORxuLUF5L8lY84JEv6TNtc+jWkKkPgUXFGazw=",
-        "path": "./extras",
-        "type": "path"
-      },
-      "original": {
-        "path": "./extras",
-        "type": "path"
-      }
-    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -1237,7 +1225,6 @@
     "root": {
       "inputs": {
         "attic": "attic",
-        "config-extras": "config-extras",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "felis": "felis",
