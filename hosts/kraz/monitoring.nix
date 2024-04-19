@@ -1,6 +1,4 @@
-{pkgs, ...}: let
-  secrets = import ./secrets.nix;
-in {
+{pkgs, config-extras, ...}:  {
   services.influxdb2 = {
     enable = true;
     provision.enable = true;
@@ -29,7 +27,7 @@ in {
   services.telegraf.extraConfig.inputs.net = {};
   services.telegraf.extraConfig.outputs.influxdb_v2 = {
     urls = ["http://127.0.0.1:8086"];
-    token = secrets.influxdb.telegraf-token;
+    token = config-extras.secrets.hosts.kraz.influxdb.telegraf-token;
     organization = "kraz";
     bucket = "system";
   };

@@ -1,6 +1,8 @@
-{pkgs, ...}: let
-  hostSecrets = import ./secrets.nix;
-in {
+{
+  pkgs,
+  config-extras,
+  ...
+}: {
   services.postgresql.enable = true;
   services.postgresql.ensureDatabases = ["atticd_v2"];
 
@@ -18,7 +20,7 @@ in {
     $PSQL atticd_v2 -tAc 'GRANT ALL ON ALL TABLES IN SCHEMA public TO atticd' || true
     $PSQL atticd_v2 -tAc 'GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO atticd' || true
     $PSQL atticd_v2 -tAc 'ALTER DATABASE atticd_v2 OWNER TO atticd' || true
-    $PSQL atticd_v2 -tAc "ALTER USER atticd WITH PASSWORD '${hostSecrets.attic.dbPassword}'" || true
+    $PSQL atticd_v2 -tAc "ALTER USER atticd WITH PASSWORD '${config-extras.secrets.hosts.kraz.attic.dbPassword}'" || true
   '';
 
   services.atticd = {
@@ -29,7 +31,7 @@ in {
     settings = {
       listen = "0.0.0.0:8010";
       api-endpoint = "https://cache.nix.vdx.hu/";
-      database.url = "postgresql://atticd:${hostSecrets.attic.dbPassword}@localhost/atticd_v2";
+      database.url = "postgresql://atticd:${config-extras.secrets.hosts.kraz.attic.dbPassword}@localhost/atticd_v2";
 
       # storage.type = "s3";
       # storage.region = "ams3";

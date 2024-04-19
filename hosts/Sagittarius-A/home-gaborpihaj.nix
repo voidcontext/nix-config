@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  config-extras,
   ...
 }: let
   workspace = "$HOME/workspace";
@@ -55,7 +56,7 @@
   '';
 in {
   imports = [
-    ./extras.nix
+    config-extras.hosts.Sagittarius-A
   ];
 
   home.stateVersion = "22.11";

@@ -1,9 +1,8 @@
-{pkgs, ...}: let
+{pkgs, config-extras, ...}: let
   workspace = "$HOME/workspace";
-  extras = import ./extras.nix;
   cuopp-msg-helper = import ./scripts/cuopp-msg-helper.nix {inherit pkgs;};
   new-branch = import ./scripts/nb.nix {inherit pkgs;};
-  teamReposFilter = builtins.toString (builtins.map (r: "repo:${r}") extras.teamRepos);
+  teamReposFilter = builtins.toString (builtins.map (r: "repo:${r}") config-extras.hosts.work.teamRepos);
 in {
   home.stateVersion = "23.05";
 

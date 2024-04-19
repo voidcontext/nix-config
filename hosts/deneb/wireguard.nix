@@ -1,6 +1,5 @@
 {
-  pkgs,
-  secrets,
+  config-extras,
   ...
 }: {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
@@ -43,37 +42,37 @@
         # List of allowed peers.
         {
           # Sagittarius-A*
-          publicKey = secrets.wireguard.sagittarius-a.publicKey;
+          publicKey = config-extras.secrets.wireguard.sagittarius-a.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.3/32"];
         }
         {
           # Sagittarius-A* dev
-          publicKey = secrets.wireguard.sagittarius-a-dev.publicKey;
+          publicKey = config-extras.secrets.wireguard.sagittarius-a-dev.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.5/32"];
         }
         {
           # electra
-          publicKey = secrets.wireguard.electra.publicKey;
+          publicKey = config-extras.secrets.wireguard.electra.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.2/32"];
         }
         {
           # KJ-XS
-          publicKey = secrets.wireguard.KJ-XS.publicKey;
+          publicKey = config-extras.secrets.wireguard.KJ-XS.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.4/32"];
         }
         {
           # kraz
-          publicKey = secrets.wireguard.kraz.publicKey;
+          publicKey = config-extras.secrets.wireguard.kraz.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.7/32"];
         }
         {
           # orkaria
-          publicKey = secrets.wireguard.orkaria.publicKey;
+          publicKey = config-extras.secrets.wireguard.orkaria.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.8/32"];
         }

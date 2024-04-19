@@ -11,6 +11,8 @@
     home-manager.url = "github:rycee/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    config-extras.url = "path:./extras";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/9a763a7acc4cfbb8603bb0231fec3eda864f81c0";
     nixos-uconsole.url = "git+ssh://gitea@git.vdx.hu:5422/voidcontext/nixos-uconsole-staging.git";
     nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +51,6 @@
     ...
   } @ inputs: let
     localLib = import ./lib;
-    secrets = import ./secrets.nix;
 
     weechatOverlay = self: super: {
       # TODO: fix in 22.11
@@ -106,8 +107,8 @@
     in {
       inherit pkgs system;
       specialArgs = {
-        inherit localLib inputs secrets;
-        inherit (inputs) nixpkgs nixos-hardware; # for nixos-uconsole
+        inherit localLib inputs;
+        inherit (inputs) nixpkgs nixos-hardware config-extras; # for nixos-uconsole
       };
     };
 

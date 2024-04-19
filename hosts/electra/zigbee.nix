@@ -1,9 +1,10 @@
 {
   pkgs,
   config,
+  config-extras,
   ...
 }: let
-  secrets = import ./secrets.nix;
+  secrets = config-extras.secrets.hosts.electra;
   zigbeeUser = "zigbee2mqtt";
   mqtt2influxdb2Setup = pkgs.writeShellScriptBin "mqtt2influxdb2-setup" ''
     mkdir -p /var/mqtt2influxdb2

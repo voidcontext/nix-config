@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  secrets,
+  config-extras,
   ...
 }: {
   # Bespoke Options
@@ -14,7 +14,7 @@
   # Upstream options
 
   imports = [
-    ./extras.nix
+    config-extras.hosts.electra
     ./nextcloud.nix
     ./samba.nix
     ./wireguard.nix
@@ -150,14 +150,14 @@
       isNormalUser = true;
       home = "/home/pi";
       extraGroups = ["wheel" "networkmanager"];
-      openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
+      openssh.authorizedKeys.keys = [config-extras.secrets.ssh.public-keys.gpg];
     };
 
     vdx = {
       isNormalUser = true;
       extraGroups = ["wheel" "networkmanager" "video"];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
+      openssh.authorizedKeys.keys = [config-extras.secrets.ssh.public-keys.gpg];
     };
 
     git = {
@@ -172,7 +172,7 @@
       isNormalUser = true;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [
-        secrets.ssh.public-keys."gaborpihaj@Sagittarius-A.lan -> electra remote-build"
+        config-extras.secrets.ssh.public-keys."gaborpihaj@Sagittarius-A.lan -> electra remote-build"
       ];
     };
   };

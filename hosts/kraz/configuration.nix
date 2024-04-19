@@ -1,7 +1,6 @@
 {
-  config,
   pkgs,
-  secrets,
+  config-extras,
   ...
 }: {
   base.font.enable = false;
@@ -96,14 +95,14 @@
     isNormalUser = true;
     extraGroups = ["wheel"];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
+    openssh.authorizedKeys.keys = [config-extras.secrets.ssh.public-keys.gpg];
   };
 
   users.users.remote-builder = {
     isNormalUser = true;
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      secrets.ssh.public-keys."gaborpihaj@Sagittarius-A.lan -> kraz remote-build"
+      config-extras.secrets.ssh.public-keys."gaborpihaj@Sagittarius-A.lan -> kraz remote-build"
     ];
   };
   # Home manager

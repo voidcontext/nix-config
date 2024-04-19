@@ -1,7 +1,7 @@
 {
   pkgs,
   modulesPath,
-  secrets,
+  config-extras,
   ...
 }: let
   gen-access-html = pkgs.writeShellApplication {
@@ -41,9 +41,10 @@ in {
     # DO NOT REMOVE THIS! Default configuration for DO droplet
     (modulesPath + "/virtualisation/digital-ocean-config.nix")
 
+    config-extras.hosts.deneb
+
     # Additional imports
     ./backup.nix
-    ./extras.nix
     ./git.nix
     ./indieweb
     ./monitoring.nix
@@ -75,7 +76,7 @@ in {
     isNormalUser = true;
     extraGroups = ["wheel"];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
+    openssh.authorizedKeys.keys = [config-extras.secrets.ssh.public-keys.gpg];
   };
 
   # Home manager

@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  config-extras,
   ...
 }: 
 let
@@ -34,7 +35,7 @@ let
 in
 {
   imports = [
-    ../Sagittarius-A/extras.nix
+    config-extras.hosts.Sagittarius-A
   ];
   base.git.enable = true;
   base.git.name = "Gabor Pihaj";
