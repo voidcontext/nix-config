@@ -33,7 +33,7 @@
   configureSshHost = {roles, ...} @ args: (builtins.foldl' (acc: role: acc // (sshHostRoles.${role} args)) {} roles);
 in {
   imports = [
-    config-extras.hosts.Sagittarius-A
+    ../../extras/hosts/Sagittarius-A.nix
   ];
   base.git.enable = true;
   base.git.name = "Gabor Pihaj";

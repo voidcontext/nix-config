@@ -56,9 +56,8 @@
   '';
 in {
   imports = [
-    config-extras.hosts.Sagittarius-A
+    ../../extras/hosts/Sagittarius-A.nix
   ];
-
   home.stateVersion = "22.11";
 
   base.gpg-ssh.enable = true;
