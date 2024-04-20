@@ -50,10 +50,13 @@
       gsl = "git shortlog -s -n";
       gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
 
+      jab = "jj abandon";
       jb = "jj branch";
       jbc = "jj branch create";
       jbl = "jj branch list";
       jbs = "jj branch set";
+      jco = "jj commit";
+      jcm = "jj commit -m";
       jde = "jj desc";
       jdf = "jj diff";
       jdfd = "jj diff --tool delta";
@@ -61,6 +64,7 @@
       jgf = "jj git fetch";
       jgp = "jj git push";
       jl = "jj log";
+      jlr = "jj log --reversed --no-pager";
       jn = "jj new";
       jnm = "jj new main";
       job = "jj obslog";
