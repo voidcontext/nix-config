@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
-  secrets,
+  config-extras,
   ...
 }: {
   base.font.enable = true;
@@ -89,7 +89,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
+    openssh.authorizedKeys.keys = [config-extras.secrets.ssh.public-keys.gpg];
   };
 
   home-manager.users.vdx = import ./home-vdx.nix;

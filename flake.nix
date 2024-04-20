@@ -49,7 +49,8 @@
     ...
   } @ inputs: let
     localLib = import ./lib;
-    secrets = import ./secrets.nix;
+
+    config-extras = import ./extras;
 
     weechatOverlay = self: super: {
       # TODO: fix in 22.11
@@ -106,7 +107,7 @@
     in {
       inherit pkgs system;
       specialArgs = {
-        inherit localLib inputs secrets;
+        inherit localLib inputs config-extras;
         inherit (inputs) nixpkgs nixos-hardware; # for nixos-uconsole
       };
     };
@@ -310,6 +311,31 @@
         if pkgs.stdenv.isDarwin
         then localLib.mkRebuildDarwin pkgs
         else localLib.mkRebuildNixos pkgs;
+      unlock-extras = pkgs.writeShellApplication {
+        name = "unlock-extras";
+        runtimeInputs = [pkgs.unstable.jujutsu];
+        text = ''
+          jj new
+          jj desc -m "!DANGER! Exposed secrets!"
+          cp -r ../nix-config-extras/default.nix extras/
+          cp -r ../nix-config-extras/secrets.nix extras/
+          cp -r ../nix-config-extras/hosts extras/
+          touch .__DANGER__
+          jj new
+        '';
+      };
+      jj = pkgs.writeShellScriptBin "jj" ''
+        if [ -f .__DANGER__ ] && [ "$1" == "git" ] && [ "$2" == "push" ]; then
+          cat << EOF
+        !!!DANGER!!!
+
+        Secrets might be exposed!
+        EOF
+          exit 1
+        fi
+
+        ${pkgs.unstable.jujutsu}/bin/jj "$@"
+      '';
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
@@ -317,6 +343,8 @@
           pkgs.deploy-rs-flake
           pkgs.git-crypt
           rebuild
+          unlock-extras
+          jj
         ];
       };
     }));

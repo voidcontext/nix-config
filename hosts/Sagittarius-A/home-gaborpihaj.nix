@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  config-extras,
   ...
 }: let
   workspace = "$HOME/workspace";
@@ -55,9 +56,8 @@
   '';
 in {
   imports = [
-    ./extras.nix
+    ../../extras/hosts/Sagittarius-A.nix
   ];
-
   home.stateVersion = "22.11";
 
   base.gpg-ssh.enable = true;

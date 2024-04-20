@@ -1,11 +1,8 @@
 {
   pkgs,
-  secrets,
+  config-extras,
   ...
-}: 
-let orkaria-secrets = import ./secrets.nix;
-in
-{
+}: {
   imports = [
     ./wireguard.nix
   ];
@@ -29,14 +26,14 @@ in
   users.users = {
     vdx = {
       isNormalUser = true;
-      hashedPassword = orkaria-secrets.passwords.vdx;
+      hashedPassword = config-extras.secrets.hosts.orkaria.passwords.vdx;
       extraGroups = ["wheel" "networkmanager" "video" "audio"];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = [secrets.ssh.public-keys.gpg];
+      openssh.authorizedKeys.keys = [config-extras.secrets.ssh.public-keys.gpg];
     };
     devuser = {
       isNormalUser = true;
-      hashedPassword = orkaria-secrets.passwords.nixos;
+      hashedPassword = config-extras.secrets.hosts.orkaria.passwords.nixos;
       extraGroups = ["wheel" "networkmanager" "video" "audio"];
       shell = pkgs.zsh;
     };

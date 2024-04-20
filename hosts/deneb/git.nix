@@ -1,6 +1,9 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config-extras,
+  ...
+}: let
   forgejo = pkgs.unstable.forgejo;
-  secrets = import ./secrets.nix;
   woodpeckerPort = "8000";
   woodpeckerGRPCPort = 8001;
 in {
@@ -54,7 +57,7 @@ in {
     settings.mailer.SMTP_PORT = 456;
     settings.mailer.IS_TLS_ENABLED = true;
     settings.mailer.USER = "forgejo@vdx.hu";
-    settings.mailer.PASSWD = secrets.git.forgejo.email.password;
+    settings.mailer.PASSWD = config-extras.secrets.hosts.deneb.git.forgejo.email.password;
   };
 
   services.woodpecker-server = {
@@ -68,9 +71,9 @@ in {
       WOODPECKER_GITEA_URL = "https://git.vdx.hu";
       WOODPECKER_SERVER_ADDR = ":${woodpeckerPort}";
       WOODPECKER_GRPC_ADDR = ":${builtins.toString woodpeckerGRPCPort}";
-      WOODPECKER_GITEA_CLIENT = secrets.woodpecker.gitea.client;
-      WOODPECKER_GITEA_SECRET = secrets.woodpecker.gitea.secret;
-      WOODPECKER_AGENT_SECRET = secrets.woodpecker.agent.secret;
+      WOODPECKER_GITEA_CLIENT = config-extras.secrets.hosts.deneb.woodpecker.gitea.client;
+      WOODPECKER_GITEA_SECRET = config-extras.secrets.hosts.deneb.woodpecker.gitea.secret;
+      WOODPECKER_AGENT_SECRET = config-extras.secrets.hosts.deneb.woodpecker.agent.secret;
       WOODPECKER_LOG_LEVEL = "info";
     };
   };

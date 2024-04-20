@@ -1,6 +1,6 @@
 {
   pkgs,
-  secrets,
+  config-extras,
   ...
 }: {
   environment.systemPackages = [
@@ -42,7 +42,7 @@
       peers = [
         # List of allowed peers.
         {
-          publicKey = secrets.wireguard.deneb.publicKey;
+          publicKey = config-extras.secrets.wireguard.deneb.publicKey;
           allowedIPs = ["10.24.0.0/24"];
           endpoint = "188.166.172.212:51820";
           persistentKeepalive = 25;

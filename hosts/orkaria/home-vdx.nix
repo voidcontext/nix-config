@@ -1,9 +1,9 @@
 {
   pkgs,
   config,
+  config-extras,
   ...
-}: 
-let
+}: let
   sshHostRoles = {
     trusted = {...}: {
       forwardAgent = true;
@@ -31,10 +31,9 @@ let
   };
 
   configureSshHost = {roles, ...} @ args: (builtins.foldl' (acc: role: acc // (sshHostRoles.${role} args)) {} roles);
-in
-{
+in {
   imports = [
-    ../Sagittarius-A/extras.nix
+    ../../extras/hosts/Sagittarius-A.nix
   ];
   base.git.enable = true;
   base.git.name = "Gabor Pihaj";
