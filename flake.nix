@@ -35,7 +35,7 @@
     kitty-gruvbox-themes.url = "github:wdomitrz/kitty-gruvbox-theme";
     kitty-gruvbox-themes.flake = false;
 
-    attic.url = "github:zhaofengli/attic";
+    attic.url = "github:zhaofengli/attic/e6bedf1869f382cfc51b69848d6e09d51585ead6";
   };
 
   outputs = {
