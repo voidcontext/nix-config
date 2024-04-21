@@ -12,7 +12,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/9a763a7acc4cfbb8603bb0231fec3eda864f81c0";
-    nixos-uconsole.url = "git+ssh://gitea@git.vdx.hu:5422/voidcontext/nixos-uconsole-staging.git";
+    nixos-uconsole.url = "git+https://git.vdx.hu/voidcontext/nixos-uconsole.git";
     nixos-uconsole.inputs.nixpkgs.follows = "nixpkgs";
     nixos-uconsole.inputs.nixos-hardware.follows = "nixos-hardware";
 

@@ -851,17 +851,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1712925771,
-        "narHash": "sha256-+WWICJ9Vufja9/HRias3s309FGrUVbqr1arhkMrFRGs=",
+        "lastModified": 1713005358,
+        "narHash": "sha256-XnfiT4aC4GbHhr0XOnajvYtOO+h1OPhc2ek1RAnhgPw=",
         "ref": "refs/heads/main",
-        "rev": "890f997ade206008b28055efc18b4e19fec79988",
-        "revCount": 12,
+        "rev": "51ee23e73e5ee2306a755516a47481f9fa9264f5",
+        "revCount": 14,
         "type": "git",
-        "url": "ssh://gitea@git.vdx.hu:5422/voidcontext/nixos-uconsole-staging.git"
+        "url": "https://git.vdx.hu/voidcontext/nixos-uconsole.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://gitea@git.vdx.hu:5422/voidcontext/nixos-uconsole-staging.git"
+        "url": "https://git.vdx.hu/voidcontext/nixos-uconsole.git"
       }
     },
     "nixpkgs": {
