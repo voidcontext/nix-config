@@ -288,7 +288,8 @@
           paths = [
             pkgs.attic-client
             pkgs.lamina
-            # pkgs.indieweb-tools
+            pkgs.deploy-rs-flake
+            pkgs.indieweb-tools
           ];
         };
 
@@ -302,6 +303,7 @@
             pkgs.helixFlake
             pkgs.lamina
             pkgs.felis
+            pkgs.deploy-rs-flake
           ];
         };
     }
