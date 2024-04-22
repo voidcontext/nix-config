@@ -348,7 +348,7 @@
           exit 1
         fi
 
-        ${pkgs.deploy-rs-flake}/bin/deploy
+        ${pkgs.deploy-rs-flake}/bin/deploy "$@"
       '';
     in {
       devShells.default = pkgs.mkShell {
