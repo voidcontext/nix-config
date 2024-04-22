@@ -1,12 +1,10 @@
 {
   pkgs,
-  config-extras,
   ...
 }: let
   workspace = "$HOME/workspace";
   cuopp-msg-helper = import ./scripts/cuopp-msg-helper.nix {inherit pkgs;};
   new-branch = import ./scripts/nb.nix {inherit pkgs;};
-  teamReposFilter = builtins.toString (builtins.map (r: "repo:${r}") config-extras.hosts.work.teamRepos);
 in {
   home.stateVersion = "23.05";
 
@@ -35,35 +33,8 @@ in {
   programs.nix-index.enable = true;
   programs.nix-index.enableZshIntegration = true;
 
-  xdg.configFile."gh-dash/config.yml".text = builtins.toJSON {
-    prSections = [
-      {
-        title = "To review";
-        filters = "is:open -author:@me ${teamReposFilter} review:none draft:false";
-      }
-      {
-        title = "Approved";
-        filters = "is:open -author:@me ${teamReposFilter} review:approved";
-      }
-      {
-        title = "Changes requested";
-        filters = "is:open -author:@me ${teamReposFilter} review:changes_requested";
-      }
-      {
-        title = "Draft";
-        filters = "is:open -author:@me ${teamReposFilter} draft:true";
-      }
-      {
-        title = "My PRs";
-        filters = "is:open author:@me";
-      }
-    ];
-  };
-
   home.packages = [
     pkgs.plantuml
-    pkgs.gh
-    pkgs.gh-dash
     pkgs.colima
 
     pkgs.lamina
