@@ -52,7 +52,7 @@
 
     config-extras = import ./extras;
 
-    defaults = import ./defaults {inherit inputs localLib;};
+    defaults = import ./defaults.nix {inherit inputs localLib;};
   in
     {
       darwinConfigurations = import ./darwin.nix {
@@ -120,7 +120,11 @@
       };
 
       packages.${flake-utils.lib.system.x86_64-linux}.cache-warmup = let
-        pkgs = (defaultsFor flake-utils.lib.system.x86_64-linux).pkgs;
+        pkgs = import nixpkgs {
+          system = flake-utils.lib.system.x86_64-linux;
+          overlays = defaults.defaultOverlays;
+          config = defaults.defaultConfig;
+        };
       in
         pkgs.symlinkJoin {
           name = "cache-warmup";
@@ -133,7 +137,11 @@
         };
 
       packages.${flake-utils.lib.system.x86_64-darwin}.cache-warmup = let
-        pkgs = (defaultsFor flake-utils.lib.system.x86_64-darwin).pkgs;
+        pkgs = import nixpkgs {
+          system = flake-utils.lib.system.x86_64-darwin;
+          overlays = defaults.defaultOverlays;
+          config = defaults.defaultConfig;
+        };
       in
         pkgs.symlinkJoin {
           name = "cache-warmup";
@@ -147,57 +155,22 @@
         };
     }
     // (flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = (defaultsFor system).pkgs;
-      rebuild =
-        if pkgs.stdenv.isDarwin
-        then localLib.mkRebuildDarwin pkgs
-        else localLib.mkRebuildNixos pkgs;
-      unlock-extras = pkgs.writeShellApplication {
-        name = "unlock-extras";
-        runtimeInputs = [pkgs.unstable.jujutsu];
-        text = ''
-          jj new
-          jj desc -m "!DANGER! Exposed secrets!"
-          cp -r ../nix-config-extras/default.nix extras/
-          cp -r ../nix-config-extras/secrets.nix extras/
-          cp -r ../nix-config-extras/hosts extras/
-          touch .__DANGER__
-          jj new
-        '';
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = defaults.defaultOverlays;
+        config = defaults.defaultConfig;
       };
-      jj = pkgs.writeShellScriptBin "jj" ''
-        if [ -f .__DANGER__ ] && [ "$1" == "git" ] && [ "$2" == "push" ]; then
-          cat << EOF
-        !!!DANGER!!!
-
-        Secrets might be exposed!
-        EOF
-          exit 1
-        fi
-
-        ${pkgs.unstable.jujutsu}/bin/jj "$@"
-      '';
-      deploy = pkgs.writeShellScriptBin "deploy" ''
-        if [ ! -f .__DANGER__ ]; then
-          cat << EOF
-        !!!DANGER!!!
-
-        You probably want to run this command with unlocked extras.
-        EOF
-          exit 1
-        fi
-
-        ${pkgs.deploy-rs-flake}/bin/deploy "$@"
-      '';
+      callPackage = pkgs.lib.callPackageWith {inherit pkgs callPackage;};
+      packages = callPackage ./pkgs {};
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.alejandra
           pkgs.git-crypt
-          rebuild
-          unlock-extras
-          jj
-          deploy
+          packages.rebuild
+          packages.unlock-extras
+          packages.jj
+          packages.deploy
         ];
       };
     }));
