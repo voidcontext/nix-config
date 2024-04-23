@@ -57,7 +57,6 @@ in {
       sudo nixos-rebuild $cmd --flake .#$host --show-trace
     '';
 
-
   optionalStr = cond: str:
     if cond
     then str

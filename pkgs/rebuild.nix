@@ -1,6 +1,4 @@
-{pkgs, ...}:
-
-let
+{pkgs, ...}: let
   mkHostnameExpr = pkgs: ''${pkgs.inetutils}/bin/hostname | ${pkgs.gnused}/bin/sed 's/\.\(local\|lan\)//' '';
 
   mkRebuildInitVars = pkgs: ''
@@ -57,8 +55,7 @@ let
 
       sudo nixos-rebuild $cmd --flake .#$host --show-trace
     '';
-
-
 in
-  if pkgs.stdenv.isDarwin then mkRebuildDarwin pkgs
+  if pkgs.stdenv.isDarwin
+  then mkRebuildDarwin pkgs
   else mkRebuildNixos pkgs

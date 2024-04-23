@@ -67,7 +67,6 @@
 
       deploy.nodes = import ./deploy.nix {inherit inputs self;};
 
-
       packages.${flake-utils.lib.system.x86_64-linux}.cache-warmup = let
         pkgs = import nixpkgs {
           system = flake-utils.lib.system.x86_64-linux;

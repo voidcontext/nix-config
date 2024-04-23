@@ -1,4 +1,7 @@
-{inputs, localLib}: let
+{
+  inputs,
+  localLib,
+}: let
   defaultPackage = flake: system: flake.packages.${system}.default;
 
   weechatOverlay = self: super: {
