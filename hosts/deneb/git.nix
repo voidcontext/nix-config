@@ -28,7 +28,7 @@ in {
     };
   };
 
-  services.gitea = {
+  services.forgejo = {
     enable = true;
     package = forgejo;
     appName = "forgejo @ git.vdx.hu"; # Give the site a name
@@ -37,7 +37,7 @@ in {
     settings.server.DOMAIN = "git.vdx.hu";
     settings.server.ROOT_URL = "https://git.vdx.hu/";
     settings.server.HTTP_PORT = 3001;
-    settings.server.APP_DATA_PATH = "/var/lib/gitea/data";
+    settings.server.APP_DATA_PATH = "/var/lib/forgejo/data";
     settings.service.DISABLE_REGISTRATION = true;
     settings.repository.ENABLE_PUSH_CREATE_USER = true;
     settings.server.SSH_PORT = 5422;
