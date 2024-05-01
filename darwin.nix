@@ -8,7 +8,7 @@
   ...
 }: let
   inherit (inputs) nixpkgs darwin home-manager;
-  system = "x86_64darwin";
+  system = "x86_64-darwin";
   pkgs = import nixpkgs {
     inherit system;
     overlays = defaultOverlays;
