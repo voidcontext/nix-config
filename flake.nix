@@ -117,7 +117,7 @@
           pkgs.alejandra
           pkgs.git-crypt
           packages.rebuild
-          packages.unlock-extras
+          packages.config-extras
           packages.jj
           packages.deploy
         ];
