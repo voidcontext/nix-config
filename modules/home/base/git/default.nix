@@ -115,6 +115,10 @@ in {
             else {
               sign-all = false;
             };
+          ui = {
+            merge-editor = "meld";
+            diff-editor = ":builtin";
+          };
         };
       };
     })
