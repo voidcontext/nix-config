@@ -33,8 +33,8 @@ with lib; let
     });
 
   metals = metalsBuilder {
-    version = "1.2.2";
-    outputHash = "sha256-xk2ionn/lBV8AR7n7OR03UuRCoP1/K6KuohhpRwFock=";
+    version = "1.3.0";
+    outputHash = "sha256-otN4sqV2a0itLOoJ7x+VSMe0tl3y4WVovbA1HOpZVDw=";
   };
 
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
@@ -44,25 +44,25 @@ with lib; let
     fi
 
     export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
-    $sbt --client ";reload ;bloopInstall"
+    # $sbt --client ";reload ;bloopInstall"
+    $sbt bloopInstall
     ${pkgs.unstable.bloop}/bin/bloop clean
   '';
-
-  sbt-watcher = pkgs.writeShellScriptBin "sbt-watcher" ''
-    export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
-    ${pkgs.fswatch}/bin/fswatch -o *.sbt project/*.sbt | xargs -n1 -I{} sh -c '\
-      ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall" && \
-      ${pkgs.unstable.bloop}/bin/bloop clean'
-  '';
+  # sbt-watcher = pkgs.writeShellScriptBin "sbt-watcher" ''
+  #   export SBT_OPTS="$SBT_OPTS -Dbloop.export-jar-classifiers=sources"
+  #   ${pkgs.fswatch}/bin/fswatch -o *.sbt project/*.sbt | xargs -n1 -I{} sh -c '\
+  #     ${pkgs.sbt}/bin/sbt --client ";reload ;bloopInstall" && \
+  #     ${pkgs.unstable.bloop}/bin/bloop clean'
+  # '';
 in {
   options.development.scala.enable = mkEnableOption "scala";
 
   config = mkIf cfg.enable {
-    programs.zsh.shellAliases = {
-      sc = "sbt --client";
-      sbi = "sbt --client bloopInstall";
-      st = "sbt --client test";
-    };
+    # programs.zsh.shellAliases = {
+    #   sc = "sbt --client";
+    #   sbi = "sbt --client bloopInstall";
+    #   st = "sbt --client test";
+    # };
 
     # Make navigation in dependency code work with metals/bloop
     programs.zsh.initExtra = ''
@@ -72,7 +72,7 @@ in {
     home.packages = [
       metals
       metals-reload
-      sbt-watcher
+      # sbt-watcher
       pkgs.sbt
       pkgs.visualvm
       (pkgs.unstable.bloop.override {jre = config.development.java.jdk;})
