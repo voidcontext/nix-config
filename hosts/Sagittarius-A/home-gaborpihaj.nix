@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  config-extras,
   ...
 }: let
   workspace = "$HOME/workspace";

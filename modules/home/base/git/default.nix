@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  systemConfig,
   pkgs,
   ...
 }:
@@ -33,9 +34,11 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      home.packages = [
-        pkgs.delta
-      ];
+      home.packages =
+        [
+          pkgs.delta
+        ]
+        ++ (lib.optional (!systemConfig.base.headless) pkgs.meld);
 
       home.file.".git-templates/hooks/pre-commit" = {
         source = ./pre-commit;
