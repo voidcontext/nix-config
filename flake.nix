@@ -97,6 +97,7 @@
             pkgs.attic-client
             pkgs.helixFlake
             pkgs.lamina
+            pkgs.colima
             pkgs.felis
             pkgs.deploy-rs-flake
           ];
