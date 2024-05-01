@@ -97,7 +97,7 @@ in {
           keys.insert.end = "no_op";
 
           keys.normal.space.e = '':sh felis open-browser -l $(which broot)'';
-          keys.normal.space.m = '':sh metals-reload'';
+          keys.normal.space.m = '':lsp-worspace-command build-import'';
         };
         languages = {
           language-server = {
