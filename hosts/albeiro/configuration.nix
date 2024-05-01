@@ -24,7 +24,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
 
-  networking.hostName = "alebiro"; # Define your hostname.
+  networking.hostName = "albeiro"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
@@ -74,8 +74,8 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -88,11 +88,18 @@
   users.users.vdx = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "docker" "audio"]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = [config-extras.secrets.ssh.public-keys.gpg];
   };
 
+  users.users.beni = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    extraGroups = ["audio"];
+  };
+
   home-manager.users.vdx = import ./home-vdx.nix;
+  home-manager.users.beni = import ./home-beni.nix;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
