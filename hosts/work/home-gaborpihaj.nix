@@ -25,6 +25,7 @@ in {
     tf = "terraform";
     assume = "export GRANTED_ALIAS_CONFIGURED=true && source .assume-wrapped";
     nb = "new-branch";
+    renice-falcon = "sudo renice 20 -p $(ps aux | grep 'falcon.Agen[t]' | awk '{print $2}')";
   };
 
   programs.nix-index.enable = true;
