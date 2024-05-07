@@ -96,6 +96,7 @@
 
     "/kraz.lan.vdx.hu/10.24.0.7"
     "/*.kraz.lan.vdx.hu/10.24.0.7"
+    "/fotok.lan.vdx.hu/10.24.0.7"
   ];
   networking.firewall.interfaces."wg0".allowedTCPPorts = [53];
   networking.firewall.interfaces."wg0".allowedUDPPorts = [53];
