@@ -129,7 +129,7 @@ in {
     pkgs.docker-client
 
     pkgs.kubectl
-    pkgs.k9s
+    pkgs.unstable.k9s
     pkgs.kubectx
     pkgs.fluxcd
     pkgs.kubernetes-helm
