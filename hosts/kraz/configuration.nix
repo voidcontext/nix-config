@@ -11,7 +11,6 @@
     ./hardware-configuration.nix
 
     ./attic.nix
-    ./ci.nix
     ./monitoring.nix
     ./wireguard.nix
   ];
