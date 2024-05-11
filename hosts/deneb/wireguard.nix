@@ -91,6 +91,7 @@
     "/deneb.lan.vdx.hu/10.24.0.1"
 
     "/electra.lan.vdx.hu/10.24.0.2"
+    "/seafile.electra.lan.vdx.hu/10.24.0.2"
     "/nextcloud.vdx.hu/10.24.0.2"
     "/electra.lan/192.168.24.2"
 
