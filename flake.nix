@@ -109,8 +109,9 @@
         overlays = defaults.defaultOverlays;
         config = defaults.defaultConfig;
       };
-      callPackage = pkgs.lib.callPackageWith {inherit pkgs callPackage;};
+      callPackage = pkgs.lib.callPackageWith (pkgs // {inherit pkgs callPackage;});
       packages = callPackage ./pkgs {};
+
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
@@ -122,5 +123,7 @@
           packages.deploy
         ];
       };
+
+      devShells.forgejo-darwin = callPackage ./devenv/forgejo.nix {};
     }));
 }
