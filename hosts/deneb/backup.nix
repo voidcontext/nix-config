@@ -18,7 +18,7 @@
       within = "1d"; # Keep all archives from the last day
       daily = 7;
       weekly = 4;
-      monthly = -1; # Keep at least one archive for each month
+      monthly = 6;
     };
   };
 in {
@@ -47,10 +47,10 @@ in {
         preHook = ''
           rm -rf ~/backup/forgejo
           mkdir -p ~/backup/forgejo
-          chown gitea ~/backup/forgejo
+          chown forgejo ~/backup/forgejo
           cd ~/backup/forgejo
 
-          ${sudo} -u gitea ${gitea} dump -c /var/lib/gitea/custom/conf/app.ini -w /tmp/gitea
+          ${sudo} -u forgejo ${gitea} dump -c /var/lib/forgejo/custom/conf/app.ini -w /tmp/forgejo
         '';
       };
   };
