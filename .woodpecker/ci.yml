@@ -10,7 +10,7 @@ when:
     branch: main
   - event: pull_request
 
-pipeline:
+steps:
   cache-warmup:
     image: git.vdx.hu/voidcontext/woodpecker-plugin-nix-attic:0.1.1
     settings:
