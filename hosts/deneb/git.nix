@@ -31,9 +31,9 @@ in {
   services.forgejo = {
     enable = true;
     package = forgejo;
-    appName = "forgejo @ git.vdx.hu"; # Give the site a name
     database.type = "sqlite3";
     lfs.enable = true;
+    settings.DEFAULT.APP_NAME = "forgejo @ git.vdx.hu"; # Give the site a name
     settings.server.DOMAIN = "git.vdx.hu";
     settings.server.ROOT_URL = "https://git.vdx.hu/";
     settings.server.HTTP_PORT = 3001;

@@ -27,8 +27,6 @@
   boot.loader.grub.enable = false;
   # Disables the generation of /boot/extlinux/extlinux.conf
   boot.loader.generic-extlinux-compatible.enable = false;
-  boot.loader.raspberryPi.enable = true;
-  boot.loader.raspberryPi.version = 4;
 
   # !!! If your board is a Raspberry Pi 1, select this:
   #boot.kernelPackages = pkgs.linuxPackages_rpi;
@@ -141,7 +139,7 @@
   '';
 
   security.sudo.enable = true;
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
   security.pam.services.sudo.sshAgentAuth = true;
 
   # users

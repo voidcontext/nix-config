@@ -11,7 +11,7 @@
   base.headless = false;
   base.hdpi = true;
 
-  base.nixConfigFlakeDir = "/Users/gaborpihaj/workspace/personal/nix-config";
+  base.nixConfigFlakeDir = "/Users/gaborpihaj/workspace/personal/nix-configg";
 
   # Upstream options
 

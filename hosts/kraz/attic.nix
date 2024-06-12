@@ -11,9 +11,7 @@
   services.postgresql.ensureUsers = [
     {
       name = "atticd";
-      ensurePermissions."DATABASE atticd_v2" = "ALL PRIVILEGES";
-      ensurePermissions."ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
-      ensurePermissions."ALL SEQUENCES IN SCHEMA public" = "ALL PRIVILEGES";
+      # ensureDBOwnership = true;
     }
   ];
   systemd.services.postgresql.postStart = pkgs.lib.mkAfter ''

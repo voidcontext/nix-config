@@ -134,11 +134,11 @@ in {
     pkgs.fluxcd
     pkgs.kubernetes-helm
 
-    pkgs.prismlauncher
+    # pkgs.prismlauncher # TODO: re-enable once it works again in 24.05
   ];
 
   base.darwin_symlinks = {
-    "$HOME/Applications/Prismlauncher.app" = "${pkgs.prismlauncher}/Prismlauncher.app";
+    # "$HOME/Applications/Prismlauncher.app" = "${pkgs.prismlauncher}/Prismlauncher.app";
   };
 
   programs.nix-index.enable = true;

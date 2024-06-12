@@ -43,7 +43,7 @@
   '';
   # The RAIDs are assembled in stage1, so we need to make the config
   # available there.
-  boot.initrd.mdadmConf = ''
+  boot.swraid.mdadmConf = ''
     HOMEHOST <ignore>
   '';
 
@@ -84,7 +84,7 @@
   '';
 
   security.sudo.enable = true;
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
   security.pam.services.sudo.sshAgentAuth = true;
 
   # User Management

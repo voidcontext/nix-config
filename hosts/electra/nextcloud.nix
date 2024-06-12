@@ -52,8 +52,7 @@
   services.postgresql.ensureUsers = [
     {
       name = "nextcloud";
-      # GRANT ALL ON SCHEMA public TO nextcloud; -- must be added manually
-      ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+      ensureDBOwnership = true;
     }
   ];
 

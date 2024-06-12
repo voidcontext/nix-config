@@ -82,10 +82,8 @@
   };
 
   services.dnsmasq.enable = true;
-  services.dnsmasq.servers = ["8.8.8.8"];
-  services.dnsmasq.extraConfig = ''
-    interface=wg0
-  '';
+  services.dnsmasq.settings.interface = "wg0";
+  services.dnsmasq.settings.server = ["8.8.8.8"];
   services.dnsmasq.settings.listen-address = "127.0.0.1,10.24.0.1";
   services.dnsmasq.settings.address = [
     "/deneb.lan.vdx.hu/10.24.0.1"

@@ -68,16 +68,21 @@ in {
   defaultConfig = {
     allowUnfreePredicate = pkg:
       builtins.elem (inputs.nixpkgs.lib.getName pkg) [
-        "steam"
-        "steam-run"
-        "steam-original"
-        "steam-runtime"
-        "nvidia-x11"
-        "nvidia-settings"
+        "libretro-snes9x"
         "minecraft-launcher"
         "minecraft-server"
+        "nvidia-settings"
+        "nvidia-x11"
+        "steam"
+        "steam-original"
+        "steam-run"
+        "steam-runtime"
       ];
     nvidia.acceptLicense = true;
+    # for seahub 
+    permittedInsecurePackages = [
+      "python3.11-django-3.2.25"
+    ];
   };
 
   defaultSystemModules =

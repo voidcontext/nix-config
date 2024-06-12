@@ -2,13 +2,13 @@
   "description" = "voidcontext's dotfiles";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/release-23.11";
+    nixpkgs.url = "nixpkgs/release-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:rycee/home-manager/release-23.11";
+    home-manager.url = "github:rycee/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/9a763a7acc4cfbb8603bb0231fec3eda864f81c0";
@@ -24,7 +24,7 @@
 
     mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.11";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.05";
 
     lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
     felis.url = "git+https://git.vdx.hu/voidcontext/felis.git?ref=refs/tags/v0.1.0";
@@ -35,7 +35,7 @@
     kitty-gruvbox-themes.url = "github:wdomitrz/kitty-gruvbox-theme";
     kitty-gruvbox-themes.flake = false;
 
-    attic.url = "github:zhaofengli/attic/e6bedf1869f382cfc51b69848d6e09d51585ead6";
+    attic.url = "github:zhaofengli/attic";
   };
 
   outputs = {

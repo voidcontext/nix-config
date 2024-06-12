@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  stdenv,
   ...
 }:
 with lib; let
@@ -97,14 +98,27 @@ in {
         "private:O0/Z0BQZpKKHQQES65u7xNfZF7eCZoz9RKJi191TGaM="
       ];
     }
-    (mkIf cfg.font.enable {
-      fonts.fontDir.enable = true;
-
-      fonts.fonts = [
-        (pkgs.nerdfonts.override {
-          fonts = [cfg.font.family];
-        })
-      ];
-    })
+    (mkIf cfg.font.enable (
+      let
+        fonts =
+          if pkgs.stdenv.isDarwin
+          then {
+            fonts = [
+              (pkgs.nerdfonts.override {
+                fonts = [cfg.font.family];
+              })
+            ];
+          }
+          else {
+            packages = [
+              (pkgs.nerdfonts.override {
+                fonts = [cfg.font.family];
+              })
+            ];
+          };
+      in {
+        fonts = fonts // {fontDir.enable = true;};
+      }
+    ))
   ];
 }

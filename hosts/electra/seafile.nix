@@ -1,15 +1,11 @@
-{config, ...}:
-
-let 
+{config, ...}: let
   seafileHost = "seafile.electra.lan.vdx.hu";
-in
-{
+in {
   services.seafile.enable = true;
   services.seafile.adminEmail = "vdx@vdx.hu";
   services.seafile.initialAdminPassword = "admin1234";
   services.seafile.ccnetSettings.General.SERVICE_URL = "https://${seafileHost}";
 
-  
   # Command to generate the certs:
   # openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=seafile.electra.lan.vdx.hu/OU=TEST/O=VDX/L=WALSALL/C=UK/' -keyout ./seafile-selfsigned.key -out ./seafile-selfsigned.crt  #
   services.nginx.virtualHosts.${seafileHost} = {
@@ -43,7 +39,7 @@ in
   services.nginx.upstreams.seahub.servers = {
     "unix:/run/seahub/gunicorn.sock" = {};
   };
-  
+
   services.dnsmasq.settings.address = [
     "/${seafileHost}/192.168.24.2"
   ];

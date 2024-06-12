@@ -81,7 +81,7 @@
   # services.xserver.libinput.enable = true;
 
   security.sudo.enable = true;
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
   security.pam.services.sudo.sshAgentAuth = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -162,15 +162,4 @@
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
-
-  programs.hyprland = {
-    # Install the packages from nixpkgs
-    enable = true;
-    # Whether to enable XWayland
-    xwayland.enable = true;
-
-    # Optional
-    # Whether to enable patching wlroots for better Nvidia support
-    # enableNvidiaPatches = true;
-  };
 }

@@ -61,7 +61,7 @@ in {
   '';
 
   security.sudo.enable = true;
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
   security.pam.services.sudo.sshAgentAuth = true;
 
   # security.acme.email = "admin+acme@gaborpihaj.com";

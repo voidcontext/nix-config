@@ -68,7 +68,7 @@ in {
     (mkIf pkgs.stdenv.isLinux {
       services.gpg-agent.enable = true;
       services.gpg-agent.enableSshSupport = cfg.gpg-ssh.enable;
-      services.gpg-agent.pinentryFlavor = "curses";
+      # services.gpg-agent.pinentryFlavor = "curses"; # removed in 24.05
       # programs.zsh.initExtra = ''
       #   export GPG_TTY=$(tty)
       # '';
