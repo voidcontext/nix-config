@@ -1,6 +1,7 @@
 {
   pkgs,
   config-extras,
+  lib,
   ...
 }: {
   imports = [
@@ -41,6 +42,7 @@
 
   home-manager.users.vdx = import ./home-vdx.nix;
 
+  networking.hostName = "orkaria";
   networking.networkmanager.enable = true;
 
   services.xserver.enable = true;
@@ -48,6 +50,8 @@
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.lxqt.enable = true;
   # services.xserver.desktopManager.cinnamon.enable = true;
+
+  services.flatpak.enable = true;
 
   security.sudo.enable = true;
   security.pam.enableSSHAgentAuth = true;
@@ -82,11 +86,8 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 7d";
     };
   };
   nix.settings.trusted-users = ["root" "vdx"];
-  networking = {
-    hostName = "orkaria";
-  };
 }

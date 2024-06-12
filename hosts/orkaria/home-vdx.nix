@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  config-extras,
   ...
 }: let
   sshHostRoles = {
