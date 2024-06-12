@@ -2,3 +2,6 @@
 result
 forgejo-dump-*
 .envrc.local
+
+.lsp
+.clj-kondo
