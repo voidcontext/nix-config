@@ -57,10 +57,12 @@ in {
         .bloop
         .bloop/*
         .bsp
+        .clj-kondo
         .dotbin
         .envrc.local
         .gittmp
         .jj
+        .lsp
         .markdown-root
         .metals
         .nix-shell
