@@ -105,6 +105,7 @@ in {
           pin-home-manager-nixpkgs
           ++ [
             ./modules/home/base
+            ./modules/home/development/clojure
             ./modules/home/development/java
             ./modules/home/development/nix
             ./modules/home/development/scala

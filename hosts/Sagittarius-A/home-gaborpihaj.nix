@@ -94,6 +94,7 @@ in {
   base.helix.fromGit = true;
 
   development.nix.enable = true;
+  development.clojure.enable = true;
   development.java.jdk = pkgs.openjdk19_headless;
   development.scala.enable = true;
 

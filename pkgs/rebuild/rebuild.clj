@@ -1,9 +1,9 @@
-(require
- '[babashka.process :refer [shell]]
- '[babashka.cli :as cli]
- '[babashka.fs :as fs]
- '[clojure.string :as str] ; for clojure-lsp, babashka does this by default
- )
+(ns rebuild
+  (:require
+   [babashka.cli :as cli]
+   [babashka.fs :as fs]
+   [babashka.process :refer [shell]]
+   [clojure.string :as str]))
 
 (defn hostname []
   (-> (shell {:out :string} "hostname")

@@ -120,9 +120,6 @@
         buildInputs = [
           pkgs.alejandra
           pkgs.git-crypt
-          pkgs.babashka
-          pkgs.rlwrap
-          pkgs.clojure-lsp
           packages.rebuild
           packages.config-extras
           packages.jj
