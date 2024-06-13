@@ -43,6 +43,7 @@ in {
     settings.server.SSH_PORT = 5422;
     settings.server.LFS_START_SERVER = true;
     settings.webhooks.ALLOWED_HOST_LIST = "external,loopback";
+    settings.indexer.REPO_INDEXER_ENABLED = true;
     settings."repository.signing".SIGNING_KEY = "ECC0A3B48A928D02B41B44397BCF5D144C6C06E3";
     settings."repository.signing".SIGNING_NAME = "Forgejo @ git.vdx.hu";
     settings."repository.signing".SIGNING_EMAIL = "forgejo@vdx.hu";
