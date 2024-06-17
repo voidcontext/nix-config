@@ -95,7 +95,7 @@ in {
 
   development.nix.enable = true;
   development.clojure.enable = true;
-  development.java.jdk = pkgs.openjdk19_headless;
+  development.java.jdk = pkgs.openjdk21_headless;
   development.scala.enable = true;
 
   programs.home-manager.enable = true;

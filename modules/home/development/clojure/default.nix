@@ -12,6 +12,7 @@ in
     config = mkIf cfg.enable {
       home.packages = [
         pkgs.babashka
+        pkgs.clojure
         pkgs.clojure-lsp
         pkgs.leiningen
         pkgs.rlwrap
