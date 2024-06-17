@@ -62,6 +62,15 @@ in {
       unstable = import inputs.nixpkgs-unstable {
         inherit (final) system config overlays;
       };
+      vdx = let
+        callPackage = final.lib.callPackageWith (final
+          // {
+            pkgs = final;
+            mkBabashkaScript = callPackage ./lib/mkBabashkaScript.nix {};
+            inherit callPackage;
+          });
+      in
+        callPackage ./pkgs {};
     })
   ];
 
@@ -79,7 +88,7 @@ in {
         "steam-runtime"
       ];
     nvidia.acceptLicense = true;
-    # for seahub 
+    # for seahub
     permittedInsecurePackages = [
       "python3.11-django-3.2.25"
     ];

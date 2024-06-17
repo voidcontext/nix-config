@@ -23,6 +23,11 @@ in {
     p = "cd ${workspace}/personal";
     d = "cd ${workspace}/work";
     tf = "terraform";
+    t = "tasker";
+    ts = "tasker switch";
+    tc = "tasker current";
+    tl = "tasker list";
+    td = "tasker delete";
     assume = "export GRANTED_ALIAS_CONFIGURED=true && source .assume-wrapped";
     nb = "new-branch";
     renice-falcon = "sudo renice 20 -p $(ps aux | grep 'falcon.Agen[t]' | awk '{print $2}')";
@@ -41,6 +46,8 @@ in {
     pkgs.k9s
     pkgs.kubectx
     pkgs.awscli2
+
+    pkgs.vdx.tasker
 
     # extra packages
     cuopp-msg-helper

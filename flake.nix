@@ -109,9 +109,12 @@
         overlays = defaults.defaultOverlays;
         config = defaults.defaultConfig;
       };
-      callPackage = pkgs.lib.callPackageWith (pkgs // {inherit pkgs callPackage;});
+      callPackage = pkgs.lib.callPackageWith (pkgs
+        // {
+          inherit pkgs callPackage;
+          mkBabashkaScript = callPackage ./lib/mkBabashkaScript.nix {};
+        });
       packages = callPackage ./pkgs {};
-
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
