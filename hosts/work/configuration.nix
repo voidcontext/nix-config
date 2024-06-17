@@ -26,5 +26,5 @@
   services.nix-daemon.enable = true;
 
   nix.settings.trusted-users = ["root" "gaborpihaj"];
-  nix.settings.sandbox = true;
+  # nix.settings.sandbox = true;
 }
