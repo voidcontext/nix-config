@@ -103,22 +103,31 @@ Available options:
            (assoc :current key))))
     (print-task (-> (load-tasks) :tasks key))))
 
-(defn- delete-task 
+(defn- delete-task
   [tasks url]
   (let [key (safe-key url)]
     (-> tasks
         (update :tasks #(dissoc % key))
         (update :current #(if (= % key) nil %))
-        (write-tasks)
-        )))
-    
+        (write-tasks))))
 
-(defn- choose-existing-task [tasks]
-  (-> (b/gum :choose (map #(str (:url %)) (vals (:tasks tasks)))
-             :selected.foreground "10"
-             :item.foreground "7")
-      :result
-      first))
+(defn- select-task
+  "Displays a list of tasks in terminal for the user to selec. Returns the id."
+  [tasks]
+  (let [summary-line (->> (b/gum :choose (map #(str (:id %) ": " (:summary %)) (vals (:tasks tasks)))
+                                 :selected.foreground "10"
+                                 :item.foreground "7")
+                          :result
+                          first)
+        id (-> (re-matches #"(.+?):.+" summary-line)
+                (second))]
+      (if (= summary-line "user aborted")
+        summary-line
+        (if (nil? id) 
+          nil
+          (-> (filter #(= (:id %) id) (vals (:tasks tasks)))
+            first
+            :url)))))
 
 (defn switch-to
   "Switches to a new or an existing task defined by it's JIRA url.
@@ -128,8 +137,8 @@ Available options:
     (if (nil? url)
       (if (empty? (vals (:tasks tasks)))
         (abort "There aren't any recorded tasks")
-        (let [choosen (choose-existing-task tasks)]
-          (if (= choosen "user aborted")
+        (let [choosen (select-task tasks)]
+          (if (or (= choosen "user aborted") (nil? choosen))
             nil
             (apply-switch tasks choosen))))
       (apply-switch tasks url))))
@@ -161,8 +170,8 @@ Available options:
     (if (nil? url)
       (if (empty? (vals (:tasks tasks)))
         (abort "There aren't any recorded tasks")
-        (let [choosen (choose-existing-task tasks)]
-          (if (= choosen "user aborted")
+        (let [choosen (select-task tasks)]
+          (if (or (= choosen "user aborted") (nil? choosen))
             nil
             (delete-task tasks choosen))))
       (delete-task tasks url))))
