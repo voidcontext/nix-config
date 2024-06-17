@@ -54,6 +54,7 @@ in {
       felis = defaultPackage inputs.felis final.system;
       helixFlake = defaultPackage inputs.helix final.system;
       helix-steel = defaultPackage inputs.helix-steel final.system;
+      steel = inputs.steel.packages.${final.system}.steel;
     })
     weechatOverlay
     inputs.lamina.overlays.default

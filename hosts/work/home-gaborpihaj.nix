@@ -50,6 +50,9 @@ in {
 
     pkgs.vdx.tasker
 
+    pkgs.steel
+    pkgs.attic-client
+
     # extra packages
     cuopp-msg-helper
     new-branch
