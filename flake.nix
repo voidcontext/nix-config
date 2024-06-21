@@ -19,6 +19,8 @@
     deploy-rs.url = "github:serokell/deploy-rs";
 
     helix.url = "github:helix-editor/helix";
+    # helix-steel.url = "github:mattwparas/helix/steel-event-system";
+    helix-steel.url = "github:voidcontext/helix/steel";
 
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
 
@@ -95,7 +97,7 @@
           name = "cache-warmup";
           paths = [
             pkgs.attic-client
-            pkgs.helixFlake
+            pkgs.helix-steel
             pkgs.lamina
             pkgs.colima
             pkgs.felis

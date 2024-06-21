@@ -6,16 +6,24 @@
 }:
 with lib; let
   cfg = config.base.helix;
+  steel-plugins =
+    builtins.listToAttrs
+    (builtins.map (path: {
+        name = "helix/${builtins.baseNameOf path}";
+        value.text = builtins.readFile path;
+      })
+      [
+        ./helix.scm
+        ./init.scm
+      ]);
 in {
   # Helix
 
-  options = {
-    base.helix.fromGit = mkOption {
-      type = types.bool;
-      default = false;
-    };
+  options.base.helix.steel.enable = mkOption {
+    type = types.bool;
+    default = false;
   };
-
+  
   config = mkMerge [
     {
       home.file."workspace/.ignore".text = ''
@@ -68,7 +76,7 @@ in {
 
           editor.true-color = true;
           editor.cursorline = true;
-          # editor.bufferline = "multiple";
+          editor.bufferline = "multiple";
 
           editor.whitespace.render = "all";
           # editor.whitespace.render.space = "all";
@@ -141,12 +149,19 @@ in {
         };
       };
     }
-    (mkIf cfg.fromGit {
-      programs.helix.package = pkgs.helixFlake;
-      programs.helix.settings.editor.bufferline = "multiple";
-    })
-    (mkIf (!cfg.fromGit) {
-      programs.helix.package = pkgs.unstable.helix;
+    (mkIf cfg.steel.enable {
+      programs.helix.package = pkgs.helix-steel;
+      programs.zsh.initExtra = ''
+        export STEEL_HOME="${pkgs.helix-steel}/lib/steel"
+      '';
+      xdg.configFile =
+        steel-plugins
+        // {
+          "helix/helix" = {
+            source = "${pkgs.helix-steel}/lib/steel";
+          };
+        };
+
     })
   ];
 }

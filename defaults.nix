@@ -53,6 +53,7 @@ in {
       mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
       felis = defaultPackage inputs.felis final.system;
       helixFlake = defaultPackage inputs.helix final.system;
+      helix-steel = defaultPackage inputs.helix-steel final.system;
     })
     weechatOverlay
     inputs.lamina.overlays.default
