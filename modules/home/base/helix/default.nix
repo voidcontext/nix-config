@@ -15,6 +15,8 @@ with lib; let
       [
         ./helix.scm
         ./init.scm
+        ./scala.scm
+        ./utils.scm
       ]);
 in {
   # Helix
