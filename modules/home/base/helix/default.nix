@@ -23,7 +23,7 @@ in {
     type = types.bool;
     default = false;
   };
-  
+
   config = mkMerge [
     {
       home.file."workspace/.ignore".text = ''
@@ -161,7 +161,6 @@ in {
             source = "${pkgs.helix-steel}/lib/steel";
           };
         };
-
     })
   ];
 }

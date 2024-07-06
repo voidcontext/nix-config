@@ -8,7 +8,7 @@ pkgs.writeShellApplication {
     if [ "''${DEBUG:-}" == "1" ]; then
       set -x
     fi
-  
+
     cmd=$1
 
     case "$cmd" in
