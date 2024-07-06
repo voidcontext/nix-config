@@ -14,4 +14,8 @@
 (require "scala.scm")
 (provide scala-open-test
          scala-open-main
-         scala-switch-main-test)
+         scala-open-it
+         scala-open-e2e
+         scala-switch-main-test
+         scala-switch-main-it
+         scala-switch-main-e2e)
