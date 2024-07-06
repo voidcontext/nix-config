@@ -9,14 +9,16 @@
          scala-switch-main-e2e)
 
 (define (test-suffix)
-    (~> (maybe-get-env-var "SCALA_TEST_SUFFIX")
-        (get-or-else "Test")))
+  (~> (maybe-get-env-var "SCALA_TEST_SUFFIX")
+      (get-or-else "Test")))
 
 (define (is-main file)
-  (and (string-contains? file "src/main") (not (ends-with? file (string-append (test-suffix) ".scala")))))
+  (and (string-contains? file "src/main") 
+       (not (ends-with? file (string-append (test-suffix) ".scala")))))
 
 (define (is-test file)
-  (and (string-contains? file "src/test") (ends-with? file (string-append (test-suffix) ".scala"))))
+  (and (string-contains? file "src/test")
+       (ends-with? file (string-append (test-suffix) ".scala"))))
 
 (define (scala-open-test-from-dir dir)
   (let ((test-file (~> (current-path)
