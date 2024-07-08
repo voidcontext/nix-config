@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config-extras,
-  config,
   ...
 }: {
   # Bespoke Options
@@ -16,6 +15,7 @@
 
   imports = [
     config-extras.hosts.electra
+    ./ci.nix
     ./nextcloud.nix
     ./samba.nix
     ./seafile.nix
