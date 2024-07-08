@@ -16,7 +16,6 @@ in {
       WOODPECKER_SERVER = "10.24.0.1:${builtins.toString woodpeckerGRPCPort}";
       WOODPECKER_AGENT_SECRET = config-extras.secrets.hosts.electra.woodpecker.agent.secret;
       WOODPECKER_MAX_WORKFLOWS = "1";
-      WOODPECKER_FILTER_LABELS = "label=rpi-build-enable";
     };
     extraGroups = [
       "docker"
