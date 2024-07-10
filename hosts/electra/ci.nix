@@ -5,7 +5,8 @@
 }: let
   woodpeckerGRPCPort = 8001;
 in {
-  virtualisation.docker.enable = true;
+  virtualisation.podman.enable= true;
+  virtualisation.podman.dockerSocket.enable= true;
 
   services.woodpecker-agents.agents.docker = {
     enable = true;
@@ -18,11 +19,12 @@ in {
       WOODPECKER_MAX_WORKFLOWS = "1";
     };
     extraGroups = [
-      "docker"
+      "podman"
     ];
   };
 
+  # users.groups.docker = {};
   environment.systemPackages = [
-    pkgs.docker-client
+    # pkgs.docker-client
   ];
 }
