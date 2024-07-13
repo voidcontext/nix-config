@@ -5,8 +5,9 @@
 }: let
   woodpeckerGRPCPort = 8001;
 in {
-  virtualisation.docker.enable= true;
+  virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "devicemapper";
+
   # virtualisation.podman.enable= true;
   # virtualisation.podman.dockerSocket.enable= true;
   # virtualisation.podman.defaultNetwork.settings = {
