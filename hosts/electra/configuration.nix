@@ -103,13 +103,10 @@
 
   system.stateVersion = "22.11";
 
-  nix = {
-    package = pkgs.unstable.nix;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
   };
   nix.settings.trusted-users = ["root" "vdx" "remote-builder"];
   nix.distributedBuilds = true;

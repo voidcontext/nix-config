@@ -1,7 +1,6 @@
 {
   pkgs,
   config-extras,
-  lib,
   ...
 }: {
   imports = [
@@ -80,14 +79,10 @@
     })
   ];
 
-  nix = {
-    # package = pkgs.unstable.nix;
-    package = pkgs.unstable.nix;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
   nix.settings.trusted-users = ["root" "vdx"];
 }
