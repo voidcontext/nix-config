@@ -155,8 +155,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  nix.package = pkgs.unstable.nix;
-
   # Disable sleep and suspend
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;

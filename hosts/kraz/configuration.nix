@@ -113,7 +113,6 @@
     fontFamily = "nonexistent";
     nixConfigFlakeDir = "/opt/nix-config";
   };
-  nix.package = pkgs.unstable.nix;
   nix.settings.trusted-users = ["root" "vdx" "remote-builder"];
 
   # k3s

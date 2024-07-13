@@ -79,10 +79,23 @@
         pkgs.symlinkJoin {
           name = "cache-warmup";
           paths = [
-            pkgs.attic-client
             pkgs.lamina
             pkgs.deploy-rs-flake
             pkgs.indieweb-tools
+          ];
+        };
+
+      packages.${flake-utils.lib.system.aarch64-linux}.cache-warmup = let
+        pkgs = import nixpkgs {
+          system = flake-utils.lib.system.aarch64-linux;
+          overlays = defaults.defaultOverlays;
+          config = defaults.defaultConfig;
+        };
+      in
+        pkgs.symlinkJoin {
+          name = "cache-warmup";
+          paths = [
+            pkgs.deploy-rs-flake
           ];
         };
 
@@ -96,7 +109,6 @@
         pkgs.symlinkJoin {
           name = "cache-warmup";
           paths = [
-            pkgs.attic-client
             pkgs.helix-steel
             pkgs.lamina
             pkgs.colima

@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  stdenv,
   ...
 }:
 with lib; let
@@ -84,6 +83,7 @@ in {
 
       programs.zsh.enable = true;
 
+      nix.package = pkgs.unstable.lix;
       nix.extraOptions = ''
         experimental-features = nix-command flakes
         keep-outputs = true

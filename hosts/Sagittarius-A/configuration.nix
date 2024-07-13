@@ -39,6 +39,4 @@
 
   # builders-use-substitutes = true
   # '';
-
-  nix.package = pkgs.unstable.nix;
 }

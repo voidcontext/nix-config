@@ -57,8 +57,6 @@ in {
     })
     weechatOverlay
     inputs.lamina.overlays.default
-    inputs.attic.overlays.default
-
     (final: prev: {
       unstable = import inputs.nixpkgs-unstable {
         inherit (final) system config overlays;

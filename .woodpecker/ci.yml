@@ -10,9 +10,19 @@ when:
     branch: main
   - event: pull_request
 
+matrix:
+  include:
+    - platform: linux/amd64
+      image: harbor.vdx.hu/voidcontext/woodpecker-plugin-nix-attic:0.3.0-alpha7
+    - platform: linux/aarch64
+      image: harbor.vdx.hu/voidcontext/aarch64/woodpecker-plugin-nix-attic:0.3.0-alpha7
+
+labels:
+  platform: ${platform}
+
 steps:
   cache-warmup:
-    image: git.vdx.hu/voidcontext/woodpecker-plugin-nix-attic:0.1.1
+    image: ${image}
     settings:
       <<: *common_settings
       script: |

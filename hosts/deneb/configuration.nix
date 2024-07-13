@@ -102,7 +102,6 @@ in {
   #   RuntimeDirectorySize=500M
   # '';
 
-  nix.package = pkgs.unstable.nix;
   nix.settings.trusted-users = ["root" "vdx"];
 
   nix.settings.substituters = ["https://indieweb-tools.cachix.org"];
