@@ -59,11 +59,15 @@ in {
     export SDL_GAMECONTROLLERCONFIG="030000fdaf1e00002400000010010000785536,ClockworkPI uConsole,platform:Linux,a:b1,b:b2,x:b0,y:b3,back:b8,start:b9,leftx:a0,lefty:a1,"
   '';
 
+  programs.kitty.font.size = 13;
+
   home.packages = [
     pkgs.neofetch
     pkgs.keepassxc
     pkgs.neomutt
     pkgs.w3m
+
+    pkgs.seafile-client
 
     # for secret-tool (to get pws from the keyring)
     pkgs.libsecret
