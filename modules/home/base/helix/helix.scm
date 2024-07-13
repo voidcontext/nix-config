@@ -19,3 +19,8 @@
          scala-switch-main-test
          scala-switch-main-it
          scala-switch-main-e2e)
+
+(provide felis-open)
+(define (felis-open)
+  (let ((path ( ~> (open-input-file "/tmp/felis-open.txt") (read-port-to-string))))
+    (helix.open path)))

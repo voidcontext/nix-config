@@ -64,7 +64,7 @@ in {
               invocation = "create {subpath}";
               shortcut = "cr";
               leave_broot = true;
-              external = "${pkgs.felis}/bin/felis open-file {directory}/{subpath}";
+              external = "${pkgs.felis}/bin/felis open-file {directory}/{subpath} --steel";
             }
           ];
         };

@@ -32,7 +32,7 @@
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.05";
 
     lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
-    felis.url = "git+https://git.vdx.hu/voidcontext/felis.git?ref=refs/tags/v0.1.0";
+    felis.url = "git+https://git.vdx.hu/voidcontext/felis.git?ref=refs/heads/faster-open-using-steel-plugin";
 
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
     kitty-everforest-themes.flake = false;
