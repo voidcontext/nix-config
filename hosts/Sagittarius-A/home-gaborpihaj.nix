@@ -134,6 +134,8 @@ in {
     pkgs.fluxcd
     pkgs.kubernetes-helm
 
+    pkgs.steel
+
     pkgs.unstable.prismlauncher # TODO: re-enable once it works again in 24.05
   ];
 
