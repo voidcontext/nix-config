@@ -238,4 +238,5 @@
   services.dnsmasq.enable = true;
   services.dnsmasq.settings.server = ["192.168.24.1"];
   services.dnsmasq.settings.listen-address = "127.0.0.1,192.168.24.2";
+  services.dnsmasq.settings.interface = "podman0,podman1,podman2,podman3";
 }

@@ -5,14 +5,14 @@
 }: let
   woodpeckerGRPCPort = 8001;
 in {
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "devicemapper";
+  # virtualisation.docker.enable = true;
+  # virtualisation.docker.storageDriver = "devicemapper";
 
-  # virtualisation.podman.enable= true;
+  virtualisation.podman.enable = true;
   # virtualisation.podman.dockerSocket.enable= true;
-  # virtualisation.podman.defaultNetwork.settings = {
-  #   dns_enabled = true;
-  # };
+  virtualisation.podman.defaultNetwork.settings = {
+    dns_enabled = true;
+  };
 
   services.woodpecker-agents.agents.docker = {
     enable = true;
@@ -26,15 +26,18 @@ in {
       WOODPECKER_MAX_WORKFLOWS = "1";
     };
     extraGroups = [
-      # "podman"
+      "podman"
       "docker"
     ];
   };
 
-  # users.users.vdx.extraGroups = ["podman"];
+  networking.firewall.interfaces."podman0".allowedUDPPorts = [53];
+  networking.firewall.interfaces."podman0".allowedTCPPorts = [53];
 
-  # users.groups.docker = {};
+  users.users.vdx.extraGroups = ["docker" "podman"];
+
+  users.groups.docker = {};
   environment.systemPackages = [
-    # pkgs.docker-client
+    pkgs.docker-client
   ];
 }
