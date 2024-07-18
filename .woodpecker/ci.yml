@@ -14,7 +14,7 @@ matrix:
   include:
     - platform: linux/amd64
       image: harbor.vdx.hu/voidcontext/woodpecker-plugin-nix-attic:0.3.0-alpha7
-    - platform: linux/aarch64
+    - platform: linux/arm64
       image: harbor.vdx.hu/voidcontext/aarch64/woodpecker-plugin-nix-attic:0.3.0-alpha7
 
 labels:
