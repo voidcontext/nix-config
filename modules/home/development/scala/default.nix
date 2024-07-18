@@ -7,36 +7,6 @@
 with lib; let
   cfg = config.development.scala;
 
-  # From: https://github.com/gvolpe/neovim-flake/blob/main/lib/metalsBuilder.nix
-  metalsBuilder = {
-    version,
-    outputHash,
-  }: let
-    metalsDeps = pkgs.stdenv.mkDerivation {
-      name = "metals-deps-${version}";
-      buildCommand = ''
-        export COURSIER_CACHE=$(pwd)
-        ${pkgs.coursier}/bin/cs fetch org.scalameta:metals_2.13:${version} \
-          -r bintray:scalacenter/releases \
-          -r sonatype:snapshots > deps
-        mkdir -p $out/share/java
-        cp -n $(< deps) $out/share/java/
-      '';
-      outputHashMode = "recursive";
-      outputHashAlgo = "sha256";
-      inherit outputHash;
-    };
-  in
-    pkgs.metals.overrideAttrs (old: {
-      inherit version;
-      buildInputs = [metalsDeps];
-    });
-
-  metals = metalsBuilder {
-    version = "1.3.2";
-    outputHash = "sha256-hRESY7TFxUjEkNf0vhCG30mIHZHXoAyZl3nTQ3OvQ0E=";
-  };
-
   metals-reload = pkgs.writeShellScriptBin "metals-reload" ''
     sbt=sbt
     if ! command -v $sbt &> /dev/null ; then
@@ -70,7 +40,7 @@ in {
     '';
 
     home.packages = [
-      metals
+      pkgs.metals
       metals-reload
       # sbt-watcher
       pkgs.sbt

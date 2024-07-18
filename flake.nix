@@ -118,6 +118,7 @@
             pkgs.colima
             pkgs.felis
             pkgs.deploy-rs-flake
+            pkgs.metals
           ];
         };
     }

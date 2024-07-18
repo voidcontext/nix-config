@@ -45,33 +45,65 @@
       nix.registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
     }
   ];
+
+  # --- Overlays ---
+  packagesFromFlakesOverlay = final: prev: {
+    deploy-rs-flake = defaultPackage inputs.deploy-rs final.system;
+    indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
+    mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
+    felis = defaultPackage inputs.felis final.system;
+    helixFlake = defaultPackage inputs.helix final.system;
+    helix-steel = defaultPackage inputs.helix-steel final.system;
+    steel = inputs.steel.packages.${final.system}.steel;
+  };
+  unstableOverlay = final: prev: {
+    unstable = import inputs.nixpkgs-unstable {
+      inherit (final) system config overlays;
+    };
+  };
+  localPackagesOverlay = final: prev: {
+    vdx = let
+      callPackage = final.lib.callPackageWith (final
+        // {
+          pkgs = final;
+          mkBabashkaScript = callPackage ./lib/mkBabashkaScript.nix {};
+          inherit callPackage;
+        });
+    in
+      callPackage ./pkgs {};
+  };
+  scalaMetalsOverlay = final: prev: let
+    # From: https://github.com/gvolpe/neovim-flake/blob/main/lib/metalsBuilder.nix
+    version = "1.3.2";
+    outputHash = "sha256-hRESY7TFxUjEkNf0vhCG30mIHZHXoAyZl3nTQ3OvQ0E=";
+    metalsDeps = final.stdenv.mkDerivation {
+      name = "metals-deps-${version}";
+      buildCommand = ''
+        export COURSIER_CACHE=$(pwd)
+        ${final.coursier}/bin/cs fetch org.scalameta:metals_2.13:${version} \
+          -r bintray:scalacenter/releases \
+          -r sonatype:snapshots > deps
+        mkdir -p $out/share/java
+        cp -n $(< deps) $out/share/java/
+      '';
+      outputHashMode = "recursive";
+      outputHashAlgo = "sha256";
+      inherit outputHash;
+    };
+  in {
+    metals = prev.metals.overrideAttrs {
+      inherit version;
+      buildInputs = [metalsDeps];
+    };
+  };
 in {
   defaultOverlays = [
-    (final: prev: {
-      deploy-rs-flake = defaultPackage inputs.deploy-rs final.system;
-      indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
-      mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
-      felis = defaultPackage inputs.felis final.system;
-      helixFlake = defaultPackage inputs.helix final.system;
-      helix-steel = defaultPackage inputs.helix-steel final.system;
-      steel = inputs.steel.packages.${final.system}.steel;
-    })
-    weechatOverlay
     inputs.lamina.overlays.default
-    (final: prev: {
-      unstable = import inputs.nixpkgs-unstable {
-        inherit (final) system config overlays;
-      };
-      vdx = let
-        callPackage = final.lib.callPackageWith (final
-          // {
-            pkgs = final;
-            mkBabashkaScript = callPackage ./lib/mkBabashkaScript.nix {};
-            inherit callPackage;
-          });
-      in
-        callPackage ./pkgs {};
-    })
+    packagesFromFlakesOverlay
+    weechatOverlay
+    localPackagesOverlay
+    unstableOverlay
+    scalaMetalsOverlay
   ];
 
   defaultConfig = {
