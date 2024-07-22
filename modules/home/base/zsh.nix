@@ -62,6 +62,7 @@
       jdfd = "jj diff --tool delta";
       jdm = "jj desc -m";
       jgf = "jj git fetch";
+      jfa = "jj git fetch --all-remotes";
       jgp = "jj git push";
       jl = "jj log";
       jlr = "jj log --reversed --no-pager";
