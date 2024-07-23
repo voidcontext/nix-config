@@ -6,11 +6,15 @@
 }:
 with lib; let
   cfg = config.base.helix;
-  steel-plugins =
+  steel-config-files =
     builtins.listToAttrs
     (builtins.map (path: {
         name = "helix/${builtins.baseNameOf path}";
-        value.text = builtins.readFile path;
+        value.source = pkgs.substituteAll {
+          src = path;
+          felis = "${pkgs.felis}/bin/felis";
+          broot = "${pkgs.broot}/bin/broot";
+        };
       })
       [
         ./helix.scm
@@ -106,7 +110,7 @@ in {
           keys.insert.home = "no_op";
           keys.insert.end = "no_op";
 
-          keys.normal.space.e = '':sh felis open-browser -l $(which broot)'';
+          keys.normal.space.e = lib.mkDefault '':sh felis open-browser -l $(which broot)'';
           keys.normal.space.m = '':lsp-workspace-command build-import'';
         };
         languages = {
@@ -153,15 +157,13 @@ in {
     }
     (mkIf cfg.steel.enable {
       programs.helix.package = pkgs.helix-steel;
-      programs.zsh.initExtra = ''
-        export STEEL_HOME="${pkgs.helix-steel}/lib/steel"
-      '';
+      # programs.helix.settings.keys.normal.space.e = '':file-browser'';
+      # programs.helix.settings.keys.normal.space.E = '':file-browser-cwd'';
       xdg.configFile =
-        steel-plugins
+        steel-config-files
         // {
-          "helix/helix" = {
-            source = "${pkgs.helix-steel}/lib/steel";
-          };
+          "helix/helix".source = "${pkgs.helix-steel}/lib/steel";
+          "helix/felis.scm".source = "${pkgs.felis.helix-plugin}";
         };
     })
   ];

@@ -2,6 +2,8 @@
 (require (prefix-in helix.static. "helix/static.scm"))
 (require "helix/editor.scm")
 
+(define felis-path "@felis@")
+(define broot-path "@broot@")
 
 (provide open-helix-scm )
 ;;@doc
@@ -20,7 +22,13 @@
          scala-switch-main-it
          scala-switch-main-e2e)
 
-(provide felis-open)
-(define (felis-open)
-  (let ((path ( ~> (open-input-file "/tmp/felis-open.txt") (read-port-to-string))))
-    (helix.open path)))
+(require "felis.scm")
+(provide felis-open
+         file-browser
+         file-browser-cwd)
+
+(define (file-browser)
+    (felis-file-browser felis-path broot-path))
+(define (file-browser-cwd)
+    (felis-file-browser-cwd felis-path broot-path))
+

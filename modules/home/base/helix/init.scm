@@ -25,11 +25,12 @@
 
 (add-global-keybinding
   (hash "normal" 
-        (hash "A-s" 
-              (hash "t" ":scala-switch-main-test"
-                    "i" ":scala-switch-main-it"
-                    "e" ":scala-switch-main-e2e"
-                    "M" ":scala-open-main"
-                    "T" ":scala-open-test"
-                    "I" ":scala-open-it"
-                    "E" ":scala-open-e2e"))))
+        (hash "A-s" (hash "t" ":scala-switch-main-test"
+                          "i" ":scala-switch-main-it"
+                          "e" ":scala-switch-main-e2e"
+                          "M" ":scala-open-main"
+                          "T" ":scala-open-test"
+                          "I" ":scala-open-it"
+                          "E" ":scala-open-e2e")
+              "space" (hash "e" ":file-browser"
+                            "E" ":file-browser-cwd"))))
