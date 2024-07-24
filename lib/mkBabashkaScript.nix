@@ -1,7 +1,8 @@
 {
-  writeText,
+  writeTextFile,
   writeShellApplication,
   babashka,
+  cljfmt,
   ...
 }: {
   name,
@@ -10,10 +11,14 @@
   scriptExtraArgs ? "",
   runtimeInputs ? [],
 }: let
-  script =
-    writeText
-    (builtins.baseNameOf scriptFile)
-    (builtins.readFile scriptFile);
+  script = writeTextFile {
+    name = builtins.baseNameOf scriptFile;
+    text = builtins.readFile scriptFile;
+
+    checkPhase = ''
+      ${cljfmt}/bin/cljfmt check $target
+    '';
+  };
 in
   writeShellApplication {
     inherit name;

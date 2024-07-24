@@ -54,27 +54,6 @@
     cd -
   '';
 
-  photo-info-line = pkgs.writeShellApplication {
-    name = "photo-info-line";
-    runtimeInputs = [pkgs.exiftool pkgs.jq];
-    text = ''
-      _lens_override=""
-      if [ "$1" == "--nisi9mm" ]; then
-        _lens_override="NiSi 9mm f/2.8 ASPH @ 9mm (35 mm equivalent: 14.0 mm)"
-        shift
-      fi
-
-      _exif=$(exiftool -json "$1")
-      _lens_model=$(echo "$_exif" | jq -r '.[0].LensModel')
-      _lens_info=$(echo "$_exif" | jq -r '.[0] | .LensModel + " @ " + .FocalLength35efl')
-      if [ "$_lens_model" == "" ]; then
-        _lens_info=$_lens_override
-      fi
-
-      echo "$_exif"  | jq -r  ".[0] | \"📷 \" + .Model + \" + $_lens_info\""
-      echo "$_exif"  | jq -r  ".[0] | \"🔅 f/\" + (.Aperture|tostring) + \", \" + (.ShutterSpeed|tostring) + \"s, ISO \" + (.ISO|tostring)"
-    '';
-  };
 in {
   imports = [
     ../../extras/hosts/Sagittarius-A.nix
@@ -101,6 +80,7 @@ in {
 
   home.packages = [
     pkgs.neofetch
+    pkgs.vdx.gallery-manager
 
     # pkgs.terraform # 23.11 non free anymore
 
@@ -122,7 +102,7 @@ in {
     pkgs.attic-client
 
     mirror-git-repo
-    photo-info-line
+    pkgs.exiftool
 
     pkgs.lima
     pkgs.colima

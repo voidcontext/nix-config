@@ -16,6 +16,7 @@ in
         pkgs.clojure-lsp
         pkgs.leiningen
         pkgs.rlwrap
+        pkgs.cljfmt
       ];
     };
   }
