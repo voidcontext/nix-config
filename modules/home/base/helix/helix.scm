@@ -27,8 +27,13 @@
          file-browser
          file-browser-cwd)
 
+;;@doc
+;; Open a file browser in the root
 (define (file-browser)
     (felis-file-browser felis-path broot-path))
+
+;;@doc
+;; Open a file browser in the parent directory of the current file
 (define (file-browser-cwd)
     (felis-file-browser-cwd felis-path broot-path))
 
