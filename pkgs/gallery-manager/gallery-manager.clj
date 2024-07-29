@@ -51,6 +51,11 @@
       (json/parse-string true)
       (first)
       (patch-exif)))
+;; Utils
+
+(defn write-front-matter [file yaml]
+  (let [yaml-str (yaml/generate-string yaml :dumper-options {:flow-style :block})]
+    (fs/write-bytes file (.getBytes (str "---\n" yaml-str "\n---\n")))))
 
 ;; Commands
 
@@ -63,24 +68,26 @@
                 dst (fs/path (fs/parent f) img)]
             (shell (str "cp " src " " dst))))))))
 
-(defn clean-content []
+(defn- clean-content []
   (shell "find content -name \"*.jpg\" -exec rm {} ;"))
 
-(defn wrap-info [info]
+(defn- wrap-info [info]
   (str "<!--photo-info-->\n<hr style=\"border-width: 1px\"><p style=\"font-size: 0.8em\">" info "</p>"))
 
-(defn patch-resource
+(defn patch-resource-with-photo-info
+  "Appends the photo info section if doesn't exist, or replacing an existing one. 
+   When the '<--!photo-into-->' marker doesn't exist, then the whole title will be replaced"
   [parent resource]
   (let [orig-title (-> (:title resource)
                        (str/split #"\n"))
         custom-title (->> orig-title
-                          (take-while #(not (= "<!--photo-info-->" %)))
+                          (take-while #(not (= "<!--photo-info-->" %))) ;; Take all lines before the marker
                           (str/join "\n"))
-        generated-title (-> (fs/path parent (:src resource))
+        generated-title (-> (fs/path parent (:src resource))            ;; append filename to parent path
                             (load-exif)
-                            (template-social)
-                            (str/replace #"\n" "<br/>\n")
-                            (wrap-info))]
+                            (template-social)                           ;; create template
+                            (str/replace #"\n" "<br/>\n")               ;; add html line breaks
+                            (wrap-info))]                               ;; wrap raw info in html
     (assoc resource :title (str custom-title "\n" generated-title))))
 
 (defn update-md []
@@ -88,28 +95,33 @@
     (doseq [f files]
       (let [front-matter (read-frontmatter f)
             updated (assoc front-matter :resources
-                           (map #(patch-resource (fs/parent f) %) (:resources front-matter)))
-            yaml (yaml/generate-string updated :dumper-options {:flow-style :block})]
-        (fs/write-bytes f (.getBytes (str "---\n" yaml "\n---\n")))))))
+                           (map #(patch-resource-with-photo-info (fs/parent f) %) (:resources front-matter)))]
+        (write-front-matter f updated)))))
 
-(defn resource-exists? [resources file]
+(defn- resource-exists? [resources file]
   (seq (filter #(= (:src %) (fs/file-name file)) resources)))
+
+(defn- add-missing-resources
+  [resources images]
+  (reduce
+   (fn [resources img]
+     (if (resource-exists? resources img)
+       resources
+       (conj resources
+             (->> {:src (fs/file-name img) :title ""}                  ;; create resource from file
+                  (patch-resource-with-photo-info (fs/parent img)))))) ;; and add photo info from exif
+   resources
+   images))
 
 (defn add-resources []
   (let [files (fs/glob "content" "**/index.md")] ;; only leaf index.mds are updated
     (doseq [f files]
       (let [images (fs/glob (fs/parent f) "*.jpg")
             front-matter (read-frontmatter f)
-            updated (assoc front-matter :resources
-                           (reduce (fn [resources img]
-                                     (if (resource-exists? resources img)
-                                       resources
-                                       (conj resources (->> {:src (fs/file-name img) :title ""}
-                                                            (patch-resource (fs/parent img))))))
-                                   (:resources front-matter)
-                                   images))
-            yaml (yaml/generate-string updated :dumper-options {:flow-style :block})]
-        (fs/write-bytes f (.getBytes (str "---\n" yaml "\n---\n")))))))
+            updated (assoc front-matter
+                           :resources
+                           (add-missing-resources (:resources front-matter) images))]
+        (write-front-matter f updated)))))
 
 ;; Main
 (def valid-commands ["copy-content" "clean-content" "update-md" "add-resources"])
