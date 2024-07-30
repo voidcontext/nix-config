@@ -42,7 +42,7 @@
   (let [lines [(str "📷 " (:Model exif))
                (str "🔭 " (:LensModel exif))
                (str "📏 " (:FocalLength35efl exif))
-               (str "🔅  " (:ShutterSpeed exif)  "s, f/" (:Aperture exif) ", ISO " (:ISO exif))]]
+               (str "🔅 " (:ShutterSpeed exif)  "s, f/" (:Aperture exif) ", ISO " (:ISO exif))]]
     (str/join "\n" lines)))
 
 (defn load-exif [file]
@@ -57,6 +57,9 @@
   (let [yaml-str (yaml/generate-string yaml :dumper-options {:flow-style :block})]
     (fs/write-bytes file (.getBytes (str "---\n" yaml-str "\n---\n")))))
 
+(defn src-path-of [img]
+  (fs/path "/Users/gaborpihaj/Pictures/Photos/exported/public" img))
+
 ;; Commands
 
 (defn copy-content []
@@ -64,7 +67,7 @@
     (doseq [f files]
       (let [front-matter (read-frontmatter f)]
         (doseq [img  (get-images front-matter)]
-          (let [src (fs/path "/Users/gaborpihaj/Pictures/Photos/exported/public" img)
+          (let [src (src-path-of img)
                 dst (fs/path (fs/parent f) img)]
             (shell (str "cp " src " " dst))))))))
 
@@ -123,8 +126,28 @@
                            (add-missing-resources (:resources front-matter) images))]
         (write-front-matter f updated)))))
 
+(defn check-src []
+  (let [files (fs/glob "content" "**.md")]
+    (doseq [f files]
+      (let [images (-> (read-frontmatter f) (get-images))]
+        (doseq [img images]
+          (let [src (src-path-of img)]
+            (when (not (fs/exists? src))
+              (println (str "File missing: " src)))))))))
+
+(defn print-info [file]
+  (-> file
+      (load-exif)
+      (template-social)
+      (println)))
+
 ;; Main
-(def valid-commands ["copy-content" "clean-content" "update-md" "add-resources"])
+(def valid-commands {"copy-content" "Copies all images listed in 'featured_image' and 'resource.src' attrbutes"
+                     "clean-content" "Removes all jpg files from the repo"
+                     "update-md" "Updates index.md files with the photo information from exif"
+                     "add-resources" "Adds image files from content dirs to index.md if missing"
+                     "check-src" "Check if any expected resources are missing in source"
+                     "info" "Prints photo info of given file"})
 
 (defn validation-for [name values]
   {:pred #(some #{%} values)
@@ -134,16 +157,21 @@
   {:spec {:help {:desc "Displays this help"
                  :alias :h}
           :cmd {:require true}}
-   :validate {:cmd (validation-for "cmd" valid-commands)}
+   :validate {:cmd (validation-for "cmd" (keys valid-commands))}
    :args->opts [:cmd :arg1]})
 
 (def usage
-  "Usage:
+  (str "Usage:
 
 gallery-manager [options] command
 
+Available commands:
+"
+       (str/join "\n" (map #(str "\t" (first %) ": " (second %)) valid-commands))
+       "
+
 Available options:
-")
+"))
 
 (defn show-help
   [spec]
@@ -160,6 +188,8 @@ Available options:
         "clean-content" (clean-content)
         "update-md" (update-md)
         "add-resources" (add-resources)
+        "check-src" (check-src)
+        "info" (print-info (:arg1 opts))
         :default (println (show-help cli-spec))))))
 
 (-main *command-line-args*)
