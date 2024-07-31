@@ -53,20 +53,18 @@
     deploy-rs,
     ...
   } @ inputs: let
-    localLib = import ./lib;
-
     config-extras = import ./extras;
 
-    defaults = import ./defaults.nix {inherit inputs localLib;};
+    defaults = import ./defaults.nix {inherit inputs;};
   in
     {
       darwinConfigurations = import ./darwin.nix {
-        inherit inputs localLib config-extras;
+        inherit inputs config-extras;
         inherit (defaults) defaultOverlays defaultConfig defaultSystemModules;
       };
 
       nixosConfigurations = import ./nixos.nix {
-        inherit inputs localLib config-extras;
+        inherit inputs config-extras;
         inherit (defaults) defaultOverlays defaultConfig defaultSystemModules;
       };
 

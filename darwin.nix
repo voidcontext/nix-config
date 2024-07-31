@@ -3,7 +3,6 @@
   defaultOverlays,
   defaultConfig,
   defaultSystemModules,
-  localLib,
   config-extras,
   ...
 }: let
@@ -17,7 +16,7 @@
   darwinDefaults = {
     inherit pkgs system;
     specialArgs = {
-      inherit localLib inputs config-extras;
+      inherit inputs config-extras;
       inherit (inputs) nixpkgs;
     };
   };

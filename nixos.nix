@@ -3,7 +3,6 @@
   defaultOverlays,
   defaultConfig,
   defaultSystemModules,
-  localLib,
   config-extras,
   ...
 }: let
@@ -21,7 +20,7 @@
     inherit pkgs;
     inherit (pkgs) system;
     specialArgs = {
-      inherit localLib inputs config-extras;
+      inherit inputs config-extras;
       inherit (inputs) nixpkgs nixos-hardware; # for nixos-uconsole
     };
   };

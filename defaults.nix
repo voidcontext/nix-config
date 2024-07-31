@@ -1,6 +1,5 @@
 {
-  inputs,
-  localLib,
+  inputs
 }: let
   defaultPackage = flake: system: flake.packages.${system}.default;
 
@@ -144,7 +143,7 @@ in {
             ./modules/home/programs/kitty
           ];
         home-manager.extraSpecialArgs = {
-          inherit localLib inputs;
+          inherit inputs;
           systemConfig = config;
         };
       })
