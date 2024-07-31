@@ -120,12 +120,12 @@ Available options:
                           :result
                           first)
         id (-> (re-matches #"(.+?):.+" summary-line)
-                (second))]
-      (if (= summary-line "user aborted")
-        summary-line
-        (if (nil? id) 
-          nil
-          (-> (filter #(= (:id %) id) (vals (:tasks tasks)))
+               (second))]
+    (if (= summary-line "user aborted")
+      summary-line
+      (if (nil? id)
+        nil
+        (-> (filter #(= (:id %) id) (vals (:tasks tasks)))
             first
             :url)))))
 
