@@ -42,7 +42,8 @@
   (let [lines [(str "📷 " (:Model exif))
                (str "🔭 " (:LensModel exif))
                (str "📏 " (:FocalLength35efl exif))
-               (str "🔅 " (:ShutterSpeed exif)  "s, f/" (:Aperture exif) ", ISO " (:ISO exif))]]
+               (str "🔅 " (:ShutterSpeed exif)  "s, f/" (:Aperture exif) ", ISO " (:ISO exif))
+               (str "📅 " (-> (:DateTimeOriginal exif) (str/split  #"\ ") (first) (str/replace ":" "-")))]]
     (str/join "\n" lines)))
 
 (defn load-exif [file]
