@@ -177,6 +177,11 @@
       (println cmd)
       (apply shell (cons {:dir "public"} cmd)))))
 
+(defn find-raw [jpg]
+  (let [config (load-config)]
+    (shell {:dir (:src-root config)}
+           "find" "." "-name" (str (str/replace jpg #"(\.JPG|\.JPEG|\.jpg|\.jpeg)$" "") ".NEF"))))
+
 ;; Main
 (def valid-commands {"copy-content" "Copies all images listed in 'featured_image' and 'resource.src' attrbutes"
                      "clean-content" "Removes all jpg files from the repo"
@@ -184,7 +189,8 @@
                      "add-resources" "Adds image files from content dirs to index.md if missing"
                      "check-src" "Check if any expected resources are missing in source"
                      "sync" "Synchronize gallery with its remote"
-                     "info" "Prints photo info of given file"})
+                     "info" "Prints photo info of given file"
+                     "find-raw" "Find original raw file of given exported JPG"})
 
 (defn validation-for [name values]
   {:pred #(some #{%} values)
@@ -230,6 +236,7 @@ Available options:
         "check-src" (check-src)
         "sync" (sync (:dry-run opts))
         "info" (print-info (:arg1 opts))
+        "find-raw" (find-raw (:arg1 opts))
         :default (println (show-help cli-spec))))))
 
 (-main *command-line-args*)
