@@ -52,7 +52,7 @@
     (str/join "\n" lines)))
 
 (defn load-exif [file]
-  (-> (shell {:out :string} (str "exiftool -json \"" file "\""))
+  (-> (shell {:out :string} "exiftool" "-json" file)
       :out
       (json/parse-string true)
       (first)
@@ -76,7 +76,7 @@
     (str (:namespace claim-ref) "/" (:name claim-ref))))
 
 (defn get-remote-sync-dir [claim]
-  (let [pvs (-> (shell {:out :string} "kubectl get persistentvolumes -o json")
+  (let [pvs (-> (shell {:out :string} "kubectl" "get" "persistentvolumes" "-o" "json")
                 :out
                 (json/parse-string true))]
     (-> (filter #(= (namespaced-claim %) claim) (:items pvs))
@@ -95,10 +95,10 @@
         (doseq [img  (get-images front-matter)]
           (let [src (src-path-of config img)
                 dst (fs/path (fs/parent f) img)]
-            (shell (str "cp " src " " dst))))))))
+            (shell "cp" src dst)))))))
 
 (defn- clean-content []
-  (shell "find content -name \"*.jpg\" -exec rm {} ;"))
+  (shell "find" "content" "-name" "*.jpg" "-exec" "rm" "{}" ";"))
 
 (defn- wrap-info [info]
   (str "<!--photo-info-->\n<hr style=\"border-width: 1px\"><p style=\"font-size: 0.8em\">" info "</p>"))
