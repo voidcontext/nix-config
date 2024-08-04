@@ -1,10 +1,15 @@
-(ns pgm_symlink
+(ns gallery-manager
   (:require [babashka.fs :as fs]
             [babashka.cli :as cli]
             [babashka.process :refer [shell]]
             [cheshire.core :as json]
             [clj-yaml.core :as yaml]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.edn :as edn]))
+
+(defn debug [v]
+  (println v)
+  v)
 
 ;; Hugo utils
 (defn read-frontmatter [file]
@@ -54,21 +59,41 @@
       (patch-exif)))
 ;; Utils
 
+(defn load-config []
+  (->> (fs/read-all-lines "config.edn")
+       (str/join "")
+       (edn/read-string)))
+
 (defn write-front-matter [file yaml]
   (let [yaml-str (yaml/generate-string yaml :dumper-options {:flow-style :block})]
     (fs/write-bytes file (.getBytes (str "---\n" yaml-str "\n---\n")))))
 
-(defn src-path-of [img]
-  (fs/path "/Users/gaborpihaj/Pictures/Photos/exported/public" img))
+(defn src-path-of [config img]
+  (fs/path (:exports-dir config) img))
+
+(defn- namespaced-claim [pv]
+  (let [claim-ref (-> pv :spec :claimRef)]
+    (str (:namespace claim-ref) "/" (:name claim-ref))))
+
+(defn get-remote-sync-dir [claim]
+  (let [pvs (-> (shell {:out :string} "kubectl get persistentvolumes -o json")
+                :out
+                (json/parse-string true))]
+    (-> (filter #(= (namespaced-claim %) claim) (:items pvs))
+        (first)
+        :spec
+        :local
+        :path)))
 
 ;; Commands
 
 (defn copy-content []
-  (let [files (fs/glob "content" "**.md")]
+  (let [config (load-config)
+        files (fs/glob "content" "**.md")]
     (doseq [f files]
       (let [front-matter (read-frontmatter f)]
         (doseq [img  (get-images front-matter)]
-          (let [src (src-path-of img)
+          (let [src (src-path-of config img)
                 dst (fs/path (fs/parent f) img)]
             (shell (str "cp " src " " dst))))))))
 
@@ -128,11 +153,12 @@
         (write-front-matter f updated)))))
 
 (defn check-src []
-  (let [files (fs/glob "content" "**.md")]
+  (let [config (load-config)
+        files (fs/glob "content" "**.md")]
     (doseq [f files]
       (let [images (-> (read-frontmatter f) (get-images))]
         (doseq [img images]
-          (let [src (src-path-of img)]
+          (let [src (src-path-of config img)]
             (when (not (fs/exists? src))
               (println (str "File missing: " src)))))))))
 
@@ -142,12 +168,22 @@
       (template-social)
       (println)))
 
+(defn sync [dry-run]
+  (let [config (load-config)
+        sync-config (:sync config)
+        cmd ["rsync" "--delete" "-z" "--progress" "-r"
+             "." (str (:remote sync-config) ":" (get-remote-sync-dir (:pvc sync-config)))]]
+    (if dry-run
+      (println cmd)
+      (apply shell (cons {:dir "public"} cmd)))))
+
 ;; Main
 (def valid-commands {"copy-content" "Copies all images listed in 'featured_image' and 'resource.src' attrbutes"
                      "clean-content" "Removes all jpg files from the repo"
                      "update-md" "Updates index.md files with the photo information from exif"
                      "add-resources" "Adds image files from content dirs to index.md if missing"
                      "check-src" "Check if any expected resources are missing in source"
+                     "sync" "Synchronize gallery with its remote"
                      "info" "Prints photo info of given file"})
 
 (defn validation-for [name values]
@@ -157,7 +193,9 @@
 (def cli-spec
   {:spec {:help {:desc "Displays this help"
                  :alias :h}
-          :cmd {:require true}}
+          :cmd {:require true}
+          :dry-run {:desc "Dry run command (works with sync)"
+                    :alias :d}}
    :validate {:cmd (validation-for "cmd" (keys valid-commands))}
    :args->opts [:cmd :arg1]})
 
@@ -190,6 +228,7 @@ Available options:
         "update-md" (update-md)
         "add-resources" (add-resources)
         "check-src" (check-src)
+        "sync" (sync (:dry-run opts))
         "info" (print-info (:arg1 opts))
         :default (println (show-help cli-spec))))))
 
