@@ -44,7 +44,8 @@
 
 (defn template-social
   [exif]
-  (let [lines [(str "📷 " (:Model exif))
+  (let [lines [(str "#" (:FileNumber exif))
+               (str "📷 " (:Model exif))
                (str "🔭 " (:LensModel exif))
                (str "📏 " (:FocalLength35efl exif))
                (str "🔅 " (:ShutterSpeed exif)  "s, f/" (:Aperture exif) ", ISO " (:ISO exif))
@@ -180,7 +181,8 @@
 (defn find-raw [jpg]
   (let [config (load-config)]
     (shell {:dir (:src-root config)}
-           "find" "." "-name" (str (str/replace jpg #"(\.JPG|\.JPEG|\.jpg|\.jpeg)$" "") ".NEF"))))
+           "find" "." "-name"
+           (str "_DSC" (str/replace jpg #"(_DSC|)(.*?)(\.JPG|\.JPEG|\.jpg|\.jpeg|)$" "$2") ".NEF"))))
 
 ;; Main
 (def valid-commands {"copy-content" "Copies all images listed in 'featured_image' and 'resource.src' attrbutes"
