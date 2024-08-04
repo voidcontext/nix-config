@@ -9,5 +9,5 @@
 mkBabashkaScript {
   name = "gallery-manager";
   runtimeInputs = [findutils exiftool rsync kubectl];
-  scriptFile = ./gallery-manager.clj;
+  scriptFile = ./gallery_manager.clj;
 }
