@@ -53,10 +53,27 @@ in {
     pkgs.steel
     pkgs.attic-client
 
+    (pkgs.python3.withPackages (pythonPackages:
+      with pythonPackages; [
+        black
+        isort
+        pyls-isort
+        pylint
+        python-lsp-black
+        python-lsp-server
+      ]))
+
     # extra packages
     cuopp-msg-helper
     new-branch
   ];
+
+  programs.helix.languages.language-server.pylsp.config.pylsp = {
+    plugins.black.enabled = true;
+    plugins.pylint.enabled = true;
+    plugins.isort.enabled = true;
+  };
+
   programs.ssh = {
     enable = true;
     matchBlocks = {
