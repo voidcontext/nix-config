@@ -40,7 +40,7 @@ in {
       package = kitty;
 
       font.name = "${systemConfig.base.font.family} Nerd Font Mono";
-      font.size = 15;
+      font.size = lib.mkDefault 15;
 
       settings = {
         shell_integration = "no-cursor";
