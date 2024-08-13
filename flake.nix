@@ -80,9 +80,10 @@
         pkgs.symlinkJoin {
           name = "cache-warmup";
           paths = [
-            pkgs.lamina
             pkgs.deploy-rs-flake
+            pkgs.felis
             pkgs.indieweb-tools
+            pkgs.lamina
           ];
         };
 
@@ -97,6 +98,7 @@
           name = "cache-warmup";
           paths = [
             pkgs.deploy-rs-flake
+            pkgs.felis
           ];
         };
 
