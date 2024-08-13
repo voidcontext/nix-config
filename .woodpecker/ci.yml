@@ -28,6 +28,13 @@ steps:
       script: |
         make cache-warmup
 
+  flake-check:
+    image: ${image}
+    settings:
+      <<: *common_settings
+      script: |
+        nix flake check
+
   # TODO: enable formatting checks later
   # formating-check:
   #   image: git.vdx.hu/voidcontext/woodpecker-plugin-nix-attic:0.1.1
