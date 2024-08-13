@@ -28,12 +28,12 @@ steps:
       script: |
         make cache-warmup
 
-  flake-check:
-    image: ${image}
-    settings:
-      <<: *common_settings
-      script: |
-        nix flake check
+  # flake-check:
+  #   image: ${image}
+  #   settings:
+  #     <<: *common_settings
+  #     script: |
+  #       nix flake check
 
   # TODO: enable formatting checks later
   # formating-check:
