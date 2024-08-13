@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  systemConfig,
   ...
 }:
 with lib; let
@@ -55,7 +56,7 @@ in {
       programs.broot = {
         enable = true;
         settings = {
-          verbs = [
+          verbs = lib.mkDefault [
             {
               invocation = "print_path";
               key = "enter";
@@ -63,12 +64,6 @@ in {
               apply_to = "file";
               leave_broot = true;
               internal = ":print_path";
-            }
-            {
-              invocation = "create {subpath}";
-              shortcut = "cr";
-              leave_broot = true;
-              external = "${pkgs.felis}/bin/felis open-file {directory}/{subpath} --steel";
             }
           ];
         };
@@ -155,6 +150,24 @@ in {
         };
       };
     }
+    (mkIf (!systemConfig.base.headless) {
+      programs.broot.settings.verbs = [
+        {
+          invocation = "print_path";
+          key = "enter";
+          shortcut = "pp";
+          apply_to = "file";
+          leave_broot = true;
+          internal = ":print_path";
+        }
+        {
+          invocation = "create {subpath}";
+          shortcut = "cr";
+          leave_broot = true;
+          external = "${pkgs.felis}/bin/felis open-file {directory}/{subpath} --steel";
+        }
+      ];
+    })
     (mkIf cfg.steel.enable {
       programs.helix.package = pkgs.helix-steel;
       # programs.helix.settings.keys.normal.space.e = '':file-browser'';
