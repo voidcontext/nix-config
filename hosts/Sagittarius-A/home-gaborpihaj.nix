@@ -53,7 +53,6 @@
 
     cd -
   '';
-
 in {
   imports = [
     ../../extras/hosts/Sagittarius-A.nix

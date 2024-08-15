@@ -1131,7 +1131,9 @@
         "nixpkgs": "nixpkgs_11",
         "nixpkgs-unstable": "nixpkgs-unstable_2",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
-        "steel": "steel"
+        "steel": "steel",
+        "zsh-nix-shell": "zsh-nix-shell",
+        "zsh-window-title": "zsh-window-title"
       }
     },
     "rust-overlay": {
@@ -1508,6 +1510,40 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "zsh-nix-shell": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704027160,
+        "narHash": "sha256-Z6EYQdasvpl1P78poj9efnnLj7QQg13Me8x1Ryyw+dM=",
+        "owner": "chisui",
+        "repo": "zsh-nix-shell",
+        "rev": "8b86281cf9e9ef9f207433dd8b36d157dd48d50a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chisui",
+        "ref": "v0.8.0",
+        "repo": "zsh-nix-shell",
+        "type": "github"
+      }
+    },
+    "zsh-window-title": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716514647,
+        "narHash": "sha256-RqJmb+XYK35o+FjUyqGZHD6r1Ku1lmckX41aXtVIUJQ=",
+        "owner": "olets",
+        "repo": "zsh-window-title",
+        "rev": "f859d445d416385abcf4a4d5460ce7c48d4bddf9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "olets",
+        "ref": "v1.2.0",
+        "repo": "zsh-window-title",
         "type": "github"
       }
     }

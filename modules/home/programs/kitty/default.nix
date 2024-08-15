@@ -14,25 +14,9 @@ in {
       "$HOME/Applications/kitty.app" = "${kitty}/Applications/Kitty.app";
     };
 
-    programs.zsh.plugins = [
-      {
-        name = "zsh-window-title";
-        src = pkgs.fetchFromGitHub {
-          owner = "olets";
-          repo = "zsh-window-title";
-          rev = "v1.0.2";
-          sha256 = "1vvzxqcfwksq429l1n6sahb18rp6pk4lss8ihn5fs8cwiw6ykwkr";
-        };
-      }
-    ];
-
     home.packages = [
       pkgs.felis
     ];
-
-    programs.zsh.initExtraBeforeCompInit = ''
-      DISABLE_AUTO_TITLE="true"
-    '';
 
     programs.kitty = {
       enable = true;
@@ -42,8 +26,9 @@ in {
       font.name = "${systemConfig.base.font.family} Nerd Font Mono";
       font.size = lib.mkDefault 15;
 
+      shellIntegration.mode = "no-cursor";
+
       settings = {
-        shell_integration = "no-cursor";
         cursor_shape = "block";
         tab_bar_style = "powerline";
         copy_on_select = "yes";

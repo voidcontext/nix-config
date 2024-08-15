@@ -34,13 +34,19 @@
     lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
     felis.url = "git+https://git.vdx.hu/voidcontext/felis.git?ref=refs/heads/main";
 
+    attic.url = "github:zhaofengli/attic";
+
+    zsh-nix-shell.url = "github:chisui/zsh-nix-shell/v0.8.0";
+    zsh-nix-shell.flake = false;
+
+    zsh-window-title.url = "github:olets/zsh-window-title/v1.2.0";
+    zsh-window-title.flake = false;
+
     kitty-everforest-themes.url = "github:ewal/kitty-everforest";
     kitty-everforest-themes.flake = false;
 
     kitty-gruvbox-themes.url = "github:wdomitrz/kitty-gruvbox-theme";
     kitty-gruvbox-themes.flake = false;
-
-    attic.url = "github:zhaofengli/attic";
   };
 
   outputs = {

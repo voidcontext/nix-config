@@ -1,6 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
 
     envExtra = ''
       export NIX_IGNORE_SYMLINK_STORE=1
@@ -24,6 +29,10 @@
       KUBE_PS1_SUFFIX=" "
       KUBE_PS1_DIVIDER=" ns:"
       PROMPT='$(kube_ps1)'$PROMPT
+    '';
+
+    initExtraBeforeCompInit = ''
+      DISABLE_AUTO_TITLE="true" # for the zsh-window-title plugin
     '';
 
     shellAliases = {
@@ -105,24 +114,13 @@
 
     plugins = [
       {
-        name = "nix-zsh-completions";
-        file = "nix-zsh-completions.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "spwhitt";
-          repo = "nix-zsh-completions";
-          rev = "468d8cf752a62b877eba1a196fbbebb4ce4ebb6f";
-          sha256 = "16r0l7c1jp492977p8k6fcw2jgp6r43r85p6n3n1a53ym7kjhs2d";
-        };
-      }
-      {
         name = "zsh-nix-shell";
         file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.4.0";
-          sha256 = "037wz9fqmx0ngcwl9az55fgkipb745rymznxnssr3rx9irb6apzg";
-        };
+        src = inputs.zsh-nix-shell;
+      }
+      {
+        name = "zsh-window-title";
+        src = inputs.zsh-window-title;
       }
     ];
 
