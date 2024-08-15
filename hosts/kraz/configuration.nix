@@ -87,6 +87,11 @@
   security.pam.sshAgentAuth.enable = true;
   security.pam.services.sudo.sshAgentAuth = true;
 
+  environment.systemPackages = [
+    pkgs.k3s
+    pkgs.cryptsetup
+  ];
+
   # User Management
 
   users.mutableUsers = false;
@@ -120,7 +125,6 @@
   services.k3s.package = pkgs.unstable.k3s_1_29;
   services.k3s.role = "server";
   services.k3s.extraFlags = "--disable servicelb";
-  environment.systemPackages = [pkgs.k3s];
   networking.firewall.interfaces."wg0".allowedTCPPorts = [
     6443
   ];
