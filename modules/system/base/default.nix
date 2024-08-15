@@ -89,6 +89,7 @@ in {
         keep-outputs = true
         keep-derivations = true
         netrc-file = /opt/attic-cache/netrc
+        builders-use-substitutes = true
       '';
       nix.settings.substituters = trusted-substituters;
       nix.settings.trusted-substituters = trusted-substituters;

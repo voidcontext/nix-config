@@ -61,6 +61,8 @@ in {
 
   programs.kitty.font.size = 13;
 
+  services.gpg-agent.pinentryPackage = pkgs.pinentry-gnome3;
+
   home.packages = [
     pkgs.neofetch
     pkgs.keepassxc
