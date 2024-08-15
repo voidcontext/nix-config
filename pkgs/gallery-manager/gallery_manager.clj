@@ -66,7 +66,8 @@
        (edn/read-string)))
 
 (defn write-front-matter [file yaml]
-  (let [yaml-str (yaml/generate-string yaml :dumper-options {:flow-style :block})]
+  (let [sorted (assoc yaml :resources (sort-by :src (:resources yaml)))
+        yaml-str (yaml/generate-string sorted :dumper-options {:flow-style :block})]
     (fs/write-bytes file (.getBytes (str "---\n" yaml-str "\n---\n")))))
 
 (defn src-path-of [config img]
@@ -76,15 +77,18 @@
   (let [claim-ref (-> pv :spec :claimRef)]
     (str (:namespace claim-ref) "/" (:name claim-ref))))
 
+(defn- find-path [item]
+  (let [local-path (-> item :spec :local :path)
+        host-path (-> item :spec :hostPath :path)]
+    (or local-path host-path)))
+
 (defn get-remote-sync-dir [claim]
   (let [pvs (-> (shell {:out :string} "kubectl" "get" "persistentvolumes" "-o" "json")
                 :out
                 (json/parse-string true))]
     (-> (filter #(= (namespaced-claim %) claim) (:items pvs))
         (first)
-        :spec
-        :local
-        :path)))
+        (find-path))))
 
 ;; Commands
 
@@ -172,8 +176,9 @@
 (defn sync [dry-run]
   (let [config (load-config)
         sync-config (:sync config)
+        remote-dir (or (get-remote-sync-dir (:pvc sync-config)) (throw (ex-info "Couldn't find remote dir" {})))
         cmd ["rsync" "--delete" "-z" "--progress" "-r"
-             "." (str (:remote sync-config) ":" (get-remote-sync-dir (:pvc sync-config)))]]
+             "." (str (:remote sync-config) ":" remote-dir)]]
     (if dry-run
       (println cmd)
       (apply shell (cons {:dir "public"} cmd)))))
