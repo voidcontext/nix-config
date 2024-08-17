@@ -10,6 +10,7 @@
   wireguard.sagittarius-a-dev.publicKey = "AAAAAA-AAA";
   wireguard.kraz.publicKey = "AAAAAA-AAA";
   wireguard.orkaria.publicKey = "AAAAAA-AAA";
+  wireguard.zs-s23-phone.publicKey = "AAAAAA-AAA";
 
   hosts = {
     kraz = {

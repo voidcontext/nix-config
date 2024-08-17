@@ -73,6 +73,12 @@
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.8/32"];
         }
+        {
+          # zs s23 phone
+          publicKey = config-extras.secrets.wireguard.zs-s23-phone.publicKey;
+          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+          allowedIPs = ["10.24.0.9/32"];
+        }
         # { # John Doe
         #   publicKey = "{john doe's public key}";
         #   allowedIPs = [ "10.100.0.3/32" ];
