@@ -121,7 +121,52 @@ in {
             merge-editor = "meld";
             diff-editor = ":builtin";
           };
+          # experimental-advance-branches = {
+          #   enabled-branches = ["glob:*"];
+          #   disabled-branches = ["main" "glob:push-*"];
+          # };
         };
+      };
+
+      programs.zsh.shellAliases = {
+        
+        gcs = "git commit -v -S";
+        gdc = "git diff --cached";
+        gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
+        gbpurge = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
+        gmf = "git merge --ff-only";
+        gmfh = "git merge FETCH_HEAD";
+        gsl = "git shortlog -s -n";
+        gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
+
+        jab = "jj abandon";
+        jb = "jj branch";
+        jbc = "jj branch create";
+        jbl = "jj branch list";
+        jbm = "jj branch move";
+        jbu = "jj branch move --from 'heads(::@- & branches())' --to @-";
+        jco = "jj commit";
+        jcm = "jj commit -m";
+        jde = "jj desc";
+        jdf = "jj diff";
+        jdfd = "jj diff --tool delta";
+        jdm = "jj desc -m";
+        jed = "jj edit";
+        jgf = "jj git fetch";
+        jgfa = "jj git fetch --all-remotes";
+        jgp = "jj git push";
+        jl = "jj log";
+        jlr = "jj log --reversed --no-pager";
+        jn = "jj new";
+        jnm = "jj new main";
+        job = "jj obslog";
+        jop = "jj op";
+        jopl = "jj op log";
+        jr = "jj rebase";
+        jsq = "jj squash";
+        jst = "jj status";
+
+        rcd = "cd $(git rev-parse --show-toplevel)";
       };
     })
     (mkIf (cfg.enable && cfg.cog.enable) {

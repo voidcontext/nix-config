@@ -50,41 +50,6 @@
 
       java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
 
-      gcs = "git commit -v -S";
-      gdc = "git diff --cached";
-      gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
-      gbpurge = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\" | xargs git branch -d";
-      gmf = "git merge --ff-only";
-      gmfh = "git merge FETCH_HEAD";
-      gsl = "git shortlog -s -n";
-      gitcheat = "cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh ~/.zshrc | grep \"alias.*git\"";
-
-      jab = "jj abandon";
-      jb = "jj branch";
-      jbc = "jj branch create";
-      jbl = "jj branch list";
-      jbs = "jj branch set";
-      jco = "jj commit";
-      jcm = "jj commit -m";
-      jde = "jj desc";
-      jdf = "jj diff";
-      jdfd = "jj diff --tool delta";
-      jdm = "jj desc -m";
-      jgf = "jj git fetch";
-      jfa = "jj git fetch --all-remotes";
-      jgp = "jj git push";
-      jl = "jj log";
-      jlr = "jj log --reversed --no-pager";
-      jn = "jj new";
-      jnm = "jj new main";
-      job = "jj obslog";
-      jop = "jj op";
-      jopl = "jj op list";
-      jr = "jj rebase";
-      jsq = "jj squash";
-      jst = "jj status";
-
-      rcd = "cd $(git rev-parse --show-toplevel)";
 
       dk = "docker";
       dkps = "docker ps";
