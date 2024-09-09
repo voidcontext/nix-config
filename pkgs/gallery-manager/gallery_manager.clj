@@ -147,14 +147,16 @@
    resources
    images))
 
-(defn add-resources []
+(defn sync-resources []
   (let [files (fs/glob "content" "**/index.md")] ;; only leaf index.mds are updated
     (doseq [f files]
       (let [images (fs/glob (fs/parent f) "*.jpg")
             front-matter (read-frontmatter f)
+            file-names (map fs/file-name images)
+            filtered-resources (filter #(some (fn[r] (=  (fs/file-name r)  (:src %))) file-names)  (:resources front-matter))
             updated (assoc front-matter
                            :resources
-                           (add-missing-resources (:resources front-matter) images))]
+                           (add-missing-resources filtered-resources images))]
         (write-front-matter f updated)))))
 
 (defn check-src []
@@ -193,7 +195,7 @@
 (def valid-commands {"copy-content" "Copies all images listed in 'featured_image' and 'resource.src' attrbutes"
                      "clean-content" "Removes all jpg files from the repo"
                      "update-md" "Updates index.md files with the photo information from exif"
-                     "add-resources" "Adds image files from content dirs to index.md if missing"
+                     "sync-resources" "Adds image files from content dirs to index.md if missing and remove resources from index.md if content is missing"
                      "check-src" "Check if any expected resources are missing in source"
                      "sync" "Synchronize gallery with its remote"
                      "info" "Prints photo info of given file"
@@ -239,7 +241,7 @@ Available options:
         "copy-content" (copy-content)
         "clean-content" (clean-content)
         "update-md" (update-md)
-        "add-resources" (add-resources)
+        "sync-resources" (sync-resources)
         "check-src" (check-src)
         "sync" (sync (:dry-run opts))
         "info" (print-info (:arg1 opts))
