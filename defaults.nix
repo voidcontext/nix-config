@@ -71,8 +71,8 @@
   };
   scalaMetalsOverlay = final: prev: let
     # From: https://github.com/gvolpe/neovim-flake/blob/main/lib/metalsBuilder.nix
-    version = "1.3.3";
-    outputHash = "sha256-OFpnfAR1BuY0QFCR8Zf210IEMgVDVLQnHNSCM2FbBxk=";
+    version = "1.3.5";
+    outputHash = "sha256-86/zeoOO5kSAwh7uQTV7nGUGQoIux1rlH5eUgvn3kvY=";
     metalsDeps = final.stdenv.mkDerivation {
       name = "metals-deps-${version}";
       buildCommand = ''
