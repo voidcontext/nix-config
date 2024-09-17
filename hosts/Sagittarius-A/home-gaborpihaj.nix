@@ -118,6 +118,10 @@ in {
     pkgs.unstable.prismlauncher # TODO: re-enable once it works again in 24.05
   ];
 
+  programs.zsh.shellAliases = {
+    gm = "gallery-manager";
+  };
+
   base.darwin_symlinks = {
     "$HOME/Applications/Prismlauncher.app" = "${pkgs.unstable.prismlauncher}/Applications/Prismlauncher.app";
   };

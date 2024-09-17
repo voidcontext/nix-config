@@ -105,24 +105,24 @@
 (defn- clean-content []
   (shell "find" "content" "-name" "*.jpg" "-exec" "rm" "{}" ";"))
 
-(defn- wrap-info [info]
-  (str "<!--photo-info-->\n<hr style=\"border-width: 1px\"><p style=\"font-size: 0.8em\">" info "</p>"))
-
 (defn patch-resource-with-photo-info
   "Appends the photo info section if doesn't exist, or replacing an existing one. 
    When the '<--!photo-into-->' marker doesn't exist, then the whole title will be replaced"
   [parent resource]
   (let [orig-title (-> (:title resource)
                        (str/split #"\n"))
-        custom-title (->> orig-title
-                          (take-while #(not (= "<!--photo-info-->" %))) ;; Take all lines before the marker
-                          (str/join "\n"))
-        generated-title (-> (fs/path parent (:src resource))            ;; append filename to parent path
-                            (load-exif)
-                            (template-social)                           ;; create template
-                            (str/replace #"\n" "<br/>\n")               ;; add html line breaks
-                            (wrap-info))]                               ;; wrap raw info in html
-    (assoc resource :title (str custom-title "\n" generated-title))))
+        title (->> orig-title
+                   (take-while #(not (= "<!--photo-info-->" %))) ;; Take all lines before the legacy marker
+                   (str/join "\n"))
+        footer (-> (fs/path parent (:src resource))              ;; append filename to parent path
+                   (load-exif)
+                   (template-social)                             ;; create template
+                   (str/replace #"\n" "<br/>\n"))]               ;; add html line breaks
+    (-> resource
+        (assoc :title title)
+        (dissoc :footer)
+        (assoc-in [:params :footer] footer)
+        (assoc-in [:params :id] (:src resource)))))
 
 (defn update-md []
   (let [files (fs/glob "content" "**.md")]
@@ -153,7 +153,7 @@
       (let [images (fs/glob (fs/parent f) "*.jpg")
             front-matter (read-frontmatter f)
             file-names (map fs/file-name images)
-            filtered-resources (filter #(some (fn[r] (=  (fs/file-name r)  (:src %))) file-names)  (:resources front-matter))
+            filtered-resources (filter #(some (fn [r] (=  (fs/file-name r)  (:src %))) file-names)  (:resources front-matter))
             updated (assoc front-matter
                            :resources
                            (add-missing-resources filtered-resources images))]
