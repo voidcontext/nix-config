@@ -144,7 +144,8 @@ in {
         jbc = "jj branch create";
         jbl = "jj branch list";
         jbm = "jj branch move";
-        jbu = "jj branch move --from 'heads(::@- & branches())' --to @-";
+        jbu = "jj branch move --from 'heads(::@- & branches() & ~main)' --to @-";
+        jbum = "jj branch move --from main --to @-";
         jco = "jj commit";
         jcm = "jj commit -m";
         jde = "jj desc";
