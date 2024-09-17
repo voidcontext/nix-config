@@ -191,6 +191,7 @@
     pkgs.usbutils
     pkgs.hdparm
     pkgs.smartmontools
+    pkgs.attic-client
   ];
 
   networking = {

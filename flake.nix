@@ -104,6 +104,7 @@
           name = "cache-warmup";
           paths = [
             pkgs.deploy-rs-flake
+            pkgs.attic-client
             pkgs.felis
           ];
         };
