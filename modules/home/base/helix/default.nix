@@ -111,7 +111,7 @@ in {
         languages = {
           language-server = {
             metals.config = {
-              metals.showInferredType = true;
+              metals.verboseCompilation = true;
               isHttpEnabled = true;
             };
             ltex-ls = {
