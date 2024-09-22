@@ -91,6 +91,12 @@
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.11/32"];
         }
+        {
+          # luca-phone
+          publicKey = config-extras.secrets.wireguard.luca-phone.publicKey;
+          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+          allowedIPs = ["10.24.0.12/32"];
+        }
         # { # John Doe
         #   publicKey = "{john doe's public key}";
         #   allowedIPs = [ "10.100.0.3/32" ];

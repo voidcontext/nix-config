@@ -13,6 +13,7 @@
   wireguard.zs-s23-phone.publicKey = "AAAAAA-AAA";
   wireguard.mum-phone.publicKey = "AAAAAA-AAA";
   wireguard.dad-phone.publicKey = "AAAAAA-AAA";
+  wireguard.luca-phone.publicKey = "AAAAAA-AAA";
 
   hosts = {
     kraz = {
