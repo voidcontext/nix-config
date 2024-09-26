@@ -48,6 +48,7 @@ in {
     pkgs.kubectx
     pkgs.awscli2
 
+    pkgs.vdx.differ
     pkgs.vdx.tasker
 
     pkgs.steel
