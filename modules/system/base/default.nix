@@ -68,6 +68,7 @@ in {
           pkgs.ncurses # for tput
           pkgs.watch
           pkgs.wget
+          pkgs.jwt-cli
 
           #modern unix
           pkgs.bat
