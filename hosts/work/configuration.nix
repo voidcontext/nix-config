@@ -26,5 +26,16 @@
   services.nix-daemon.enable = true;
 
   nix.settings.trusted-users = ["root" "gaborpihaj"];
-  # nix.settings.sandbox = true;
+
+  # dev-tools config
+  # nix.settings.ssl-cert-file = "/Users/gaborpihaj/.nix-ztna-bundle.crt";
+
+  # nix config
+  security.pki.certificateFiles = [
+    "/Users/gaborpihaj/workspace/work/ssl/custom-ca-bundle.pem"
+  ];
+
+  security.sudo.extraConfig = ''
+    Defaults env_keep += "NIX_SSL_CERT_FILE"
+  '';
 }
