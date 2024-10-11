@@ -140,13 +140,13 @@ in {
 
         jab = "jj abandon";
         jb = "jj branch";
-        jbc = "jj branch create";
-        jbl = "jj branch list";
-        jbm = "jj branch move";
-        jbu = "jj branch move --from 'heads(::@- & branches())' --to @-";
-        jbuf = "jj branch move --from 'heads(::@- & branches() & ~main)' --to @-";
-        jbuff = "jj branch move --from 'heads(::@- & branches() & ~master)' --to @-";
-        jbum = "jj branch move --from main --to @-";
+        jbc = "jj bookmark create";
+        jbl = "jj bookmark list";
+        jbm = "jj bookmark move";
+        jbu = "jj bookmark move --from 'heads(::@- & bookmarks())' --to @-";
+        jbuf = "jj bookmark move --from 'heads(::@- & bookmarks() & ~main)' --to @-";
+        jbuff = "jj bookmark move --from 'heads(::@- & bookmarks() & ~master)' --to @-";
+        jbum = "jj bookmark move --from main --to @-";
         jco = "jj commit";
         jcm = "jj commit -m";
         jde = "jj desc";
