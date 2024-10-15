@@ -38,28 +38,28 @@
       peers = [
         # List of allowed peers.
         {
-          # Sagittarius-A*
-          publicKey = config-extras.secrets.wireguard.sagittarius-a.publicKey;
-          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-          allowedIPs = ["10.24.0.3/32"];
-        }
-        {
-          # Sagittarius-A* dev
-          publicKey = config-extras.secrets.wireguard.sagittarius-a-dev.publicKey;
-          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-          allowedIPs = ["10.24.0.5/32"];
-        }
-        {
           # electra
           publicKey = config-extras.secrets.wireguard.electra.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.2/32"];
         }
         {
+          # Sagittarius-A*
+          publicKey = config-extras.secrets.wireguard.sagittarius-a.publicKey;
+          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+          allowedIPs = ["10.24.0.3/32"];
+        }
+        {
           # KJ-XS
           publicKey = config-extras.secrets.wireguard.KJ-XS.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.4/32"];
+        }
+        {
+          # Sagittarius-A* dev
+          publicKey = config-extras.secrets.wireguard.sagittarius-a-dev.publicKey;
+          # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+          allowedIPs = ["10.24.0.5/32"];
         }
         {
           # kraz
