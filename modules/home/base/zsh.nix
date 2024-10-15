@@ -50,7 +50,6 @@
 
       java-home = "readlink -f $(which java) | xargs dirname | xargs dirname";
 
-
       dk = "docker";
       dkps = "docker ps";
       dkrma = "docker rm -f $(docker ps -a -q)";

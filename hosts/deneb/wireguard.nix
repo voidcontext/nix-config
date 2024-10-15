@@ -86,7 +86,7 @@
           allowedIPs = ["10.24.0.10/32"];
         }
         {
-          # dad 
+          # dad
           publicKey = config-extras.secrets.wireguard.dad-phone.publicKey;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = ["10.24.0.11/32"];

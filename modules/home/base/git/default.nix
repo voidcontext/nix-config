@@ -129,7 +129,6 @@ in {
       };
 
       programs.zsh.shellAliases = {
-        
         gcs = "git commit -v -S";
         gdc = "git diff --cached";
         gbtp = "git branch --merged | grep -v \"\\(master\\|main\\|\\*\\)\"";
