@@ -101,6 +101,13 @@ in {
     localPackagesOverlay
     unstableOverlay
     scalaMetalsOverlay
+    # https://github.com/NixOS/nixpkgs/issues/337036
+    (final: prev: {
+      lix = prev.lix.overrideAttrs {
+        doCheck = false;
+        doInstallCheck = false;
+      };
+    })
   ];
 
   defaultConfig = {
