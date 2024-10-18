@@ -20,8 +20,9 @@ with lib; let
       [
         ./helix.scm
         ./init.scm
-        ./scala.scm
         ./utils.scm
+        ./clojure.scm
+        ./scala.scm
       ]);
 in {
   # Helix

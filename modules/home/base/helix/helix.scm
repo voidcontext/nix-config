@@ -22,6 +22,15 @@
          scala-switch-main-it
          scala-switch-main-e2e)
 
+(require "clojure.scm")
+(provide clojure-open-test
+         clojure-open-main
+         clojure-open-it
+         clojure-open-e2e
+         clojure-switch-main-test
+         clojure-switch-main-it
+         clojure-switch-main-e2e)
+
 (require "felis.scm")
 (provide felis-open
          file-browser

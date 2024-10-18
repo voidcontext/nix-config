@@ -21,7 +21,7 @@
        (ends-with? file (string-append (test-suffix) ".scala"))))
 
 (define (scala-open-test-from-dir dir)
-  (let ((test-file (~> (current-path)
+  (let ((test-file (~> (current-doc-path)
                        (string-replace "src/main" (string-append "src/" dir))
                        (trim-end-matches ".scala")
                        (string-append (test-suffix) ".scala"))))
@@ -46,7 +46,7 @@
 ;;@doc
 ;; Open the associated main file from src/main
 (define (scala-open-main)
-  (let ((main-file (~> (current-path)
+  (let ((main-file (~> (current-doc-path)
                        (string-replace "src/test" "src/main")
                        (trim-end-matches (string-append (test-suffix) ".scala"))
                        (string-append ".scala"))))
@@ -55,20 +55,20 @@
 ;;@doc
 ;; Switch betweent he  associated main and unit test file
 (define (scala-switch-main-test)
-  (if (is-main (current-path)) 
+  (if (is-main (current-doc-path)) 
       (scala-open-test)
       (scala-open-main)))
 
 ;;@doc
 ;; Switch betweent he  associated main and inetegration test file
 (define (scala-switch-main-it)
-  (if (is-main (current-path)) 
+  (if (is-main (current-doc-path)) 
       (scala-open-it)
       (scala-open-main)))
 
 ;;@doc
 ;; Switch betweent he  associated main and end-to-end test file
 (define (scala-switch-main-e2e)
-  (if (is-main (current-path)) 
+  (if (is-main (current-doc-path)) 
       (scala-open-e2e)
       (scala-open-main)))

@@ -32,5 +32,12 @@
                           "T" ":scala-open-test"
                           "I" ":scala-open-it"
                           "E" ":scala-open-e2e")
+              "A-d" (hash "t" ":clojure-switch-main-test"
+                          "i" ":clojure-switch-main-it"
+                          "e" ":clojure-switch-main-e2e"
+                          "M" ":clojure-open-main"
+                          "T" ":clojure-open-test"
+                          "I" ":clojure-open-it"
+                          "E" ":clojure-open-e2e")
               "space" (hash "e" ":file-browser"
                             "E" ":file-browser-cwd"))))

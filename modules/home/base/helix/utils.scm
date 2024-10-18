@@ -4,7 +4,7 @@
 (require "helix/editor.scm")
 
 (provide get-or-else
-         current-path
+         current-doc-path
          focus-or-open)
 
 
@@ -24,7 +24,7 @@
   (let ((document (editor-get-doc-if-exists doc-id)))
     (if document (Document-path document) #f)))
 
-(define (current-path)
+(define (current-doc-path)
   (let* ([focus (editor-focus)]
          [focus-doc-id (editor->doc-id focus)])
 
