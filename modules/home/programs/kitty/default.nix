@@ -62,6 +62,13 @@ in {
         map cmd+equal change_font_size all +1.0
         map cmd+minus change_font_size all -1.0
 
+        map ctrl+alt+left resize_window narrower
+        map ctrl+alt+right resize_window wider
+        map ctrl+alt+up resize_window taller
+        map ctrl+alt+down resize_window shorter 3
+        # reset all windows in the tab to default sizes
+        map ctrl+alt+r resize_window reset
+
         ${color-themes.gruvbox.dark.medium}
       '';
     };
