@@ -84,7 +84,7 @@ in {
 
       programs.zsh.enable = true;
 
-      nix.package = pkgs.unstable.lix;
+      nix.package = pkgs.nix;
       nix.extraOptions = ''
         experimental-features = nix-command flakes
         keep-outputs = true

@@ -86,7 +86,6 @@
         pkgs.symlinkJoin {
           name = "cache-warmup";
           paths = [
-            pkgs.unstable.lix
             pkgs.deploy-rs-flake
             pkgs.felis
             pkgs.indieweb-tools
@@ -104,7 +103,6 @@
         pkgs.symlinkJoin {
           name = "cache-warmup";
           paths = [
-            pkgs.unstable.lix
             pkgs.deploy-rs-flake
             pkgs.attic-client
             pkgs.felis
@@ -121,7 +119,6 @@
         pkgs.symlinkJoin {
           name = "cache-warmup";
           paths = [
-            pkgs.unstable.lix
             pkgs.steel
             pkgs.helix-steel
             pkgs.lamina
