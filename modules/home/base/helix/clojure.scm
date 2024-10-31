@@ -67,21 +67,21 @@
        (focus-or-open main-file)))
 
 ;;@doc
-;; Switch betweent he  associated main and unit test file
+;; Switch between the  associated main and unit test file
 (define (clojure-switch-main-test)
   (if (is-main (current-doc-path)) 
       (clojure-open-test)
       (clojure-open-main)))
 
 ;;@doc
-;; Switch betweent he  associated main and inetegration test file
+;; Switch between the  associated main and inetegration test file
 (define (clojure-switch-main-it)
   (if (is-main (current-doc-path)) 
       (clojure-open-it)
       (clojure-open-main)))
 
 ;;@doc
-;; Switch betweent he  associated main and end-to-end test file
+;; Switch betweent the  associated main and end-to-end test file
 (define (clojure-switch-main-e2e)
   (if (is-main (current-doc-path)) 
       (clojure-open-e2e)

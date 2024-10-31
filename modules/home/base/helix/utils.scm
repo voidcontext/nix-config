@@ -16,19 +16,10 @@
   (insert-string-at-selection (to-string v))
   v)
 
-;; Only get the doc if it exists
-(define (editor-get-doc-if-exists doc-id)
-  (if (editor-doc-exists? doc-id) (editor->get-document doc-id) #f))
-
-(define (doc-path doc-id)
-  (let ((document (editor-get-doc-if-exists doc-id)))
-    (if document (Document-path document) #f)))
-
 (define (current-doc-path)
   (let* ([focus (editor-focus)]
          [focus-doc-id (editor->doc-id focus)])
-
-    (doc-path focus-doc-id)))
+    (editor-document->path focus-doc-id)))
 
 (define (find pred ls)
   (cond ((empty? ls) #f)
@@ -36,7 +27,7 @@
         (else (find pred (cdr ls)))))
 
 (define (find-doc path)
-  (find (lambda (doc-id) (equal? (doc-path doc-id) path)) 
+  (find (lambda (doc-id) (equal? (editor-document->path doc-id) path)) 
                          (editor-all-documents)))
 
 (define (focus-or-open path)

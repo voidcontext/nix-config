@@ -3,6 +3,7 @@
   lib,
   config,
   systemConfig,
+  inputs,
   ...
 }:
 with lib; let
@@ -176,7 +177,7 @@ in {
       xdg.configFile =
         steel-config-files
         // {
-          "helix/helix".source = "${pkgs.helix-steel}/lib/steel";
+          "helix/helix".source = "${inputs.helix-steel.packages.${pkgs.system}.helix-cogs}/cogs/helix";
           "helix/felis.scm".source = "${pkgs.felis.helix-plugin}";
         };
     })

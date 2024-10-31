@@ -267,11 +267,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1723582026,
-        "narHash": "sha256-d5zOGFdLJSDhuYXVd7xqbgC49pqd7FvIOgCQC7DwTm4=",
+        "lastModified": 1730410573,
+        "narHash": "sha256-KgLADybKIhNruTiPMxMb93nnV5+2HDc34a5HhMx3VAk=",
         "ref": "refs/heads/main",
-        "rev": "31bdfdba04a061d68fb3f89c5ab529c103f5c48f",
-        "revCount": 34,
+        "rev": "47844fd311b089e2d7d1ad9e0647df0f343c8a2e",
+        "revCount": 35,
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/felis.git"
       },
@@ -626,16 +626,16 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1728984547,
-        "narHash": "sha256-1vj34NY/sr3nKg8JbMjyHOBJMVKF7+DfunaOLELiREY=",
-        "owner": "voidcontext",
+        "lastModified": 1730331818,
+        "narHash": "sha256-r0Q/B/Xz0gH8LnTwmvbnIPylPguJjF/wq30dVQyMSCg=",
+        "owner": "mattwparas",
         "repo": "helix",
-        "rev": "8020107804c2fa8a5199fe15a7b39ad389be7d78",
+        "rev": "30824f6bd2b86c3512d5aa28904c31222a4605ee",
         "type": "github"
       },
       "original": {
-        "owner": "voidcontext",
-        "ref": "steel",
+        "owner": "mattwparas",
+        "ref": "steel-event-system",
         "repo": "helix",
         "type": "github"
       }

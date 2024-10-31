@@ -19,8 +19,8 @@
     deploy-rs.url = "github:serokell/deploy-rs";
 
     helix.url = "github:helix-editor/helix";
-    # helix-steel.url = "github:mattwparas/helix/steel-event-system";
-    helix-steel.url = "github:voidcontext/helix/steel";
+    helix-steel.url = "github:mattwparas/helix/steel-event-system";
+    # helix-steel.url = "github:voidcontext/helix/steel";
 
     steel.url = "github:mattwparas/steel";
     steel.inputs.nixpkgs.follows = "nixpkgs";
