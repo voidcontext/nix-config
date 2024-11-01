@@ -177,7 +177,8 @@ in {
       xdg.configFile =
         steel-config-files
         // {
-          "helix/helix".source = "${inputs.helix-steel.packages.${pkgs.system}.helix-cogs}/cogs/helix";
+          "helix/helix".source = "${pkgs.helix-cogs}/cogs/helix";
+          "helix/keymaps.scm".source = "${inputs.mattwparas-helix-cogs}/cogs/keymaps.scm";
           "helix/felis.scm".source = "${pkgs.felis.helix-plugin}";
         };
     })

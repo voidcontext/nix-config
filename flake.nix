@@ -20,6 +20,9 @@
 
     helix.url = "github:helix-editor/helix";
     helix-steel.url = "github:mattwparas/helix/steel-event-system";
+    mattwparas-helix-cogs.url = "github:mattwparas/helix-config";
+    mattwparas-helix-cogs.flake = false;
+
     # helix-steel.url = "github:voidcontext/helix/steel";
 
     steel.url = "github:mattwparas/steel";
@@ -121,6 +124,7 @@
           paths = [
             pkgs.steel
             pkgs.helix-steel
+            pkgs.helix-cogs
             pkgs.lamina
             pkgs.colima
             pkgs.felis

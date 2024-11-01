@@ -51,6 +51,7 @@
     felis = defaultPackage inputs.felis final.system;
     helixFlake = defaultPackage inputs.helix final.system;
     helix-steel = defaultPackage inputs.helix-steel final.system;
+    helix-cogs = inputs.helix-steel.packages.${final.system}.helix-cogs;
     steel = inputs.steel.packages.${final.system}.steel;
   };
   unstableOverlay = final: prev: {

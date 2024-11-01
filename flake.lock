@@ -626,11 +626,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1730331818,
-        "narHash": "sha256-r0Q/B/Xz0gH8LnTwmvbnIPylPguJjF/wq30dVQyMSCg=",
+        "lastModified": 1730417538,
+        "narHash": "sha256-wQGsQdWzTzEdjduU6KAfC8Eek4BZ21iNYaRtL7PzOUg=",
         "owner": "mattwparas",
         "repo": "helix",
-        "rev": "30824f6bd2b86c3512d5aa28904c31222a4605ee",
+        "rev": "ee3035aa38e1271956d3af61ed90dfcd3acd87ba",
         "type": "github"
       },
       "original": {
@@ -732,6 +732,22 @@
       "original": {
         "type": "git",
         "url": "https://git.vdx.hu/voidcontext/lamina-rs.git"
+      }
+    },
+    "mattwparas-helix-cogs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730417232,
+        "narHash": "sha256-tDtkFT9WQDPWyFci9JooxaAO3ZROQzY7p25YgTTR8DM=",
+        "owner": "mattwparas",
+        "repo": "helix-config",
+        "rev": "163268cf5dc821aaef35e6eeff482dd41aa3b9aa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattwparas",
+        "repo": "helix-config",
+        "type": "github"
       }
     },
     "mqtt2influxdb2": {
@@ -1125,6 +1141,7 @@
         "kitty-everforest-themes": "kitty-everforest-themes",
         "kitty-gruvbox-themes": "kitty-gruvbox-themes",
         "lamina": "lamina",
+        "mattwparas-helix-cogs": "mattwparas-helix-cogs",
         "mqtt2influxdb2": "mqtt2influxdb2",
         "nixos-hardware": "nixos-hardware",
         "nixos-uconsole": "nixos-uconsole",
