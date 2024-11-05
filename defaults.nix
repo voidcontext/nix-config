@@ -61,7 +61,7 @@
         unstable = import inputs.nixpkgs-unstable {
           inherit (final) system config overlays;
         };
-  # Patching nixpkgs as described at https://wiki.nixos.org/wiki/Nixpkgs/Patching_Nixpkgs, to fix kitty on macOS 15.1
+        # Patching nixpkgs as described at https://wiki.nixos.org/wiki/Nixpkgs/Patching_Nixpkgs, to fix kitty on macOS 15.1
         patched = unstable.applyPatches {
           name = "nixpkgs-patched";
           src = inputs.nixpkgs-unstable;
