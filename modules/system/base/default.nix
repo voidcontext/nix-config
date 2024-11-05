@@ -105,7 +105,7 @@ in {
         fonts =
           if pkgs.stdenv.isDarwin
           then {
-            fonts = [
+            packages = [
               (pkgs.nerdfonts.override {
                 fonts = [cfg.font.family];
               })
@@ -117,9 +117,10 @@ in {
                 fonts = [cfg.font.family];
               })
             ];
+            fontDir.enable = true;
           };
       in {
-        fonts = fonts // {fontDir.enable = true;};
+        fonts = fonts;
       }
     ))
   ];

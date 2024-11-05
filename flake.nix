@@ -122,14 +122,15 @@
         pkgs.symlinkJoin {
           name = "cache-warmup";
           paths = [
-            pkgs.steel
-            pkgs.helix-steel
-            pkgs.helix-cogs
-            pkgs.lamina
             pkgs.colima
-            pkgs.felis
             pkgs.deploy-rs-flake
+            pkgs.felis
+            pkgs.helix-cogs
+            pkgs.helix-steel
+            pkgs.lamina
             pkgs.metals
+            pkgs.steel
+            pkgs.unstable.kitty
           ];
         };
     }

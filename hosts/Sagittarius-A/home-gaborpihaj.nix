@@ -115,7 +115,7 @@ in {
 
     pkgs.steel
 
-    pkgs.unstable.prismlauncher # TODO: re-enable once it works again in 24.05
+    pkgs.prismlauncher # TODO: re-enable once it works again in 24.05
   ];
 
   programs.zsh.shellAliases = {
@@ -123,7 +123,7 @@ in {
   };
 
   base.darwin_symlinks = {
-    "$HOME/Applications/Prismlauncher.app" = "${pkgs.unstable.prismlauncher}/Applications/Prismlauncher.app";
+    "$HOME/Applications/Prismlauncher.app" = "${pkgs.prismlauncher}/Applications/Prismlauncher.app";
   };
 
   programs.nix-index.enable = true;
