@@ -56,27 +56,27 @@
   };
   unstableOverlay = final: prev: {
     unstable =
-      if final.stdenv.isDarwin
-      then let
-        unstable = import inputs.nixpkgs-unstable {
-          inherit (final) system config overlays;
-        };
-        # Patching nixpkgs as described at https://wiki.nixos.org/wiki/Nixpkgs/Patching_Nixpkgs, to fix kitty on macOS 15.1
-        patched = unstable.applyPatches {
-          name = "nixpkgs-patched";
-          src = inputs.nixpkgs-unstable;
-          patches = [
-            (builtins.fetchurl {
-              url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/352795.patch";
-              sha256 = "sha256:1ngvs4qffymc79gf6rryakimnki3w0zsaf02j47bprlf95idcsx4";
-            })
-          ];
-        };
-      in
-        import patched {
-          inherit (final) system config overlays;
-        }
-      else
+      # if final.stdenv.isDarwin
+      # then let
+      #   unstable = import inputs.nixpkgs-unstable {
+      #     inherit (final) system config overlays;
+      #   };
+      #   # Patching nixpkgs as described at https://wiki.nixos.org/wiki/Nixpkgs/Patching_Nixpkgs, to fix kitty on macOS 15.1
+      #   patched = unstable.applyPatches {
+      #     name = "nixpkgs-patched";
+      #     src = inputs.nixpkgs-unstable;
+      #     patches = [
+      #       (builtins.fetchurl {
+      #         url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/352795.patch";
+      #         sha256 = "sha256:1ngvs4qffymc79gf6rryakimnki3w0zsaf02j47bprlf95idcsx4";
+      #       })
+      #     ];
+      #   };
+      # in
+      #   import patched {
+      #     inherit (final) system config overlays;
+      #   }
+      # else
         import inputs.nixpkgs-unstable {
           inherit (final) system config overlays;
         };
