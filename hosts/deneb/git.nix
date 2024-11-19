@@ -53,10 +53,9 @@ in {
     settings."repository.signing".MERGES = "basesigned, commitssigned";
     settings.mailer.ENABLED = true;
     settings.mailer.FROM = "forgejo@vdx.hu";
-    settings.mailer.MAILER_TYPE = "smtp";
+    settings.mailer.PROTOCOL = "smtps";
     settings.mailer.SMTP_ADDR = "mail.vdx.hu";
     settings.mailer.SMTP_PORT = 456;
-    settings.mailer.IS_TLS_ENABLED = true;
     settings.mailer.USER = "forgejo@vdx.hu";
     settings.mailer.PASSWD = config-extras.secrets.hosts.deneb.git.forgejo.email.password;
   };
