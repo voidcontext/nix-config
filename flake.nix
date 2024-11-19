@@ -30,7 +30,7 @@
 
     indieweb-tools.url = "github:voidcontext/indieweb-tools";
 
-    mqtt2influxdb2.url = "github:voidcontext/mqtt2influxdb2-rs";
+    mqtt2influxdb2.url = "git+https://git.vdx.hu/voidcontext/mqtt2influxdb2-rs.git?ref=refs/heads/main";
 
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.05";
 

@@ -47,7 +47,6 @@
   packagesFromFlakesOverlay = final: prev: {
     deploy-rs-flake = defaultPackage inputs.deploy-rs final.system;
     indieweb-tools = defaultPackage inputs.indieweb-tools final.system;
-    mqtt2influxdb2 = defaultPackage inputs.mqtt2influxdb2 final.system;
     felis = defaultPackage inputs.felis final.system;
     helixFlake = defaultPackage inputs.helix final.system;
     helix-steel = defaultPackage inputs.helix-steel final.system;
@@ -119,6 +118,7 @@
 in {
   defaultOverlays = [
     inputs.lamina.overlays.default
+    inputs.mqtt2influxdb2.overlays.default
     packagesFromFlakesOverlay
     weechatOverlay
     localPackagesOverlay
