@@ -16,12 +16,12 @@
     enable = true;
     openFirewall = true;
     securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      map to guest = Never
+    # extraConfig = ''
+    #   workgroup = WORKGROUP
+    #   map to guest = Never
 
-      log level = 1
-    '';
+    #   log level = 1
+    # '';
     shares = {
       gabor = {
         path = "/Volumes/raid/gabor";

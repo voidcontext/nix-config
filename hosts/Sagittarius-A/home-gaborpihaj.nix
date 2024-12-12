@@ -91,7 +91,7 @@ in {
     pkgs.python3
     pkgs.nodejs
     pkgs.iperf3
-    pkgs.postgresql_12
+    pkgs.postgresql_15
     pkgs.wireguard-tools
     pkgs.wireguard-go
 
@@ -108,7 +108,7 @@ in {
     pkgs.docker-client
 
     pkgs.kubectl
-    pkgs.unstable.k9s
+    pkgs.k9s
     pkgs.kubectx
     pkgs.fluxcd
     pkgs.kubernetes-helm

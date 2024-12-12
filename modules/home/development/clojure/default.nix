@@ -11,12 +11,12 @@ in
 
     config = mkIf cfg.enable {
       home.packages = [
-        pkgs.babashka
+        pkgs.unstable.babashka
         pkgs.clojure
-        pkgs.clojure-lsp
+        pkgs.unstable.clojure-lsp
         pkgs.leiningen
         pkgs.rlwrap
-        pkgs.cljfmt
+        pkgs.unstable.cljfmt # graalvm is broken in stable
       ];
     };
   }

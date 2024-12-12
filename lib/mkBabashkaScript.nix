@@ -1,8 +1,9 @@
 {
   writeTextFile,
   writeShellApplication,
-  babashka,
-  cljfmt,
+  unstable,
+  # babashka,
+  # cljfmt,
   ...
 }: {
   name,
@@ -16,13 +17,13 @@
     text = builtins.readFile scriptFile;
 
     checkPhase = ''
-      ${cljfmt}/bin/cljfmt check $target
+      ${unstable.cljfmt}/bin/cljfmt check $target
     '';
   };
 in
   writeShellApplication {
     inherit name;
-    runtimeInputs = [babashka] ++ runtimeInputs;
+    runtimeInputs = [unstable.babashka] ++ runtimeInputs;
     text = ''
       bb ${bbExtrArgs} ${script} ${scriptExtraArgs} "$@"
     '';

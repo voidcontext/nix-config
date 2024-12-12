@@ -40,13 +40,13 @@ in {
   # NixOS @ Hetzner
   kraz = nixpkgs.lib.nixosSystem ((nixosDefaults (mkPkgs {
       system = flake-utils.lib.system.x86_64-linux;
-      overlays = [inputs.attic.overlays.default];
+      # overlays = [inputs.attic.overlays.default];
     }))
     // {
       modules =
         defaultSystemModules
         ++ [
-          inputs.attic.nixosModules.atticd
+          # inputs.attic.nixosModules.atticd
           home-manager.nixosModules.home-manager
           ./hosts/kraz/configuration.nix
         ];

@@ -6,5 +6,5 @@
     else "linux";
 in
   pkgs.writeShellScriptBin "rebuild" ''
-    ${pkgs.babashka}/bin/bb ${rebuildClj} --system ${system} "$@"
+    ${pkgs.unstable.babashka}/bin/bb ${rebuildClj} --system ${system} "$@"
   ''

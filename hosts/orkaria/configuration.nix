@@ -18,8 +18,8 @@
 
   system.stateVersion = "23.11";
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # sound.enable = true;
+  # hardware.pulseaudio.enable = true;
 
   powerManagement.cpuFreqGovernor = "ondemand";
   # users.mutableUsers = false;

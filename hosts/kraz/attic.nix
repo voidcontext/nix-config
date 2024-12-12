@@ -24,7 +24,7 @@
   services.atticd = {
     enable = true;
 
-    credentialsFile = "/opt/secrets/atticd.env";
+    environmentFile = "/opt/secrets/atticd.env";
 
     settings = {
       listen = "0.0.0.0:8010";

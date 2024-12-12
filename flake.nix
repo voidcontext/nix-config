@@ -2,13 +2,13 @@
   "description" = "voidcontext's dotfiles";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/release-24.05";
+    nixpkgs.url = "nixpkgs/release-24.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:rycee/home-manager/release-24.05";
+    home-manager.url = "github:rycee/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/9a763a7acc4cfbb8603bb0231fec3eda864f81c0";
@@ -32,12 +32,10 @@
 
     mqtt2influxdb2.url = "git+https://git.vdx.hu/voidcontext/mqtt2influxdb2-rs.git?ref=refs/heads/main";
 
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.05";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
     lamina.url = "git+https://git.vdx.hu/voidcontext/lamina-rs.git";
     felis.url = "git+https://git.vdx.hu/voidcontext/felis.git?ref=refs/heads/main";
-
-    attic.url = "github:zhaofengli/attic";
 
     zsh-nix-shell.url = "github:chisui/zsh-nix-shell/v0.8.0";
     zsh-nix-shell.flake = false;

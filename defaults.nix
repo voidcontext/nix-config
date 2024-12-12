@@ -76,9 +76,9 @@
       #     inherit (final) system config overlays;
       #   }
       # else
-        import inputs.nixpkgs-unstable {
-          inherit (final) system config overlays;
-        };
+      import inputs.nixpkgs-unstable {
+        inherit (final) system config overlays;
+      };
   };
   localPackagesOverlay = final: prev: {
     vdx = let
@@ -138,6 +138,7 @@ in {
         "steam-original"
         "steam-run"
         "steam-runtime"
+        "steam-unwrapped"
       ];
     nvidia.acceptLicense = true;
     # for seahub
