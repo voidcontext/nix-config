@@ -131,6 +131,9 @@
   ];
   networking.firewall.trustedInterfaces = ["cni+"];
 
+  services.openiscsi.enable = true;
+  services.openiscsi.name = "kraz.openiscsi-initiator:k3s";
+
   # FIXME
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
