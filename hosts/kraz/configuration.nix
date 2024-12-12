@@ -90,6 +90,7 @@
   environment.systemPackages = [
     pkgs.k3s
     pkgs.cryptsetup
+    pkgs.openiscsi
   ];
 
   # User Management
