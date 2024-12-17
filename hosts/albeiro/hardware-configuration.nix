@@ -24,7 +24,7 @@ in {
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "rtsx_pci_sdmmc"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = ["kvm-intel" "ath9k"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
@@ -39,7 +39,7 @@ in {
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.xserver.videoDrivers = ["nvidia"];
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
 
   hardware.nvidia.prime = {
